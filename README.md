@@ -10,7 +10,7 @@
 
 ### Sơ đồ môn học
 
-#### Mỗi môn học sẽ có 1 hoặc nhiều môn học tiên quyết (prerequisites), từng môn học sẽ có 1 số lương tín chỉ lý thuyết (theory) và thực hành (practical) nhất định, và tổng số tín chỉ. Các môn học (Course) thuộc nhiều chuyên ngành(Major), và một chuyên ngành(Major) có thể có nhiều môn học, quan hệ nhiều - nhiều (Major_Course)
+#### Mỗi môn học sẽ có 1 hoặc nhiều môn học tiên quyết (prerequisites), từng môn học sẽ có 1 số lương tín chỉ lý thuyết (theory) và thực hành (practical) nhất định, và tổng số tín chỉ. Các môn học (Course) thuộc nhiều chuyên ngành(Major), và một chuyên ngành(Major) có thể có nhiều môn học, quan hệ nhiều - nhiều (Major_Course). Mỗi năm các môn học trong từng chuyên ngành (Major_course_year) sẽ có thể có sự thay đổi
 
 ![sơ đồ môn học](./images/courses_table.png)
 
