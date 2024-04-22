@@ -1,0 +1,49 @@
+# docker-compose.yml
+version: "3.8"
+
+services:
+  mysql:
+    image: mysql:latest
+    container_name: db-mysql-con
+    restart: always
+    environment:
+      - MYSQL_USER=admin
+      - MYSQL_PASSWORD=123456
+      - MYSQL_ROOT_PASSWORD=123456
+    ports:
+      - "3306:3306"
+    networks:
+      - db-mysql-net
+      - db-mongodb-net
+
+  adminer:
+    image: adminer
+    container_name: adminer-con
+    restart: always
+    ports:
+      - "8080:8080"
+    networks:
+      - db-mysql-net
+
+  mongodb:
+    image: mongo:latest
+    container_name: db-mongodb-con
+    restart: always
+    ports:
+      - "27017:27017"
+    networks:
+      - db-mongodb-net
+
+  zipkin:
+    image: openzipkin/zipkin
+    container_name: zipkin-con
+    restart: always
+    ports:
+      - "9411:9411"
+    networks:
+      - db-mysql-net
+      - db-mongodb-net
+
+networks:
+  db-mysql-net:
+  db-mongodb-net:
