@@ -1,4 +1,4 @@
-package vn.edu.iuh.fit.studentservice.models;
+package vn.edu.iuh.fit.authservice.models;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -17,7 +17,16 @@ public class Student {
     private String id;
     @Column(length = 45, nullable = false)
     private String fullName;
+    @Column(length = 64, nullable = false)
+    private String password;
     @Column(length = 64)
     private String photos;
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(
+            name = "students_roles",
+            joinColumns = @JoinColumn(name = "student_id"),
+            inverseJoinColumns = @JoinColumn(name = "role_id")
+    )
+    private Set<Role> roles = new HashSet<>();
 
 }

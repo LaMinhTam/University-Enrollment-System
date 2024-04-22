@@ -10,6 +10,9 @@ services:
       - MYSQL_USER=admin
       - MYSQL_PASSWORD=123456
       - MYSQL_ROOT_PASSWORD=123456
+    volumes:
+      - mysql-data:/var/lib/mysql
+      - ./database/init-db.sql:/docker-entrypoint-initdb.d/init-db.sql
     ports:
       - "3306:3306"
     networks:
@@ -43,6 +46,9 @@ services:
     networks:
       - db-mysql-net
       - db-mongodb-net
+
+volumes:
+  mysql-data:
 
 networks:
   db-mysql-net:

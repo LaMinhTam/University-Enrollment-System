@@ -1,4 +1,4 @@
-package vn.edu.iuh.fit.studentservice.models;
+package vn.edu.iuh.fit.authservice.models;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;

@@ -1,14 +1,14 @@
 package vn.edu.iuh.fit.studentservice.controllers;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import vn.edu.iuh.fit.studentservice.DTO.ResponseWrapper;
 import vn.edu.iuh.fit.studentservice.DTO.StudentDTO;
+import vn.edu.iuh.fit.studentservice.mappers.StudentToDTO;
 import vn.edu.iuh.fit.studentservice.models.Student;
 import vn.edu.iuh.fit.studentservice.services.StudentService;
+
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/student")
@@ -21,7 +21,7 @@ public class StudentController {
 
     @GetMapping("/hello")
     public ResponseEntity<?> hellowrod() {
-        ResponseWrapper response = new ResponseWrapper(200, "Hello world", new ResponseStudent("Nguyen Van A", "123 Nguyen Hue", "0123456789"));
+        ResponseWrapper response = new ResponseWrapper(200, "Hello world", new StudentDTO("1", "Nguyen Van A", "123456", "photo.jpg", "ROLE_STUDENT"));
         return ResponseEntity.ok(response);
     }
 
@@ -30,16 +30,11 @@ public class StudentController {
         studentService.save(student);
         return ResponseEntity.ok(student);
     }
+
+    @GetMapping("/{id}")
+    public Optional<StudentDTO> getUser(@PathVariable String id) {
+        Optional<Student> student = studentService.findById(id);
+        return student.map(StudentToDTO::toDTO);
+    }
 }
 
-@Data
-@NoArgsConstructor
-@AllArgsConstructor
-class ResponseStudent {
-    private String name;
-    private String address;
-    private String phone;
-}
-
-record ResponseWrapper(int status, String message, Object data) {
-}

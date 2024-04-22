@@ -6,8 +6,7 @@ import io.jsonwebtoken.security.Keys;
 import jakarta.annotation.PostConstruct;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
-import vn.edu.iuh.fit.authservice.models.StudentVO;
-import vn.edu.iuh.fit.authservice.models.UserVO;
+import vn.edu.iuh.fit.authservice.models.Student;
 
 import java.security.Key;
 import java.util.Date;
@@ -44,11 +43,11 @@ public class JwtUtil {
         return expiration.before(new Date());
     }
 
-    public String generate(StudentVO studentVO, String type) {
+    public String generate(Student student, String type) {
         Map<String, Object> claims = new HashMap<>();
-        claims.put("id", studentVO.getId());
-        claims.put("role", studentVO.getRole());
-        return doGenerateToken(claims, studentVO.getId(), type);
+        claims.put("id", student.getId());
+        claims.put("role", student.getRoles().stream().findFirst().get().getName());
+        return doGenerateToken(claims, student.getId(), type);
     }
 
     private String doGenerateToken(Map<String, Object> claims, String id, String type) {

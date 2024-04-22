@@ -4,6 +4,20 @@ server:
 spring:
   application:
     name: auth-service
+  config:
+    import: "optional:configserver:http://localhost:8088"
+  datasource:
+    url: jdbc:mysql://localhost:3306/auth_db
+    username: root
+    password: 123456
+    driver-class-name: com.mysql.cj.jdbc.Driver
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: false
+    properties:
+      hibernate:
+        format_sql: true
 
 jwt:
   secret: 4d5a23bd0646523b4aaae7a51a92a62babcb4eb353843a3fa4ef4ef05f534a68
