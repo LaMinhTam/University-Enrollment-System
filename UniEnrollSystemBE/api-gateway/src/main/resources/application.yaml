@@ -18,9 +18,17 @@ spring:
     import: "optional:configserver:http://localhost:8888"
   cloud:
     gateway:
-      mvc:
-        routes:
-          - id: student-service
-            uri: lb://student-service
-            predicates:
-              - Path=/student/**
+      routes:
+        - id: student-service
+          uri: lb://student-service
+          predicates:
+            - Path=/student/**
+        - id: auth-service
+          uri: lb://auth-service
+          predicates:
+            - Path=/auth/**
+  main:
+    web-application-type: reactive
+
+jwt:
+  secret: 4d5a23bd0646523b4aaae7a51a92a62babcb4eb353843a3fa4ef4ef05f534a68

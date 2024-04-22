@@ -1,12 +1,12 @@
-package vn.edu.iuh.fit.studentservice;
+package vn.edu.iuh.fit.studentservice.controllers;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+import vn.edu.iuh.fit.studentservice.DTO.StudentDTO;
+import vn.edu.iuh.fit.studentservice.models.Student;
 
 @RestController
 @RequestMapping("/student")
@@ -15,6 +15,12 @@ public class StudentController {
     public ResponseEntity<?> hellowrod() {
         ResponseWrapper response = new ResponseWrapper(200, "Hello world", new ResponseStudent("Nguyen Van A", "123 Nguyen Hue", "0123456789"));
         return ResponseEntity.ok(response);
+    }
+
+    @PostMapping("/register")
+    public ResponseEntity<?> register(@RequestBody StudentDTO student) {
+
+        return ResponseEntity.ok(student);
     }
 }
 

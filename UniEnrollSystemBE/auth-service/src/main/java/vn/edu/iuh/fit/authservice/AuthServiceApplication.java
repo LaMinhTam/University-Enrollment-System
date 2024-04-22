@@ -1,4 +1,4 @@
-package vn.edu.iuh.fit.studentservice;
+package vn.edu.iuh.fit.authservice;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -6,10 +6,10 @@ import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 
 @SpringBootApplication
 @EnableDiscoveryClient
-public class StudentServiceApplication {
+public class AuthServiceApplication {
 
-	public static void main(String[] args) {
-		SpringApplication.run(StudentServiceApplication.class, args);
-	}
+    public static void main(String[] args) {
+        SpringApplication.run(AuthServiceApplication.class, args);
+    }
 
 }
