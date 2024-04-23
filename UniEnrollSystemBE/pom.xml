@@ -18,8 +18,8 @@
         <module>service-registry</module>
         <module>config-server</module>
         <module>api-gateway</module>
-        <module>student-service</module>
         <module>auth-service</module>
         <module>faculty-service</module>
+        <module>enroll-service</module>
     </modules>
 </project>

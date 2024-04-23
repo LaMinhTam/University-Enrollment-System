@@ -19,10 +19,10 @@ spring:
   cloud:
     gateway:
       routes:
-#        - id: student-service
-#          uri: lb://student-service
-#          predicates:
-#            - Path=/student/**
+        #        - id: student-service
+        #          uri: lb://student-service
+        #          predicates:
+        #            - Path=/student/**
         - id: auth-service
           uri: lb://auth-service
           predicates:
@@ -32,6 +32,10 @@ spring:
           predicates:
             - Path=/faculties/**
             - Path=/students/**
+        - id: enroll-service
+          uri: lb://enroll-service
+          predicates:
+            - Path=/enrollments/**
             - Path=/courses/**
   main:
     web-application-type: reactive

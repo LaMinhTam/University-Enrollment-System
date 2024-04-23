@@ -45,9 +45,9 @@ public class AuthController {
     public ResponseEntity<?> login(@RequestBody AuthRequest authRequest) {
         Optional<Student> student = authService.getStudentById(authRequest);
         if (student.isPresent() && BCrypt.checkpw(authRequest.password(), student.get().getPassword())) {
-            String accessToken = jwt.generate(student.get(), "ACCESS");
-            String refreshToken = jwt.generate(student.get(), "REFRESH");
             StudentDTO studentDTO = facultyClient.get(student.get().getId());
+            String accessToken = jwt.generate(studentDTO, student.get(), "ACCESS");
+            String refreshToken = jwt.generate(studentDTO, student.get(), "REFRESH");
             return ResponseEntity.ok(
                     new ResponseWrapper("Đăng nhập thành công",
                             new AuthResponse(
