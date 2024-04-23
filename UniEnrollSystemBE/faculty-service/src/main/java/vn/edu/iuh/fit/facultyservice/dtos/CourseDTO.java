@@ -18,7 +18,7 @@ public class CourseDTO {
 
     public CourseDTO(MajorCourseYear majorCourseYear) {
         this.course = majorCourseYear.getCourse();
-        this.semester = majorCourseYear.getAcademicYear();
+        this.semester = majorCourseYear.getSemester();
         this.courseType = majorCourseYear.getType().ordinal();
     }
 
