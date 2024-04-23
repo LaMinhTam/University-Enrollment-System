@@ -1,12 +1,8 @@
 package vn.edu.iuh.fit.authservice.services.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
-import org.springframework.security.crypto.bcrypt.BCrypt;
 import org.springframework.stereotype.Service;
-import org.springframework.util.Assert;
-import vn.edu.iuh.fit.authservice.JwtUtil;
-import vn.edu.iuh.fit.authservice.client.StudentClient;
+import vn.edu.iuh.fit.authservice.client.FacultyClient;
 import vn.edu.iuh.fit.authservice.dtos.AuthRequest;
 import vn.edu.iuh.fit.authservice.models.Student;
 import vn.edu.iuh.fit.authservice.repositories.StudentRepository;
@@ -17,12 +13,12 @@ import java.util.Optional;
 @Service
 public class AuthServiceImpl implements AuthService {
     private final StudentRepository studentRepository;
-    private final StudentClient studentClient;
+    private final FacultyClient facultyClient;
 
     @Autowired
-    public AuthServiceImpl(StudentRepository studentRepository, StudentClient studentClient) {
+    public AuthServiceImpl(StudentRepository studentRepository, FacultyClient facultyClient) {
         this.studentRepository = studentRepository;
-        this.studentClient = studentClient;
+        this.facultyClient = facultyClient;
     }
 
 //    public AuthResponse register(Student student) {
@@ -39,7 +35,7 @@ public class AuthServiceImpl implements AuthService {
 //    }
 
     public Object helloworld() {
-        return studentClient.hellowrod();
+        return facultyClient.hellowrod();
     }
 
     public Optional<Student> getStudentById(AuthRequest authRequest) {

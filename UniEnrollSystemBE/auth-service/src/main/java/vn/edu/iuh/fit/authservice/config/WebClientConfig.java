@@ -7,7 +7,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.web.reactive.function.client.WebClient;
 import org.springframework.web.reactive.function.client.support.WebClientAdapter;
 import org.springframework.web.service.invoker.HttpServiceProxyFactory;
-import vn.edu.iuh.fit.authservice.client.StudentClient;
+import vn.edu.iuh.fit.authservice.client.FacultyClient;
 
 @Configuration
 public class WebClientConfig {
@@ -17,19 +17,19 @@ public class WebClientConfig {
 
 
     @Bean
-    public WebClient employeeWebClient() {
+    public WebClient facultyWebClient() {
         return WebClient.builder()
-                .baseUrl("http://student-service")
+                .baseUrl("http://faculty-service")
                 .filter(filterFunction)
                 .build();
     }
 
     @Bean
-    public StudentClient studentClient() {
+    public FacultyClient facultyClient() {
         HttpServiceProxyFactory httpServiceProxyFactory
                 = HttpServiceProxyFactory
-                .builder(WebClientAdapter.forClient(employeeWebClient()))
+                .builder(WebClientAdapter.forClient(facultyWebClient()))
                 .build();
-        return httpServiceProxyFactory.createClient(StudentClient.class);
+        return httpServiceProxyFactory.createClient(FacultyClient.class);
     }
 }

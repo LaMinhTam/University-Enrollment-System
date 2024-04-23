@@ -6,10 +6,11 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.bcrypt.BCrypt;
 import org.springframework.web.bind.annotation.*;
 import vn.edu.iuh.fit.authservice.JwtUtil;
-import vn.edu.iuh.fit.authservice.client.StudentClient;
+import vn.edu.iuh.fit.authservice.client.FacultyClient;
 import vn.edu.iuh.fit.authservice.dtos.AuthRequest;
 import vn.edu.iuh.fit.authservice.dtos.AuthResponse;
 import vn.edu.iuh.fit.authservice.dtos.ResponseWrapper;
+import vn.edu.iuh.fit.authservice.dtos.StudentDTO;
 import vn.edu.iuh.fit.authservice.models.Student;
 import vn.edu.iuh.fit.authservice.services.impl.AuthServiceImpl;
 
@@ -20,13 +21,13 @@ import java.util.Optional;
 public class AuthController {
 
     private final AuthServiceImpl authService;
-    private final StudentClient studentClient;
+    private final FacultyClient facultyClient;
     private final JwtUtil jwt;
 
     @Autowired
-    public AuthController(final AuthServiceImpl authService, StudentClient studentClient, JwtUtil jwt) {
+    public AuthController(final AuthServiceImpl authService, FacultyClient facultyClient, JwtUtil jwt) {
         this.authService = authService;
-        this.studentClient = studentClient;
+        this.facultyClient = facultyClient;
         this.jwt = jwt;
     }
 
@@ -46,13 +47,11 @@ public class AuthController {
         if (student.isPresent() && BCrypt.checkpw(authRequest.password(), student.get().getPassword())) {
             String accessToken = jwt.generate(student.get(), "ACCESS");
             String refreshToken = jwt.generate(student.get(), "REFRESH");
+            StudentDTO studentDTO = facultyClient.get(student.get().getId());
             return ResponseEntity.ok(
                     new ResponseWrapper("Đăng nhập thành công",
                             new AuthResponse(
-                                    student.get().getId(),
-                                    student.get().getFullName(),
-                                    student.get().getPhotos(),
-                                    student.get().getRoles().stream().findFirst().get().getName(),
+                                    studentDTO,
                                     accessToken,
                                     refreshToken),
                             HttpStatus.OK.value()

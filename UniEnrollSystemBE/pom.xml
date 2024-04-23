@@ -20,5 +20,6 @@
         <module>api-gateway</module>
         <module>student-service</module>
         <module>auth-service</module>
+        <module>faculty-service</module>
     </modules>
 </project>
