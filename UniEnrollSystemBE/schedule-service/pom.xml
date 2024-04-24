@@ -9,10 +9,10 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>vn.edu.iuh.fit</groupId>
-	<artifactId>enroll-service</artifactId>
+	<artifactId>schedule-service</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>enroll-service</name>
-	<description>enroll-service</description>
+	<name>schedule-service</name>
+	<description>schedule-service</description>
 	<properties>
 		<java.version>17</java.version>
 		<spring-cloud.version>2023.0.1</spring-cloud.version>
@@ -61,16 +61,6 @@
 			<artifactId>spring-boot-starter-test</artifactId>
 			<scope>test</scope>
 		</dependency>
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-webflux</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>io.projectreactor</groupId>
-			<artifactId>reactor-test</artifactId>
-			<scope>test</scope>
-		</dependency>
-
 	</dependencies>
 	<dependencyManagement>
 		<dependencies>

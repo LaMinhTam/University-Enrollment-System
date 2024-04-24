@@ -1,0 +1,21 @@
+package vn.edu.iuh.fit.scheduleservice.models;
+
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import org.bson.types.ObjectId;
+import org.springframework.data.mongodb.core.mapping.Document;
+import org.springframework.data.mongodb.core.mapping.Field;
+import org.springframework.data.mongodb.core.mapping.MongoId;
+
+import java.util.List;
+
+@Document
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
+public class ClassSchedule {
+    private String classId;
+    @Field("schedules")
+    private List<Schedule> schedules;
+}

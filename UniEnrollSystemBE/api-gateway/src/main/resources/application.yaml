@@ -36,6 +36,14 @@ spring:
           uri: lb://enroll-service
           predicates:
             - Path=/enrollments/**
+            - Path=/classes/**
+        - id: schedule-service
+          uri: lb://schedule-service
+          predicates:
+            - Path=/schedules/**
+        - id: course-service
+          uri: lb://course-service
+          predicates:
             - Path=/courses/**
   main:
     web-application-type: reactive

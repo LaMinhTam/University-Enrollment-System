@@ -1,14 +1,12 @@
-package vn.edu.iuh.fit.enrollservice.services.impl;
+package vn.edu.iuh.fit.courseservice.services.impl;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.mongodb.core.query.Criteria;
-import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.query.Criteria;
+import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.stereotype.Service;
-import vn.edu.iuh.fit.enrollservice.models.Course;
-import vn.edu.iuh.fit.enrollservice.repositories.CourseRepository;
-import vn.edu.iuh.fit.enrollservice.services.CourseService;
+import vn.edu.iuh.fit.courseservice.models.Course;
+import vn.edu.iuh.fit.courseservice.repositories.CourseRepository;
+import vn.edu.iuh.fit.courseservice.services.CourseService;
 
 import java.util.List;
 
@@ -31,5 +29,10 @@ public class CourseServiceImpl implements CourseService {
         );
         return mongoTemplate.find(query, Course.class);
 //        return courseRepository.findByCourseOnMajorListMajorIdAndCourseOnMajorListAcademicYear(majorId, year);
+    }
+
+    @Override
+    public List<Course> getCoursesByIds(List<String> courseIds) {
+        return courseRepository.findAllByIdIn(courseIds);
     }
 }

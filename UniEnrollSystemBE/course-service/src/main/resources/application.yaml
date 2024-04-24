@@ -1,13 +1,13 @@
 spring:
   application:
-    name: enroll-service
+    name: course-service
   config:
     import: "optional:configserver:http://localhost:8088"
   data:
     mongodb:
       port: 27017
       host: localhost
-      database: enroll_db
+      database: course_db
       authentication-database: admin
       uri: mongodb://root:123456@localhost:27017/admin
   autoconfigure:
