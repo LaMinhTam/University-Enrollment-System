@@ -65,25 +65,25 @@ services:
       - db-mysql-net
       - db-mongodb-net
 
-  service-registry:
-    build: ./UniEnrollSystemBE/service-registry
-    restart: always
-    ports:
-      - "8761:8761"
-    networks:
-      - db-mysql-net
-      - db-mongodb-net
+  # service-registry:
+  #   build: ./UniEnrollSystemBE/service-registry
+  #   restart: always
+  #   ports:
+  #     - "8761:8761"
+  #   networks:
+  #     - db-mysql-net
+  #     - db-mongodb-net
   
-  config-server:
-    build: ./UniEnrollSystemBE/config-server
-    restart: always
-    ports:
-      - "8088:8088"
-    networks:
-      - db-mysql-net
-      - db-mongodb-net
-    depends_on:
-      - service-registry
+  # config-server:
+  #   build: ./UniEnrollSystemBE/config-server
+  #   restart: always
+  #   ports:
+  #     - "8088:8088"
+  #   networks:
+  #     - db-mysql-net
+  #     - db-mongodb-net
+  #   depends_on:
+  #     - service-registry
 
   # enroll-service:
   #   build: ./UniEnrollSystemBE/enroll-service
