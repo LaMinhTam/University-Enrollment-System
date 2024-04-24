@@ -3,7 +3,7 @@ package vn.edu.iuh.fit.enrollservice.dtos;
 import java.util.Date;
 
 public record Schedule(
-        String dayOfWeek,
+        int dayOfWeek,
         String timeSlot,
         Date startDate,
         Date endDate,
