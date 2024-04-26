@@ -1,4 +1,4 @@
-package vn.edu.iuh.fit.enrollservice.models;
+package vn.edu.iuh.fit.courseservice.models;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.EnumType;

@@ -7,7 +7,7 @@ spring:
     mongodb:
       port: 27017
       host: localhost
-      database: course_db
+      database: enroll_db
       authentication-database: admin
       uri: mongodb://root:123456@localhost:27017/admin
   autoconfigure:

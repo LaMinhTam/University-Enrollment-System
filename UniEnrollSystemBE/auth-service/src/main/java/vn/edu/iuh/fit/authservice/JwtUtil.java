@@ -39,17 +39,19 @@ public class JwtUtil {
         return getAllClaimsFromToken(token).getExpiration();
     }
 
-    private Boolean isTokenExpired(String token) {
+    public Boolean isTokenExpired(String token) {
         final Date expiration = getExpirationDateFromToken(token);
         return expiration.before(new Date());
     }
 
-    public String generate(StudentDTO studentDTO,Student student, String type) {
+    public String generate(StudentDTO studentDTO, Student student, String type) {
         Map<String, Object> claims = new HashMap<>();
         claims.put("id", student.getId());
-        claims.put("major_id", studentDTO.majorId());
-        claims.put("academic_year", studentDTO.year());
-        claims.put("role", student.getRoles().stream().findFirst().get().getName());
+        if("ACCESS".equals(type)){
+            claims.put("major_id", studentDTO.majorId());
+            claims.put("academic_year", studentDTO.year());
+            claims.put("role", student.getRoles().stream().findFirst().get().getName());
+        }
         return doGenerateToken(claims, student.getId(), type);
     }
 
@@ -76,5 +78,9 @@ public class JwtUtil {
         return !isTokenExpired(token);
     }
 
+    public String extractStudentFromRefreshToken(String refreshToken) {
+        Claims claims = getAllClaimsFromToken(refreshToken);
+        return claims.get("id").toString();
+    }
 }
 

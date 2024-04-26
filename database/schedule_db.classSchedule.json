@@ -1,0 +1,5486 @@
+[{
+  "_id": {
+    "$oid": "6628da544cec37c20d9680f1"
+  },
+  "classId": "420300200924101",
+  "schedules": [
+    {
+      "dayOfWeek": 0,
+      "timeSlot": "4-6",
+      "startDate": {
+        "$date": "2023-12-13T04:45:55.323Z"
+      },
+      "endDate": {
+        "$date": "2024-04-28T16:21:57.774Z"
+      },
+      "room": "A05",
+      "location": "53 Phạm Văn Chiêu, Phường 9",
+      "lecturer": "Nguyễn Văn A",
+      "classType": "THEORY"
+    }
+  ]
+},
+{
+  "_id": {
+    "$oid": "6628da544cec37c20d9680f2"
+  },
+  "classId": "420300200924102",
+  "schedules": [
+    {
+      "dayOfWeek": 6,
+      "timeSlot": "4-6",
+      "startDate": {
+        "$date": "2023-12-25T14:20:32.431Z"
+      },
+      "endDate": {
+        "$date": "2024-04-22T00:10:13.029Z"
+      },
+      "room": "A10",
+      "location": "53 Phạm Văn Chiêu, Phường 9",
+      "lecturer": "Lê Văn C",
+      "classType": "PRACTICE"
+    }
+  ]
+},
+{
+  "_id": {
+    "$oid": "6628da544cec37c20d9680f3"
+  },
+  "classId": "420300319224101",
+  "schedules": [
+    {
+      "dayOfWeek": 5,
+      "timeSlot": "13-15",
+      "startDate": {
+        "$date": "2023-12-24T03:38:11.637Z"
+      },
+      "endDate": {
+        "$date": "2024-04-24T18:28:40.877Z"
+      },
+      "room": "B05",
+      "location": "12 Nguyễn Văn Bảo Phường 4",
+      "lecturer": "Lê Văn C",
+      "classType": "PRACTICE"
+    }
+  ]
+},
+{
+  "_id": {
+    "$oid": "6628da544cec37c20d9680f4"
+  },
+  "classId": "420300324224101",
+  "schedules": [
+    {
+      "dayOfWeek": 2,
+      "timeSlot": "7-9",
+      "startDate": {
+        "$date": "2023-12-25T02:13:03.136Z"
+      },
+      "endDate": {
+        "$date": "2024-05-08T04:11:46.961Z"
+      },
+      "room": "A07",
+      "location": "12 Nguyễn Văn Bảo Phường 4",
+      "lecturer": "Lê Văn C",
+      "classType": "THEORY"
+    },
+    {
+      "dayOfWeek": 2,
+      "timeSlot": "1-3",
+      "startDate": {
+        "$date": "2023-12-19T10:56:06.830Z"
+      },
+      "endDate": {
+        "$date": "2024-04-10T17:21:53.497Z"
+      },
+      "room": "C06",
+      "location": "12 Nguyễn Văn Bảo Phường 4",
+      "lecturer": "Hoàng Văn E",
+      "classType": "PRACTICE"
+    }
+  ]
+},
+{
+  "_id": {
+    "$oid": "6628da544cec37c20d9680f5"
+  },
+  "classId": "420300325924101",
+  "schedules": [
+    {
+      "dayOfWeek": 5,
+      "timeSlot": "13-15",
+      "startDate": {
+        "$date": "2023-12-25T07:16:30.596Z"
+      },
+      "endDate": {
+        "$date": "2024-04-06T13:09:16.563Z"
+      },
+      "room": "D06",
+      "location": "12 Nguyễn Văn Bảo Phường 4",
+      "lecturer": "Hoàng Văn E",
+      "classType": "PRACTICE"
+    }
+  ]
+},
+{
+  "_id": {
+    "$oid": "6628da544cec37c20d9680f6"
+  },
+  "classId": "420300325924102",
+  "schedules": [
+    {
+      "dayOfWeek": 3,
+      "timeSlot": "7-9",
+      "startDate": {
+        "$date": "2023-12-29T11:51:54.963Z"
+      },
+      "endDate": {
+        "$date": "2024-04-14T01:23:58.096Z"
+      },
+      "room": "C09",
+      "location": "53 Phạm Văn Chiêu, Phường 9",
+      "lecturer": "Trần Thị B",
+      "classType": "THEORY"
+    }
+  ]
+},
+{
+  "_id": {
+    "$oid": "6628da544cec37c20d9680f7"
+  },
+  "classId": "420300330724101",
+  "schedules": [
+    {
+      "dayOfWeek": 5,
+      "timeSlot": "7-9",
+      "startDate": {
+        "$date": "2023-12-23T21:16:06.216Z"
+      },
+      "endDate": {
+        "$date": "2024-04-22T07:48:18.751Z"
+      },
+      "room": "C08",
+      "location": "53 Phạm Văn Chiêu, Phường 9",
+      "lecturer": "Phạm Thị D",
+      "classType": "THEORY"
+    }
+  ]
+},
+{
+  "_id": {
+    "$oid": "6628da544cec37c20d9680f8"
+  },
+  "classId": "420300330724102",
+  "schedules": [
+    {
+      "dayOfWeek": 3,
+      "timeSlot": "1-3",
+      "startDate": {
+        "$date": "2023-12-18T15:43:46.184Z"
+      },
+      "endDate": {
+        "$date": "2024-04-14T17:57:55.684Z"
+      },
+      "room": "C02",
+      "location": "53 Phạm Văn Chiêu, Phường 9",
+      "lecturer": "Lê Văn C",
+      "classType": "PRACTICE"
+    },
+    {
+      "dayOfWeek": 1,
+      "timeSlot": "10-12",
+      "startDate": {
+        "$date": "2023-12-16T11:54:19.052Z"
+      },
+      "endDate": {
+        "$date": "2024-05-02T13:58:48.171Z"
+      },
+      "room": "C10",
+      "location": "53 Phạm Văn Chiêu, Phường 9",
+      "lecturer": "Hoàng Văn E",
+      "classType": "PRACTICE"
+    }
+  ]
+},
+{
+  "_id": {
+    "$oid": "6628da544cec37c20d9680f9"
+  },
+  "classId": "420300330724103",
+  "schedules": [
+    {
+      "dayOfWeek": 6,
+      "timeSlot": "1-3",
+      "startDate": {
+        "$date": "2024-01-04T10:49:59.369Z"
+      },
+      "endDate": {
+        "$date": "2024-04-08T12:33:18.557Z"
+      },
+      "room": "C08",
+      "location": "12 Nguyễn Văn Bảo Phường 4",
+      "lecturer": "Trần Thị B",
+      "classType": "THEORY"
+    }
+  ]
+},
+{
+  "_id": {
+    "$oid": "6628da544cec37c20d9680fa"
+  },
+  "classId": "420300330724104",
+  "schedules": [
+    {
+      "dayOfWeek": 1,
+      "timeSlot": "7-9",
+      "startDate": {
+        "$date": "2023-12-21T18:13:25.250Z"
+      },
+      "endDate": {
+        "$date": "2024-04-12T11:23:10.964Z"
+      },
+      "room": "D04",
+      "location": "53 Phạm Văn Chiêu, Phường 9",
+      "lecturer": "Nguyễn Văn A",
+      "classType": "PRACTICE"
+    },
+    {
+      "dayOfWeek": 6,
+      "timeSlot": "1-3",
+      "startDate": {
+        "$date": "2023-12-17T23:48:54.071Z"
+      },
+      "endDate": {
+        "$date": "2024-04-20T09:00:03.026Z"
+      },
+      "room": "D06",
+      "location": "12 Nguyễn Văn Bảo Phường 4",
+      "lecturer": "Phạm Thị D",
+      "classType": "PRACTICE"
+    }
+  ]
+},
+{
+  "_id": {
+    "$oid": "6628da544cec37c20d9680fb"
+  },
+  "classId": "420300384824101",
+  "schedules": [
+    {
+      "dayOfWeek": 6,
+      "timeSlot": "10-12",
+      "startDate": {
+        "$date": "2023-12-17T10:16:27.238Z"
+      },
+      "endDate": {
+        "$date": "2024-04-14T02:18:50.836Z"
+      },
+      "room": "A09",
+      "location": "53 Phạm Văn Chiêu, Phường 9",
+      "lecturer": "Nguyễn Văn A",
+      "classType": "PRACTICE"
+    }
+  ]
+},
+{
+  "_id": {
+    "$oid": "6628da544cec37c20d9680fc"
+  },
+  "classId": "420300384824102",
+  "schedules": [
+    {
+      "dayOfWeek": 0,
+      "timeSlot": "7-9",
+      "startDate": {
+        "$date": "2023-12-21T13:29:53.757Z"
+      },
+      "endDate": {
+        "$date": "2024-05-01T04:33:24.172Z"
+      },
+      "room": "A10",
+      "location": "53 Phạm Văn Chiêu, Phường 9",
+      "lecturer": "Nguyễn Văn A",
+      "classType": "THEORY"
+    }
+  ]
+},
+{
+  "_id": {
+    "$oid": "6628da544cec37c20d9680fd"
+  },
+  "classId": "420300384824103",
+  "schedules": [
+    {
+      "dayOfWeek": 5,
+      "timeSlot": "4-6",
+      "startDate": {
+        "$date": "2023-12-15T00:13:11.260Z"
+      },
+      "endDate": {
+        "$date": "2024-05-04T11:03:41.505Z"
+      },
+      "room": "C05",
+      "location": "12 Nguyễn Văn Bảo Phường 4",
+      "lecturer": "Trần Thị B",
+      "classType": "THEORY"
+    },
+    {
+      "dayOfWeek": 4,
+      "timeSlot": "13-15",
+      "startDate": {
+        "$date": "2023-12-22T20:38:05.577Z"
+      },
+      "endDate": {
+        "$date": "2024-04-28T01:33:15.621Z"
+      },
+      "room": "C10",
+      "location": "12 Nguyễn Văn Bảo Phường 4",
+      "lecturer": "Lê Văn C",
+      "classType": "PRACTICE"
+    }
+  ]
+},
+{
+  "_id": {
+    "$oid": "6628da544cec37c20d9680fe"
+  },
+  "classId": "420300384824104",
+  "schedules": [
+    {
+      "dayOfWeek": 2,
+      "timeSlot": "1-3",
+      "startDate": {
+        "$date": "2023-12-27T14:37:51.533Z"
+      },
+      "endDate": {
+        "$date": "2024-04-07T15:20:22.845Z"
+      },
+      "room": "A10",
+      "location": "53 Phạm Văn Chiêu, Phường 9",
+      "lecturer": "Nguyễn Văn A",
+      "classType": "PRACTICE"
+    }
+  ]
+},
+{
+  "_id": {
+    "$oid": "6628da544cec37c20d9680ff"
+  },
+  "classId": "420301416424101",
+  "schedules": [
+    {
+      "dayOfWeek": 4,
+      "timeSlot": "7-9",
+      "startDate": {
+        "$date": "2023-12-27T20:55:36.588Z"
+      },
+      "endDate": {
+        "$date": "2024-04-15T17:50:59.407Z"
+      },
+      "room": "B02",
+      "location": "53 Phạm Văn Chiêu, Phường 9",
+      "lecturer": "Phạm Thị D",
+      "classType": "THEORY"
+    },
+    {
+      "dayOfWeek": 6,
+      "timeSlot": "4-6",
+      "startDate": {
+        "$date": "2023-12-19T16:13:40.757Z"
+      },
+      "endDate": {
+        "$date": "2024-05-05T03:02:04.003Z"
+      },
+      "room": "D08",
+      "location": "53 Phạm Văn Chiêu, Phường 9",
+      "lecturer": "Phạm Thị D",
+      "classType": "PRACTICE"
+    }
+  ]
+},
+{
+  "_id": {
+    "$oid": "6628da544cec37c20d968100"
+  },
+  "classId": "420301416424102",
+  "schedules": [
+    {
+      "dayOfWeek": 2,
+      "timeSlot": "1-3",
+      "startDate": {
+        "$date": "2023-12-22T18:37:54.681Z"
+      },
+      "endDate": {
+        "$date": "2024-04-10T05:50:27.548Z"
+      },
+      "room": "A08",
+      "location": "12 Nguyễn Văn Bảo Phường 4",
+      "lecturer": "Hoàng Văn E",
+      "classType": "THEORY"
+    },
+    {
+      "dayOfWeek": 2,
+      "timeSlot": "4-6",
+      "startDate": {
+        "$date": "2023-12-14T23:10:54.040Z"
+      },
+      "endDate": {
+        "$date": "2024-04-12T23:28:23.267Z"
+      },
+      "room": "A08",
+      "location": "12 Nguyễn Văn Bảo Phường 4",
+      "lecturer": "Nguyễn Văn A",
+      "classType": "PRACTICE"
+    }
+  ]
+},
+{
+  "_id": {
+    "$oid": "6628da544cec37c20d968101"
+  },
+  "classId": "420301416424103",
+  "schedules": [
+    {
+      "dayOfWeek": 0,
+      "timeSlot": "7-9",
+      "startDate": {
+        "$date": "2023-12-31T06:49:48.982Z"
+      },
+      "endDate": {
+        "$date": "2024-04-22T01:59:52.849Z"
+      },
+      "room": "B02",
+      "location": "12 Nguyễn Văn Bảo Phường 4",
+      "lecturer": "Hoàng Văn E",
+      "classType": "THEORY"
+    }
+  ]
+},
+{
+  "_id": {
+    "$oid": "6628da544cec37c20d968102"
+  },
+  "classId": "420301416424104",
+  "schedules": [
+    {
+      "dayOfWeek": 0,
+      "timeSlot": "7-9",
+      "startDate": {
+        "$date": "2024-01-05T18:42:40.902Z"
+      },
+      "endDate": {
+        "$date": "2024-04-19T14:59:29.977Z"
+      },
+      "room": "B07",
+      "location": "53 Phạm Văn Chiêu, Phường 9",
+      "lecturer": "Phạm Thị D",
+      "classType": "THEORY"
+    }
+  ]
+},
+{
+  "_id": {
+    "$oid": "6628da544cec37c20d968103"
+  },
+  "classId": "420301416524101",
+  "schedules": [
+    {
+      "dayOfWeek": 5,
+      "timeSlot": "4-6",
+      "startDate": {
+        "$date": "2023-12-19T09:12:00.690Z"
+      },
+      "endDate": {
+        "$date": "2024-04-23T05:06:48.427Z"
+      },
+      "room": "A04",
+      "location": "53 Phạm Văn Chiêu, Phường 9",
+      "lecturer": "Trần Thị B",
+      "classType": "THEORY"
+    },
+    {
+      "dayOfWeek": 5,
+      "timeSlot": "1-3",
+      "startDate": {
+        "$date": "2024-01-01T10:19:00.947Z"
+      },
+      "endDate": {
+        "$date": "2024-04-14T10:54:38.608Z"
+      },
+      "room": "B04",
+      "location": "12 Nguyễn Văn Bảo Phường 4",
+      "lecturer": "Nguyễn Văn A",
+      "classType": "THEORY"
+    }
+  ]
+},
+{
+  "_id": {
+    "$oid": "6628da544cec37c20d968104"
+  },
+  "classId": "420301416524102",
+  "schedules": [
+    {
+      "dayOfWeek": 1,
+      "timeSlot": "13-15",
+      "startDate": {
+        "$date": "2023-12-30T23:12:10.387Z"
+      },
+      "endDate": {
+        "$date": "2024-04-12T02:47:59.527Z"
+      },
+      "room": "D06",
+      "location": "53 Phạm Văn Chiêu, Phường 9",
+      "lecturer": "Nguyễn Văn A",
+      "classType": "PRACTICE"
+    }
+  ]
+},
+{
+  "_id": {
+    "$oid": "6628da544cec37c20d968105"
+  },
+  "classId": "420301525324101",
+  "schedules": [
+    {
+      "dayOfWeek": 4,
+      "timeSlot": "10-12",
+      "startDate": {
+        "$date": "2023-12-30T05:19:34.568Z"
+      },
+      "endDate": {
+        "$date": "2024-04-11T19:26:04.849Z"
+      },
+      "room": "A01",
+      "location": "53 Phạm Văn Chiêu, Phường 9",
+      "lecturer": "Nguyễn Văn A",
+      "classType": "THEORY"
+    }
+  ]
+},
+{
+  "_id": {
+    "$oid": "6628da544cec37c20d968106"
+  },
+  "classId": "420300090124101",
+  "schedules": [
+    {
+      "dayOfWeek": 6,
+      "timeSlot": "10-12",
+      "startDate": {
+        "$date": "2024-01-01T15:14:33.912Z"
+      },
+      "endDate": {
+        "$date": "2024-05-08T15:53:46.604Z"
+      },
+      "room": "D02",
+      "location": "53 Phạm Văn Chiêu, Phường 9",
+      "lecturer": "Phạm Thị D",
+      "classType": "PRACTICE"
+    }
+  ]
+},
+{
+  "_id": {
+    "$oid": "6628da544cec37c20d968107"
+  },
+  "classId": "420300090124102",
+  "schedules": [
+    {
+      "dayOfWeek": 6,
+      "timeSlot": "7-9",
+      "startDate": {
+        "$date": "2023-12-27T15:33:55.479Z"
+      },
+      "endDate": {
+        "$date": "2024-04-09T17:39:50.915Z"
+      },
+      "room": "A10",
+      "location": "12 Nguyễn Văn Bảo Phường 4",
+      "lecturer": "Phạm Thị D",
+      "classType": "PRACTICE"
+    }
+  ]
+},
+{
+  "_id": {
+    "$oid": "6628da544cec37c20d968108"
+  },
+  "classId": "420300090124103",
+  "schedules": [
+    {
+      "dayOfWeek": 6,
+      "timeSlot": "7-9",
+      "startDate": {
+        "$date": "2023-12-19T05:36:17.996Z"
+      },
+      "endDate": {
+        "$date": "2024-04-09T04:55:36.761Z"
+      },
+      "room": "A03",
+      "location": "53 Phạm Văn Chiêu, Phường 9",
+      "lecturer": "Lê Văn C",
+      "classType": "THEORY"
+    }
+  ]
+},
+{
+  "_id": {
+    "$oid": "6628da544cec37c20d968109"
+  },
+  "classId": "420300090124104",
+  "schedules": [
+    {
+      "dayOfWeek": 3,
+      "timeSlot": "4-6",
+      "startDate": {
+        "$date": "2023-12-23T12:20:18.873Z"
+      },
+      "endDate": {
+        "$date": "2024-04-23T05:34:14.280Z"
+      },
+      "room": "C08",
+      "location": "53 Phạm Văn Chiêu, Phường 9",
+      "lecturer": "Nguyễn Văn A",
+      "classType": "PRACTICE"
+    }
+  ]
+},
+{
+  "_id": {
+    "$oid": "6628da544cec37c20d96810a"
+  },
+  "classId": "420300094224101",
+  "schedules": [
+    {
+      "dayOfWeek": 1,
+      "timeSlot": "13-15",
+      "startDate": {
+        "$date": "2023-12-18T14:57:13.813Z"
+      },
+      "endDate": {
+        "$date": "2024-04-05T23:43:29.392Z"
+      },
+      "room": "B07",
+      "location": "53 Phạm Văn Chiêu, Phường 9",
+      "lecturer": "Lê Văn C",
+      "classType": "PRACTICE"
+    },
+    {
+      "dayOfWeek": 3,
+      "timeSlot": "10-12",
+      "startDate": {
+        "$date": "2024-01-05T05:16:23.977Z"
+      },
+      "endDate": {
+        "$date": "2024-04-29T16:47:16.890Z"
+      },
+      "room": "D08",
+      "location": "53 Phạm Văn Chiêu, Phường 9",
+      "lecturer": "Nguyễn Văn A",
+      "classType": "PRACTICE"
+    }
+  ]
+},
+{
+  "_id": {
+    "$oid": "6628da544cec37c20d96810b"
+  },
+  "classId": "420300094224102",
+  "schedules": [
+    {
+      "dayOfWeek": 4,
+      "timeSlot": "7-9",
+      "startDate": {
+        "$date": "2024-01-02T23:01:30.054Z"
+      },
+      "endDate": {
+        "$date": "2024-04-23T16:48:25.402Z"
+      },
+      "room": "C05",
+      "location": "53 Phạm Văn Chiêu, Phường 9",
+      "lecturer": "Trần Thị B",
+      "classType": "PRACTICE"
+    }
+  ]
+},
+{
+  "_id": {
+    "$oid": "6628da544cec37c20d96810c"
+  },
+  "classId": "420300114624101",
+  "schedules": [
+    {
+      "dayOfWeek": 0,
+      "timeSlot": "1-3",
+      "startDate": {
+        "$date": "2023-12-28T13:24:11.508Z"
+      },
+      "endDate": {
+        "$date": "2024-05-04T12:56:43.844Z"
+      },
+      "room": "A01",
+      "location": "53 Phạm Văn Chiêu, Phường 9",
+      "lecturer": "Hoàng Văn E",
+      "classType": "THEORY"
+    }
+  ]
+},
+{
+  "_id": {
+    "$oid": "6628da544cec37c20d96810d"
+  },
+  "classId": "420300319624101",
+  "schedules": [
+    {
+      "dayOfWeek": 3,
+      "timeSlot": "4-6",
+      "startDate": {
+        "$date": "2023-12-15T14:40:27.498Z"
+      },
+      "endDate": {
+        "$date": "2024-04-26T16:45:28.795Z"
+      },
+      "room": "C09",
+      "location": "12 Nguyễn Văn Bảo Phường 4",
+      "lecturer": "Nguyễn Văn A",
+      "classType": "THEORY"
+    },
+    {
+      "dayOfWeek": 4,
+      "timeSlot": "4-6",
+      "startDate": {
+        "$date": "2024-01-04T17:46:36.052Z"
+      },
+      "endDate": {
+        "$date": "2024-04-19T07:15:11.848Z"
+      },
+      "room": "C09",
+      "location": "53 Phạm Văn Chiêu, Phường 9",
+      "lecturer": "Lê Văn C",
+      "classType": "THEORY"
+    }
+  ]
+},
+{
+  "_id": {
+    "$oid": "6628da544cec37c20d96810e"
+  },
+  "classId": "420300319624102",
+  "schedules": [
+    {
+      "dayOfWeek": 0,
+      "timeSlot": "10-12",
+      "startDate": {
+        "$date": "2023-12-16T08:28:52.966Z"
+      },
+      "endDate": {
+        "$date": "2024-04-23T23:35:06.894Z"
+      },
+      "room": "B06",
+      "location": "53 Phạm Văn Chiêu, Phường 9",
+      "lecturer": "Hoàng Văn E",
+      "classType": "THEORY"
+    }
+  ]
+},
+{
+  "_id": {
+    "$oid": "6628da544cec37c20d96810f"
+  },
+  "classId": "420300319624103",
+  "schedules": [
+    {
+      "dayOfWeek": 4,
+      "timeSlot": "1-3",
+      "startDate": {
+        "$date": "2023-12-14T15:17:18.961Z"
+      },
+      "endDate": {
+        "$date": "2024-05-06T12:17:16.380Z"
+      },
+      "room": "D04",
+      "location": "53 Phạm Văn Chiêu, Phường 9",
+      "lecturer": "Hoàng Văn E",
+      "classType": "PRACTICE"
+    },
+    {
+      "dayOfWeek": 6,
+      "timeSlot": "7-9",
+      "startDate": {
+        "$date": "2023-12-21T17:41:38.665Z"
+      },
+      "endDate": {
+        "$date": "2024-05-04T20:04:53.000Z"
+      },
+      "room": "C07",
+      "location": "53 Phạm Văn Chiêu, Phường 9",
+      "lecturer": "Lê Văn C",
+      "classType": "PRACTICE"
+    }
+  ]
+},
+{
+  "_id": {
+    "$oid": "6628da544cec37c20d968110"
+  },
+  "classId": "420300319624104",
+  "schedules": [
+    {
+      "dayOfWeek": 0,
+      "timeSlot": "4-6",
+      "startDate": {
+        "$date": "2023-12-28T11:12:02.992Z"
+      },
+      "endDate": {
+        "$date": "2024-05-08T18:24:08.343Z"
+      },
+      "room": "D03",
+      "location": "12 Nguyễn Văn Bảo Phường 4",
+      "lecturer": "Lê Văn C",
+      "classType": "THEORY"
+    }
+  ]
+},
+{
+  "_id": {
+    "$oid": "6628da544cec37c20d968111"
+  },
+  "classId": "420300319724101",
+  "schedules": [
+    {
+      "dayOfWeek": 4,
+      "timeSlot": "10-12",
+      "startDate": {
+        "$date": "2023-12-13T18:42:40.038Z"
+      },
+      "endDate": {
+        "$date": "2024-04-08T03:27:48.746Z"
+      },
+      "room": "B02",
+      "location": "53 Phạm Văn Chiêu, Phường 9",
+      "lecturer": "Phạm Thị D",
+      "classType": "THEORY"
+    }
+  ]
+},
+{
+  "_id": {
+    "$oid": "6628da544cec37c20d968112"
+  },
+  "classId": "420300320524101",
+  "schedules": [
+    {
+      "dayOfWeek": 3,
+      "timeSlot": "13-15",
+      "startDate": {
+        "$date": "2023-12-20T23:23:57.810Z"
+      },
+      "endDate": {
+        "$date": "2024-04-17T09:38:21.324Z"
+      },
+      "room": "A04",
+      "location": "12 Nguyễn Văn Bảo Phường 4",
+      "lecturer": "Nguyễn Văn A",
+      "classType": "PRACTICE"
+    }
+  ]
+},
+{
+  "_id": {
+    "$oid": "6628da544cec37c20d968113"
+  },
+  "classId": "420300320524102",
+  "schedules": [
+    {
+      "dayOfWeek": 4,
+      "timeSlot": "13-15",
+      "startDate": {
+        "$date": "2023-12-26T03:28:17.734Z"
+      },
+      "endDate": {
+        "$date": "2024-04-22T13:53:55.926Z"
+      },
+      "room": "A02",
+      "location": "53 Phạm Văn Chiêu, Phường 9",
+      "lecturer": "Lê Văn C",
+      "classType": "PRACTICE"
+    },
+    {
+      "dayOfWeek": 0,
+      "timeSlot": "10-12",
+      "startDate": {
+        "$date": "2023-12-27T15:48:28.718Z"
+      },
+      "endDate": {
+        "$date": "2024-04-21T13:24:34.908Z"
+      },
+      "room": "D05",
+      "location": "53 Phạm Văn Chiêu, Phường 9",
+      "lecturer": "Nguyễn Văn A",
+      "classType": "THEORY"
+    }
+  ]
+},
+{
+  "_id": {
+    "$oid": "6628da544cec37c20d968114"
+  },
+  "classId": "420300320524103",
+  "schedules": [
+    {
+      "dayOfWeek": 3,
+      "timeSlot": "4-6",
+      "startDate": {
+        "$date": "2024-01-04T19:55:25.911Z"
+      },
+      "endDate": {
+        "$date": "2024-04-15T02:40:10.630Z"
+      },
+      "room": "D09",
+      "location": "53 Phạm Văn Chiêu, Phường 9",
+      "lecturer": "Hoàng Văn E",
+      "classType": "THEORY"
+    },
+    {
+      "dayOfWeek": 4,
+      "timeSlot": "4-6",
+      "startDate": {
+        "$date": "2023-12-31T01:25:17.785Z"
+      },
+      "endDate": {
+        "$date": "2024-04-25T07:45:58.177Z"
+      },
+      "room": "A06",
+      "location": "12 Nguyễn Văn Bảo Phường 4",
+      "lecturer": "Phạm Thị D",
+      "classType": "PRACTICE"
+    }
+  ]
+},
+{
+  "_id": {
+    "$oid": "6628da544cec37c20d968115"
+  },
+  "classId": "420300320624101",
+  "schedules": [
+    {
+      "dayOfWeek": 3,
+      "timeSlot": "13-15",
+      "startDate": {
+        "$date": "2023-12-12T18:30:20.681Z"
+      },
+      "endDate": {
+        "$date": "2024-04-12T20:20:50.459Z"
+      },
+      "room": "C03",
+      "location": "12 Nguyễn Văn Bảo Phường 4",
+      "lecturer": "Lê Văn C",
+      "classType": "PRACTICE"
+    },
+    {
+      "dayOfWeek": 1,
+      "timeSlot": "10-12",
+      "startDate": {
+        "$date": "2023-12-20T17:41:43.435Z"
+      },
+      "endDate": {
+        "$date": "2024-04-05T05:09:36.873Z"
+      },
+      "room": "B08",
+      "location": "12 Nguyễn Văn Bảo Phường 4",
+      "lecturer": "Hoàng Văn E",
+      "classType": "THEORY"
+    }
+  ]
+},
+{
+  "_id": {
+    "$oid": "6628da544cec37c20d968116"
+  },
+  "classId": "420300320624102",
+  "schedules": [
+    {
+      "dayOfWeek": 2,
+      "timeSlot": "1-3",
+      "startDate": {
+        "$date": "2023-12-19T01:34:10.602Z"
+      },
+      "endDate": {
+        "$date": "2024-04-21T06:44:19.145Z"
+      },
+      "room": "A02",
+      "location": "53 Phạm Văn Chiêu, Phường 9",
+      "lecturer": "Nguyễn Văn A",
+      "classType": "PRACTICE"
+    }
+  ]
+},
+{
+  "_id": {
+    "$oid": "6628da544cec37c20d968117"
+  },
+  "classId": "420300320624103",
+  "schedules": [
+    {
+      "dayOfWeek": 2,
+      "timeSlot": "7-9",
+      "startDate": {
+        "$date": "2024-01-02T01:54:56.631Z"
+      },
+      "endDate": {
+        "$date": "2024-04-13T04:04:34.510Z"
+      },
+      "room": "A04",
+      "location": "12 Nguyễn Văn Bảo Phường 4",
+      "lecturer": "Nguyễn Văn A",
+      "classType": "PRACTICE"
+    },
+    {
+      "dayOfWeek": 4,
+      "timeSlot": "1-3",
+      "startDate": {
+        "$date": "2023-12-18T22:22:18.556Z"
+      },
+      "endDate": {
+        "$date": "2024-04-18T08:46:11.534Z"
+      },
+      "room": "C06",
+      "location": "53 Phạm Văn Chiêu, Phường 9",
+      "lecturer": "Nguyễn Văn A",
+      "classType": "PRACTICE"
+    }
+  ]
+},
+{
+  "_id": {
+    "$oid": "6628da544cec37c20d968118"
+  },
+  "classId": "420300320624104",
+  "schedules": [
+    {
+      "dayOfWeek": 3,
+      "timeSlot": "10-12",
+      "startDate": {
+        "$date": "2024-01-04T09:44:29.688Z"
+      },
+      "endDate": {
+        "$date": "2024-04-29T16:05:50.824Z"
+      },
+      "room": "C09",
+      "location": "12 Nguyễn Văn Bảo Phường 4",
+      "lecturer": "Phạm Thị D",
+      "classType": "PRACTICE"
+    }
+  ]
+},
+{
+  "_id": {
+    "$oid": "6628da544cec37c20d968119"
+  },
+  "classId": "420300321724101",
+  "schedules": [
+    {
+      "dayOfWeek": 5,
+      "timeSlot": "7-9",
+      "startDate": {
+        "$date": "2023-12-16T13:42:32.111Z"
+      },
+      "endDate": {
+        "$date": "2024-04-26T22:01:26.116Z"
+      },
+      "room": "B03",
+      "location": "12 Nguyễn Văn Bảo Phường 4",
+      "lecturer": "Phạm Thị D",
+      "classType": "PRACTICE"
+    },
+    {
+      "dayOfWeek": 3,
+      "timeSlot": "10-12",
+      "startDate": {
+        "$date": "2023-12-31T06:42:38.310Z"
+      },
+      "endDate": {
+        "$date": "2024-05-08T00:50:30.515Z"
+      },
+      "room": "A01",
+      "location": "12 Nguyễn Văn Bảo Phường 4",
+      "lecturer": "Phạm Thị D",
+      "classType": "PRACTICE"
+    }
+  ]
+},
+{
+  "_id": {
+    "$oid": "6628da544cec37c20d96811a"
+  },
+  "classId": "420300328524101",
+  "schedules": [
+    {
+      "dayOfWeek": 5,
+      "timeSlot": "1-3",
+      "startDate": {
+        "$date": "2023-12-24T03:51:34.295Z"
+      },
+      "endDate": {
+        "$date": "2024-04-30T19:59:52.728Z"
+      },
+      "room": "C01",
+      "location": "12 Nguyễn Văn Bảo Phường 4",
+      "lecturer": "Trần Thị B",
+      "classType": "PRACTICE"
+    },
+    {
+      "dayOfWeek": 5,
+      "timeSlot": "4-6",
+      "startDate": {
+        "$date": "2023-12-31T18:13:27.417Z"
+      },
+      "endDate": {
+        "$date": "2024-05-07T13:11:41.073Z"
+      },
+      "room": "B08",
+      "location": "53 Phạm Văn Chiêu, Phường 9",
+      "lecturer": "Trần Thị B",
+      "classType": "PRACTICE"
+    }
+  ]
+},
+{
+  "_id": {
+    "$oid": "6628da544cec37c20d96811b"
+  },
+  "classId": "420300328524102",
+  "schedules": [
+    {
+      "dayOfWeek": 1,
+      "timeSlot": "13-15",
+      "startDate": {
+        "$date": "2024-01-04T05:25:33.438Z"
+      },
+      "endDate": {
+        "$date": "2024-04-05T07:40:56.070Z"
+      },
+      "room": "D03",
+      "location": "12 Nguyễn Văn Bảo Phường 4",
+      "lecturer": "Lê Văn C",
+      "classType": "PRACTICE"
+    }
+  ]
+},
+{
+  "_id": {
+    "$oid": "6628da544cec37c20d96811c"
+  },
+  "classId": "420300328824101",
+  "schedules": [
+    {
+      "dayOfWeek": 5,
+      "timeSlot": "13-15",
+      "startDate": {
+        "$date": "2023-12-16T02:42:11.369Z"
+      },
+      "endDate": {
+        "$date": "2024-04-19T18:46:09.343Z"
+      },
+      "room": "C06",
+      "location": "53 Phạm Văn Chiêu, Phường 9",
+      "lecturer": "Trần Thị B",
+      "classType": "PRACTICE"
+    }
+  ]
+},
+{
+  "_id": {
+    "$oid": "6628da544cec37c20d96811d"
+  },
+  "classId": "420300328824102",
+  "schedules": [
+    {
+      "dayOfWeek": 3,
+      "timeSlot": "7-9",
+      "startDate": {
+        "$date": "2023-12-27T00:29:02.354Z"
+      },
+      "endDate": {
+        "$date": "2024-04-05T01:53:41.015Z"
+      },
+      "room": "D03",
+      "location": "12 Nguyễn Văn Bảo Phường 4",
+      "lecturer": "Trần Thị B",
+      "classType": "PRACTICE"
+    },
+    {
+      "dayOfWeek": 0,
+      "timeSlot": "7-9",
+      "startDate": {
+        "$date": "2024-01-03T19:59:39.534Z"
+      },
+      "endDate": {
+        "$date": "2024-05-03T10:23:03.587Z"
+      },
+      "room": "B06",
+      "location": "53 Phạm Văn Chiêu, Phường 9",
+      "lecturer": "Nguyễn Văn A",
+      "classType": "THEORY"
+    }
+  ]
+},
+{
+  "_id": {
+    "$oid": "6628da544cec37c20d96811e"
+  },
+  "classId": "420300359124101",
+  "schedules": [
+    {
+      "dayOfWeek": 4,
+      "timeSlot": "1-3",
+      "startDate": {
+        "$date": "2023-12-22T13:52:41.150Z"
+      },
+      "endDate": {
+        "$date": "2024-04-12T08:25:45.576Z"
+      },
+      "room": "A07",
+      "location": "53 Phạm Văn Chiêu, Phường 9",
+      "lecturer": "Trần Thị B",
+      "classType": "PRACTICE"
+    },
+    {
+      "dayOfWeek": 3,
+      "timeSlot": "4-6",
+      "startDate": {
+        "$date": "2023-12-25T00:56:02.370Z"
+      },
+      "endDate": {
+        "$date": "2024-04-26T05:32:35.384Z"
+      },
+      "room": "C02",
+      "location": "53 Phạm Văn Chiêu, Phường 9",
+      "lecturer": "Nguyễn Văn A",
+      "classType": "PRACTICE"
+    }
+  ]
+},
+{
+  "_id": {
+    "$oid": "6628da544cec37c20d96811f"
+  },
+  "classId": "420300359124102",
+  "schedules": [
+    {
+      "dayOfWeek": 5,
+      "timeSlot": "1-3",
+      "startDate": {
+        "$date": "2023-12-21T22:15:22.276Z"
+      },
+      "endDate": {
+        "$date": "2024-05-08T03:35:25.704Z"
+      },
+      "room": "D07",
+      "location": "12 Nguyễn Văn Bảo Phường 4",
+      "lecturer": "Trần Thị B",
+      "classType": "THEORY"
+    },
+    {
+      "dayOfWeek": 2,
+      "timeSlot": "13-15",
+      "startDate": {
+        "$date": "2023-12-16T21:14:36.904Z"
+      },
+      "endDate": {
+        "$date": "2024-04-12T22:50:37.191Z"
+      },
+      "room": "C02",
+      "location": "12 Nguyễn Văn Bảo Phường 4",
+      "lecturer": "Lê Văn C",
+      "classType": "PRACTICE"
+    }
+  ]
+},
+{
+  "_id": {
+    "$oid": "6628da544cec37c20d968120"
+  },
+  "classId": "420301419324101",
+  "schedules": [
+    {
+      "dayOfWeek": 6,
+      "timeSlot": "1-3",
+      "startDate": {
+        "$date": "2024-01-01T20:02:55.428Z"
+      },
+      "endDate": {
+        "$date": "2024-05-01T01:22:01.743Z"
+      },
+      "room": "D05",
+      "location": "12 Nguyễn Văn Bảo Phường 4",
+      "lecturer": "Hoàng Văn E",
+      "classType": "THEORY"
+    },
+    {
+      "dayOfWeek": 1,
+      "timeSlot": "7-9",
+      "startDate": {
+        "$date": "2023-12-27T23:51:37.960Z"
+      },
+      "endDate": {
+        "$date": "2024-04-08T15:55:07.742Z"
+      },
+      "room": "A05",
+      "location": "53 Phạm Văn Chiêu, Phường 9",
+      "lecturer": "Lê Văn C",
+      "classType": "PRACTICE"
+    }
+  ]
+},
+{
+  "_id": {
+    "$oid": "6628da544cec37c20d968121"
+  },
+  "classId": "420301525424101",
+  "schedules": [
+    {
+      "dayOfWeek": 3,
+      "timeSlot": "10-12",
+      "startDate": {
+        "$date": "2023-12-26T07:50:10.332Z"
+      },
+      "endDate": {
+        "$date": "2024-04-06T05:38:22.057Z"
+      },
+      "room": "B06",
+      "location": "12 Nguyễn Văn Bảo Phường 4",
+      "lecturer": "Phạm Thị D",
+      "classType": "PRACTICE"
+    }
+  ]
+},
+{
+  "_id": {
+    "$oid": "6628da544cec37c20d968122"
+  },
+  "classId": "420301525424102",
+  "schedules": [
+    {
+      "dayOfWeek": 4,
+      "timeSlot": "7-9",
+      "startDate": {
+        "$date": "2023-12-20T21:21:09.368Z"
+      },
+      "endDate": {
+        "$date": "2024-04-15T07:06:55.218Z"
+      },
+      "room": "B05",
+      "location": "12 Nguyễn Văn Bảo Phường 4",
+      "lecturer": "Lê Văn C",
+      "classType": "THEORY"
+    }
+  ]
+},
+{
+  "_id": {
+    "$oid": "6628da544cec37c20d968123"
+  },
+  "classId": "420300090824101",
+  "schedules": [
+    {
+      "dayOfWeek": 5,
+      "timeSlot": "13-15",
+      "startDate": {
+        "$date": "2023-12-18T13:24:01.572Z"
+      },
+      "endDate": {
+        "$date": "2024-04-10T01:45:08.311Z"
+      },
+      "room": "A07",
+      "location": "12 Nguyễn Văn Bảo Phường 4",
+      "lecturer": "Nguyễn Văn A",
+      "classType": "THEORY"
+    }
+  ]
+},
+{
+  "_id": {
+    "$oid": "6628da544cec37c20d968124"
+  },
+  "classId": "420300090824102",
+  "schedules": [
+    {
+      "dayOfWeek": 2,
+      "timeSlot": "4-6",
+      "startDate": {
+        "$date": "2023-12-28T11:24:50.229Z"
+      },
+      "endDate": {
+        "$date": "2024-04-27T00:24:36.101Z"
+      },
+      "room": "B06",
+      "location": "12 Nguyễn Văn Bảo Phường 4",
+      "lecturer": "Phạm Thị D",
+      "classType": "PRACTICE"
+    }
+  ]
+},
+{
+  "_id": {
+    "$oid": "6628da544cec37c20d968125"
+  },
+  "classId": "420300090824103",
+  "schedules": [
+    {
+      "dayOfWeek": 1,
+      "timeSlot": "1-3",
+      "startDate": {
+        "$date": "2023-12-31T07:54:10.819Z"
+      },
+      "endDate": {
+        "$date": "2024-04-11T14:57:25.569Z"
+      },
+      "room": "D07",
+      "location": "12 Nguyễn Văn Bảo Phường 4",
+      "lecturer": "Hoàng Văn E",
+      "classType": "PRACTICE"
+    }
+  ]
+},
+{
+  "_id": {
+    "$oid": "6628da544cec37c20d968126"
+  },
+  "classId": "420300090824104",
+  "schedules": [
+    {
+      "dayOfWeek": 0,
+      "timeSlot": "4-6",
+      "startDate": {
+        "$date": "2023-12-21T16:57:19.023Z"
+      },
+      "endDate": {
+        "$date": "2024-04-10T05:57:56.314Z"
+      },
+      "room": "A01",
+      "location": "53 Phạm Văn Chiêu, Phường 9",
+      "lecturer": "Nguyễn Văn A",
+      "classType": "PRACTICE"
+    }
+  ]
+},
+{
+  "_id": {
+    "$oid": "6628da544cec37c20d968127"
+  },
+  "classId": "420300319424101",
+  "schedules": [
+    {
+      "dayOfWeek": 5,
+      "timeSlot": "1-3",
+      "startDate": {
+        "$date": "2023-12-31T14:00:38.732Z"
+      },
+      "endDate": {
+        "$date": "2024-04-23T13:13:50.100Z"
+      },
+      "room": "A08",
+      "location": "12 Nguyễn Văn Bảo Phường 4",
+      "lecturer": "Trần Thị B",
+      "classType": "PRACTICE"
+    },
+    {
+      "dayOfWeek": 1,
+      "timeSlot": "1-3",
+      "startDate": {
+        "$date": "2023-12-15T01:35:55.045Z"
+      },
+      "endDate": {
+        "$date": "2024-05-01T13:12:18.711Z"
+      },
+      "room": "A02",
+      "location": "53 Phạm Văn Chiêu, Phường 9",
+      "lecturer": "Hoàng Văn E",
+      "classType": "PRACTICE"
+    }
+  ]
+},
+{
+  "_id": {
+    "$oid": "6628da544cec37c20d968128"
+  },
+  "classId": "420300319424102",
+  "schedules": [
+    {
+      "dayOfWeek": 5,
+      "timeSlot": "4-6",
+      "startDate": {
+        "$date": "2023-12-18T10:56:43.304Z"
+      },
+      "endDate": {
+        "$date": "2024-04-26T19:33:04.672Z"
+      },
+      "room": "B01",
+      "location": "12 Nguyễn Văn Bảo Phường 4",
+      "lecturer": "Trần Thị B",
+      "classType": "THEORY"
+    },
+    {
+      "dayOfWeek": 2,
+      "timeSlot": "7-9",
+      "startDate": {
+        "$date": "2024-01-06T10:22:12.746Z"
+      },
+      "endDate": {
+        "$date": "2024-04-10T13:25:51.911Z"
+      },
+      "room": "A06",
+      "location": "53 Phạm Văn Chiêu, Phường 9",
+      "lecturer": "Phạm Thị D",
+      "classType": "THEORY"
+    }
+  ]
+},
+{
+  "_id": {
+    "$oid": "6628da544cec37c20d968129"
+  },
+  "classId": "420300319424103",
+  "schedules": [
+    {
+      "dayOfWeek": 6,
+      "timeSlot": "10-12",
+      "startDate": {
+        "$date": "2024-01-03T20:16:05.657Z"
+      },
+      "endDate": {
+        "$date": "2024-04-05T14:54:39.967Z"
+      },
+      "room": "A03",
+      "location": "53 Phạm Văn Chiêu, Phường 9",
+      "lecturer": "Trần Thị B",
+      "classType": "THEORY"
+    }
+  ]
+},
+{
+  "_id": {
+    "$oid": "6628da544cec37c20d96812a"
+  },
+  "classId": "420300319424104",
+  "schedules": [
+    {
+      "dayOfWeek": 3,
+      "timeSlot": "4-6",
+      "startDate": {
+        "$date": "2023-12-28T12:47:28.340Z"
+      },
+      "endDate": {
+        "$date": "2024-04-12T10:57:20.145Z"
+      },
+      "room": "A03",
+      "location": "12 Nguyễn Văn Bảo Phường 4",
+      "lecturer": "Phạm Thị D",
+      "classType": "THEORY"
+    },
+    {
+      "dayOfWeek": 4,
+      "timeSlot": "1-3",
+      "startDate": {
+        "$date": "2023-12-31T16:51:39.316Z"
+      },
+      "endDate": {
+        "$date": "2024-04-14T12:57:53.870Z"
+      },
+      "room": "A07",
+      "location": "12 Nguyễn Văn Bảo Phường 4",
+      "lecturer": "Phạm Thị D",
+      "classType": "THEORY"
+    }
+  ]
+},
+{
+  "_id": {
+    "$oid": "6628da544cec37c20d96812b"
+  },
+  "classId": "420300319524101",
+  "schedules": [
+    {
+      "dayOfWeek": 3,
+      "timeSlot": "10-12",
+      "startDate": {
+        "$date": "2023-12-12T03:23:06.548Z"
+      },
+      "endDate": {
+        "$date": "2024-04-16T01:44:49.239Z"
+      },
+      "room": "C04",
+      "location": "12 Nguyễn Văn Bảo Phường 4",
+      "lecturer": "Trần Thị B",
+      "classType": "PRACTICE"
+    }
+  ]
+},
+{
+  "_id": {
+    "$oid": "6628da544cec37c20d96812c"
+  },
+  "classId": "420300319524102",
+  "schedules": [
+    {
+      "dayOfWeek": 5,
+      "timeSlot": "10-12",
+      "startDate": {
+        "$date": "2023-12-19T03:42:20.168Z"
+      },
+      "endDate": {
+        "$date": "2024-04-18T20:12:50.321Z"
+      },
+      "room": "A03",
+      "location": "12 Nguyễn Văn Bảo Phường 4",
+      "lecturer": "Nguyễn Văn A",
+      "classType": "THEORY"
+    }
+  ]
+},
+{
+  "_id": {
+    "$oid": "6628da544cec37c20d96812d"
+  },
+  "classId": "420300319824101",
+  "schedules": [
+    {
+      "dayOfWeek": 5,
+      "timeSlot": "4-6",
+      "startDate": {
+        "$date": "2023-12-29T13:09:56.219Z"
+      },
+      "endDate": {
+        "$date": "2024-04-06T00:17:56.613Z"
+      },
+      "room": "C09",
+      "location": "12 Nguyễn Văn Bảo Phường 4",
+      "lecturer": "Phạm Thị D",
+      "classType": "PRACTICE"
+    }
+  ]
+},
+{
+  "_id": {
+    "$oid": "6628da544cec37c20d96812e"
+  },
+  "classId": "420300319824102",
+  "schedules": [
+    {
+      "dayOfWeek": 6,
+      "timeSlot": "1-3",
+      "startDate": {
+        "$date": "2023-12-30T08:40:38.403Z"
+      },
+      "endDate": {
+        "$date": "2024-04-07T11:49:35.590Z"
+      },
+      "room": "C04",
+      "location": "53 Phạm Văn Chiêu, Phường 9",
+      "lecturer": "Phạm Thị D",
+      "classType": "THEORY"
+    }
+  ]
+},
+{
+  "_id": {
+    "$oid": "6628da544cec37c20d96812f"
+  },
+  "classId": "420300319824103",
+  "schedules": [
+    {
+      "dayOfWeek": 4,
+      "timeSlot": "7-9",
+      "startDate": {
+        "$date": "2024-01-01T23:43:33.462Z"
+      },
+      "endDate": {
+        "$date": "2024-04-29T21:06:48.662Z"
+      },
+      "room": "A09",
+      "location": "53 Phạm Văn Chiêu, Phường 9",
+      "lecturer": "Phạm Thị D",
+      "classType": "PRACTICE"
+    }
+  ]
+},
+{
+  "_id": {
+    "$oid": "6628da544cec37c20d968130"
+  },
+  "classId": "420300319824104",
+  "schedules": [
+    {
+      "dayOfWeek": 1,
+      "timeSlot": "13-15",
+      "startDate": {
+        "$date": "2023-12-24T01:58:56.615Z"
+      },
+      "endDate": {
+        "$date": "2024-04-25T11:40:59.833Z"
+      },
+      "room": "C03",
+      "location": "53 Phạm Văn Chiêu, Phường 9",
+      "lecturer": "Trần Thị B",
+      "classType": "PRACTICE"
+    }
+  ]
+},
+{
+  "_id": {
+    "$oid": "6628da544cec37c20d968131"
+  },
+  "classId": "420300320324101",
+  "schedules": [
+    {
+      "dayOfWeek": 2,
+      "timeSlot": "7-9",
+      "startDate": {
+        "$date": "2023-12-20T20:44:32.191Z"
+      },
+      "endDate": {
+        "$date": "2024-04-13T03:06:58.098Z"
+      },
+      "room": "A02",
+      "location": "53 Phạm Văn Chiêu, Phường 9",
+      "lecturer": "Lê Văn C",
+      "classType": "THEORY"
+    }
+  ]
+},
+{
+  "_id": {
+    "$oid": "6628da544cec37c20d968132"
+  },
+  "classId": "420300320324102",
+  "schedules": [
+    {
+      "dayOfWeek": 2,
+      "timeSlot": "13-15",
+      "startDate": {
+        "$date": "2023-12-28T23:03:48.129Z"
+      },
+      "endDate": {
+        "$date": "2024-04-20T14:48:14.099Z"
+      },
+      "room": "A09",
+      "location": "12 Nguyễn Văn Bảo Phường 4",
+      "lecturer": "Lê Văn C",
+      "classType": "THEORY"
+    },
+    {
+      "dayOfWeek": 5,
+      "timeSlot": "7-9",
+      "startDate": {
+        "$date": "2023-12-22T02:09:40.034Z"
+      },
+      "endDate": {
+        "$date": "2024-04-12T06:39:38.072Z"
+      },
+      "room": "A01",
+      "location": "12 Nguyễn Văn Bảo Phường 4",
+      "lecturer": "Lê Văn C",
+      "classType": "PRACTICE"
+    }
+  ]
+},
+{
+  "_id": {
+    "$oid": "6628da544cec37c20d968133"
+  },
+  "classId": "420300324524101",
+  "schedules": [
+    {
+      "dayOfWeek": 5,
+      "timeSlot": "1-3",
+      "startDate": {
+        "$date": "2024-01-05T18:17:11.589Z"
+      },
+      "endDate": {
+        "$date": "2024-04-25T23:31:02.888Z"
+      },
+      "room": "D05",
+      "location": "12 Nguyễn Văn Bảo Phường 4",
+      "lecturer": "Hoàng Văn E",
+      "classType": "PRACTICE"
+    },
+    {
+      "dayOfWeek": 0,
+      "timeSlot": "7-9",
+      "startDate": {
+        "$date": "2024-01-04T19:02:17.322Z"
+      },
+      "endDate": {
+        "$date": "2024-04-14T07:58:42.215Z"
+      },
+      "room": "A02",
+      "location": "12 Nguyễn Văn Bảo Phường 4",
+      "lecturer": "Nguyễn Văn A",
+      "classType": "THEORY"
+    }
+  ]
+},
+{
+  "_id": {
+    "$oid": "6628da544cec37c20d968134"
+  },
+  "classId": "420300324524102",
+  "schedules": [
+    {
+      "dayOfWeek": 0,
+      "timeSlot": "4-6",
+      "startDate": {
+        "$date": "2023-12-16T06:27:19.786Z"
+      },
+      "endDate": {
+        "$date": "2024-04-23T05:55:11.480Z"
+      },
+      "room": "A03",
+      "location": "53 Phạm Văn Chiêu, Phường 9",
+      "lecturer": "Trần Thị B",
+      "classType": "THEORY"
+    },
+    {
+      "dayOfWeek": 1,
+      "timeSlot": "1-3",
+      "startDate": {
+        "$date": "2023-12-29T16:19:06.016Z"
+      },
+      "endDate": {
+        "$date": "2024-04-29T19:51:31.480Z"
+      },
+      "room": "B05",
+      "location": "12 Nguyễn Văn Bảo Phường 4",
+      "lecturer": "Hoàng Văn E",
+      "classType": "PRACTICE"
+    }
+  ]
+},
+{
+  "_id": {
+    "$oid": "6628da544cec37c20d968135"
+  },
+  "classId": "420300324524103",
+  "schedules": [
+    {
+      "dayOfWeek": 6,
+      "timeSlot": "7-9",
+      "startDate": {
+        "$date": "2023-12-31T03:04:49.160Z"
+      },
+      "endDate": {
+        "$date": "2024-04-12T16:11:21.123Z"
+      },
+      "room": "C09",
+      "location": "53 Phạm Văn Chiêu, Phường 9",
+      "lecturer": "Nguyễn Văn A",
+      "classType": "PRACTICE"
+    }
+  ]
+},
+{
+  "_id": {
+    "$oid": "6628da544cec37c20d968136"
+  },
+  "classId": "420300324524104",
+  "schedules": [
+    {
+      "dayOfWeek": 5,
+      "timeSlot": "13-15",
+      "startDate": {
+        "$date": "2023-12-27T03:05:44.418Z"
+      },
+      "endDate": {
+        "$date": "2024-04-10T13:03:57.212Z"
+      },
+      "room": "D01",
+      "location": "53 Phạm Văn Chiêu, Phường 9",
+      "lecturer": "Trần Thị B",
+      "classType": "PRACTICE"
+    },
+    {
+      "dayOfWeek": 3,
+      "timeSlot": "7-9",
+      "startDate": {
+        "$date": "2023-12-29T20:18:30.570Z"
+      },
+      "endDate": {
+        "$date": "2024-05-03T20:25:31.812Z"
+      },
+      "room": "B09",
+      "location": "53 Phạm Văn Chiêu, Phường 9",
+      "lecturer": "Nguyễn Văn A",
+      "classType": "PRACTICE"
+    }
+  ]
+},
+{
+  "_id": {
+    "$oid": "6628da544cec37c20d968137"
+  },
+  "classId": "420300332524101",
+  "schedules": [
+    {
+      "dayOfWeek": 2,
+      "timeSlot": "1-3",
+      "startDate": {
+        "$date": "2023-12-24T23:43:30.205Z"
+      },
+      "endDate": {
+        "$date": "2024-04-25T04:50:26.990Z"
+      },
+      "room": "A06",
+      "location": "53 Phạm Văn Chiêu, Phường 9",
+      "lecturer": "Hoàng Văn E",
+      "classType": "PRACTICE"
+    }
+  ]
+},
+{
+  "_id": {
+    "$oid": "6628da544cec37c20d968138"
+  },
+  "classId": "420300332524102",
+  "schedules": [
+    {
+      "dayOfWeek": 1,
+      "timeSlot": "1-3",
+      "startDate": {
+        "$date": "2023-12-28T13:55:37.018Z"
+      },
+      "endDate": {
+        "$date": "2024-04-08T09:33:25.361Z"
+      },
+      "room": "C06",
+      "location": "12 Nguyễn Văn Bảo Phường 4",
+      "lecturer": "Nguyễn Văn A",
+      "classType": "PRACTICE"
+    },
+    {
+      "dayOfWeek": 4,
+      "timeSlot": "1-3",
+      "startDate": {
+        "$date": "2023-12-24T20:27:48.696Z"
+      },
+      "endDate": {
+        "$date": "2024-05-02T17:40:48.647Z"
+      },
+      "room": "D07",
+      "location": "12 Nguyễn Văn Bảo Phường 4",
+      "lecturer": "Lê Văn C",
+      "classType": "THEORY"
+    }
+  ]
+},
+{
+  "_id": {
+    "$oid": "6628da544cec37c20d968139"
+  },
+  "classId": "420300332524103",
+  "schedules": [
+    {
+      "dayOfWeek": 3,
+      "timeSlot": "1-3",
+      "startDate": {
+        "$date": "2023-12-14T02:02:56.394Z"
+      },
+      "endDate": {
+        "$date": "2024-05-03T00:55:39.323Z"
+      },
+      "room": "D08",
+      "location": "53 Phạm Văn Chiêu, Phường 9",
+      "lecturer": "Lê Văn C",
+      "classType": "THEORY"
+    },
+    {
+      "dayOfWeek": 1,
+      "timeSlot": "13-15",
+      "startDate": {
+        "$date": "2023-12-15T05:07:50.064Z"
+      },
+      "endDate": {
+        "$date": "2024-04-14T13:42:07.925Z"
+      },
+      "room": "D03",
+      "location": "53 Phạm Văn Chiêu, Phường 9",
+      "lecturer": "Phạm Thị D",
+      "classType": "THEORY"
+    }
+  ]
+},
+{
+  "_id": {
+    "$oid": "6628da544cec37c20d96813a"
+  },
+  "classId": "420300332524104",
+  "schedules": [
+    {
+      "dayOfWeek": 4,
+      "timeSlot": "1-3",
+      "startDate": {
+        "$date": "2024-01-05T20:05:01.585Z"
+      },
+      "endDate": {
+        "$date": "2024-04-29T14:13:47.717Z"
+      },
+      "room": "C04",
+      "location": "12 Nguyễn Văn Bảo Phường 4",
+      "lecturer": "Nguyễn Văn A",
+      "classType": "PRACTICE"
+    }
+  ]
+},
+{
+  "_id": {
+    "$oid": "6628da544cec37c20d96813b"
+  },
+  "classId": "420300350124101",
+  "schedules": [
+    {
+      "dayOfWeek": 3,
+      "timeSlot": "13-15",
+      "startDate": {
+        "$date": "2023-12-19T10:50:25.958Z"
+      },
+      "endDate": {
+        "$date": "2024-04-25T11:29:30.707Z"
+      },
+      "room": "D08",
+      "location": "53 Phạm Văn Chiêu, Phường 9",
+      "lecturer": "Lê Văn C",
+      "classType": "PRACTICE"
+    }
+  ]
+},
+{
+  "_id": {
+    "$oid": "6628da544cec37c20d96813c"
+  },
+  "classId": "420300350124102",
+  "schedules": [
+    {
+      "dayOfWeek": 3,
+      "timeSlot": "1-3",
+      "startDate": {
+        "$date": "2023-12-22T20:59:13.050Z"
+      },
+      "endDate": {
+        "$date": "2024-04-20T03:19:52.964Z"
+      },
+      "room": "B03",
+      "location": "53 Phạm Văn Chiêu, Phường 9",
+      "lecturer": "Trần Thị B",
+      "classType": "THEORY"
+    },
+    {
+      "dayOfWeek": 2,
+      "timeSlot": "13-15",
+      "startDate": {
+        "$date": "2023-12-28T13:47:44.634Z"
+      },
+      "endDate": {
+        "$date": "2024-04-20T18:33:43.796Z"
+      },
+      "room": "D06",
+      "location": "53 Phạm Văn Chiêu, Phường 9",
+      "lecturer": "Lê Văn C",
+      "classType": "PRACTICE"
+    }
+  ]
+},
+{
+  "_id": {
+    "$oid": "6628da544cec37c20d96813d"
+  },
+  "classId": "420300350124103",
+  "schedules": [
+    {
+      "dayOfWeek": 2,
+      "timeSlot": "7-9",
+      "startDate": {
+        "$date": "2023-12-12T14:02:28.065Z"
+      },
+      "endDate": {
+        "$date": "2024-04-27T11:02:39.732Z"
+      },
+      "room": "C01",
+      "location": "53 Phạm Văn Chiêu, Phường 9",
+      "lecturer": "Hoàng Văn E",
+      "classType": "THEORY"
+    },
+    {
+      "dayOfWeek": 0,
+      "timeSlot": "10-12",
+      "startDate": {
+        "$date": "2023-12-22T07:15:42.935Z"
+      },
+      "endDate": {
+        "$date": "2024-04-27T02:23:14.833Z"
+      },
+      "room": "D09",
+      "location": "53 Phạm Văn Chiêu, Phường 9",
+      "lecturer": "Trần Thị B",
+      "classType": "PRACTICE"
+    }
+  ]
+},
+{
+  "_id": {
+    "$oid": "6628da544cec37c20d96813e"
+  },
+  "classId": "420300350124104",
+  "schedules": [
+    {
+      "dayOfWeek": 1,
+      "timeSlot": "7-9",
+      "startDate": {
+        "$date": "2024-01-03T01:44:29.706Z"
+      },
+      "endDate": {
+        "$date": "2024-04-12T23:47:29.777Z"
+      },
+      "room": "D08",
+      "location": "53 Phạm Văn Chiêu, Phường 9",
+      "lecturer": "Nguyễn Văn A",
+      "classType": "THEORY"
+    },
+    {
+      "dayOfWeek": 5,
+      "timeSlot": "7-9",
+      "startDate": {
+        "$date": "2023-12-27T15:37:11.043Z"
+      },
+      "endDate": {
+        "$date": "2024-04-23T11:24:58.581Z"
+      },
+      "room": "B03",
+      "location": "53 Phạm Văn Chiêu, Phường 9",
+      "lecturer": "Lê Văn C",
+      "classType": "PRACTICE"
+    }
+  ]
+},
+{
+  "_id": {
+    "$oid": "6628da544cec37c20d96813f"
+  },
+  "classId": "420301066524101",
+  "schedules": [
+    {
+      "dayOfWeek": 3,
+      "timeSlot": "7-9",
+      "startDate": {
+        "$date": "2024-01-04T09:21:29.944Z"
+      },
+      "endDate": {
+        "$date": "2024-05-03T22:55:06.859Z"
+      },
+      "room": "D06",
+      "location": "12 Nguyễn Văn Bảo Phường 4",
+      "lecturer": "Hoàng Văn E",
+      "classType": "THEORY"
+    }
+  ]
+},
+{
+  "_id": {
+    "$oid": "6628da544cec37c20d968140"
+  },
+  "classId": "420301066524102",
+  "schedules": [
+    {
+      "dayOfWeek": 2,
+      "timeSlot": "10-12",
+      "startDate": {
+        "$date": "2023-12-17T16:04:32.489Z"
+      },
+      "endDate": {
+        "$date": "2024-04-25T07:59:33.928Z"
+      },
+      "room": "A07",
+      "location": "12 Nguyễn Văn Bảo Phường 4",
+      "lecturer": "Hoàng Văn E",
+      "classType": "THEORY"
+    },
+    {
+      "dayOfWeek": 3,
+      "timeSlot": "10-12",
+      "startDate": {
+        "$date": "2024-01-03T21:51:16.958Z"
+      },
+      "endDate": {
+        "$date": "2024-04-16T10:58:53.534Z"
+      },
+      "room": "A02",
+      "location": "53 Phạm Văn Chiêu, Phường 9",
+      "lecturer": "Trần Thị B",
+      "classType": "THEORY"
+    }
+  ]
+},
+{
+  "_id": {
+    "$oid": "6628da544cec37c20d968141"
+  },
+  "classId": "420301416724101",
+  "schedules": [
+    {
+      "dayOfWeek": 4,
+      "timeSlot": "1-3",
+      "startDate": {
+        "$date": "2024-01-03T21:31:24.926Z"
+      },
+      "endDate": {
+        "$date": "2024-04-24T11:23:12.103Z"
+      },
+      "room": "A04",
+      "location": "12 Nguyễn Văn Bảo Phường 4",
+      "lecturer": "Hoàng Văn E",
+      "classType": "PRACTICE"
+    },
+    {
+      "dayOfWeek": 6,
+      "timeSlot": "7-9",
+      "startDate": {
+        "$date": "2023-12-28T00:50:25.791Z"
+      },
+      "endDate": {
+        "$date": "2024-04-11T23:29:33.257Z"
+      },
+      "room": "D08",
+      "location": "53 Phạm Văn Chiêu, Phường 9",
+      "lecturer": "Lê Văn C",
+      "classType": "THEORY"
+    }
+  ]
+},
+{
+  "_id": {
+    "$oid": "6628da544cec37c20d968142"
+  },
+  "classId": "420301416824101",
+  "schedules": [
+    {
+      "dayOfWeek": 5,
+      "timeSlot": "13-15",
+      "startDate": {
+        "$date": "2023-12-17T06:43:22.055Z"
+      },
+      "endDate": {
+        "$date": "2024-05-01T17:35:40.784Z"
+      },
+      "room": "C07",
+      "location": "12 Nguyễn Văn Bảo Phường 4",
+      "lecturer": "Lê Văn C",
+      "classType": "PRACTICE"
+    }
+  ]
+},
+{
+  "_id": {
+    "$oid": "6628da544cec37c20d968143"
+  },
+  "classId": "420301416824102",
+  "schedules": [
+    {
+      "dayOfWeek": 0,
+      "timeSlot": "4-6",
+      "startDate": {
+        "$date": "2023-12-31T10:55:06.845Z"
+      },
+      "endDate": {
+        "$date": "2024-04-19T02:12:09.094Z"
+      },
+      "room": "B06",
+      "location": "53 Phạm Văn Chiêu, Phường 9",
+      "lecturer": "Lê Văn C",
+      "classType": "PRACTICE"
+    }
+  ]
+},
+{
+  "_id": {
+    "$oid": "6628da544cec37c20d968144"
+  },
+  "classId": "420300143224101",
+  "schedules": [
+    {
+      "dayOfWeek": 0,
+      "timeSlot": "7-9",
+      "startDate": {
+        "$date": "2024-01-01T12:25:40.685Z"
+      },
+      "endDate": {
+        "$date": "2024-04-24T02:14:30.843Z"
+      },
+      "room": "B08",
+      "location": "12 Nguyễn Văn Bảo Phường 4",
+      "lecturer": "Lê Văn C",
+      "classType": "PRACTICE"
+    },
+    {
+      "dayOfWeek": 2,
+      "timeSlot": "1-3",
+      "startDate": {
+        "$date": "2023-12-28T12:08:59.073Z"
+      },
+      "endDate": {
+        "$date": "2024-04-30T03:59:35.699Z"
+      },
+      "room": "A01",
+      "location": "12 Nguyễn Văn Bảo Phường 4",
+      "lecturer": "Nguyễn Văn A",
+      "classType": "PRACTICE"
+    }
+  ]
+},
+{
+  "_id": {
+    "$oid": "6628da544cec37c20d968145"
+  },
+  "classId": "420300242224101",
+  "schedules": [
+    {
+      "dayOfWeek": 1,
+      "timeSlot": "13-15",
+      "startDate": {
+        "$date": "2023-12-19T04:54:56.139Z"
+      },
+      "endDate": {
+        "$date": "2024-04-20T16:55:22.939Z"
+      },
+      "room": "C09",
+      "location": "53 Phạm Văn Chiêu, Phường 9",
+      "lecturer": "Lê Văn C",
+      "classType": "PRACTICE"
+    },
+    {
+      "dayOfWeek": 5,
+      "timeSlot": "13-15",
+      "startDate": {
+        "$date": "2024-01-05T22:34:38.752Z"
+      },
+      "endDate": {
+        "$date": "2024-04-16T15:23:48.985Z"
+      },
+      "room": "C10",
+      "location": "12 Nguyễn Văn Bảo Phường 4",
+      "lecturer": "Trần Thị B",
+      "classType": "THEORY"
+    }
+  ]
+},
+{
+  "_id": {
+    "$oid": "6628da544cec37c20d968146"
+  },
+  "classId": "420300242224102",
+  "schedules": [
+    {
+      "dayOfWeek": 2,
+      "timeSlot": "1-3",
+      "startDate": {
+        "$date": "2023-12-18T01:52:06.307Z"
+      },
+      "endDate": {
+        "$date": "2024-04-18T19:16:58.431Z"
+      },
+      "room": "D10",
+      "location": "53 Phạm Văn Chiêu, Phường 9",
+      "lecturer": "Trần Thị B",
+      "classType": "THEORY"
+    }
+  ]
+},
+{
+  "_id": {
+    "$oid": "6628da544cec37c20d968147"
+  },
+  "classId": "420300242224103",
+  "schedules": [
+    {
+      "dayOfWeek": 3,
+      "timeSlot": "4-6",
+      "startDate": {
+        "$date": "2023-12-24T07:04:16.605Z"
+      },
+      "endDate": {
+        "$date": "2024-04-26T09:25:56.629Z"
+      },
+      "room": "C10",
+      "location": "53 Phạm Văn Chiêu, Phường 9",
+      "lecturer": "Hoàng Văn E",
+      "classType": "PRACTICE"
+    },
+    {
+      "dayOfWeek": 1,
+      "timeSlot": "4-6",
+      "startDate": {
+        "$date": "2023-12-20T17:24:13.199Z"
+      },
+      "endDate": {
+        "$date": "2024-05-08T06:31:09.315Z"
+      },
+      "room": "A01",
+      "location": "12 Nguyễn Văn Bảo Phường 4",
+      "lecturer": "Lê Văn C",
+      "classType": "PRACTICE"
+    }
+  ]
+},
+{
+  "_id": {
+    "$oid": "6628da544cec37c20d968148"
+  },
+  "classId": "420300242224104",
+  "schedules": [
+    {
+      "dayOfWeek": 1,
+      "timeSlot": "13-15",
+      "startDate": {
+        "$date": "2024-01-06T23:00:30.170Z"
+      },
+      "endDate": {
+        "$date": "2024-04-06T14:54:46.492Z"
+      },
+      "room": "A02",
+      "location": "12 Nguyễn Văn Bảo Phường 4",
+      "lecturer": "Hoàng Văn E",
+      "classType": "PRACTICE"
+    }
+  ]
+},
+{
+  "_id": {
+    "$oid": "6628da544cec37c20d968149"
+  },
+  "classId": "420300359224101",
+  "schedules": [
+    {
+      "dayOfWeek": 5,
+      "timeSlot": "1-3",
+      "startDate": {
+        "$date": "2023-12-23T04:12:10.474Z"
+      },
+      "endDate": {
+        "$date": "2024-04-24T18:52:18.539Z"
+      },
+      "room": "D01",
+      "location": "12 Nguyễn Văn Bảo Phường 4",
+      "lecturer": "Hoàng Văn E",
+      "classType": "THEORY"
+    },
+    {
+      "dayOfWeek": 4,
+      "timeSlot": "13-15",
+      "startDate": {
+        "$date": "2024-01-06T13:38:24.520Z"
+      },
+      "endDate": {
+        "$date": "2024-04-26T21:00:25.326Z"
+      },
+      "room": "B02",
+      "location": "12 Nguyễn Văn Bảo Phường 4",
+      "lecturer": "Lê Văn C",
+      "classType": "THEORY"
+    }
+  ]
+},
+{
+  "_id": {
+    "$oid": "6628da544cec37c20d96814a"
+  },
+  "classId": "420300359224102",
+  "schedules": [
+    {
+      "dayOfWeek": 0,
+      "timeSlot": "10-12",
+      "startDate": {
+        "$date": "2023-12-23T08:32:45.871Z"
+      },
+      "endDate": {
+        "$date": "2024-04-16T16:57:12.417Z"
+      },
+      "room": "C10",
+      "location": "12 Nguyễn Văn Bảo Phường 4",
+      "lecturer": "Trần Thị B",
+      "classType": "THEORY"
+    }
+  ]
+},
+{
+  "_id": {
+    "$oid": "6628da544cec37c20d96814b"
+  },
+  "classId": "420300362124101",
+  "schedules": [
+    {
+      "dayOfWeek": 0,
+      "timeSlot": "13-15",
+      "startDate": {
+        "$date": "2023-12-17T01:38:01.480Z"
+      },
+      "endDate": {
+        "$date": "2024-04-14T00:51:57.361Z"
+      },
+      "room": "D01",
+      "location": "12 Nguyễn Văn Bảo Phường 4",
+      "lecturer": "Phạm Thị D",
+      "classType": "PRACTICE"
+    },
+    {
+      "dayOfWeek": 6,
+      "timeSlot": "1-3",
+      "startDate": {
+        "$date": "2023-12-25T08:39:11.349Z"
+      },
+      "endDate": {
+        "$date": "2024-05-04T14:41:35.628Z"
+      },
+      "room": "A09",
+      "location": "53 Phạm Văn Chiêu, Phường 9",
+      "lecturer": "Trần Thị B",
+      "classType": "THEORY"
+    }
+  ]
+},
+{
+  "_id": {
+    "$oid": "6628da544cec37c20d96814c"
+  },
+  "classId": "420300377424101",
+  "schedules": [
+    {
+      "dayOfWeek": 6,
+      "timeSlot": "4-6",
+      "startDate": {
+        "$date": "2023-12-15T01:19:45.201Z"
+      },
+      "endDate": {
+        "$date": "2024-04-29T16:00:54.370Z"
+      },
+      "room": "B02",
+      "location": "53 Phạm Văn Chiêu, Phường 9",
+      "lecturer": "Trần Thị B",
+      "classType": "THEORY"
+    },
+    {
+      "dayOfWeek": 5,
+      "timeSlot": "10-12",
+      "startDate": {
+        "$date": "2023-12-20T08:24:59.218Z"
+      },
+      "endDate": {
+        "$date": "2024-05-07T16:52:02.288Z"
+      },
+      "room": "B09",
+      "location": "12 Nguyễn Văn Bảo Phường 4",
+      "lecturer": "Trần Thị B",
+      "classType": "PRACTICE"
+    }
+  ]
+},
+{
+  "_id": {
+    "$oid": "6628da544cec37c20d96814d"
+  },
+  "classId": "420300414724101",
+  "schedules": [
+    {
+      "dayOfWeek": 0,
+      "timeSlot": "1-3",
+      "startDate": {
+        "$date": "2023-12-16T06:40:53.914Z"
+      },
+      "endDate": {
+        "$date": "2024-04-26T09:29:53.218Z"
+      },
+      "room": "D03",
+      "location": "53 Phạm Văn Chiêu, Phường 9",
+      "lecturer": "Lê Văn C",
+      "classType": "PRACTICE"
+    }
+  ]
+},
+{
+  "_id": {
+    "$oid": "6628da544cec37c20d96814e"
+  },
+  "classId": "420300414724102",
+  "schedules": [
+    {
+      "dayOfWeek": 4,
+      "timeSlot": "10-12",
+      "startDate": {
+        "$date": "2023-12-21T01:33:43.822Z"
+      },
+      "endDate": {
+        "$date": "2024-05-05T08:49:31.166Z"
+      },
+      "room": "B02",
+      "location": "12 Nguyễn Văn Bảo Phường 4",
+      "lecturer": "Trần Thị B",
+      "classType": "THEORY"
+    },
+    {
+      "dayOfWeek": 3,
+      "timeSlot": "13-15",
+      "startDate": {
+        "$date": "2024-01-02T14:29:06.011Z"
+      },
+      "endDate": {
+        "$date": "2024-04-25T22:53:48.472Z"
+      },
+      "room": "D05",
+      "location": "53 Phạm Văn Chiêu, Phường 9",
+      "lecturer": "Trần Thị B",
+      "classType": "THEORY"
+    }
+  ]
+},
+{
+  "_id": {
+    "$oid": "6628da544cec37c20d96814f"
+  },
+  "classId": "420300414724103",
+  "schedules": [
+    {
+      "dayOfWeek": 3,
+      "timeSlot": "13-15",
+      "startDate": {
+        "$date": "2023-12-19T20:25:17.628Z"
+      },
+      "endDate": {
+        "$date": "2024-04-28T07:36:46.161Z"
+      },
+      "room": "D03",
+      "location": "53 Phạm Văn Chiêu, Phường 9",
+      "lecturer": "Hoàng Văn E",
+      "classType": "THEORY"
+    },
+    {
+      "dayOfWeek": 6,
+      "timeSlot": "1-3",
+      "startDate": {
+        "$date": "2023-12-16T03:11:16.364Z"
+      },
+      "endDate": {
+        "$date": "2024-04-30T01:24:42.913Z"
+      },
+      "room": "A09",
+      "location": "53 Phạm Văn Chiêu, Phường 9",
+      "lecturer": "Hoàng Văn E",
+      "classType": "PRACTICE"
+    }
+  ]
+},
+{
+  "_id": {
+    "$oid": "6628da544cec37c20d968150"
+  },
+  "classId": "420300414724104",
+  "schedules": [
+    {
+      "dayOfWeek": 2,
+      "timeSlot": "1-3",
+      "startDate": {
+        "$date": "2023-12-20T04:34:01.442Z"
+      },
+      "endDate": {
+        "$date": "2024-04-29T09:45:46.805Z"
+      },
+      "room": "A05",
+      "location": "12 Nguyễn Văn Bảo Phường 4",
+      "lecturer": "Phạm Thị D",
+      "classType": "PRACTICE"
+    },
+    {
+      "dayOfWeek": 0,
+      "timeSlot": "7-9",
+      "startDate": {
+        "$date": "2023-12-20T07:14:12.265Z"
+      },
+      "endDate": {
+        "$date": "2024-04-28T11:17:47.467Z"
+      },
+      "room": "D02",
+      "location": "12 Nguyễn Văn Bảo Phường 4",
+      "lecturer": "Lê Văn C",
+      "classType": "THEORY"
+    }
+  ]
+},
+{
+  "_id": {
+    "$oid": "6628da544cec37c20d968151"
+  },
+  "classId": "420300432324101",
+  "schedules": [
+    {
+      "dayOfWeek": 3,
+      "timeSlot": "10-12",
+      "startDate": {
+        "$date": "2023-12-13T00:15:34.634Z"
+      },
+      "endDate": {
+        "$date": "2024-05-02T04:49:25.598Z"
+      },
+      "room": "A04",
+      "location": "12 Nguyễn Văn Bảo Phường 4",
+      "lecturer": "Trần Thị B",
+      "classType": "THEORY"
+    }
+  ]
+},
+{
+  "_id": {
+    "$oid": "6628da544cec37c20d968152"
+  },
+  "classId": "420300432324102",
+  "schedules": [
+    {
+      "dayOfWeek": 6,
+      "timeSlot": "4-6",
+      "startDate": {
+        "$date": "2024-01-04T17:58:33.900Z"
+      },
+      "endDate": {
+        "$date": "2024-04-16T13:20:02.196Z"
+      },
+      "room": "B07",
+      "location": "53 Phạm Văn Chiêu, Phường 9",
+      "lecturer": "Trần Thị B",
+      "classType": "PRACTICE"
+    },
+    {
+      "dayOfWeek": 1,
+      "timeSlot": "1-3",
+      "startDate": {
+        "$date": "2023-12-22T09:53:00.039Z"
+      },
+      "endDate": {
+        "$date": "2024-04-11T15:19:05.473Z"
+      },
+      "room": "D10",
+      "location": "53 Phạm Văn Chiêu, Phường 9",
+      "lecturer": "Trần Thị B",
+      "classType": "THEORY"
+    }
+  ]
+},
+{
+  "_id": {
+    "$oid": "6628da544cec37c20d968153"
+  },
+  "classId": "420300432324103",
+  "schedules": [
+    {
+      "dayOfWeek": 0,
+      "timeSlot": "13-15",
+      "startDate": {
+        "$date": "2023-12-29T11:09:52.815Z"
+      },
+      "endDate": {
+        "$date": "2024-05-03T11:25:11.123Z"
+      },
+      "room": "A04",
+      "location": "53 Phạm Văn Chiêu, Phường 9",
+      "lecturer": "Lê Văn C",
+      "classType": "PRACTICE"
+    },
+    {
+      "dayOfWeek": 4,
+      "timeSlot": "4-6",
+      "startDate": {
+        "$date": "2023-12-14T12:50:10.234Z"
+      },
+      "endDate": {
+        "$date": "2024-04-11T12:50:06.564Z"
+      },
+      "room": "B09",
+      "location": "12 Nguyễn Văn Bảo Phường 4",
+      "lecturer": "Trần Thị B",
+      "classType": "PRACTICE"
+    }
+  ]
+},
+{
+  "_id": {
+    "$oid": "6628da544cec37c20d968154"
+  },
+  "classId": "420300432324104",
+  "schedules": [
+    {
+      "dayOfWeek": 3,
+      "timeSlot": "13-15",
+      "startDate": {
+        "$date": "2024-01-01T03:21:24.830Z"
+      },
+      "endDate": {
+        "$date": "2024-04-21T03:29:17.779Z"
+      },
+      "room": "D06",
+      "location": "12 Nguyễn Văn Bảo Phường 4",
+      "lecturer": "Nguyễn Văn A",
+      "classType": "PRACTICE"
+    },
+    {
+      "dayOfWeek": 3,
+      "timeSlot": "7-9",
+      "startDate": {
+        "$date": "2023-12-12T01:48:23.021Z"
+      },
+      "endDate": {
+        "$date": "2024-04-28T08:13:44.648Z"
+      },
+      "room": "B02",
+      "location": "53 Phạm Văn Chiêu, Phường 9",
+      "lecturer": "Hoàng Văn E",
+      "classType": "THEORY"
+    }
+  ]
+},
+{
+  "_id": {
+    "$oid": "6628da544cec37c20d968155"
+  },
+  "classId": "420301416924101",
+  "schedules": [
+    {
+      "dayOfWeek": 2,
+      "timeSlot": "13-15",
+      "startDate": {
+        "$date": "2023-12-13T00:41:15.230Z"
+      },
+      "endDate": {
+        "$date": "2024-04-23T16:34:25.803Z"
+      },
+      "room": "C09",
+      "location": "12 Nguyễn Văn Bảo Phường 4",
+      "lecturer": "Hoàng Văn E",
+      "classType": "PRACTICE"
+    }
+  ]
+},
+{
+  "_id": {
+    "$oid": "6628da544cec37c20d968156"
+  },
+  "classId": "420301416924102",
+  "schedules": [
+    {
+      "dayOfWeek": 3,
+      "timeSlot": "1-3",
+      "startDate": {
+        "$date": "2024-01-05T07:03:23.651Z"
+      },
+      "endDate": {
+        "$date": "2024-05-04T11:30:34.374Z"
+      },
+      "room": "A10",
+      "location": "12 Nguyễn Văn Bảo Phường 4",
+      "lecturer": "Nguyễn Văn A",
+      "classType": "PRACTICE"
+    },
+    {
+      "dayOfWeek": 1,
+      "timeSlot": "10-12",
+      "startDate": {
+        "$date": "2023-12-27T16:58:33.535Z"
+      },
+      "endDate": {
+        "$date": "2024-04-27T03:10:19.118Z"
+      },
+      "room": "C03",
+      "location": "53 Phạm Văn Chiêu, Phường 9",
+      "lecturer": "Lê Văn C",
+      "classType": "THEORY"
+    }
+  ]
+},
+{
+  "_id": {
+    "$oid": "6628da544cec37c20d968157"
+  },
+  "classId": "420301416924103",
+  "schedules": [
+    {
+      "dayOfWeek": 5,
+      "timeSlot": "1-3",
+      "startDate": {
+        "$date": "2023-12-14T01:34:59.428Z"
+      },
+      "endDate": {
+        "$date": "2024-04-07T23:43:29.052Z"
+      },
+      "room": "D07",
+      "location": "12 Nguyễn Văn Bảo Phường 4",
+      "lecturer": "Lê Văn C",
+      "classType": "PRACTICE"
+    },
+    {
+      "dayOfWeek": 0,
+      "timeSlot": "7-9",
+      "startDate": {
+        "$date": "2023-12-13T08:34:58.772Z"
+      },
+      "endDate": {
+        "$date": "2024-04-19T13:54:10.051Z"
+      },
+      "room": "B01",
+      "location": "53 Phạm Văn Chiêu, Phường 9",
+      "lecturer": "Phạm Thị D",
+      "classType": "PRACTICE"
+    }
+  ]
+},
+{
+  "_id": {
+    "$oid": "6628da544cec37c20d968158"
+  },
+  "classId": "420300309824101",
+  "schedules": [
+    {
+      "dayOfWeek": 5,
+      "timeSlot": "1-3",
+      "startDate": {
+        "$date": "2023-12-24T08:56:18.302Z"
+      },
+      "endDate": {
+        "$date": "2024-04-30T18:40:19.884Z"
+      },
+      "room": "D04",
+      "location": "12 Nguyễn Văn Bảo Phường 4",
+      "lecturer": "Hoàng Văn E",
+      "classType": "PRACTICE"
+    },
+    {
+      "dayOfWeek": 0,
+      "timeSlot": "13-15",
+      "startDate": {
+        "$date": "2023-12-20T11:04:00.923Z"
+      },
+      "endDate": {
+        "$date": "2024-04-14T04:52:57.821Z"
+      },
+      "room": "A03",
+      "location": "53 Phạm Văn Chiêu, Phường 9",
+      "lecturer": "Nguyễn Văn A",
+      "classType": "THEORY"
+    }
+  ]
+},
+{
+  "_id": {
+    "$oid": "6628da544cec37c20d968159"
+  },
+  "classId": "420300309824102",
+  "schedules": [
+    {
+      "dayOfWeek": 0,
+      "timeSlot": "13-15",
+      "startDate": {
+        "$date": "2023-12-31T18:56:39.902Z"
+      },
+      "endDate": {
+        "$date": "2024-04-13T02:11:30.690Z"
+      },
+      "room": "A09",
+      "location": "53 Phạm Văn Chiêu, Phường 9",
+      "lecturer": "Lê Văn C",
+      "classType": "THEORY"
+    }
+  ]
+},
+{
+  "_id": {
+    "$oid": "6628da544cec37c20d96815a"
+  },
+  "classId": "420301417024101",
+  "schedules": [
+    {
+      "dayOfWeek": 4,
+      "timeSlot": "7-9",
+      "startDate": {
+        "$date": "2023-12-29T14:07:13.747Z"
+      },
+      "endDate": {
+        "$date": "2024-04-13T01:01:07.286Z"
+      },
+      "room": "D06",
+      "location": "53 Phạm Văn Chiêu, Phường 9",
+      "lecturer": "Nguyễn Văn A",
+      "classType": "PRACTICE"
+    }
+  ]
+},
+{
+  "_id": {
+    "$oid": "6628da544cec37c20d96815b"
+  },
+  "classId": "420301417024102",
+  "schedules": [
+    {
+      "dayOfWeek": 4,
+      "timeSlot": "4-6",
+      "startDate": {
+        "$date": "2023-12-14T04:35:36.272Z"
+      },
+      "endDate": {
+        "$date": "2024-05-08T00:51:24.055Z"
+      },
+      "room": "A02",
+      "location": "12 Nguyễn Văn Bảo Phường 4",
+      "lecturer": "Lê Văn C",
+      "classType": "THEORY"
+    }
+  ]
+},
+{
+  "_id": {
+    "$oid": "6628da544cec37c20d96815c"
+  },
+  "classId": "420301417024103",
+  "schedules": [
+    {
+      "dayOfWeek": 1,
+      "timeSlot": "7-9",
+      "startDate": {
+        "$date": "2023-12-16T15:29:09.876Z"
+      },
+      "endDate": {
+        "$date": "2024-04-08T05:07:29.954Z"
+      },
+      "room": "A10",
+      "location": "12 Nguyễn Văn Bảo Phường 4",
+      "lecturer": "Phạm Thị D",
+      "classType": "PRACTICE"
+    }
+  ]
+},
+{
+  "_id": {
+    "$oid": "6628da864cec37c20d968160"
+  },
+  "classId": "420300094124201",
+  "schedules": [
+    {
+      "dayOfWeek": 5,
+      "timeSlot": "4-6",
+      "startDate": {
+        "$date": "2024-01-04T22:36:39.728Z"
+      },
+      "endDate": {
+        "$date": "2024-04-10T17:00:15.921Z"
+      },
+      "room": "C04",
+      "location": "12 Nguyễn Văn Bảo Phường 4",
+      "lecturer": "Nguyễn Văn A",
+      "classType": "PRACTICE"
+    },
+    {
+      "dayOfWeek": 1,
+      "timeSlot": "4-6",
+      "startDate": {
+        "$date": "2023-12-16T19:59:59.241Z"
+      },
+      "endDate": {
+        "$date": "2024-05-06T10:37:57.443Z"
+      },
+      "room": "A10",
+      "location": "12 Nguyễn Văn Bảo Phường 4",
+      "lecturer": "Lê Văn C",
+      "classType": "PRACTICE"
+    }
+  ]
+},
+{
+  "_id": {
+    "$oid": "6628da864cec37c20d968161"
+  },
+  "classId": "420300213724201",
+  "schedules": [
+    {
+      "dayOfWeek": 4,
+      "timeSlot": "13-15",
+      "startDate": {
+        "$date": "2024-01-05T18:06:31.679Z"
+      },
+      "endDate": {
+        "$date": "2024-04-27T07:08:20.922Z"
+      },
+      "room": "A03",
+      "location": "53 Phạm Văn Chiêu, Phường 9",
+      "lecturer": "Phạm Thị D",
+      "classType": "THEORY"
+    },
+    {
+      "dayOfWeek": 2,
+      "timeSlot": "10-12",
+      "startDate": {
+        "$date": "2023-12-22T05:32:10.203Z"
+      },
+      "endDate": {
+        "$date": "2024-04-25T18:14:19.939Z"
+      },
+      "room": "D09",
+      "location": "12 Nguyễn Văn Bảo Phường 4",
+      "lecturer": "Lê Văn C",
+      "classType": "PRACTICE"
+    }
+  ]
+},
+{
+  "_id": {
+    "$oid": "6628da864cec37c20d968162"
+  },
+  "classId": "420300213724202",
+  "schedules": [
+    {
+      "dayOfWeek": 3,
+      "timeSlot": "7-9",
+      "startDate": {
+        "$date": "2024-01-01T18:04:45.739Z"
+      },
+      "endDate": {
+        "$date": "2024-05-02T15:53:50.739Z"
+      },
+      "room": "C03",
+      "location": "53 Phạm Văn Chiêu, Phường 9",
+      "lecturer": "Hoàng Văn E",
+      "classType": "PRACTICE"
+    }
+  ]
+},
+{
+  "_id": {
+    "$oid": "6628da864cec37c20d968163"
+  },
+  "classId": "420300213724203",
+  "schedules": [
+    {
+      "dayOfWeek": 6,
+      "timeSlot": "7-9",
+      "startDate": {
+        "$date": "2023-12-12T20:18:21.292Z"
+      },
+      "endDate": {
+        "$date": "2024-04-28T03:09:01.921Z"
+      },
+      "room": "B10",
+      "location": "12 Nguyễn Văn Bảo Phường 4",
+      "lecturer": "Nguyễn Văn A",
+      "classType": "THEORY"
+    },
+    {
+      "dayOfWeek": 0,
+      "timeSlot": "7-9",
+      "startDate": {
+        "$date": "2023-12-20T00:07:18.277Z"
+      },
+      "endDate": {
+        "$date": "2024-05-05T20:23:23.908Z"
+      },
+      "room": "D08",
+      "location": "53 Phạm Văn Chiêu, Phường 9",
+      "lecturer": "Hoàng Văn E",
+      "classType": "THEORY"
+    }
+  ]
+},
+{
+  "_id": {
+    "$oid": "6628da864cec37c20d968164"
+  },
+  "classId": "420300319324201",
+  "schedules": [
+    {
+      "dayOfWeek": 6,
+      "timeSlot": "13-15",
+      "startDate": {
+        "$date": "2023-12-13T01:39:45.733Z"
+      },
+      "endDate": {
+        "$date": "2024-04-30T16:16:26.406Z"
+      },
+      "room": "B05",
+      "location": "53 Phạm Văn Chiêu, Phường 9",
+      "lecturer": "Phạm Thị D",
+      "classType": "THEORY"
+    },
+    {
+      "dayOfWeek": 4,
+      "timeSlot": "4-6",
+      "startDate": {
+        "$date": "2023-12-18T10:20:30.698Z"
+      },
+      "endDate": {
+        "$date": "2024-04-28T08:08:32.191Z"
+      },
+      "room": "D07",
+      "location": "53 Phạm Văn Chiêu, Phường 9",
+      "lecturer": "Lê Văn C",
+      "classType": "PRACTICE"
+    }
+  ]
+},
+{
+  "_id": {
+    "$oid": "6628da864cec37c20d968165"
+  },
+  "classId": "420300319324202",
+  "schedules": [
+    {
+      "dayOfWeek": 5,
+      "timeSlot": "10-12",
+      "startDate": {
+        "$date": "2023-12-16T22:30:39.798Z"
+      },
+      "endDate": {
+        "$date": "2024-04-23T17:30:13.152Z"
+      },
+      "room": "D04",
+      "location": "12 Nguyễn Văn Bảo Phường 4",
+      "lecturer": "Nguyễn Văn A",
+      "classType": "THEORY"
+    }
+  ]
+},
+{
+  "_id": {
+    "$oid": "6628da864cec37c20d968166"
+  },
+  "classId": "420300324024201",
+  "schedules": [
+    {
+      "dayOfWeek": 0,
+      "timeSlot": "13-15",
+      "startDate": {
+        "$date": "2023-12-14T01:36:00.155Z"
+      },
+      "endDate": {
+        "$date": "2024-04-13T23:49:13.720Z"
+      },
+      "room": "C10",
+      "location": "53 Phạm Văn Chiêu, Phường 9",
+      "lecturer": "Hoàng Văn E",
+      "classType": "THEORY"
+    },
+    {
+      "dayOfWeek": 3,
+      "timeSlot": "4-6",
+      "startDate": {
+        "$date": "2023-12-13T18:21:05.272Z"
+      },
+      "endDate": {
+        "$date": "2024-04-30T03:07:36.694Z"
+      },
+      "room": "A09",
+      "location": "53 Phạm Văn Chiêu, Phường 9",
+      "lecturer": "Lê Văn C",
+      "classType": "THEORY"
+    }
+  ]
+},
+{
+  "_id": {
+    "$oid": "6628da864cec37c20d968167"
+  },
+  "classId": "420300324024202",
+  "schedules": [
+    {
+      "dayOfWeek": 6,
+      "timeSlot": "7-9",
+      "startDate": {
+        "$date": "2023-12-25T19:52:40.731Z"
+      },
+      "endDate": {
+        "$date": "2024-04-10T04:44:32.661Z"
+      },
+      "room": "C10",
+      "location": "53 Phạm Văn Chiêu, Phường 9",
+      "lecturer": "Hoàng Văn E",
+      "classType": "PRACTICE"
+    },
+    {
+      "dayOfWeek": 2,
+      "timeSlot": "1-3",
+      "startDate": {
+        "$date": "2023-12-13T06:01:39.606Z"
+      },
+      "endDate": {
+        "$date": "2024-05-05T03:11:56.753Z"
+      },
+      "room": "C05",
+      "location": "53 Phạm Văn Chiêu, Phường 9",
+      "lecturer": "Nguyễn Văn A",
+      "classType": "PRACTICE"
+    }
+  ]
+},
+{
+  "_id": {
+    "$oid": "6628da864cec37c20d968168"
+  },
+  "classId": "420300330624201",
+  "schedules": [
+    {
+      "dayOfWeek": 3,
+      "timeSlot": "10-12",
+      "startDate": {
+        "$date": "2023-12-24T04:44:21.248Z"
+      },
+      "endDate": {
+        "$date": "2024-04-21T22:39:01.319Z"
+      },
+      "room": "A07",
+      "location": "53 Phạm Văn Chiêu, Phường 9",
+      "lecturer": "Nguyễn Văn A",
+      "classType": "THEORY"
+    }
+  ]
+},
+{
+  "_id": {
+    "$oid": "6628da864cec37c20d968169"
+  },
+  "classId": "420300330624202",
+  "schedules": [
+    {
+      "dayOfWeek": 0,
+      "timeSlot": "7-9",
+      "startDate": {
+        "$date": "2023-12-30T08:07:18.622Z"
+      },
+      "endDate": {
+        "$date": "2024-04-25T09:23:08.372Z"
+      },
+      "room": "D08",
+      "location": "12 Nguyễn Văn Bảo Phường 4",
+      "lecturer": "Hoàng Văn E",
+      "classType": "THEORY"
+    }
+  ]
+},
+{
+  "_id": {
+    "$oid": "6628da864cec37c20d96816a"
+  },
+  "classId": "420300332024201",
+  "schedules": [
+    {
+      "dayOfWeek": 6,
+      "timeSlot": "4-6",
+      "startDate": {
+        "$date": "2023-12-20T10:46:08.700Z"
+      },
+      "endDate": {
+        "$date": "2024-05-03T12:50:52.959Z"
+      },
+      "room": "B07",
+      "location": "12 Nguyễn Văn Bảo Phường 4",
+      "lecturer": "Trần Thị B",
+      "classType": "THEORY"
+    }
+  ]
+},
+{
+  "_id": {
+    "$oid": "6628da864cec37c20d96816b"
+  },
+  "classId": "420300332024202",
+  "schedules": [
+    {
+      "dayOfWeek": 3,
+      "timeSlot": "4-6",
+      "startDate": {
+        "$date": "2024-01-03T15:57:18.593Z"
+      },
+      "endDate": {
+        "$date": "2024-04-27T09:44:33.479Z"
+      },
+      "room": "B08",
+      "location": "12 Nguyễn Văn Bảo Phường 4",
+      "lecturer": "Nguyễn Văn A",
+      "classType": "THEORY"
+    }
+  ]
+},
+{
+  "_id": {
+    "$oid": "6628da864cec37c20d96816c"
+  },
+  "classId": "420300332024203",
+  "schedules": [
+    {
+      "dayOfWeek": 1,
+      "timeSlot": "4-6",
+      "startDate": {
+        "$date": "2023-12-19T01:30:43.221Z"
+      },
+      "endDate": {
+        "$date": "2024-04-23T17:00:30.293Z"
+      },
+      "room": "C06",
+      "location": "12 Nguyễn Văn Bảo Phường 4",
+      "lecturer": "Lê Văn C",
+      "classType": "THEORY"
+    }
+  ]
+},
+{
+  "_id": {
+    "$oid": "6628da864cec37c20d96816d"
+  },
+  "classId": "420300332024204",
+  "schedules": [
+    {
+      "dayOfWeek": 1,
+      "timeSlot": "1-3",
+      "startDate": {
+        "$date": "2023-12-26T16:12:08.386Z"
+      },
+      "endDate": {
+        "$date": "2024-04-05T10:57:14.250Z"
+      },
+      "room": "B10",
+      "location": "53 Phạm Văn Chiêu, Phường 9",
+      "lecturer": "Lê Văn C",
+      "classType": "PRACTICE"
+    }
+  ]
+},
+{
+  "_id": {
+    "$oid": "6628da864cec37c20d96816e"
+  },
+  "classId": "420300334524201",
+  "schedules": [
+    {
+      "dayOfWeek": 1,
+      "timeSlot": "1-3",
+      "startDate": {
+        "$date": "2023-12-21T22:55:59.528Z"
+      },
+      "endDate": {
+        "$date": "2024-04-19T18:47:48.165Z"
+      },
+      "room": "C10",
+      "location": "12 Nguyễn Văn Bảo Phường 4",
+      "lecturer": "Trần Thị B",
+      "classType": "PRACTICE"
+    },
+    {
+      "dayOfWeek": 0,
+      "timeSlot": "7-9",
+      "startDate": {
+        "$date": "2023-12-23T02:54:54.701Z"
+      },
+      "endDate": {
+        "$date": "2024-04-26T03:32:25.710Z"
+      },
+      "room": "A07",
+      "location": "53 Phạm Văn Chiêu, Phường 9",
+      "lecturer": "Nguyễn Văn A",
+      "classType": "PRACTICE"
+    }
+  ]
+},
+{
+  "_id": {
+    "$oid": "6628da864cec37c20d96816f"
+  },
+  "classId": "420300335424201",
+  "schedules": [
+    {
+      "dayOfWeek": 2,
+      "timeSlot": "4-6",
+      "startDate": {
+        "$date": "2024-01-06T02:37:57.104Z"
+      },
+      "endDate": {
+        "$date": "2024-04-05T01:24:51.411Z"
+      },
+      "room": "A05",
+      "location": "53 Phạm Văn Chiêu, Phường 9",
+      "lecturer": "Trần Thị B",
+      "classType": "THEORY"
+    },
+    {
+      "dayOfWeek": 2,
+      "timeSlot": "1-3",
+      "startDate": {
+        "$date": "2023-12-21T10:24:38.515Z"
+      },
+      "endDate": {
+        "$date": "2024-04-26T21:16:00.734Z"
+      },
+      "room": "A06",
+      "location": "12 Nguyễn Văn Bảo Phường 4",
+      "lecturer": "Trần Thị B",
+      "classType": "PRACTICE"
+    }
+  ]
+},
+{
+  "_id": {
+    "$oid": "6628da864cec37c20d968170"
+  },
+  "classId": "420300335424202",
+  "schedules": [
+    {
+      "dayOfWeek": 4,
+      "timeSlot": "7-9",
+      "startDate": {
+        "$date": "2023-12-22T18:33:09.348Z"
+      },
+      "endDate": {
+        "$date": "2024-04-14T06:52:47.931Z"
+      },
+      "room": "B10",
+      "location": "12 Nguyễn Văn Bảo Phường 4",
+      "lecturer": "Nguyễn Văn A",
+      "classType": "THEORY"
+    }
+  ]
+},
+{
+  "_id": {
+    "$oid": "6628da864cec37c20d968171"
+  },
+  "classId": "420300339524201",
+  "schedules": [
+    {
+      "dayOfWeek": 0,
+      "timeSlot": "13-15",
+      "startDate": {
+        "$date": "2023-12-21T02:09:49.342Z"
+      },
+      "endDate": {
+        "$date": "2024-04-17T01:32:11.940Z"
+      },
+      "room": "C02",
+      "location": "12 Nguyễn Văn Bảo Phường 4",
+      "lecturer": "Phạm Thị D",
+      "classType": "THEORY"
+    }
+  ]
+},
+{
+  "_id": {
+    "$oid": "6628da864cec37c20d968172"
+  },
+  "classId": "420300339524202",
+  "schedules": [
+    {
+      "dayOfWeek": 4,
+      "timeSlot": "10-12",
+      "startDate": {
+        "$date": "2024-01-05T18:03:57.572Z"
+      },
+      "endDate": {
+        "$date": "2024-04-27T20:40:21.962Z"
+      },
+      "room": "A04",
+      "location": "12 Nguyễn Văn Bảo Phường 4",
+      "lecturer": "Hoàng Văn E",
+      "classType": "PRACTICE"
+    },
+    {
+      "dayOfWeek": 2,
+      "timeSlot": "4-6",
+      "startDate": {
+        "$date": "2023-12-23T12:09:28.070Z"
+      },
+      "endDate": {
+        "$date": "2024-04-27T21:15:07.027Z"
+      },
+      "room": "D08",
+      "location": "53 Phạm Văn Chiêu, Phường 9",
+      "lecturer": "Hoàng Văn E",
+      "classType": "THEORY"
+    }
+  ]
+},
+{
+  "_id": {
+    "$oid": "6628da864cec37c20d968173"
+  },
+  "classId": "420300339524203",
+  "schedules": [
+    {
+      "dayOfWeek": 0,
+      "timeSlot": "1-3",
+      "startDate": {
+        "$date": "2023-12-19T00:15:20.521Z"
+      },
+      "endDate": {
+        "$date": "2024-04-26T08:06:21.912Z"
+      },
+      "room": "A01",
+      "location": "12 Nguyễn Văn Bảo Phường 4",
+      "lecturer": "Nguyễn Văn A",
+      "classType": "THEORY"
+    }
+  ]
+},
+{
+  "_id": {
+    "$oid": "6628da864cec37c20d968174"
+  },
+  "classId": "420300105824201",
+  "schedules": [
+    {
+      "dayOfWeek": 0,
+      "timeSlot": "10-12",
+      "startDate": {
+        "$date": "2023-12-26T18:35:44.824Z"
+      },
+      "endDate": {
+        "$date": "2024-04-27T08:25:23.958Z"
+      },
+      "room": "C09",
+      "location": "53 Phạm Văn Chiêu, Phường 9",
+      "lecturer": "Lê Văn C",
+      "classType": "THEORY"
+    }
+  ]
+},
+{
+  "_id": {
+    "$oid": "6628da864cec37c20d968175"
+  },
+  "classId": "420300107624201",
+  "schedules": [
+    {
+      "dayOfWeek": 6,
+      "timeSlot": "10-12",
+      "startDate": {
+        "$date": "2023-12-15T23:03:25.416Z"
+      },
+      "endDate": {
+        "$date": "2024-04-11T23:09:58.796Z"
+      },
+      "room": "A07",
+      "location": "12 Nguyễn Văn Bảo Phường 4",
+      "lecturer": "Trần Thị B",
+      "classType": "PRACTICE"
+    },
+    {
+      "dayOfWeek": 6,
+      "timeSlot": "7-9",
+      "startDate": {
+        "$date": "2023-12-28T09:30:20.267Z"
+      },
+      "endDate": {
+        "$date": "2024-05-06T09:30:38.664Z"
+      },
+      "room": "A02",
+      "location": "53 Phạm Văn Chiêu, Phường 9",
+      "lecturer": "Lê Văn C",
+      "classType": "PRACTICE"
+    }
+  ]
+},
+{
+  "_id": {
+    "$oid": "6628da864cec37c20d968176"
+  },
+  "classId": "420300107624202",
+  "schedules": [
+    {
+      "dayOfWeek": 1,
+      "timeSlot": "13-15",
+      "startDate": {
+        "$date": "2023-12-27T18:05:09.417Z"
+      },
+      "endDate": {
+        "$date": "2024-04-15T02:35:17.063Z"
+      },
+      "room": "A08",
+      "location": "53 Phạm Văn Chiêu, Phường 9",
+      "lecturer": "Trần Thị B",
+      "classType": "THEORY"
+    }
+  ]
+},
+{
+  "_id": {
+    "$oid": "6628da864cec37c20d968177"
+  },
+  "classId": "420300107624203",
+  "schedules": [
+    {
+      "dayOfWeek": 6,
+      "timeSlot": "10-12",
+      "startDate": {
+        "$date": "2024-01-04T10:35:12.622Z"
+      },
+      "endDate": {
+        "$date": "2024-04-22T12:15:59.738Z"
+      },
+      "room": "D06",
+      "location": "12 Nguyễn Văn Bảo Phường 4",
+      "lecturer": "Phạm Thị D",
+      "classType": "THEORY"
+    }
+  ]
+},
+{
+  "_id": {
+    "$oid": "6628da864cec37c20d968178"
+  },
+  "classId": "420300120724201",
+  "schedules": [
+    {
+      "dayOfWeek": 4,
+      "timeSlot": "10-12",
+      "startDate": {
+        "$date": "2023-12-18T22:02:30.239Z"
+      },
+      "endDate": {
+        "$date": "2024-04-26T12:52:15.317Z"
+      },
+      "room": "A06",
+      "location": "53 Phạm Văn Chiêu, Phường 9",
+      "lecturer": "Lê Văn C",
+      "classType": "PRACTICE"
+    }
+  ]
+},
+{
+  "_id": {
+    "$oid": "6628da864cec37c20d968179"
+  },
+  "classId": "420300120724202",
+  "schedules": [
+    {
+      "dayOfWeek": 0,
+      "timeSlot": "13-15",
+      "startDate": {
+        "$date": "2023-12-29T15:30:06.490Z"
+      },
+      "endDate": {
+        "$date": "2024-04-14T17:34:22.529Z"
+      },
+      "room": "D07",
+      "location": "53 Phạm Văn Chiêu, Phường 9",
+      "lecturer": "Hoàng Văn E",
+      "classType": "PRACTICE"
+    },
+    {
+      "dayOfWeek": 4,
+      "timeSlot": "4-6",
+      "startDate": {
+        "$date": "2024-01-04T15:14:11.284Z"
+      },
+      "endDate": {
+        "$date": "2024-04-13T22:37:10.242Z"
+      },
+      "room": "A04",
+      "location": "53 Phạm Văn Chiêu, Phường 9",
+      "lecturer": "Lê Văn C",
+      "classType": "THEORY"
+    }
+  ]
+},
+{
+  "_id": {
+    "$oid": "6628da864cec37c20d96817a"
+  },
+  "classId": "420300204424201",
+  "schedules": [
+    {
+      "dayOfWeek": 1,
+      "timeSlot": "10-12",
+      "startDate": {
+        "$date": "2023-12-13T17:07:13.391Z"
+      },
+      "endDate": {
+        "$date": "2024-05-02T16:54:43.504Z"
+      },
+      "room": "C02",
+      "location": "12 Nguyễn Văn Bảo Phường 4",
+      "lecturer": "Hoàng Văn E",
+      "classType": "PRACTICE"
+    },
+    {
+      "dayOfWeek": 1,
+      "timeSlot": "10-12",
+      "startDate": {
+        "$date": "2023-12-27T23:46:32.930Z"
+      },
+      "endDate": {
+        "$date": "2024-04-10T08:25:17.485Z"
+      },
+      "room": "D03",
+      "location": "53 Phạm Văn Chiêu, Phường 9",
+      "lecturer": "Hoàng Văn E",
+      "classType": "THEORY"
+    }
+  ]
+},
+{
+  "_id": {
+    "$oid": "6628da864cec37c20d96817b"
+  },
+  "classId": "420300207024201",
+  "schedules": [
+    {
+      "dayOfWeek": 3,
+      "timeSlot": "4-6",
+      "startDate": {
+        "$date": "2023-12-18T15:03:43.812Z"
+      },
+      "endDate": {
+        "$date": "2024-04-14T11:37:14.149Z"
+      },
+      "room": "A07",
+      "location": "12 Nguyễn Văn Bảo Phường 4",
+      "lecturer": "Hoàng Văn E",
+      "classType": "THEORY"
+    },
+    {
+      "dayOfWeek": 2,
+      "timeSlot": "4-6",
+      "startDate": {
+        "$date": "2023-12-18T12:14:15.754Z"
+      },
+      "endDate": {
+        "$date": "2024-04-09T21:20:28.119Z"
+      },
+      "room": "A07",
+      "location": "53 Phạm Văn Chiêu, Phường 9",
+      "lecturer": "Hoàng Văn E",
+      "classType": "PRACTICE"
+    }
+  ]
+},
+{
+  "_id": {
+    "$oid": "6628da864cec37c20d96817c"
+  },
+  "classId": "420300207024202",
+  "schedules": [
+    {
+      "dayOfWeek": 0,
+      "timeSlot": "4-6",
+      "startDate": {
+        "$date": "2023-12-18T14:12:33.547Z"
+      },
+      "endDate": {
+        "$date": "2024-05-06T01:52:23.310Z"
+      },
+      "room": "C01",
+      "location": "12 Nguyễn Văn Bảo Phường 4",
+      "lecturer": "Lê Văn C",
+      "classType": "THEORY"
+    },
+    {
+      "dayOfWeek": 0,
+      "timeSlot": "4-6",
+      "startDate": {
+        "$date": "2023-12-20T17:50:07.616Z"
+      },
+      "endDate": {
+        "$date": "2024-04-22T22:47:38.574Z"
+      },
+      "room": "C02",
+      "location": "53 Phạm Văn Chiêu, Phường 9",
+      "lecturer": "Nguyễn Văn A",
+      "classType": "PRACTICE"
+    }
+  ]
+},
+{
+  "_id": {
+    "$oid": "6628da864cec37c20d96817d"
+  },
+  "classId": "420300214524201",
+  "schedules": [
+    {
+      "dayOfWeek": 1,
+      "timeSlot": "7-9",
+      "startDate": {
+        "$date": "2023-12-31T10:04:36.919Z"
+      },
+      "endDate": {
+        "$date": "2024-04-23T05:03:33.074Z"
+      },
+      "room": "D06",
+      "location": "53 Phạm Văn Chiêu, Phường 9",
+      "lecturer": "Hoàng Văn E",
+      "classType": "THEORY"
+    }
+  ]
+},
+{
+  "_id": {
+    "$oid": "6628da864cec37c20d96817e"
+  },
+  "classId": "420300343624201",
+  "schedules": [
+    {
+      "dayOfWeek": 0,
+      "timeSlot": "1-3",
+      "startDate": {
+        "$date": "2023-12-17T06:57:03.400Z"
+      },
+      "endDate": {
+        "$date": "2024-04-21T16:00:43.042Z"
+      },
+      "room": "C05",
+      "location": "53 Phạm Văn Chiêu, Phường 9",
+      "lecturer": "Nguyễn Văn A",
+      "classType": "THEORY"
+    }
+  ]
+},
+{
+  "_id": {
+    "$oid": "6628da864cec37c20d96817f"
+  },
+  "classId": "420300343624202",
+  "schedules": [
+    {
+      "dayOfWeek": 3,
+      "timeSlot": "7-9",
+      "startDate": {
+        "$date": "2023-12-19T04:22:42.023Z"
+      },
+      "endDate": {
+        "$date": "2024-04-11T21:38:33.363Z"
+      },
+      "room": "A03",
+      "location": "12 Nguyễn Văn Bảo Phường 4",
+      "lecturer": "Nguyễn Văn A",
+      "classType": "THEORY"
+    }
+  ]
+},
+{
+  "_id": {
+    "$oid": "6628da864cec37c20d968180"
+  },
+  "classId": "420300343624203",
+  "schedules": [
+    {
+      "dayOfWeek": 1,
+      "timeSlot": "10-12",
+      "startDate": {
+        "$date": "2024-01-04T16:39:53.673Z"
+      },
+      "endDate": {
+        "$date": "2024-05-06T10:54:38.719Z"
+      },
+      "room": "B04",
+      "location": "53 Phạm Văn Chiêu, Phường 9",
+      "lecturer": "Lê Văn C",
+      "classType": "PRACTICE"
+    }
+  ]
+},
+{
+  "_id": {
+    "$oid": "6628da864cec37c20d968181"
+  },
+  "classId": "420300344224201",
+  "schedules": [
+    {
+      "dayOfWeek": 0,
+      "timeSlot": "7-9",
+      "startDate": {
+        "$date": "2023-12-15T16:44:17.421Z"
+      },
+      "endDate": {
+        "$date": "2024-05-04T10:20:21.080Z"
+      },
+      "room": "A07",
+      "location": "53 Phạm Văn Chiêu, Phường 9",
+      "lecturer": "Trần Thị B",
+      "classType": "THEORY"
+    }
+  ]
+},
+{
+  "_id": {
+    "$oid": "6628da864cec37c20d968182"
+  },
+  "classId": "420300344224202",
+  "schedules": [
+    {
+      "dayOfWeek": 6,
+      "timeSlot": "1-3",
+      "startDate": {
+        "$date": "2024-01-04T04:43:50.096Z"
+      },
+      "endDate": {
+        "$date": "2024-05-08T21:12:10.145Z"
+      },
+      "room": "C09",
+      "location": "53 Phạm Văn Chiêu, Phường 9",
+      "lecturer": "Trần Thị B",
+      "classType": "THEORY"
+    }
+  ]
+},
+{
+  "_id": {
+    "$oid": "6628da864cec37c20d968183"
+  },
+  "classId": "420300344224203",
+  "schedules": [
+    {
+      "dayOfWeek": 6,
+      "timeSlot": "13-15",
+      "startDate": {
+        "$date": "2023-12-22T15:42:59.307Z"
+      },
+      "endDate": {
+        "$date": "2024-04-24T19:44:15.953Z"
+      },
+      "room": "C10",
+      "location": "53 Phạm Văn Chiêu, Phường 9",
+      "lecturer": "Nguyễn Văn A",
+      "classType": "PRACTICE"
+    },
+    {
+      "dayOfWeek": 0,
+      "timeSlot": "4-6",
+      "startDate": {
+        "$date": "2023-12-20T05:00:02.668Z"
+      },
+      "endDate": {
+        "$date": "2024-04-25T09:39:15.931Z"
+      },
+      "room": "B09",
+      "location": "12 Nguyễn Văn Bảo Phường 4",
+      "lecturer": "Nguyễn Văn A",
+      "classType": "THEORY"
+    }
+  ]
+},
+{
+  "_id": {
+    "$oid": "6628da864cec37c20d968184"
+  },
+  "classId": "420300344224204",
+  "schedules": [
+    {
+      "dayOfWeek": 2,
+      "timeSlot": "4-6",
+      "startDate": {
+        "$date": "2024-01-04T08:27:25.664Z"
+      },
+      "endDate": {
+        "$date": "2024-05-01T09:24:06.288Z"
+      },
+      "room": "A03",
+      "location": "53 Phạm Văn Chiêu, Phường 9",
+      "lecturer": "Trần Thị B",
+      "classType": "PRACTICE"
+    }
+  ]
+},
+{
+  "_id": {
+    "$oid": "6628da864cec37c20d968185"
+  },
+  "classId": "420300375324201",
+  "schedules": [
+    {
+      "dayOfWeek": 4,
+      "timeSlot": "4-6",
+      "startDate": {
+        "$date": "2023-12-16T19:46:41.593Z"
+      },
+      "endDate": {
+        "$date": "2024-04-28T16:47:57.570Z"
+      },
+      "room": "A03",
+      "location": "12 Nguyễn Văn Bảo Phường 4",
+      "lecturer": "Trần Thị B",
+      "classType": "PRACTICE"
+    }
+  ]
+},
+{
+  "_id": {
+    "$oid": "6628da864cec37c20d968186"
+  },
+  "classId": "420300375324202",
+  "schedules": [
+    {
+      "dayOfWeek": 4,
+      "timeSlot": "7-9",
+      "startDate": {
+        "$date": "2024-01-06T21:25:24.398Z"
+      },
+      "endDate": {
+        "$date": "2024-04-07T18:55:36.631Z"
+      },
+      "room": "A08",
+      "location": "12 Nguyễn Văn Bảo Phường 4",
+      "lecturer": "Nguyễn Văn A",
+      "classType": "THEORY"
+    },
+    {
+      "dayOfWeek": 0,
+      "timeSlot": "10-12",
+      "startDate": {
+        "$date": "2023-12-14T21:24:21.463Z"
+      },
+      "endDate": {
+        "$date": "2024-04-06T10:14:28.723Z"
+      },
+      "room": "A09",
+      "location": "53 Phạm Văn Chiêu, Phường 9",
+      "lecturer": "Trần Thị B",
+      "classType": "PRACTICE"
+    }
+  ]
+},
+{
+  "_id": {
+    "$oid": "6628da864cec37c20d968187"
+  },
+  "classId": "420301416624201",
+  "schedules": [
+    {
+      "dayOfWeek": 1,
+      "timeSlot": "4-6",
+      "startDate": {
+        "$date": "2024-01-01T15:58:57.112Z"
+      },
+      "endDate": {
+        "$date": "2024-04-11T15:45:27.284Z"
+      },
+      "room": "C02",
+      "location": "53 Phạm Văn Chiêu, Phường 9",
+      "lecturer": "Trần Thị B",
+      "classType": "PRACTICE"
+    },
+    {
+      "dayOfWeek": 5,
+      "timeSlot": "7-9",
+      "startDate": {
+        "$date": "2023-12-12T19:00:13.809Z"
+      },
+      "endDate": {
+        "$date": "2024-05-03T07:18:41.165Z"
+      },
+      "room": "B02",
+      "location": "53 Phạm Văn Chiêu, Phường 9",
+      "lecturer": "Phạm Thị D",
+      "classType": "PRACTICE"
+    }
+  ]
+},
+{
+  "_id": {
+    "$oid": "6628da864cec37c20d968188"
+  },
+  "classId": "420301416624202",
+  "schedules": [
+    {
+      "dayOfWeek": 3,
+      "timeSlot": "7-9",
+      "startDate": {
+        "$date": "2023-12-20T02:37:30.659Z"
+      },
+      "endDate": {
+        "$date": "2024-04-15T10:35:18.083Z"
+      },
+      "room": "A09",
+      "location": "12 Nguyễn Văn Bảo Phường 4",
+      "lecturer": "Phạm Thị D",
+      "classType": "THEORY"
+    }
+  ]
+},
+{
+  "_id": {
+    "$oid": "6628da864cec37c20d968189"
+  },
+  "classId": "420301416624203",
+  "schedules": [
+    {
+      "dayOfWeek": 4,
+      "timeSlot": "1-3",
+      "startDate": {
+        "$date": "2023-12-25T15:35:41.144Z"
+      },
+      "endDate": {
+        "$date": "2024-04-05T14:47:50.652Z"
+      },
+      "room": "C01",
+      "location": "12 Nguyễn Văn Bảo Phường 4",
+      "lecturer": "Hoàng Văn E",
+      "classType": "THEORY"
+    }
+  ]
+},
+{
+  "_id": {
+    "$oid": "6628da864cec37c20d96818a"
+  },
+  "classId": "420300086824201",
+  "schedules": [
+    {
+      "dayOfWeek": 6,
+      "timeSlot": "1-3",
+      "startDate": {
+        "$date": "2023-12-12T08:33:09.434Z"
+      },
+      "endDate": {
+        "$date": "2024-04-27T22:38:04.090Z"
+      },
+      "room": "D01",
+      "location": "53 Phạm Văn Chiêu, Phường 9",
+      "lecturer": "Trần Thị B",
+      "classType": "THEORY"
+    },
+    {
+      "dayOfWeek": 5,
+      "timeSlot": "1-3",
+      "startDate": {
+        "$date": "2023-12-16T01:44:21.969Z"
+      },
+      "endDate": {
+        "$date": "2024-04-19T23:08:06.767Z"
+      },
+      "room": "A01",
+      "location": "53 Phạm Văn Chiêu, Phường 9",
+      "lecturer": "Lê Văn C",
+      "classType": "THEORY"
+    }
+  ]
+},
+{
+  "_id": {
+    "$oid": "6628da864cec37c20d96818b"
+  },
+  "classId": "420300086824202",
+  "schedules": [
+    {
+      "dayOfWeek": 0,
+      "timeSlot": "1-3",
+      "startDate": {
+        "$date": "2023-12-25T06:46:11.121Z"
+      },
+      "endDate": {
+        "$date": "2024-05-08T12:26:24.654Z"
+      },
+      "room": "A02",
+      "location": "12 Nguyễn Văn Bảo Phường 4",
+      "lecturer": "Trần Thị B",
+      "classType": "THEORY"
+    }
+  ]
+},
+{
+  "_id": {
+    "$oid": "6628da864cec37c20d96818c"
+  },
+  "classId": "420300100424201",
+  "schedules": [
+    {
+      "dayOfWeek": 2,
+      "timeSlot": "10-12",
+      "startDate": {
+        "$date": "2023-12-19T19:39:21.429Z"
+      },
+      "endDate": {
+        "$date": "2024-04-26T16:56:58.895Z"
+      },
+      "room": "A06",
+      "location": "53 Phạm Văn Chiêu, Phường 9",
+      "lecturer": "Nguyễn Văn A",
+      "classType": "THEORY"
+    },
+    {
+      "dayOfWeek": 0,
+      "timeSlot": "4-6",
+      "startDate": {
+        "$date": "2024-01-04T14:15:55.184Z"
+      },
+      "endDate": {
+        "$date": "2024-04-06T20:36:44.743Z"
+      },
+      "room": "C08",
+      "location": "12 Nguyễn Văn Bảo Phường 4",
+      "lecturer": "Nguyễn Văn A",
+      "classType": "PRACTICE"
+    }
+  ]
+},
+{
+  "_id": {
+    "$oid": "6628da864cec37c20d96818d"
+  },
+  "classId": "420300111124201",
+  "schedules": [
+    {
+      "dayOfWeek": 1,
+      "timeSlot": "10-12",
+      "startDate": {
+        "$date": "2023-12-15T12:18:46.615Z"
+      },
+      "endDate": {
+        "$date": "2024-04-07T06:40:05.273Z"
+      },
+      "room": "B07",
+      "location": "12 Nguyễn Văn Bảo Phường 4",
+      "lecturer": "Hoàng Văn E",
+      "classType": "THEORY"
+    },
+    {
+      "dayOfWeek": 1,
+      "timeSlot": "10-12",
+      "startDate": {
+        "$date": "2023-12-27T00:15:21.957Z"
+      },
+      "endDate": {
+        "$date": "2024-04-10T04:31:40.931Z"
+      },
+      "room": "A05",
+      "location": "53 Phạm Văn Chiêu, Phường 9",
+      "lecturer": "Hoàng Văn E",
+      "classType": "PRACTICE"
+    }
+  ]
+},
+{
+  "_id": {
+    "$oid": "6628da864cec37c20d96818e"
+  },
+  "classId": "420300111124202",
+  "schedules": [
+    {
+      "dayOfWeek": 3,
+      "timeSlot": "13-15",
+      "startDate": {
+        "$date": "2023-12-20T13:16:57.047Z"
+      },
+      "endDate": {
+        "$date": "2024-04-23T10:37:39.714Z"
+      },
+      "room": "D05",
+      "location": "12 Nguyễn Văn Bảo Phường 4",
+      "lecturer": "Phạm Thị D",
+      "classType": "THEORY"
+    }
+  ]
+},
+{
+  "_id": {
+    "$oid": "6628da864cec37c20d96818f"
+  },
+  "classId": "420300111124203",
+  "schedules": [
+    {
+      "dayOfWeek": 2,
+      "timeSlot": "1-3",
+      "startDate": {
+        "$date": "2023-12-31T10:38:57.490Z"
+      },
+      "endDate": {
+        "$date": "2024-04-11T14:06:38.683Z"
+      },
+      "room": "C04",
+      "location": "12 Nguyễn Văn Bảo Phường 4",
+      "lecturer": "Nguyễn Văn A",
+      "classType": "THEORY"
+    }
+  ]
+},
+{
+  "_id": {
+    "$oid": "6628da864cec37c20d968190"
+  },
+  "classId": "420300203124201",
+  "schedules": [
+    {
+      "dayOfWeek": 5,
+      "timeSlot": "7-9",
+      "startDate": {
+        "$date": "2023-12-21T09:49:22.786Z"
+      },
+      "endDate": {
+        "$date": "2024-04-15T16:15:31.099Z"
+      },
+      "room": "D07",
+      "location": "53 Phạm Văn Chiêu, Phường 9",
+      "lecturer": "Hoàng Văn E",
+      "classType": "PRACTICE"
+    },
+    {
+      "dayOfWeek": 1,
+      "timeSlot": "7-9",
+      "startDate": {
+        "$date": "2023-12-19T10:33:41.533Z"
+      },
+      "endDate": {
+        "$date": "2024-05-08T09:04:03.513Z"
+      },
+      "room": "D05",
+      "location": "53 Phạm Văn Chiêu, Phường 9",
+      "lecturer": "Phạm Thị D",
+      "classType": "THEORY"
+    }
+  ]
+},
+{
+  "_id": {
+    "$oid": "6628da864cec37c20d968191"
+  },
+  "classId": "420300203124202",
+  "schedules": [
+    {
+      "dayOfWeek": 6,
+      "timeSlot": "10-12",
+      "startDate": {
+        "$date": "2023-12-26T11:28:15.174Z"
+      },
+      "endDate": {
+        "$date": "2024-05-07T00:28:22.610Z"
+      },
+      "room": "B06",
+      "location": "12 Nguyễn Văn Bảo Phường 4",
+      "lecturer": "Lê Văn C",
+      "classType": "THEORY"
+    }
+  ]
+},
+{
+  "_id": {
+    "$oid": "6628da864cec37c20d968192"
+  },
+  "classId": "420300203124203",
+  "schedules": [
+    {
+      "dayOfWeek": 3,
+      "timeSlot": "7-9",
+      "startDate": {
+        "$date": "2023-12-27T22:10:18.720Z"
+      },
+      "endDate": {
+        "$date": "2024-04-16T15:19:19.372Z"
+      },
+      "room": "D08",
+      "location": "12 Nguyễn Văn Bảo Phường 4",
+      "lecturer": "Trần Thị B",
+      "classType": "PRACTICE"
+    }
+  ]
+},
+{
+  "_id": {
+    "$oid": "6628da864cec37c20d968193"
+  },
+  "classId": "420300214624201",
+  "schedules": [
+    {
+      "dayOfWeek": 0,
+      "timeSlot": "4-6",
+      "startDate": {
+        "$date": "2024-01-04T22:51:30.801Z"
+      },
+      "endDate": {
+        "$date": "2024-04-18T22:58:50.503Z"
+      },
+      "room": "B09",
+      "location": "53 Phạm Văn Chiêu, Phường 9",
+      "lecturer": "Hoàng Văn E",
+      "classType": "THEORY"
+    }
+  ]
+},
+{
+  "_id": {
+    "$oid": "6628da864cec37c20d968194"
+  },
+  "classId": "420300214624202",
+  "schedules": [
+    {
+      "dayOfWeek": 4,
+      "timeSlot": "4-6",
+      "startDate": {
+        "$date": "2023-12-14T21:32:28.293Z"
+      },
+      "endDate": {
+        "$date": "2024-04-14T03:53:47.789Z"
+      },
+      "room": "B01",
+      "location": "12 Nguyễn Văn Bảo Phường 4",
+      "lecturer": "Phạm Thị D",
+      "classType": "THEORY"
+    }
+  ]
+},
+{
+  "_id": {
+    "$oid": "6628da864cec37c20d968195"
+  },
+  "classId": "420300234924201",
+  "schedules": [
+    {
+      "dayOfWeek": 1,
+      "timeSlot": "1-3",
+      "startDate": {
+        "$date": "2023-12-15T04:50:09.758Z"
+      },
+      "endDate": {
+        "$date": "2024-04-22T17:47:45.067Z"
+      },
+      "room": "D09",
+      "location": "53 Phạm Văn Chiêu, Phường 9",
+      "lecturer": "Phạm Thị D",
+      "classType": "PRACTICE"
+    }
+  ]
+},
+{
+  "_id": {
+    "$oid": "6628da864cec37c20d968196"
+  },
+  "classId": "420300334724201",
+  "schedules": [
+    {
+      "dayOfWeek": 3,
+      "timeSlot": "1-3",
+      "startDate": {
+        "$date": "2023-12-31T03:56:29.910Z"
+      },
+      "endDate": {
+        "$date": "2024-04-27T14:41:50.884Z"
+      },
+      "room": "D02",
+      "location": "53 Phạm Văn Chiêu, Phường 9",
+      "lecturer": "Lê Văn C",
+      "classType": "THEORY"
+    }
+  ]
+},
+{
+  "_id": {
+    "$oid": "6628da864cec37c20d968197"
+  },
+  "classId": "420300344324201",
+  "schedules": [
+    {
+      "dayOfWeek": 0,
+      "timeSlot": "4-6",
+      "startDate": {
+        "$date": "2023-12-21T22:45:17.387Z"
+      },
+      "endDate": {
+        "$date": "2024-04-22T14:38:41.383Z"
+      },
+      "room": "A08",
+      "location": "53 Phạm Văn Chiêu, Phường 9",
+      "lecturer": "Hoàng Văn E",
+      "classType": "THEORY"
+    }
+  ]
+},
+{
+  "_id": {
+    "$oid": "6628da864cec37c20d968198"
+  },
+  "classId": "420300344324202",
+  "schedules": [
+    {
+      "dayOfWeek": 6,
+      "timeSlot": "10-12",
+      "startDate": {
+        "$date": "2024-01-06T19:22:46.013Z"
+      },
+      "endDate": {
+        "$date": "2024-04-27T18:11:47.231Z"
+      },
+      "room": "A07",
+      "location": "12 Nguyễn Văn Bảo Phường 4",
+      "lecturer": "Nguyễn Văn A",
+      "classType": "PRACTICE"
+    }
+  ]
+},
+{
+  "_id": {
+    "$oid": "6628da864cec37c20d968199"
+  },
+  "classId": "420300344324203",
+  "schedules": [
+    {
+      "dayOfWeek": 1,
+      "timeSlot": "7-9",
+      "startDate": {
+        "$date": "2023-12-13T15:43:49.157Z"
+      },
+      "endDate": {
+        "$date": "2024-04-06T02:44:58.578Z"
+      },
+      "room": "C04",
+      "location": "12 Nguyễn Văn Bảo Phường 4",
+      "lecturer": "Lê Văn C",
+      "classType": "PRACTICE"
+    }
+  ]
+},
+{
+  "_id": {
+    "$oid": "6628da864cec37c20d96819a"
+  },
+  "classId": "420300345124201",
+  "schedules": [
+    {
+      "dayOfWeek": 6,
+      "timeSlot": "4-6",
+      "startDate": {
+        "$date": "2023-12-30T00:07:51.280Z"
+      },
+      "endDate": {
+        "$date": "2024-04-10T11:41:21.454Z"
+      },
+      "room": "D09",
+      "location": "12 Nguyễn Văn Bảo Phường 4",
+      "lecturer": "Hoàng Văn E",
+      "classType": "PRACTICE"
+    },
+    {
+      "dayOfWeek": 0,
+      "timeSlot": "4-6",
+      "startDate": {
+        "$date": "2024-01-05T06:59:13.847Z"
+      },
+      "endDate": {
+        "$date": "2024-04-25T00:47:35.459Z"
+      },
+      "room": "B04",
+      "location": "53 Phạm Văn Chiêu, Phường 9",
+      "lecturer": "Phạm Thị D",
+      "classType": "THEORY"
+    }
+  ]
+},
+{
+  "_id": {
+    "$oid": "6628da864cec37c20d96819b"
+  },
+  "classId": "420300345124202",
+  "schedules": [
+    {
+      "dayOfWeek": 3,
+      "timeSlot": "7-9",
+      "startDate": {
+        "$date": "2023-12-14T09:32:33.563Z"
+      },
+      "endDate": {
+        "$date": "2024-05-04T03:59:03.498Z"
+      },
+      "room": "B06",
+      "location": "12 Nguyễn Văn Bảo Phường 4",
+      "lecturer": "Nguyễn Văn A",
+      "classType": "PRACTICE"
+    },
+    {
+      "dayOfWeek": 2,
+      "timeSlot": "1-3",
+      "startDate": {
+        "$date": "2023-12-26T19:02:49.898Z"
+      },
+      "endDate": {
+        "$date": "2024-04-17T15:42:09.986Z"
+      },
+      "room": "D03",
+      "location": "12 Nguyễn Văn Bảo Phường 4",
+      "lecturer": "Nguyễn Văn A",
+      "classType": "PRACTICE"
+    }
+  ]
+},
+{
+  "_id": {
+    "$oid": "6628da864cec37c20d96819c"
+  },
+  "classId": "420300345124203",
+  "schedules": [
+    {
+      "dayOfWeek": 2,
+      "timeSlot": "1-3",
+      "startDate": {
+        "$date": "2023-12-18T12:22:19.573Z"
+      },
+      "endDate": {
+        "$date": "2024-05-05T00:32:44.062Z"
+      },
+      "room": "C04",
+      "location": "53 Phạm Văn Chiêu, Phường 9",
+      "lecturer": "Phạm Thị D",
+      "classType": "THEORY"
+    },
+    {
+      "dayOfWeek": 3,
+      "timeSlot": "4-6",
+      "startDate": {
+        "$date": "2023-12-29T07:28:05.542Z"
+      },
+      "endDate": {
+        "$date": "2024-04-26T19:32:54.936Z"
+      },
+      "room": "C05",
+      "location": "12 Nguyễn Văn Bảo Phường 4",
+      "lecturer": "Hoàng Văn E",
+      "classType": "THEORY"
+    }
+  ]
+},
+{
+  "_id": {
+    "$oid": "6628da864cec37c20d96819d"
+  },
+  "classId": "420300345124204",
+  "schedules": [
+    {
+      "dayOfWeek": 1,
+      "timeSlot": "7-9",
+      "startDate": {
+        "$date": "2023-12-18T16:53:34.263Z"
+      },
+      "endDate": {
+        "$date": "2024-04-17T16:59:55.243Z"
+      },
+      "room": "C02",
+      "location": "12 Nguyễn Văn Bảo Phường 4",
+      "lecturer": "Trần Thị B",
+      "classType": "PRACTICE"
+    },
+    {
+      "dayOfWeek": 0,
+      "timeSlot": "7-9",
+      "startDate": {
+        "$date": "2023-12-29T09:01:20.777Z"
+      },
+      "endDate": {
+        "$date": "2024-04-10T11:03:23.998Z"
+      },
+      "room": "B02",
+      "location": "53 Phạm Văn Chiêu, Phường 9",
+      "lecturer": "Hoàng Văn E",
+      "classType": "THEORY"
+    }
+  ]
+},
+{
+  "_id": {
+    "$oid": "6628da864cec37c20d96819e"
+  },
+  "classId": "420300377324201",
+  "schedules": [
+    {
+      "dayOfWeek": 4,
+      "timeSlot": "4-6",
+      "startDate": {
+        "$date": "2023-12-17T00:16:48.626Z"
+      },
+      "endDate": {
+        "$date": "2024-04-07T14:59:56.384Z"
+      },
+      "room": "B06",
+      "location": "12 Nguyễn Văn Bảo Phường 4",
+      "lecturer": "Phạm Thị D",
+      "classType": "THEORY"
+    },
+    {
+      "dayOfWeek": 0,
+      "timeSlot": "1-3",
+      "startDate": {
+        "$date": "2023-12-30T05:15:12.293Z"
+      },
+      "endDate": {
+        "$date": "2024-05-06T06:52:01.954Z"
+      },
+      "room": "A10",
+      "location": "53 Phạm Văn Chiêu, Phường 9",
+      "lecturer": "Lê Văn C",
+      "classType": "THEORY"
+    }
+  ]
+},
+{
+  "_id": {
+    "$oid": "6628da864cec37c20d96819f"
+  },
+  "classId": "420300377324202",
+  "schedules": [
+    {
+      "dayOfWeek": 6,
+      "timeSlot": "10-12",
+      "startDate": {
+        "$date": "2024-01-03T03:32:17.163Z"
+      },
+      "endDate": {
+        "$date": "2024-05-02T17:31:14.575Z"
+      },
+      "room": "D07",
+      "location": "53 Phạm Văn Chiêu, Phường 9",
+      "lecturer": "Trần Thị B",
+      "classType": "THEORY"
+    },
+    {
+      "dayOfWeek": 2,
+      "timeSlot": "10-12",
+      "startDate": {
+        "$date": "2023-12-24T11:43:32.540Z"
+      },
+      "endDate": {
+        "$date": "2024-04-22T23:22:25.775Z"
+      },
+      "room": "D03",
+      "location": "53 Phạm Văn Chiêu, Phường 9",
+      "lecturer": "Hoàng Văn E",
+      "classType": "THEORY"
+    }
+  ]
+},
+{
+  "_id": {
+    "$oid": "6628da864cec37c20d9681a0"
+  },
+  "classId": "420300066424201",
+  "schedules": [
+    {
+      "dayOfWeek": 5,
+      "timeSlot": "7-9",
+      "startDate": {
+        "$date": "2023-12-27T15:05:05.300Z"
+      },
+      "endDate": {
+        "$date": "2024-04-30T16:42:37.766Z"
+      },
+      "room": "A06",
+      "location": "12 Nguyễn Văn Bảo Phường 4",
+      "lecturer": "Lê Văn C",
+      "classType": "THEORY"
+    }
+  ]
+},
+{
+  "_id": {
+    "$oid": "6628da864cec37c20d9681a1"
+  },
+  "classId": "420300066424202",
+  "schedules": [
+    {
+      "dayOfWeek": 1,
+      "timeSlot": "7-9",
+      "startDate": {
+        "$date": "2023-12-19T18:20:45.945Z"
+      },
+      "endDate": {
+        "$date": "2024-04-06T03:57:00.410Z"
+      },
+      "room": "C01",
+      "location": "53 Phạm Văn Chiêu, Phường 9",
+      "lecturer": "Nguyễn Văn A",
+      "classType": "THEORY"
+    }
+  ]
+},
+{
+  "_id": {
+    "$oid": "6628da864cec37c20d9681a2"
+  },
+  "classId": "420300066424203",
+  "schedules": [
+    {
+      "dayOfWeek": 6,
+      "timeSlot": "7-9",
+      "startDate": {
+        "$date": "2023-12-12T16:17:30.458Z"
+      },
+      "endDate": {
+        "$date": "2024-04-25T19:40:18.753Z"
+      },
+      "room": "C03",
+      "location": "12 Nguyễn Văn Bảo Phường 4",
+      "lecturer": "Nguyễn Văn A",
+      "classType": "PRACTICE"
+    }
+  ]
+},
+{
+  "_id": {
+    "$oid": "6628da864cec37c20d9681a3"
+  },
+  "classId": "420300136624201",
+  "schedules": [
+    {
+      "dayOfWeek": 5,
+      "timeSlot": "7-9",
+      "startDate": {
+        "$date": "2024-01-06T09:14:42.389Z"
+      },
+      "endDate": {
+        "$date": "2024-05-07T09:31:09.331Z"
+      },
+      "room": "D08",
+      "location": "53 Phạm Văn Chiêu, Phường 9",
+      "lecturer": "Lê Văn C",
+      "classType": "THEORY"
+    },
+    {
+      "dayOfWeek": 2,
+      "timeSlot": "10-12",
+      "startDate": {
+        "$date": "2023-12-23T14:30:15.515Z"
+      },
+      "endDate": {
+        "$date": "2024-04-07T14:51:27.946Z"
+      },
+      "room": "C05",
+      "location": "12 Nguyễn Văn Bảo Phường 4",
+      "lecturer": "Trần Thị B",
+      "classType": "THEORY"
+    }
+  ]
+},
+{
+  "_id": {
+    "$oid": "6628da864cec37c20d9681a4"
+  },
+  "classId": "420300154924201",
+  "schedules": [
+    {
+      "dayOfWeek": 4,
+      "timeSlot": "13-15",
+      "startDate": {
+        "$date": "2023-12-26T03:55:15.563Z"
+      },
+      "endDate": {
+        "$date": "2024-04-10T04:32:13.430Z"
+      },
+      "room": "A04",
+      "location": "12 Nguyễn Văn Bảo Phường 4",
+      "lecturer": "Trần Thị B",
+      "classType": "THEORY"
+    }
+  ]
+},
+{
+  "_id": {
+    "$oid": "6628da864cec37c20d9681a5"
+  },
+  "classId": "420300232924201",
+  "schedules": [
+    {
+      "dayOfWeek": 4,
+      "timeSlot": "7-9",
+      "startDate": {
+        "$date": "2023-12-17T23:49:25.135Z"
+      },
+      "endDate": {
+        "$date": "2024-04-23T17:08:06.836Z"
+      },
+      "room": "D08",
+      "location": "53 Phạm Văn Chiêu, Phường 9",
+      "lecturer": "Lê Văn C",
+      "classType": "PRACTICE"
+    },
+    {
+      "dayOfWeek": 0,
+      "timeSlot": "1-3",
+      "startDate": {
+        "$date": "2023-12-23T23:02:15.924Z"
+      },
+      "endDate": {
+        "$date": "2024-05-06T17:27:33.355Z"
+      },
+      "room": "C04",
+      "location": "12 Nguyễn Văn Bảo Phường 4",
+      "lecturer": "Nguyễn Văn A",
+      "classType": "PRACTICE"
+    }
+  ]
+},
+{
+  "_id": {
+    "$oid": "6628da864cec37c20d9681a6"
+  },
+  "classId": "420300232924202",
+  "schedules": [
+    {
+      "dayOfWeek": 5,
+      "timeSlot": "4-6",
+      "startDate": {
+        "$date": "2023-12-26T11:57:53.683Z"
+      },
+      "endDate": {
+        "$date": "2024-04-17T13:52:11.786Z"
+      },
+      "room": "C01",
+      "location": "12 Nguyễn Văn Bảo Phường 4",
+      "lecturer": "Lê Văn C",
+      "classType": "THEORY"
+    },
+    {
+      "dayOfWeek": 5,
+      "timeSlot": "4-6",
+      "startDate": {
+        "$date": "2023-12-19T17:08:31.531Z"
+      },
+      "endDate": {
+        "$date": "2024-04-19T06:49:37.857Z"
+      },
+      "room": "D04",
+      "location": "53 Phạm Văn Chiêu, Phường 9",
+      "lecturer": "Nguyễn Văn A",
+      "classType": "PRACTICE"
+    }
+  ]
+},
+{
+  "_id": {
+    "$oid": "6628da864cec37c20d9681a7"
+  },
+  "classId": "420300232924203",
+  "schedules": [
+    {
+      "dayOfWeek": 4,
+      "timeSlot": "4-6",
+      "startDate": {
+        "$date": "2023-12-29T21:15:53.398Z"
+      },
+      "endDate": {
+        "$date": "2024-04-14T17:50:12.493Z"
+      },
+      "room": "B09",
+      "location": "53 Phạm Văn Chiêu, Phường 9",
+      "lecturer": "Hoàng Văn E",
+      "classType": "THEORY"
+    },
+    {
+      "dayOfWeek": 6,
+      "timeSlot": "7-9",
+      "startDate": {
+        "$date": "2024-01-05T14:56:05.558Z"
+      },
+      "endDate": {
+        "$date": "2024-05-02T12:30:31.926Z"
+      },
+      "room": "D01",
+      "location": "12 Nguyễn Văn Bảo Phường 4",
+      "lecturer": "Hoàng Văn E",
+      "classType": "THEORY"
+    }
+  ]
+},
+{
+  "_id": {
+    "$oid": "6628da864cec37c20d9681a8"
+  },
+  "classId": "420300233024201",
+  "schedules": [
+    {
+      "dayOfWeek": 6,
+      "timeSlot": "7-9",
+      "startDate": {
+        "$date": "2023-12-18T23:28:55.027Z"
+      },
+      "endDate": {
+        "$date": "2024-04-13T00:35:31.586Z"
+      },
+      "room": "A09",
+      "location": "12 Nguyễn Văn Bảo Phường 4",
+      "lecturer": "Phạm Thị D",
+      "classType": "PRACTICE"
+    },
+    {
+      "dayOfWeek": 6,
+      "timeSlot": "10-12",
+      "startDate": {
+        "$date": "2023-12-27T21:09:54.762Z"
+      },
+      "endDate": {
+        "$date": "2024-04-13T12:58:21.534Z"
+      },
+      "room": "C09",
+      "location": "53 Phạm Văn Chiêu, Phường 9",
+      "lecturer": "Lê Văn C",
+      "classType": "PRACTICE"
+    }
+  ]
+},
+{
+  "_id": {
+    "$oid": "6628da864cec37c20d9681a9"
+  },
+  "classId": "420300233024202",
+  "schedules": [
+    {
+      "dayOfWeek": 5,
+      "timeSlot": "13-15",
+      "startDate": {
+        "$date": "2024-01-06T16:31:26.909Z"
+      },
+      "endDate": {
+        "$date": "2024-04-07T08:57:41.465Z"
+      },
+      "room": "D06",
+      "location": "12 Nguyễn Văn Bảo Phường 4",
+      "lecturer": "Nguyễn Văn A",
+      "classType": "THEORY"
+    }
+  ]
+},
+{
+  "_id": {
+    "$oid": "6628da864cec37c20d9681aa"
+  },
+  "classId": "420300233024203",
+  "schedules": [
+    {
+      "dayOfWeek": 5,
+      "timeSlot": "4-6",
+      "startDate": {
+        "$date": "2023-12-26T08:18:06.063Z"
+      },
+      "endDate": {
+        "$date": "2024-04-19T09:32:38.026Z"
+      },
+      "room": "C09",
+      "location": "53 Phạm Văn Chiêu, Phường 9",
+      "lecturer": "Nguyễn Văn A",
+      "classType": "PRACTICE"
+    }
+  ]
+},
+{
+  "_id": {
+    "$oid": "6628da864cec37c20d9681ab"
+  },
+  "classId": "420300233024204",
+  "schedules": [
+    {
+      "dayOfWeek": 5,
+      "timeSlot": "10-12",
+      "startDate": {
+        "$date": "2023-12-19T20:02:27.001Z"
+      },
+      "endDate": {
+        "$date": "2024-04-28T04:10:19.011Z"
+      },
+      "room": "A06",
+      "location": "53 Phạm Văn Chiêu, Phường 9",
+      "lecturer": "Trần Thị B",
+      "classType": "PRACTICE"
+    }
+  ]
+},
+{
+  "_id": {
+    "$oid": "6628da864cec37c20d9681ac"
+  },
+  "classId": "420300314724201",
+  "schedules": [
+    {
+      "dayOfWeek": 3,
+      "timeSlot": "1-3",
+      "startDate": {
+        "$date": "2023-12-23T03:58:46.445Z"
+      },
+      "endDate": {
+        "$date": "2024-04-08T02:48:26.921Z"
+      },
+      "room": "B07",
+      "location": "12 Nguyễn Văn Bảo Phường 4",
+      "lecturer": "Lê Văn C",
+      "classType": "PRACTICE"
+    }
+  ]
+},
+{
+  "_id": {
+    "$oid": "6628da864cec37c20d9681ad"
+  },
+  "classId": "420300314724202",
+  "schedules": [
+    {
+      "dayOfWeek": 4,
+      "timeSlot": "7-9",
+      "startDate": {
+        "$date": "2023-12-20T21:50:04.049Z"
+      },
+      "endDate": {
+        "$date": "2024-04-15T20:40:04.811Z"
+      },
+      "room": "D06",
+      "location": "53 Phạm Văn Chiêu, Phường 9",
+      "lecturer": "Lê Văn C",
+      "classType": "PRACTICE"
+    },
+    {
+      "dayOfWeek": 5,
+      "timeSlot": "7-9",
+      "startDate": {
+        "$date": "2023-12-12T19:23:56.941Z"
+      },
+      "endDate": {
+        "$date": "2024-04-12T22:07:00.950Z"
+      },
+      "room": "B08",
+      "location": "12 Nguyễn Văn Bảo Phường 4",
+      "lecturer": "Phạm Thị D",
+      "classType": "THEORY"
+    }
+  ]
+},
+{
+  "_id": {
+    "$oid": "6628da864cec37c20d9681ae"
+  },
+  "classId": "420300314724203",
+  "schedules": [
+    {
+      "dayOfWeek": 0,
+      "timeSlot": "13-15",
+      "startDate": {
+        "$date": "2023-12-23T16:27:51.212Z"
+      },
+      "endDate": {
+        "$date": "2024-04-05T23:32:52.037Z"
+      },
+      "room": "C04",
+      "location": "12 Nguyễn Văn Bảo Phường 4",
+      "lecturer": "Phạm Thị D",
+      "classType": "THEORY"
+    },
+    {
+      "dayOfWeek": 1,
+      "timeSlot": "7-9",
+      "startDate": {
+        "$date": "2023-12-14T22:23:55.704Z"
+      },
+      "endDate": {
+        "$date": "2024-04-27T20:11:14.407Z"
+      },
+      "room": "C04",
+      "location": "53 Phạm Văn Chiêu, Phường 9",
+      "lecturer": "Lê Văn C",
+      "classType": "THEORY"
+    }
+  ]
+},
+{
+  "_id": {
+    "$oid": "6628da864cec37c20d9681af"
+  },
+  "classId": "420300314724204",
+  "schedules": [
+    {
+      "dayOfWeek": 2,
+      "timeSlot": "13-15",
+      "startDate": {
+        "$date": "2023-12-15T18:24:45.499Z"
+      },
+      "endDate": {
+        "$date": "2024-04-28T08:50:46.774Z"
+      },
+      "room": "B07",
+      "location": "12 Nguyễn Văn Bảo Phường 4",
+      "lecturer": "Phạm Thị D",
+      "classType": "PRACTICE"
+    },
+    {
+      "dayOfWeek": 6,
+      "timeSlot": "13-15",
+      "startDate": {
+        "$date": "2023-12-24T05:57:04.294Z"
+      },
+      "endDate": {
+        "$date": "2024-05-02T14:12:35.706Z"
+      },
+      "room": "C07",
+      "location": "12 Nguyễn Văn Bảo Phường 4",
+      "lecturer": "Trần Thị B",
+      "classType": "THEORY"
+    }
+  ]
+},
+{
+  "_id": {
+    "$oid": "6628da864cec37c20d9681b0"
+  },
+  "classId": "420300345324201",
+  "schedules": [
+    {
+      "dayOfWeek": 1,
+      "timeSlot": "13-15",
+      "startDate": {
+        "$date": "2023-12-31T19:25:32.029Z"
+      },
+      "endDate": {
+        "$date": "2024-04-18T10:16:00.329Z"
+      },
+      "room": "A02",
+      "location": "53 Phạm Văn Chiêu, Phường 9",
+      "lecturer": "Hoàng Văn E",
+      "classType": "PRACTICE"
+    }
+  ]
+},
+{
+  "_id": {
+    "$oid": "6628da864cec37c20d9681b1"
+  },
+  "classId": "420300345324202",
+  "schedules": [
+    {
+      "dayOfWeek": 1,
+      "timeSlot": "10-12",
+      "startDate": {
+        "$date": "2023-12-29T14:25:46.640Z"
+      },
+      "endDate": {
+        "$date": "2024-04-14T16:45:08.947Z"
+      },
+      "room": "B01",
+      "location": "53 Phạm Văn Chiêu, Phường 9",
+      "lecturer": "Trần Thị B",
+      "classType": "THEORY"
+    }
+  ]
+},
+{
+  "_id": {
+    "$oid": "6628da864cec37c20d9681b2"
+  },
+  "classId": "420300375824201",
+  "schedules": [
+    {
+      "dayOfWeek": 6,
+      "timeSlot": "1-3",
+      "startDate": {
+        "$date": "2024-01-06T11:56:51.411Z"
+      },
+      "endDate": {
+        "$date": "2024-05-04T02:22:45.324Z"
+      },
+      "room": "A02",
+      "location": "12 Nguyễn Văn Bảo Phường 4",
+      "lecturer": "Trần Thị B",
+      "classType": "THEORY"
+    }
+  ]
+},
+{
+  "_id": {
+    "$oid": "6628da864cec37c20d9681b3"
+  },
+  "classId": "420300377524201",
+  "schedules": [
+    {
+      "dayOfWeek": 3,
+      "timeSlot": "4-6",
+      "startDate": {
+        "$date": "2024-01-02T15:38:18.834Z"
+      },
+      "endDate": {
+        "$date": "2024-04-26T13:13:20.327Z"
+      },
+      "room": "C05",
+      "location": "53 Phạm Văn Chiêu, Phường 9",
+      "lecturer": "Lê Văn C",
+      "classType": "PRACTICE"
+    },
+    {
+      "dayOfWeek": 0,
+      "timeSlot": "1-3",
+      "startDate": {
+        "$date": "2023-12-29T08:18:39.836Z"
+      },
+      "endDate": {
+        "$date": "2024-04-19T16:45:34.210Z"
+      },
+      "room": "B07",
+      "location": "12 Nguyễn Văn Bảo Phường 4",
+      "lecturer": "Lê Văn C",
+      "classType": "PRACTICE"
+    }
+  ]
+},
+{
+  "_id": {
+    "$oid": "6628da864cec37c20d9681b4"
+  },
+  "classId": "420300405624201",
+  "schedules": [
+    {
+      "dayOfWeek": 1,
+      "timeSlot": "4-6",
+      "startDate": {
+        "$date": "2023-12-27T21:14:25.927Z"
+      },
+      "endDate": {
+        "$date": "2024-04-05T11:49:06.185Z"
+      },
+      "room": "A04",
+      "location": "12 Nguyễn Văn Bảo Phường 4",
+      "lecturer": "Lê Văn C",
+      "classType": "PRACTICE"
+    },
+    {
+      "dayOfWeek": 2,
+      "timeSlot": "1-3",
+      "startDate": {
+        "$date": "2023-12-22T20:21:33.192Z"
+      },
+      "endDate": {
+        "$date": "2024-05-01T00:44:24.749Z"
+      },
+      "room": "D09",
+      "location": "53 Phạm Văn Chiêu, Phường 9",
+      "lecturer": "Lê Văn C",
+      "classType": "THEORY"
+    }
+  ]
+},
+{
+  "_id": {
+    "$oid": "6628da864cec37c20d9681b5"
+  },
+  "classId": "420300405624202",
+  "schedules": [
+    {
+      "dayOfWeek": 5,
+      "timeSlot": "10-12",
+      "startDate": {
+        "$date": "2023-12-27T09:44:05.319Z"
+      },
+      "endDate": {
+        "$date": "2024-04-07T02:48:07.891Z"
+      },
+      "room": "B03",
+      "location": "12 Nguyễn Văn Bảo Phường 4",
+      "lecturer": "Hoàng Văn E",
+      "classType": "PRACTICE"
+    },
+    {
+      "dayOfWeek": 0,
+      "timeSlot": "7-9",
+      "startDate": {
+        "$date": "2023-12-30T07:15:11.705Z"
+      },
+      "endDate": {
+        "$date": "2024-04-21T20:29:36.976Z"
+      },
+      "room": "C08",
+      "location": "53 Phạm Văn Chiêu, Phường 9",
+      "lecturer": "Trần Thị B",
+      "classType": "PRACTICE"
+    }
+  ]
+}]

@@ -21,5 +21,7 @@
         <module>auth-service</module>
         <module>faculty-service</module>
         <module>enroll-service</module>
+        <module>schedule-service</module>
+        <module>course-service</module>
     </modules>
 </project>
