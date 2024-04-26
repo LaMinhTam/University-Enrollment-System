@@ -1,33 +1,22 @@
 package vn.edu.iuh.fit.enrollservice.models;
 
-import jakarta.persistence.ManyToOne;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.bson.types.ObjectId;
-import org.springframework.data.mongodb.core.mapping.Document;
-import org.springframework.data.mongodb.core.mapping.MongoId;
 
 import java.util.Date;
 
-@Document(collection = "enrollment")
+@Entity
+@Table(name = "enrollments")
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
+@IdClass(EnrollmentClassId.class)
 public class Enrollment {
-    @MongoId
-    private ObjectId id;
+    @Id
     private String studentId;
+    @Id
     private String registryClass;
-    private int semester;
-    private int year;
     private Date createdAt;
-
-    public Enrollment(String studentId, String registryClass, int semester, int year, Date createdAt) {
-        this.studentId = studentId;
-        this.registryClass = registryClass;
-        this.semester = semester;
-        this.year = year;
-        this.createdAt = createdAt;
-    }
 }
