@@ -1,6 +1,8 @@
 package vn.edu.iuh.fit.enrollservice.services.impl;
 
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+import org.springframework.transaction.support.TransactionTemplate;
 import vn.edu.iuh.fit.enrollservice.models.Class;
 import vn.edu.iuh.fit.enrollservice.models.ClassStatus;
 import vn.edu.iuh.fit.enrollservice.models.Enrollment;
@@ -15,26 +17,24 @@ public class EnrollmentServiceImpl implements EnrollmentService {
     private final EnrollmentRepository enrollmentRepository;
     private final ClassRepository classRepository;
 
-    public EnrollmentServiceImpl(EnrollmentRepository enrollmentRepository, ClassRepository classRepository) {
+    public EnrollmentServiceImpl(EnrollmentRepository enrollmentRepository, ClassRepository classRepository, TransactionTemplate transactionTemplate) {
         this.enrollmentRepository = enrollmentRepository;
         this.classRepository = classRepository;
     }
 
     public Enrollment registryClass(String studentId, String classId) throws RuntimeException {
-        Class registryClass = classRepository.findById(classId).orElseThrow(() -> new RuntimeException("Không tìm thấy lớp học"));
-        if (enrollmentRepository.countByStudentIdAndRegistryClass(studentId, classId) >= registryClass.getMaxCapacity()) {
+        int statusCode = enrollmentRepository.registerClass(studentId, classId);
+
+        if (statusCode == 409) {
             throw new RuntimeException("Lớp học đã đủ số lượng sinh viên");
-        } else if (enrollmentRepository.findByStudentIdAndRegistryClass(studentId, classId).isPresent()) {
+        } else if (statusCode == 400) {
             throw new RuntimeException("Bạn đã đăng ký lớp học này rồi");
-        } else if (registryClass.getStatus() == ClassStatus.CLOSED) {
+        } else if (statusCode == 423) {
             throw new RuntimeException("Lớp học đã đóng, không thể đăng ký");
-        } else if (registryClass.getStatus() == ClassStatus.OPENED) {
-            throw new RuntimeException("Lớp học đã chấp nhận mở lớp, không thể đăng ký");
-        } else if (registryClass.getStatus() == ClassStatus.PLANNING) {
+        } else if (statusCode == 425) {
             throw new RuntimeException("Lớp học đang trong quá trình lên kế hoạch, không thể đăng ký");
         }
-        Enrollment enrollment = new Enrollment(studentId, registryClass.getId().toString(), registryClass.getSemester(), registryClass.getYear(), new Date());
-        return enrollmentRepository.save(enrollment);
+        return new Enrollment(studentId, classId, new Date());
     }
 
     @Override

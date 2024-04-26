@@ -3,12 +3,15 @@ spring:
     name: enroll-service
   config:
     import: "optional:configserver:http://localhost:8088"
-  data:
-    mongodb:
-      port: 27017
-      host: localhost
-      database: enroll_db
-      authentication-database: admin
-      uri: mongodb://root:123456@localhost:27017/admin
-  autoconfigure:
-    exclude: org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration
+  datasource:
+    url: jdbc:mysql://localhost:3306/enroll_db?createDatabaseIfNotExist=true
+    username: root
+    password: 123456
+    driver-class-name: com.mysql.cj.jdbc.Driver
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: false
+    properties:
+      hibernate:
+        format_sql: true
