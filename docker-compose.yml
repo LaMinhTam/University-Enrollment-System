@@ -65,6 +65,70 @@ services:
       - db-mysql-net
       - db-mongodb-net
 
+  # service-registry:
+  #   build: ./UniEnrollSystemBE/service-registry
+  #   restart: always
+  #   ports:
+  #     - "8761:8761"
+  #   networks:
+  #     - db-mysql-net
+  #     - db-mongodb-net
+  
+  # config-server:
+  #   build: ./UniEnrollSystemBE/config-server
+  #   restart: always
+  #   ports:
+  #     - "8088:8088"
+  #   networks:
+  #     - db-mysql-net
+  #     - db-mongodb-net
+  #   depends_on:
+  #     - service-registry
+
+  # enroll-service:
+  #   build: ./UniEnrollSystemBE/enroll-service
+  #   restart: always
+  #   ports:
+  #     - "8084:8084"
+  #   networks:
+  #     - db-mysql-net
+  #     - db-mongodb-net
+  #   depends_on:
+  #     - service-registry
+  #     - config-server
+
+  # auth-service:
+  #   build: ./UniEnrollSystemBE/auth-service
+  #   restart: always
+  #   ports:
+  #     - "9004:9004"
+  #   networks:
+  #     - db-mysql-net
+  #     - db-mongodb-net
+  #   depends_on:
+  #     - service-registry
+  #     - config-server
+
+  # faculty-service:
+  #   build: ./UniEnrollSystemBE/faculty-service
+  #   restart: always
+  #   ports:
+  #     - "8082:8082"
+  #   networks:
+  #     - db-mysql-net
+  #     - db-mongodb-net
+  #   depends_on:
+  #     - service-registry
+  #     - config-server
+
+  # gateway:
+  #   build: ./UniEnrollSystemBE/api-gateway
+  #   restart: always
+  #   ports:
+  #     - "8060:8060"
+  #   depends_on:
+  #     - enroll-service
+
 volumes:
   mysql-data:
   mongodb-data:
