@@ -16,15 +16,12 @@ import java.util.List;
 public class Course {
     @Id
     private String id;
-
     private String name;
-
     private int credit;
-
+    @Field("theory_credit")
     private int theoryCredit;
-
+    @Field("practical_credit")
     private int practicalCredit;
-
     @Field("course_on_major")
     private List<CourseOnMajor> courseOnMajorList;
 }

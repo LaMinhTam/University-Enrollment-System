@@ -9,6 +9,8 @@ import vn.edu.iuh.fit.courseservice.repositories.CourseRepository;
 import vn.edu.iuh.fit.courseservice.services.CourseService;
 
 import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 @Service
 public class CourseServiceImpl implements CourseService {
@@ -21,14 +23,19 @@ public class CourseServiceImpl implements CourseService {
     }
 
     @Override
-    public List<Course> listAllCourseByMajorAndYear(int majorId, int year) {
+    public Map<Integer, List<Course>> listAllCourseByMajorAndYear(int majorId, int year) {
         Query query = Query.query(
                 Criteria.where("course_on_major").elemMatch(
                         Criteria.where("major_id").is(majorId).and("academic_year").is(year)
                 )
         );
-        return mongoTemplate.find(query, Course.class);
-//        return courseRepository.findByCourseOnMajorListMajorIdAndCourseOnMajorListAcademicYear(majorId, year);
+        List<Course> courses = mongoTemplate.find(query, Course.class);
+        courses.forEach(course -> course.setCourseOnMajorList(course.getCourseOnMajorList().stream()
+                .filter(courseOnMajor -> courseOnMajor.getMajorId() == majorId && courseOnMajor.getAcademicYear() == year)
+                .collect(Collectors.toList())));
+        Map<Integer, List<Course>> coursesBySemester = courses.stream()
+                .collect(Collectors.groupingBy(course -> course.getCourseOnMajorList().get(0).getSemester()));
+        return coursesBySemester;
     }
 
     @Override
