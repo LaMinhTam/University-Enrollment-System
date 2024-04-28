@@ -3,11 +3,11 @@ package vn.edu.iuh.fit.scheduleservice.services;
 import vn.edu.iuh.fit.scheduleservice.dtos.ConflictResponse;
 import vn.edu.iuh.fit.scheduleservice.dtos.DateRequest;
 import vn.edu.iuh.fit.scheduleservice.dtos.QueryClassSchedule;
+import vn.edu.iuh.fit.scheduleservice.dtos.WeekScheduleDTO;
 import vn.edu.iuh.fit.scheduleservice.models.ClassSchedule;
 
 import java.text.ParseException;
 import java.util.List;
-import java.util.Map;
 
 public interface ClassScheduleService {
     List<ClassSchedule> getAllSchedule(String studentId);
@@ -18,7 +18,7 @@ public interface ClassScheduleService {
 
     List<ClassSchedule> getScheduleByClassIds(List<String> id);
 
-    Map<Integer, List<QueryClassSchedule>> getScheduleByDate(String studentId, DateRequest dateRequest) throws ParseException;
+    List<WeekScheduleDTO> getScheduleByDate(String studentId, DateRequest dateRequest) throws ParseException;
 
     List<QueryClassSchedule> getEachScheduleByClassIds(List<String> ids);
 

@@ -194,7 +194,7 @@ public class ClassRepositoryTests {
         List<Schedule> schedules = new ArrayList<>();
         int numSchedules = random.nextInt(2) + 1; // Randomly choose 1 or 2 schedules per class
         for (int i = 0; i < numSchedules; i++) {
-            int dayOfWeek = random.nextInt(7); // Random day of the week (0 to 6)
+            int dayOfWeek = random.nextInt(7) + 1; // Random day of the week (0 to 6)
             String timeSlot = generateTimeSlot(); // Generate random time slot
             Date startDate = generateDate(31, 7, 2023, 13, 8, 2023); // Generate random start date
             Date endDate = generateDate(20, 11, 2023, 3, 12, 2023); // Generate random end date

@@ -1,5 +1,6 @@
 package vn.edu.iuh.fit.scheduleservice.services.impl;
 
+import org.apache.commons.lang.time.DateUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.aggregation.*;
@@ -8,7 +9,9 @@ import org.springframework.stereotype.Service;
 import vn.edu.iuh.fit.scheduleservice.dtos.ConflictResponse;
 import vn.edu.iuh.fit.scheduleservice.dtos.DateRequest;
 import vn.edu.iuh.fit.scheduleservice.dtos.QueryClassSchedule;
+import vn.edu.iuh.fit.scheduleservice.dtos.WeekScheduleDTO;
 import vn.edu.iuh.fit.scheduleservice.models.ClassSchedule;
+import vn.edu.iuh.fit.scheduleservice.models.DayStatus;
 import vn.edu.iuh.fit.scheduleservice.models.StudentSchedule;
 import vn.edu.iuh.fit.scheduleservice.repositories.ClassScheduleRepository;
 import vn.edu.iuh.fit.scheduleservice.repositories.StudentScheduleRepository;
@@ -17,7 +20,6 @@ import vn.edu.iuh.fit.scheduleservice.services.ClassScheduleService;
 import java.text.ParseException;
 import java.util.*;
 import java.util.stream.Collectors;
-import java.util.stream.IntStream;
 
 @Service
 public class ClassScheduleServiceImpl implements ClassScheduleService {
@@ -63,18 +65,21 @@ public class ClassScheduleServiceImpl implements ClassScheduleService {
     }
 
     @Override
-    public Map<Integer, List<QueryClassSchedule>> getScheduleByDate(String studentId, DateRequest dateRequest) throws ParseException {
+    public List<WeekScheduleDTO> getScheduleByDate(String studentId, DateRequest dateRequest) throws ParseException {
         Calendar cal = Calendar.getInstance();
-        cal.set(dateRequest.year(),
-                dateRequest.month() - 1,
-                dateRequest.day());
+        cal.set(Calendar.YEAR, dateRequest.year());
+        cal.set(Calendar.MONTH, dateRequest.month() - 1);
+        cal.set(Calendar.DAY_OF_MONTH, dateRequest.day());
 
-        cal.set(Calendar.DAY_OF_WEEK, Calendar.MONDAY);
+        int dayOfWeek = cal.get(Calendar.DAY_OF_WEEK);
+        int daysToSubtract = (dayOfWeek - Calendar.MONDAY + 7) % 7;
+        int daysToAdd = (Calendar.SUNDAY - dayOfWeek + 7) % 7;
+
+        cal.add(Calendar.DAY_OF_MONTH, -daysToSubtract);
         Date startDate = cal.getTime();
-
-        cal.add(Calendar.WEEK_OF_YEAR, 1);
-        cal.add(Calendar.DAY_OF_YEAR, -1);
+        cal.add(Calendar.DAY_OF_MONTH, daysToSubtract + daysToAdd);
         Date endDate = cal.getTime();
+        cal.add(Calendar.DAY_OF_MONTH, -6);
 
         MatchOperation matchStudent = Aggregation.match(new Criteria("studentId").is(studentId));
         LookupOperation lookupSchedule = LookupOperation.newLookup()
@@ -89,7 +94,7 @@ public class ClassScheduleServiceImpl implements ClassScheduleService {
                 Criteria.where("classSchedule.schedules.endDate").gte(startDate)
         ));
 
-        ProjectionOperation projectFields = Aggregation.project("classId", "classSchedule.courseId", "classSchedule.courseName","classSchedule.schedules");
+        ProjectionOperation projectFields = Aggregation.project("classId", "classSchedule.courseId", "classSchedule.courseName", "classSchedule.schedules");
         Aggregation aggregation = Aggregation.newAggregation(
                 matchStudent,
                 lookupSchedule,
@@ -101,18 +106,43 @@ public class ClassScheduleServiceImpl implements ClassScheduleService {
 
         List<QueryClassSchedule> queryClassScheduleList = mongoTemplate.aggregate(aggregation, "studentSchedule", QueryClassSchedule.class).getMappedResults();
 
-        // Create a map with keys from 1 to 7 and empty lists as values
-        Map<Integer, List<QueryClassSchedule>> weeklySchedule = IntStream.rangeClosed(0, 6)
-                .boxed()
-                .collect(Collectors.toMap(i -> i, i -> new ArrayList<>()));
+        // Create a map with keys as dates of the week and empty lists as values
+        List<WeekScheduleDTO> weeklySchedule = new ArrayList<>();
+        for (int i = 0; i < 7; i++) {
+            cal.set(Calendar.DAY_OF_WEEK, i + Calendar.MONDAY);
+            weeklySchedule.add(new WeekScheduleDTO(cal.getTime()));
+        }
+        cal.add(Calendar.DAY_OF_MONTH, -6);
 
         // Populate the map with schedules
         for (QueryClassSchedule queryClassSchedule : queryClassScheduleList) {
-            int dayOfWeek = queryClassSchedule.schedules().getDayOfWeek();
-            weeklySchedule.get(dayOfWeek).add(queryClassSchedule);
+            for (int dayIndex = 0; dayIndex < 7; dayIndex++) {
+                Date currentScheduleDate = cal.getTime();
+                List<Date> daysOff = queryClassSchedule.schedules().getDayOff();
+                DayStatus dayStatus = (daysOff != null && isDayOff(daysOff, currentScheduleDate))
+                        ? DayStatus.NO_CLASS_DAY
+                        : DayStatus.CLASS_DAY;
+                queryClassSchedule.schedules().setDayStatus(dayStatus);
+
+                int scheduleDayOfWeek = queryClassSchedule.schedules().getDayOfWeek() - 1;
+                if (dayIndex == scheduleDayOfWeek) {
+                    weeklySchedule.get(dayIndex).addSchedule(queryClassSchedule);
+                }
+
+                cal.add(Calendar.DAY_OF_MONTH, 1);
+            }
         }
 
         return weeklySchedule;
+    }
+
+    private boolean isDayOff(List<Date> dayOff, Date date) {
+        for (Date d : dayOff) {
+            if (DateUtils.isSameDay(d, date)) {
+                return true;
+            }
+        }
+        return false;
     }
 
     @Override
@@ -141,7 +171,7 @@ public class ClassScheduleServiceImpl implements ClassScheduleService {
         for (QueryClassSchedule newSchedule : newSchedules) {
             for (QueryClassSchedule existingSchedule : existingSchedules) {
                 if (isConflict(existingSchedule, newSchedule)) {
-                    conflicts.add(new ConflictResponse(existingSchedule.classId(), existingSchedule.courseId(), existingSchedule.courseName(),existingSchedule.schedules(), newSchedule.classId(), newSchedule.courseId(),newSchedule.courseName(),newSchedule.schedules()));
+                    conflicts.add(new ConflictResponse(existingSchedule.classId(), existingSchedule.courseId(), existingSchedule.courseName(), existingSchedule.schedules(), newSchedule.classId(), newSchedule.courseId(), newSchedule.courseName(), newSchedule.schedules()));
                 }
             }
         }
