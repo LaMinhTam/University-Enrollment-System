@@ -13,7 +13,8 @@ import lombok.NoArgsConstructor;
 public class Class {
     @Id
     private String id;
-    private String course;
+    private String courseId;
+    private String courseName;
     private int semester;
     private int year;
     private int maxCapacity;

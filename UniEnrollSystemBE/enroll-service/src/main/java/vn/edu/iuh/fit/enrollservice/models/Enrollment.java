@@ -18,5 +18,9 @@ public class Enrollment {
     private String studentId;
     @Id
     private String registryClass;
+    @Id
+    private String courseId;
+    private int semester;
+    private int year;
     private Date createdAt;
 }

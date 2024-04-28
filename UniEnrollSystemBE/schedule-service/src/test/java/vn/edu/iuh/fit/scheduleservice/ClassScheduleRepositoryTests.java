@@ -25,6 +25,8 @@ public class ClassScheduleRepositoryTests {
     public void createClass() {
         ClassSchedule savedClass = classScheduleRepository.save(new ClassSchedule(
                         "662865e87b28f631d6ad1fbf",
+                        "",
+                        "",
                         List.of(new Schedule(
                                 2,
                                 "1-3",

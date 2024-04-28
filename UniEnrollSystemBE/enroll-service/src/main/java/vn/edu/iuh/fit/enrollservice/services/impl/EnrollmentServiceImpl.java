@@ -11,6 +11,7 @@ import vn.edu.iuh.fit.enrollservice.repositories.EnrollmentRepository;
 import vn.edu.iuh.fit.enrollservice.services.EnrollmentService;
 
 import java.util.Date;
+import java.util.List;
 
 @Service
 public class EnrollmentServiceImpl implements EnrollmentService {
@@ -22,19 +23,33 @@ public class EnrollmentServiceImpl implements EnrollmentService {
         this.classRepository = classRepository;
     }
 
-    public Enrollment registryClass(String studentId, String classId) throws RuntimeException {
-        int statusCode = enrollmentRepository.registerClass(studentId, classId);
-
-        if (statusCode == 409) {
-            throw new RuntimeException("Lớp học đã đủ số lượng sinh viên");
-        } else if (statusCode == 400) {
-            throw new RuntimeException("Bạn đã đăng ký lớp học này rồi");
-        } else if (statusCode == 423) {
-            throw new RuntimeException("Lớp học đã đóng, không thể đăng ký");
-        } else if (statusCode == 425) {
-            throw new RuntimeException("Lớp học đang trong quá trình lên kế hoạch, không thể đăng ký");
+    private void handleStatusCode(int statusCode) throws RuntimeException {
+        switch (statusCode) {
+            case 409:
+                throw new RuntimeException("Lớp học đã đủ số lượng sinh viên");
+            case 400:
+                throw new RuntimeException("Bạn đã đăng ký lớp học này rồi");
+            case 423:
+                throw new RuntimeException("Lớp học đã đóng, không thể đăng ký");
+            case 425:
+                throw new RuntimeException("Lớp học đang trong quá trình lên kế hoạch, không thể đăng ký");
+            case 422:
+                throw new RuntimeException("The old and new classes have different course_id");
+            default:
+                break;
         }
-        return new Enrollment(studentId, classId, new Date());
+    }
+
+    public boolean registerClass(String studentId, String classId) throws RuntimeException {
+        int statusCode = enrollmentRepository.registerClass(studentId, classId);
+        handleStatusCode(statusCode);
+        return true;
+    }
+
+    public boolean changeClass(String studentId, String oldClassId, String newClassId) throws RuntimeException {
+        int statusCode = enrollmentRepository.changeClass(studentId, oldClassId, newClassId);
+        handleStatusCode(statusCode);
+        return true;
     }
 
     @Override
@@ -47,5 +62,21 @@ public class EnrollmentServiceImpl implements EnrollmentService {
             enrollmentRepository.delete(enrollment);
             return enrollment;
         }
+    }
+
+    @Override
+    public List<Enrollment> getRegistryClass(String studentId, int semester, int year) {
+        return enrollmentRepository.findByStudentIdAndSemesterAndYear(studentId, semester, year);
+    }
+
+    @Override
+    public Class getClassById(String classId) {
+        Class classFindById = classRepository.findById(classId).orElseThrow(() -> new RuntimeException("Không tìm thấy lớp học"));
+        if (classFindById.getStatus() == ClassStatus.CLOSED) {
+            throw new RuntimeException("Lớp học đã đóng, không thể đăng ký");
+        } else if (classFindById.getStatus() == ClassStatus.PLANNING) {
+            throw new RuntimeException("Lớp học đang trong quá trình lên kế hoạch, không thể đăng ký");
+        }
+        return classFindById;
     }
 }

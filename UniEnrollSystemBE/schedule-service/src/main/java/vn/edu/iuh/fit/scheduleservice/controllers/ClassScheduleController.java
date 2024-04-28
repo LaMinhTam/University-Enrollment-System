@@ -1,14 +1,10 @@
 package vn.edu.iuh.fit.scheduleservice.controllers;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import vn.edu.iuh.fit.scheduleservice.dtos.ClassIdsRequest;
-import vn.edu.iuh.fit.scheduleservice.dtos.DateRequest;
-import vn.edu.iuh.fit.scheduleservice.dtos.ResponseWrapper;
+import vn.edu.iuh.fit.scheduleservice.dtos.*;
 import vn.edu.iuh.fit.scheduleservice.models.ClassSchedule;
-import vn.edu.iuh.fit.scheduleservice.models.Schedule;
 import vn.edu.iuh.fit.scheduleservice.services.ClassScheduleService;
 
 import java.text.ParseException;
@@ -56,13 +52,18 @@ public class ClassScheduleController {
     }
 
     @GetMapping("/classes/by-date")
-    public ResponseEntity<?> getSchedulesByDate(@RequestBody DateRequest dateRequest) throws ParseException {
+    public ResponseEntity<?> getSchedulesByDate(@RequestHeader("id") String studentId, @RequestBody DateRequest dateRequest) throws ParseException {
         return ResponseEntity.ok(
                 new ResponseWrapper(
                         "Lịch học",
-                        classScheduleService.getScheduleByDate(dateRequest),
+                        classScheduleService.getScheduleByDate(studentId, dateRequest),
                         HttpStatus.OK.value()
                 )
         );
+    }
+
+    @PostMapping("/conflicts")
+    public List<ConflictResponse> checkScheduleConflict(@RequestBody ScheduleConflictRequest request) {
+        return classScheduleService.getScheduleConflicts(request.enrolledClassIds(), request.newClassId());
     }
 }

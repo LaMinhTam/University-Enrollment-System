@@ -7,6 +7,7 @@ import org.springframework.stereotype.Repository;
 import vn.edu.iuh.fit.enrollservice.models.Enrollment;
 import vn.edu.iuh.fit.enrollservice.models.EnrollmentClassId;
 
+import java.util.List;
 import java.util.Optional;
 
 @Repository
@@ -15,4 +16,9 @@ public interface EnrollmentRepository extends JpaRepository<Enrollment, Enrollme
 
     @Procedure("register_class")
     int registerClass(@Param("p_student_id") String studentId, @Param("p_class_id") String classId);
+
+    @Procedure("change_class")
+    int changeClass(@Param("p_student_id") String studentId, @Param("p_old_class_id") String oldClassId, @Param("p_new_class_id") String newClassId);
+
+    List<Enrollment> findByStudentIdAndSemesterAndYear(String studentId, int semester, int year);
 }

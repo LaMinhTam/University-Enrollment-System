@@ -16,6 +16,8 @@ import java.util.List;
 @NoArgsConstructor
 public class ClassSchedule {
     private String classId;
+    private String courseId;
+    private String courseName;
     @Field("schedules")
     private List<Schedule> schedules;
 }
