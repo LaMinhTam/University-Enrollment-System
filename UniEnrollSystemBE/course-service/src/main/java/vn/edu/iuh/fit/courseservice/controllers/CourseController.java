@@ -8,6 +8,7 @@ import vn.edu.iuh.fit.courseservice.models.Course;
 import vn.edu.iuh.fit.courseservice.services.CourseService;
 
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/courses")
@@ -20,7 +21,7 @@ public class CourseController {
 
     @GetMapping
     public ResponseEntity<?> listAllCourses(@RequestHeader("major_id") int majorId, @RequestHeader("academic_year") int year) {
-        List<Course> courses = courseService.listAllCourseByMajorAndYear(majorId, year);
+        Map<Integer, List<Course>> courses = courseService.listAllCourseByMajorAndYear(majorId, year);
         return ResponseEntity.ok(new ResponseWrapper("Chương trình khung", courses, HttpStatus.OK.value()));
     }
 
