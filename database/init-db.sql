@@ -153,11 +153,12 @@ USE `enroll_db`;
 DROP TABLE IF EXISTS `classes`;
 CREATE TABLE `classes` (
   `id` varchar(255) NOT NULL,
-  `course` varchar(255) DEFAULT NULL,
   `max_capacity` int NOT NULL,
   `semester` int NOT NULL,
   `status` enum('PLANNING','WAITING','OPENED','CLOSED') DEFAULT NULL,
   `year` int NOT NULL,
+  `course_id` varchar(255) DEFAULT NULL,
+  `course_name` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
@@ -374,12 +375,11 @@ CREATE TABLE `enrollments` (
   `registry_class` varchar(255) NOT NULL,
   `student_id` varchar(255) NOT NULL,
   `created_at` datetime(6) DEFAULT NULL,
+  `semester` int NOT NULL,
+  `year` int NOT NULL,
+  `course_id` varchar(255) NOT NULL,
   PRIMARY KEY (`registry_class`,`student_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
-
-INSERT INTO `enrollments` (`registry_class`, `student_id`, `created_at`) VALUES
-('420300200924101',	'21023911',	'2024-04-26 10:13:55.000000'),
-('420300200924101',	'21082081',	'2024-04-26 10:15:39.000000');
 
 DELIMITER //
 
@@ -486,10 +486,12 @@ BEGIN
                             SET p_status_code = 423; -- HTTP status code for forbidden
                         WHEN 'PLANNING' THEN
                             SET p_status_code = 425; -- HTTP status code for forbidden
+                        WHEN 'OPEN' THEN
+                            SET p_status_code = 406; -- HTTP status code for forbidden
                         ELSE
-                            -- Insert enrollment record
-                            INSERT INTO enrollments (registry_class, student_id, created_at) VALUES (p_new_class_id, p_student_id, NOW());
-                            SET p_status_code = 201; -- HTTP status code for created
+                            -- Update enrollment record
+                            UPDATE enrollments SET registry_class = p_new_class_id WHERE student_id = p_student_id;
+                            SET p_status_code = 200; -- HTTP status code for successful update
                     END CASE;
                 END IF;
             END IF;

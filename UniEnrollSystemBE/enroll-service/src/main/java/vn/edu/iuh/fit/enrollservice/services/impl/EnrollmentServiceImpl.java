@@ -34,7 +34,9 @@ public class EnrollmentServiceImpl implements EnrollmentService {
             case 425:
                 throw new RuntimeException("Lớp học đang trong quá trình lên kế hoạch, không thể đăng ký");
             case 422:
-                throw new RuntimeException("The old and new classes have different course_id");
+                throw new RuntimeException("Lớp mới và lớp cũ không cùng môn học");
+            case 406:
+                throw new RuntimeException("Lớp học đã mở không thể đổi lớp khác");
             default:
                 break;
         }
