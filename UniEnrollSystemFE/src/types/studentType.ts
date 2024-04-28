@@ -1,3 +1,7 @@
+interface ILogin {
+    id: string;
+    password: string;
+}
 interface IStudent {
     id: string;
     name: string;
@@ -8,16 +12,18 @@ interface IStudent {
     facultyName: string;
 }
 
-interface IToken {
+interface ILoginResponseData {
+    student: IStudent;
     accessToken: string;
     refreshToken: string;
 }
 
-type LoginData = {
-    student: IStudent;
-    token: IToken;
+type LoginResponse = {
+    message: string;
+    data: ILoginResponseData;
+    status: number;
 };
 
-export default LoginData;
+export default LoginResponse;
 
-export type { IStudent, IToken };
+export type { IStudent, ILogin };

@@ -9,6 +9,7 @@ import "react-toastify/dist/ReactToastify.css";
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
 import { AuthProvider } from "./contexts/auth-context.tsx";
 import LoginPage from "./pages/LoginPage.tsx";
+import AuthType from "./types/authType.ts";
 const LayoutDashboard = React.lazy(
     () => import("./layout/LayoutDashboard.tsx")
 );
@@ -27,12 +28,12 @@ const router = createBrowserRouter([
     },
     {
         element: <LoginPage></LoginPage>,
-        path: "/login",
+        path: "/dang-nhap",
     },
 ]);
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
-    <AuthProvider value={null}>
+    <AuthProvider value={{} as AuthType}>
         <App>
             <Suspense fallback={<div>Loading...</div>}>
                 <RouterProvider router={router}></RouterProvider>

@@ -1,26 +1,47 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { JSX } from "react/jsx-runtime";
 import AuthType, { IAuthValues } from "../types/authType";
-import { IStudent, IToken } from "../types/studentType";
+import { IStudent } from "../types/studentType";
+import CryptoJS from "crypto-js";
+import { getAccessToken, getUser } from "../utils/auth";
 
-const AuthContext = React.createContext<AuthType | null>(null);
+const AuthContext = React.createContext<AuthType>({} as AuthType);
 
 export function AuthProvider(
-    props: JSX.IntrinsicAttributes & React.ProviderProps<AuthType | null>
+    props: JSX.IntrinsicAttributes & React.ProviderProps<AuthType>
 ) {
     const [values, setValues] = React.useState<IAuthValues>({
         id: "",
         password: "",
     });
-    const [userInfo, setUserInfo] = React.useState<IStudent | null>(null);
-    const [token, setToken] = React.useState<IToken | null>(null);
+    const [userInfo, setUserInfo] = React.useState<IStudent>({
+        id: "",
+        name: "",
+        majorId: 0,
+        majorName: "",
+        year: 0,
+        facultyId: 0,
+        facultyName: "",
+    });
+
+    useEffect(() => {
+        const encryptedUser = getUser();
+        const accessToken = getAccessToken();
+
+        if (encryptedUser && accessToken) {
+            // Decrypt the data
+            const bytes = CryptoJS.AES.decrypt(encryptedUser, accessToken);
+            const decryptedData = JSON.parse(bytes.toString(CryptoJS.enc.Utf8));
+
+            setUserInfo(decryptedData);
+        }
+    }, []);
+
     const contextValues = {
         values,
         userInfo,
         setValues,
         setUserInfo,
-        token,
-        setToken,
     };
     return (
         <AuthContext.Provider

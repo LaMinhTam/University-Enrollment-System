@@ -3,8 +3,11 @@ import ComputerIcon from "@mui/icons-material/Computer";
 import SchoolIcon from "@mui/icons-material/School";
 import PaymentIcon from "@mui/icons-material/Payment";
 import EventAvailableIcon from "@mui/icons-material/EventAvailable";
+import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import { useState } from "react";
-const sidebarLinks = [
+import sidebarType from "../../types/sidebarType";
+
+const sidebarLinks: sidebarType[] = [
     {
         title: "Trang chủ",
         icon: <HomeIcon />,
@@ -84,27 +87,44 @@ const DashboardSidebar = () => {
     };
 
     return (
-        <div className="w-full md:w-[260px] bg-white shadow-[10px_10px_20px_0px_rgba(218,_213,_213,_0.15)] px-[14px] py-10 flex flex-col flex-shrink-0">
+        <div
+            className="w-full md:w-[220px] bg-white 
+        shadow-[10px_10px_20px_0px_rgba(218,_213,_213,_0.15)] px-2 py-10 flex flex-col flex-shrink-0"
+        >
             {sidebarLinks.map((link, index) => (
                 <div key={index} className="mb-10">
                     <div
-                        className="flex items-center justify-center mb-6"
+                        className="flex items-center justify-start gap-x-2"
                         onClick={() => handleIconClick(index)}
                     >
                         {link.icon}
+                        <div
+                            className={`flex items-center justify-center ${
+                                link.subLinks && link.subLinks.length > 0
+                                    ? "flex-1"
+                                    : ""
+                            }`}
+                        >
+                            <span className="text-xs font-semibold text-center uppercase text-text5">
+                                {link.title}
+                            </span>
+                            {link.subLinks && (
+                                <button className="ml-auto">
+                                    <ExpandMoreIcon />
+                                </button>
+                            )}
+                        </div>
                     </div>
                     <div className="flex flex-col gap-y-2">
-                        <div className="text-center text-[#333] font-semibold text-sm">
-                            {link.title}
-                        </div>
                         {link.subLinks && activeIndex === index && (
-                            <div className="flex flex-col gap-y-2">
+                            <div className="flex flex-col">
                                 {link.subLinks.map((subLink, index) => (
                                     <div
                                         key={index}
-                                        className="text-center text-[#333] text-xs"
+                                        className="hover:text-primary flex items-center hover:border-l-2 hover:border-l-text1 
+                                        px-3 py-4 justify-start text-xs text-text5 w-full h-[45px] cursor-pointer"
                                     >
-                                        {subLink.title}
+                                        <span>{subLink.title}</span>
                                     </div>
                                 ))}
                             </div>

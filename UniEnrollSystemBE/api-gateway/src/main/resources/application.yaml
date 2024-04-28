@@ -45,6 +45,19 @@ spring:
           uri: lb://course-service
           predicates:
             - Path=/courses/**
+      globalcors:
+        corsConfigurations:
+          '[/**]':
+            allowedOrigins: "http://localhost:5173"
+            allowedMethods:
+              - GET
+              - POST
+              - PUT
+              - DELETE
+            allowedHeaders:
+              - "*"
+            allowCredentials: true
+
   main:
     web-application-type: reactive
 

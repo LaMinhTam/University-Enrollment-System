@@ -7,7 +7,9 @@ interface IAuthValues {
 
 type AuthType = {
     values: IAuthValues;
-    userInfo: IStudent | null;
+    userInfo: IStudent;
+    setValues: (values: IAuthValues) => void;
+    setUserInfo: (userInfo: IStudent) => void;
 };
 
 export default AuthType;
