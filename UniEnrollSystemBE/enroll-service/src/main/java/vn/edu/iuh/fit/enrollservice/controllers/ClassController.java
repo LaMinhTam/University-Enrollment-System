@@ -34,7 +34,7 @@ public class ClassController {
         List<Class> classes = classService.listAllClasses(semester, year);
 
         // Extract course IDs from the retrieved classes
-        List<String> courseIds = classes.stream().map(Class::getCourse).collect(Collectors.toList());
+        List<String> courseIds = classes.stream().map(Class::getCourseId).collect(Collectors.toList());
 
         // Retrieve courses based on the extracted course IDs
         List<Course> courses = courseClient.getCoursesByIds(courseIds);
@@ -42,7 +42,7 @@ public class ClassController {
         // Map courses to classes and create ClassWithCourse objects
         List<ClassWithCourse> classesWithCourses = new ArrayList<>();
         for (Class clazz : classes) {
-            Optional<Course> optionalCourse = courses.stream().filter(course -> course.id().equals(clazz.getCourse())).findFirst();
+            Optional<Course> optionalCourse = courses.stream().filter(course -> course.id().equals(clazz.getCourseId())).findFirst();
             optionalCourse.ifPresent(course -> {
                 ClassWithCourse classWithCourse = new ClassWithCourse(
                         clazz.getId(),

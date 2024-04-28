@@ -10,4 +10,6 @@ public interface ClassRepository extends JpaRepository<Class, String> {
     public Optional<Class> findById(String id);
 
     List<Class> findBySemesterAndYear(int semester, int year);
+
+    List<Class> findByIdIn(List<String> ids);
 }

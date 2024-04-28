@@ -3,6 +3,7 @@ package vn.edu.iuh.fit.enrollservice.services.impl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import vn.edu.iuh.fit.enrollservice.models.Class;
+import vn.edu.iuh.fit.enrollservice.models.Enrollment;
 import vn.edu.iuh.fit.enrollservice.repositories.ClassRepository;
 import vn.edu.iuh.fit.enrollservice.services.ClassService;
 
@@ -20,5 +21,10 @@ public class ClassServiceImpl implements ClassService {
     @Override
     public List<Class> listAllClasses(int semester, int year) {
         return classRepository.findBySemesterAndYear(semester, year);
+    }
+
+    @Override
+    public List<Class> getClassesByEnrollment(List<String> classIds) {
+        return classRepository.findByIdIn(classIds);
     }
 }

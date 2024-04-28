@@ -12,4 +12,5 @@ import java.io.Serializable;
 public class EnrollmentClassId implements Serializable {
     private String studentId;
     private String registryClass;
+    private String courseId;
 }

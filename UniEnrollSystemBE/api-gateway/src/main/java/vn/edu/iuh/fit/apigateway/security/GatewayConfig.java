@@ -34,6 +34,10 @@ public class GatewayConfig {
                 .route("course-service", r -> r.path("/courses/**")
                         .filters(f -> f.filter(filter))
                         .uri("lb://course-service"))
+
+                .route("schedule-service", r -> r.path("/schedules/**")
+                        .filters(f -> f.filter(filter))
+                        .uri("lb://schedule-service"))
                 .build();
     }
 
