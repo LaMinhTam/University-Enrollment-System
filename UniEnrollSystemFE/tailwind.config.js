@@ -13,6 +13,7 @@ export default {
                 tertiary: "#1DA1F2",
                 quaternary: "#B7DFFF",
                 quinary: "#FF9205",
+                senary: "#fff9c0",
                 text1: "#171725",
                 text2: "#4B5264",
                 text3: "#808191",

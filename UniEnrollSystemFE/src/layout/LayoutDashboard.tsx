@@ -10,10 +10,10 @@ const LayoutDashboard = () => {
     return (
         <div className="min-h-screen bg-strock">
             <Overlay></Overlay>
-            <div className="w-full h-[60px] mx-auto shadow-md bg-lite">
+            <div className="w-full h-[60px] mx-auto shadow-md bg-lite fixed top-0 left-0 right-0">
                 <DashboardTopBar></DashboardTopBar>
             </div>
-            <div className="absolute z-50">
+            <div className="absolute z-50 mt-[60px]">
                 <div className="flex items-start justify-start">
                     {showSidebar && <DashboardSidebar></DashboardSidebar>}
                     <button
@@ -24,7 +24,7 @@ const LayoutDashboard = () => {
                     </button>
                 </div>
             </div>
-            <div className="w-full max-w-[1140px] h-full mx-auto">
+            <div className="w-full max-w-[1140px] h-full mx-auto pt-[60px]">
                 <Outlet></Outlet>
             </div>
         </div>

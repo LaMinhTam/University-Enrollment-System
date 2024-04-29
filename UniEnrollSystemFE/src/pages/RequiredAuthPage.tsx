@@ -8,6 +8,7 @@ import {
 import isTokenExpire from "../utils/isTokenExpire";
 import { useNavigate } from "react-router-dom";
 import { UniEnrollSystemAPI } from "../apis/constants";
+import { toast } from "react-toastify";
 
 const RequiredAuthPage = ({ children }: { children: React.ReactNode }) => {
     const navigate = useNavigate();
@@ -21,15 +22,28 @@ const RequiredAuthPage = ({ children }: { children: React.ReactNode }) => {
             const response = await UniEnrollSystemAPI.refreshToken(
                 refreshToken
             );
-            console.log("handleRefreshToken ~ response:", response);
-            saveAccessToken(response.data.accessToken);
-            saveRefreshToken(response.data.refreshToken);
+            if (response.status === 200) {
+                console.log("Refresh token success");
+                saveAccessToken(response.data.accessToken);
+                saveRefreshToken(response.data.refreshToken);
+            } else {
+                console.log("Refresh token failed");
+                saveAccessToken("");
+                saveRefreshToken("");
+                toast.error(
+                    "Phiên đăng nhập đã hết hạn, vui lòng đăng nhập lại"
+                );
+                navigate("/dang-nhap");
+            }
         }
         if (isAccessTokenExpired && !isRefreshTokenExpired) {
+            console.log("Access token expired");
             handleRefreshToken();
         } else if (!isAccessTokenExpired) {
             return;
         } else {
+            saveAccessToken("");
+            saveRefreshToken("");
             navigate("/dang-nhap");
         }
     }, [isAccessTokenExpired, isRefreshTokenExpired, navigate, refreshToken]);

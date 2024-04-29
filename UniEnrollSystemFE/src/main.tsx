@@ -19,6 +19,10 @@ const EducationProgram = React.lazy(
     () => import("./pages/EducationProgram.tsx")
 );
 
+const CourseRegisterPage = React.lazy(
+    () => import("./pages/CourseRegisterPage.tsx")
+);
+
 const router = createBrowserRouter([
     {
         element: <LayoutDashboard />,
@@ -30,6 +34,10 @@ const router = createBrowserRouter([
             {
                 path: "/chuong-trinh-khung",
                 element: <EducationProgram />,
+            },
+            {
+                path: "/dang-ky-hoc-phan",
+                element: <CourseRegisterPage />,
             },
         ],
     },

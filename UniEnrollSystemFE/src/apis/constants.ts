@@ -1,4 +1,5 @@
 import apiURL from "../config/config";
+import EducationProgramsResponse from "../types/educationProgramType";
 import LoginResponse, { ILogin } from "../types/studentType";
 import axios, { axiosPrivate } from "./axios";
 
@@ -11,7 +12,7 @@ const login = async (data: ILogin) => {
 };
 
 const refreshToken = async (refreshToken: string) => {
-    const response = await axiosPrivate.post<LoginResponse>(
+    const response = await axios.post<LoginResponse>(
         `${apiURL}/auth/refresh-token`,
         {
             refreshToken: refreshToken,
@@ -21,7 +22,9 @@ const refreshToken = async (refreshToken: string) => {
 };
 
 const getEducationPrograms = async () => {
-    const response = await axiosPrivate.get(`${apiURL}/courses`);
+    const response = await axiosPrivate.get<EducationProgramsResponse>(
+        `${apiURL}/courses`
+    );
     return response.data;
 };
 
