@@ -35,7 +35,8 @@ public class ClassScheduleRepositoryTests {
                                 "A1",
                                 "12 Nguyễn Văn Bảo",
                                 "Hải",
-                                ClassType.THEORY
+                                ClassType.THEORY,
+                                null
                         ))
                 )
         );

@@ -5,6 +5,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.util.Date;
+import java.util.List;
 
 @Data
 @AllArgsConstructor
@@ -18,4 +19,5 @@ public class Schedule {
     private String location;
     private String lecturer;
     private ClassType classType;
+    private List<Date> dayOff;
 }

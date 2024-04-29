@@ -27,7 +27,7 @@ public class GatewayConfig {
                         .filters(f -> f.filter(filter))
                         .uri("lb://faculty-service"))
 
-                .route("enroll-service", r -> r.path("/enrollments/**", "/classes/**")
+                .route("enroll-service", r -> r.path("/enrollments/**", "/classes/**", "/wait-list/**")
                         .filters(f -> f.filter(filter))
                         .uri("lb://enroll-service"))
 
