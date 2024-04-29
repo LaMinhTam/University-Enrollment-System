@@ -20,5 +20,4 @@ public class Schedule {
     private String lecturer;
     private ClassType classType;
     private List<Date> dayOff;
-    private DayStatus dayStatus;
 }

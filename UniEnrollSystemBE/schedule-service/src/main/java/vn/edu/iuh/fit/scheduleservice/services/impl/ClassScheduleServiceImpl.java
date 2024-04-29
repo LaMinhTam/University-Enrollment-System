@@ -11,7 +11,7 @@ import vn.edu.iuh.fit.scheduleservice.dtos.DateRequest;
 import vn.edu.iuh.fit.scheduleservice.dtos.QueryClassSchedule;
 import vn.edu.iuh.fit.scheduleservice.dtos.WeekScheduleDTO;
 import vn.edu.iuh.fit.scheduleservice.models.ClassSchedule;
-import vn.edu.iuh.fit.scheduleservice.models.DayStatus;
+import vn.edu.iuh.fit.scheduleservice.models.ClassType;
 import vn.edu.iuh.fit.scheduleservice.models.StudentSchedule;
 import vn.edu.iuh.fit.scheduleservice.repositories.ClassScheduleRepository;
 import vn.edu.iuh.fit.scheduleservice.repositories.StudentScheduleRepository;
@@ -67,6 +67,20 @@ public class ClassScheduleServiceImpl implements ClassScheduleService {
     @Override
     public List<WeekScheduleDTO> getScheduleByDate(String studentId, DateRequest dateRequest) throws ParseException {
         Calendar cal = Calendar.getInstance();
+        Date[] dates = calculateStartAndEndDates(cal, dateRequest);
+        Date startDate = dates[0];
+        Date endDate = dates[1];
+
+        Aggregation aggregation = createScheduleAggregation(studentId, startDate, endDate);
+
+        List<QueryClassSchedule> queryClassScheduleList = mongoTemplate.aggregate(aggregation, "studentSchedule", QueryClassSchedule.class).getMappedResults();
+
+        Map<Integer, List<QueryClassSchedule>> scheduleMap = populateScheduleMap(queryClassScheduleList);
+
+        return createWeeklySchedule(cal, scheduleMap);
+    }
+
+    private Date[] calculateStartAndEndDates(Calendar cal, DateRequest dateRequest) {
         cal.set(Calendar.YEAR, dateRequest.year());
         cal.set(Calendar.MONTH, dateRequest.month() - 1);
         cal.set(Calendar.DAY_OF_MONTH, dateRequest.day());
@@ -81,6 +95,10 @@ public class ClassScheduleServiceImpl implements ClassScheduleService {
         Date endDate = cal.getTime();
         cal.add(Calendar.DAY_OF_MONTH, -6);
 
+        return new Date[]{startDate, endDate};
+    }
+
+    private Aggregation createScheduleAggregation(String studentId, Date startDate, Date endDate) {
         MatchOperation matchStudent = Aggregation.match(new Criteria("studentId").is(studentId));
         LookupOperation lookupSchedule = LookupOperation.newLookup()
                 .from("classSchedule")
@@ -95,7 +113,7 @@ public class ClassScheduleServiceImpl implements ClassScheduleService {
         ));
 
         ProjectionOperation projectFields = Aggregation.project("classId", "classSchedule.courseId", "classSchedule.courseName", "classSchedule.schedules");
-        Aggregation aggregation = Aggregation.newAggregation(
+        return Aggregation.newAggregation(
                 matchStudent,
                 lookupSchedule,
                 unwindSchedule,
@@ -103,10 +121,19 @@ public class ClassScheduleServiceImpl implements ClassScheduleService {
                 matchDate,
                 projectFields
         );
+    }
 
-        List<QueryClassSchedule> queryClassScheduleList = mongoTemplate.aggregate(aggregation, "studentSchedule", QueryClassSchedule.class).getMappedResults();
+    private Map<Integer, List<QueryClassSchedule>> populateScheduleMap(List<QueryClassSchedule> queryClassScheduleList) {
+        Map<Integer, List<QueryClassSchedule>> scheduleMap = new HashMap<>();
+        queryClassScheduleList.forEach(schedule -> {
+            int dayOfWeekInQuerySchedule = schedule.schedules().getDayOfWeek();
+            scheduleMap.computeIfAbsent(dayOfWeekInQuerySchedule, k -> new ArrayList<>()).add(schedule);
+        });
+        return scheduleMap;
+    }
 
-        // Create a map with keys as dates of the week and empty lists as values
+
+    private List<WeekScheduleDTO> createWeeklySchedule(Calendar cal, Map<Integer, List<QueryClassSchedule>> scheduleMap) {
         List<WeekScheduleDTO> weeklySchedule = new ArrayList<>();
         for (int i = 0; i < 7; i++) {
             cal.set(Calendar.DAY_OF_WEEK, i + Calendar.MONDAY);
@@ -114,24 +141,16 @@ public class ClassScheduleServiceImpl implements ClassScheduleService {
         }
         cal.add(Calendar.DAY_OF_MONTH, -6);
 
-        // Populate the map with schedules
-        for (QueryClassSchedule queryClassSchedule : queryClassScheduleList) {
-            for (int dayIndex = 0; dayIndex < 7; dayIndex++) {
-                Date currentScheduleDate = cal.getTime();
-                List<Date> daysOff = queryClassSchedule.schedules().getDayOff();
-                DayStatus dayStatus = (daysOff != null && isDayOff(daysOff, currentScheduleDate))
-                        ? DayStatus.NO_CLASS_DAY
-                        : DayStatus.CLASS_DAY;
-                queryClassSchedule.schedules().setDayStatus(dayStatus);
-
-                int scheduleDayOfWeek = queryClassSchedule.schedules().getDayOfWeek() - 1;
-                if (dayIndex == scheduleDayOfWeek) {
-                    weeklySchedule.get(dayIndex).addSchedule(queryClassSchedule);
+        scheduleMap.forEach((key, schedules) -> {
+            schedules.forEach(currentSchedule -> {
+                List<Date> daysOff = currentSchedule.schedules().getDayOff();
+                if (daysOff != null && isDayOff(daysOff, weeklySchedule.get(key - 1).getDate())) {
+                    currentSchedule.schedules().setClassType(ClassType.NO_CLASS_DAY);
                 }
+            });
 
-                cal.add(Calendar.DAY_OF_MONTH, 1);
-            }
-        }
+            weeklySchedule.get(key - 1).setSchedule(schedules);
+        });
 
         return weeklySchedule;
     }
