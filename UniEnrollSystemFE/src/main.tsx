@@ -15,6 +15,9 @@ const LayoutDashboard = React.lazy(
 );
 
 const DashboardPage = React.lazy(() => import("./pages/DashboardPage.tsx"));
+const EducationProgram = React.lazy(
+    () => import("./pages/EducationProgram.tsx")
+);
 
 const router = createBrowserRouter([
     {
@@ -23,6 +26,10 @@ const router = createBrowserRouter([
             {
                 path: "/",
                 element: <DashboardPage />,
+            },
+            {
+                path: "/chuong-trinh-khung",
+                element: <EducationProgram />,
             },
         ],
     },

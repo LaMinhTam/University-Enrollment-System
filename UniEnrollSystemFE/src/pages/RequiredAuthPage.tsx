@@ -21,6 +21,7 @@ const RequiredAuthPage = ({ children }: { children: React.ReactNode }) => {
             const response = await UniEnrollSystemAPI.refreshToken(
                 refreshToken
             );
+            console.log("handleRefreshToken ~ response:", response);
             saveAccessToken(response.data.accessToken);
             saveRefreshToken(response.data.refreshToken);
         }
