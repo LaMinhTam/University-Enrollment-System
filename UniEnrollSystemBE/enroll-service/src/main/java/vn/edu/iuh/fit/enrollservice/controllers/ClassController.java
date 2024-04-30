@@ -4,6 +4,7 @@ import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import vn.edu.iuh.fit.enrollservice.client.CourseClient;
+import vn.edu.iuh.fit.enrollservice.dtos.ClassDTO;
 import vn.edu.iuh.fit.enrollservice.dtos.Course;
 import vn.edu.iuh.fit.enrollservice.dtos.MapCourseClass;
 import vn.edu.iuh.fit.enrollservice.dtos.ResponseWrapper;
@@ -34,14 +35,14 @@ public class ClassController {
         Map<String , MapCourseClass> coursesWithClasses = classRedisService.getAllCourses(majorId, semester, year);
 
         if (coursesWithClasses == null) {
-            List<Class> classes = classService.listAllClasses(semester, year);
+            List<ClassDTO> classes = classService.listAllClasses(semester, year);
 
-            List<String> courseIds = classes.stream().map(Class::getCourseId).collect(Collectors.toList());
+            List<String> courseIds = classes.stream().map(ClassDTO::getCourseId).collect(Collectors.toList());
 
             List<Course> courses = courseClient.getCoursesByIds(majorId, courseIds);
 
-            Map<String, List<Class>> classesGroupedByCourseId = classes.stream()
-                    .collect(Collectors.groupingBy(Class::getCourseId));
+            Map<String, List<ClassDTO>> classesGroupedByCourseId = classes.stream()
+                    .collect(Collectors.groupingBy(ClassDTO::getCourseId));
             coursesWithClasses = new HashMap<>();
             for (Course course : courses) {
                 coursesWithClasses.put(course.getId(), new MapCourseClass(course, classesGroupedByCourseId.get(course.getId())));

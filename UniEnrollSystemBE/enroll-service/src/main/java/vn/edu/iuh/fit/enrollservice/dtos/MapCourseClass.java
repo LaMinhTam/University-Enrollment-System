@@ -16,5 +16,5 @@ public class MapCourseClass implements Serializable {
     @Serial
     private static final long serialVersionUID = 1524478025872001111L;
     private Course course;
-    private List<Class> classes;
+    private List<ClassDTO> classes;
 }

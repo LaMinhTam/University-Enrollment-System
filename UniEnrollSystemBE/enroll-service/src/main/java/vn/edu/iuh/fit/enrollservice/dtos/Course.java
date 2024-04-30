@@ -19,5 +19,6 @@ public class Course implements Serializable {
     private int credit;
     private int theoryCredit;
     private int practicalCredit;
+    private int type;
     private List<Prerequisite> prerequisites;
 }
