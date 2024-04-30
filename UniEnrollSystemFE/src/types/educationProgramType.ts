@@ -4,14 +4,17 @@ interface IEducationPrograms {
     credit: number;
     theoryCredit: number;
     practicalCredit: number;
-    courseOnMajorList: ICourseOnMajorList[];
+    type: number;
+    semester: number;
+    prerequisites: IPrerequisite[];
 }
 
-interface ICourseOnMajorList {
-    majorId: number;
-    semester: number;
-    type: number;
-    academicYear: number;
+interface IPrerequisite {
+    id: string;
+    name: string;
+    credit: number;
+    theoryCredit: number;
+    practicalCredit: number;
 }
 
 type EducationProgramsResponse = {
@@ -22,4 +25,4 @@ type EducationProgramsResponse = {
 
 export default EducationProgramsResponse;
 
-export type { IEducationPrograms, ICourseOnMajorList };
+export type { IEducationPrograms, IPrerequisite };

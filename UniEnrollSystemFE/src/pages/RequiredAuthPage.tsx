@@ -4,6 +4,7 @@ import {
     getRefreshToken,
     saveAccessToken,
     saveRefreshToken,
+    saveUser,
 } from "../utils/auth";
 import isTokenExpire from "../utils/isTokenExpire";
 import { useNavigate } from "react-router-dom";
@@ -19,17 +20,19 @@ const RequiredAuthPage = ({ children }: { children: React.ReactNode }) => {
 
     useEffect(() => {
         async function handleRefreshToken() {
-            const response = await UniEnrollSystemAPI.refreshToken(
-                refreshToken
-            );
-            if (response.status === 200) {
-                console.log("Refresh token success");
-                saveAccessToken(response.data.accessToken);
-                saveRefreshToken(response.data.refreshToken);
-            } else {
-                console.log("Refresh token failed");
+            try {
+                const response = await UniEnrollSystemAPI.refreshToken(
+                    refreshToken
+                );
+                if (response.status === 200) {
+                    console.log("Refresh token success");
+                    saveAccessToken(response.data.accessToken);
+                    saveRefreshToken(response.data.refreshToken);
+                }
+            } catch (error) {
                 saveAccessToken("");
                 saveRefreshToken("");
+                saveUser("");
                 toast.error(
                     "Phiên đăng nhập đã hết hạn, vui lòng đăng nhập lại"
                 );

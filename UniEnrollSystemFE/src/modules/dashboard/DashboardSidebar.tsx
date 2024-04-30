@@ -111,7 +111,12 @@ const DashboardSidebar = () => {
                                     {item.title}
                                 </span>
                             ) : (
-                                <Link to={item.link}>{item.title}</Link>
+                                <Link
+                                    to={item.link}
+                                    className="text-xs font-semibold text-center uppercase text-text5"
+                                >
+                                    {item.title}
+                                </Link>
                             )}
                             {item.subLinks && (
                                 <button className="ml-auto">

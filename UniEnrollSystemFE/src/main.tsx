@@ -1,15 +1,18 @@
 /* eslint-disable react-refresh/only-export-components */
 import { ToastContainer } from "react-toastify";
 import React, { Suspense } from "react";
+import { Provider } from "react-redux";
 import ReactDOM from "react-dom/client";
 import App from "./App.tsx";
 import "./index.scss";
 import "./App.scss";
 import "react-toastify/dist/ReactToastify.css";
+import "react-tooltip/dist/react-tooltip.css";
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
 import { AuthProvider } from "./contexts/auth-context.tsx";
 import LoginPage from "./pages/LoginPage.tsx";
 import AuthType from "./types/authType.ts";
+import store from "./store/configureStore.ts";
 const LayoutDashboard = React.lazy(
     () => import("./layout/LayoutDashboard.tsx")
 );
@@ -48,12 +51,14 @@ const router = createBrowserRouter([
 ]);
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
-    <AuthProvider value={{} as AuthType}>
-        <App>
-            <Suspense fallback={<div>Loading...</div>}>
-                <RouterProvider router={router}></RouterProvider>
-            </Suspense>
-        </App>
-        <ToastContainer bodyClassName="font-primary text-sm"></ToastContainer>
-    </AuthProvider>
+    <Provider store={store}>
+        <AuthProvider value={{} as AuthType}>
+            <App>
+                <Suspense fallback={<div>Loading...</div>}>
+                    <RouterProvider router={router}></RouterProvider>
+                </Suspense>
+            </App>
+            <ToastContainer bodyClassName="font-primary text-sm"></ToastContainer>
+        </AuthProvider>
+    </Provider>
 );

@@ -1,4 +1,5 @@
 import apiURL from "../config/config";
+import CourseRegistrationResponse from "../types/courseType";
 import EducationProgramsResponse from "../types/educationProgramType";
 import LoginResponse, { ILogin } from "../types/studentType";
 import axios, { axiosPrivate } from "./axios";
@@ -28,8 +29,16 @@ const getEducationPrograms = async () => {
     return response.data;
 };
 
+const getCourseRegistration = async (semester: number, year: number) => {
+    const response = await axiosPrivate.get<CourseRegistrationResponse>(
+        `${apiURL}/classes?semester=${semester}&year=${year}`
+    );
+    return response.data;
+};
+
 export const UniEnrollSystemAPI = {
     login,
     refreshToken,
     getEducationPrograms,
+    getCourseRegistration,
 };

@@ -13,7 +13,7 @@ const LayoutDashboard = () => {
             <div className="w-full h-[60px] mx-auto shadow-md bg-lite fixed top-0 left-0 right-0">
                 <DashboardTopBar></DashboardTopBar>
             </div>
-            <div className="absolute z-50 mt-[60px]">
+            <div className="z-50 mt-[60px] fixed">
                 <div className="flex items-start justify-start">
                     {showSidebar && <DashboardSidebar></DashboardSidebar>}
                     <button
