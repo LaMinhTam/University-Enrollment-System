@@ -1,0 +1,14 @@
+spring:
+  application:
+    name: grade-management-service
+  config:
+    import: "optional:configserver:http://localhost:8088"
+  data:
+    mongodb:
+      port: 27017
+      host: localhost
+      database: grade_db
+      authentication-database: admin
+      uri: mongodb://root:123456@localhost:27017/admin
+  autoconfigure:
+    exclude: org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration

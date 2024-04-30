@@ -65,6 +65,16 @@ services:
       - db-mysql-net
       - db-mongodb-net
 
+  redis:
+    image: redis:latest
+    restart: always
+    ports:
+      - "6379:6379"
+    environment:
+      - REDIS_PASSWORD=123456
+      - REDIS_PORT=6379
+      - REDIS_DATABASES=16
+
   # service-registry:
   #   build: ./UniEnrollSystemBE/service-registry
   #   restart: always
@@ -73,7 +83,7 @@ services:
   #   networks:
   #     - db-mysql-net
   #     - db-mongodb-net
-  
+
   # config-server:
   #   build: ./UniEnrollSystemBE/config-server
   #   restart: always

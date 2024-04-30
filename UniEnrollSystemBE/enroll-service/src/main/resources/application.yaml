@@ -15,3 +15,10 @@ spring:
     properties:
       hibernate:
         format_sql: true
+  data:
+    redis:
+      database: 0
+      host: localhost
+      port: 6379
+      timeout: 60000
+      password: 123456

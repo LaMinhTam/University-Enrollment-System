@@ -46,6 +46,10 @@ spring:
           uri: lb://course-service
           predicates:
             - Path=/courses/**
+        - id: grade-management-service
+          uri: lb://grade-management-service
+          predicates:
+            - Path=/grades/**
       globalcors:
         corsConfigurations:
           '[/**]':

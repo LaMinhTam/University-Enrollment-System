@@ -1,20 +1,18 @@
-package vn.edu.iuh.fit.courseservice.models;
+package vn.edu.iuh.fit.courseservice.dtos;
 
-import jakarta.persistence.*;
+import jakarta.persistence.Id;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.Field;
 
-import java.util.List;
+import java.io.Serializable;
 
-@Document(collection = "course")
 @Data
-@AllArgsConstructor
 @NoArgsConstructor
-public class Course {
-    @Id
+@AllArgsConstructor
+public class Prerequisite implements Serializable {
+    @Field("course_id")
     private String id;
     private String name;
     private int credit;
@@ -22,7 +20,4 @@ public class Course {
     private int theoryCredit;
     @Field("practical_credit")
     private int practicalCredit;
-    @Field("course_on_major")
-    private List<CourseOnMajor> courseOnMajorList;
-    private List<String> prerequisites;
 }
