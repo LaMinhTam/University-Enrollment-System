@@ -5,12 +5,14 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.io.Serializable;
+
 @Entity
 @Table(name = "classes")
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class Class {
+public class Class implements Serializable {
     @Id
     private String id;
     private String courseId;
