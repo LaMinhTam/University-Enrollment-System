@@ -8,7 +8,6 @@ import org.springframework.stereotype.Service;
 import vn.edu.iuh.fit.courseservice.dtos.CourseDTO;
 import vn.edu.iuh.fit.courseservice.dtos.ListCourseResponse;
 import vn.edu.iuh.fit.courseservice.models.Course;
-import vn.edu.iuh.fit.courseservice.repositories.CourseRepository;
 import vn.edu.iuh.fit.courseservice.services.CourseService;
 
 import java.util.List;
@@ -20,75 +19,74 @@ import static org.springframework.data.mongodb.core.aggregation.VariableOperator
 
 @Service
 public class CourseServiceImpl implements CourseService {
-    private final MongoTemplate mongoTemplate;
-    private final CourseRepository courseRepository;
+    private static final String COURSE_ON_MAJOR = "course_on_major";
+    private static final String MAJOR_ID = "major_id";
+    private static final String ACADEMIC_YEAR = "academic_year";
+    private static final String PREREQUISITES = "prerequisites";
+    private static final String COURSE = "course";
+    private static final String ID = "_id";
+    private static final String COURSE_ID = "course_id";
+    private static final String CREDIT = "credit";
+    private static final String NAME = "name";
+    private static final String THEORY_CREDIT = "theory_credit";
+    private static final String PRACTICAL_CREDIT = "practical_credit";
+    private static final String SEMESTER = "semester";
+    private static final String TYPE = "type";
 
-    public CourseServiceImpl(CourseRepository courseRepository, MongoTemplate mongoTemplate) {
-        this.courseRepository = courseRepository;
+    private final MongoTemplate mongoTemplate;
+
+    public CourseServiceImpl(MongoTemplate mongoTemplate) {
         this.mongoTemplate = mongoTemplate;
     }
 
     @Override
     public Map<Integer, List<CourseDTO>> listAllCourseByMajorAndYear(int majorId, int year) {
         Aggregation aggregation = Aggregation.newAggregation(
-                Aggregation.match(Criteria.where("course_on_major").elemMatch(
-                        Criteria.where("major_id").is(majorId).and("academic_year").is(year)
-                )),
-                Aggregation.lookup(
-                        "course",
-                        "prerequisites",
-                        "_id",
-                        "prerequisites"
-                ),
-                Aggregation.project().andInclude("_id", "credit", "name", "theory_credit", "practical_credit", "prerequisites")
-                        .and(ArrayOperators.arrayOf("course_on_major.semester").elementAt(0)).as("semester")
-                        .and(ArrayOperators.arrayOf("course_on_major.type").elementAt(0)).as("type")
-                        .and(
-                                ArrayOperators.Filter.filter("course_on_major")
-                                        .as("item")
-                                        .by(ComparisonOperators.valueOf("$$item.major_id").notEqualTo(String.valueOf(majorId)))
-                        ).as("course_on_major")
-                        .and(mapItemsOf("prerequisites")
-                                .as("prerequisite")
-                                .andApply(context -> new Document("course_id", "$$prerequisite._id")
-                                        .append("name", "$$prerequisite.name")
-                                        .append("credit", "$$prerequisite.credit")
-                                        .append("practical_credit", "$$prerequisite.practical_credit")
-                                        .append("theory_credit", "$$prerequisite.theory_credit"))).as("prerequisites")
+                matchStage(majorId, year),
+                lookupStage(),
+                projectStage(majorId)
         );
 
         List<CourseDTO> courses = mongoTemplate.aggregate(aggregation, Course.class, CourseDTO.class).getMappedResults();
-        Map<Integer, List<CourseDTO>> coursesBySemester =
-                courses.stream()
-                        .collect(Collectors.groupingBy(course -> course.getSemester()));
-        return coursesBySemester;
+        return courses.stream().collect(Collectors.groupingBy(CourseDTO::getSemester));
     }
 
     @Override
     public List<ListCourseResponse> getCoursesByIds(int majorId, List<String> courseIds) {
-        MatchOperation matchStage = Aggregation.match(Criteria.where("_id").in(courseIds));
-
-        LookupOperation lookupStage = Aggregation.lookup("course", "prerequisites", "_id", "prerequisites");
-
-        ProjectionOperation projectStage = Aggregation.project()
-                .andInclude("_id", "credit", "name", "theory_credit", "practical_credit", "prerequisites")
-                .and("course_on_major.semester").arrayElementAt(0).as("semester")
-                .and("course_on_major.type").arrayElementAt(0).as("type")
-                .and(
-                        filter("course_on_major")
-                                .as("item")
-                                .by(ComparisonOperators.valueOf("$$item.major_id").notEqualTo(String.valueOf(majorId)))
-                ).as("course_on_major")
-                .and(mapItemsOf("prerequisites")
-                        .as("prerequisite")
-                        .andApply(context -> new Document("course_id", "$$prerequisite._id")
-                                .append("name", "$$prerequisite.name")
-                                .append("credit", "$$prerequisite.credit")
-                                .append("practical_credit", "$$prerequisite.practical_credit")
-                                .append("theory_credit", "$$prerequisite.theory_credit"))).as("prerequisites");
-
-        Aggregation aggregation = Aggregation.newAggregation(matchStage, lookupStage, projectStage);
+        Aggregation aggregation = Aggregation.newAggregation(
+                Aggregation.match(Criteria.where(ID).in(courseIds)),
+                lookupStage(),
+                projectStage(majorId)
+        );
 
         return mongoTemplate.aggregate(aggregation, Course.class, ListCourseResponse.class).getMappedResults();
+    }
+
+    private MatchOperation matchStage(int majorId, int year) {
+        return Aggregation.match(Criteria.where(COURSE_ON_MAJOR).elemMatch(
+                Criteria.where(MAJOR_ID).is(majorId).and(ACADEMIC_YEAR).is(year)
+        ));
+    }
+
+    private LookupOperation lookupStage() {
+        return Aggregation.lookup(COURSE, PREREQUISITES, ID, PREREQUISITES);
+    }
+
+    private ProjectionOperation projectStage(int majorId) {
+        return Aggregation.project()
+                .andInclude(ID, CREDIT, NAME, THEORY_CREDIT, PRACTICAL_CREDIT, PREREQUISITES)
+                .and(ArrayOperators.arrayOf(COURSE_ON_MAJOR + "." + SEMESTER).elementAt(0)).as(SEMESTER)
+                .and(ArrayOperators.arrayOf(COURSE_ON_MAJOR + "." + TYPE).elementAt(0)).as(TYPE)
+                .and(filter(COURSE_ON_MAJOR)
+                        .as("item")
+                        .by(ComparisonOperators.valueOf("$$item." + MAJOR_ID).notEqualTo(String.valueOf(majorId)))
+                ).as(COURSE_ON_MAJOR)
+                .and(mapItemsOf(PREREQUISITES)
+                        .as("prerequisite")
+                        .andApply(context -> new Document(COURSE_ID, "$$prerequisite." + ID)
+                                .append(NAME, "$$prerequisite." + NAME)
+                                .append(CREDIT, "$$prerequisite." + CREDIT)
+                                .append(PRACTICAL_CREDIT, "$$prerequisite." + PRACTICAL_CREDIT)
+                                .append(THEORY_CREDIT, "$$prerequisite." + THEORY_CREDIT))).as(PREREQUISITES);
     }
 }
