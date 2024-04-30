@@ -1,8 +1,9 @@
 package vn.edu.iuh.fit.enrollservice.services.impl;
 
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.transaction.support.TransactionTemplate;
+import vn.edu.iuh.fit.enrollservice.dtos.RegistryRequest;
+import vn.edu.iuh.fit.enrollservice.dtos.RequestChangeClass;
 import vn.edu.iuh.fit.enrollservice.models.Class;
 import vn.edu.iuh.fit.enrollservice.models.ClassStatus;
 import vn.edu.iuh.fit.enrollservice.models.Enrollment;
@@ -10,8 +11,8 @@ import vn.edu.iuh.fit.enrollservice.repositories.ClassRepository;
 import vn.edu.iuh.fit.enrollservice.repositories.EnrollmentRepository;
 import vn.edu.iuh.fit.enrollservice.services.EnrollmentService;
 
-import java.util.Date;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class EnrollmentServiceImpl implements EnrollmentService {
@@ -48,8 +49,8 @@ public class EnrollmentServiceImpl implements EnrollmentService {
         return true;
     }
 
-    public boolean changeClass(String studentId, String oldClassId, String newClassId) throws RuntimeException {
-        int statusCode = enrollmentRepository.changeClass(studentId, oldClassId, newClassId);
+    public boolean changeClass(String studentId, RequestChangeClass request) throws RuntimeException {
+        int statusCode = enrollmentRepository.changeClass(studentId, request.old_class_id(), request.new_class_id());
         handleStatusCode(statusCode);
         return true;
     }
@@ -73,12 +74,47 @@ public class EnrollmentServiceImpl implements EnrollmentService {
 
     @Override
     public Class getClassById(String classId) {
-        Class classFindById = classRepository.findById(classId).orElseThrow(() -> new RuntimeException("Không tìm thấy lớp học"));
-        if (classFindById.getStatus() == ClassStatus.CLOSED) {
+        return classRepository.findById(classId).orElseThrow(() -> new RuntimeException("Không tìm thấy lớp học"));
+    }
+
+    @Override
+    public List<String> validateAndPrepareRegistration(String studentId, RegistryRequest request) throws RuntimeException {
+        Class newClass = getClassById(request.class_id());
+        String courseId = newClass.getCourseId();
+        List<Enrollment> enrollments = getRegistryClass(studentId, newClass.getSemester(), newClass.getYear());
+        if (newClass.getStatus() == ClassStatus.CLOSED) {
             throw new RuntimeException("Lớp học đã đóng, không thể đăng ký");
-        } else if (classFindById.getStatus() == ClassStatus.PLANNING) {
+        } else if (newClass.getStatus() == ClassStatus.PLANNING) {
             throw new RuntimeException("Lớp học đang trong quá trình lên kế hoạch, không thể đăng ký");
+        } else if (enrollments.stream().anyMatch(enrollment -> enrollment.getRegistryClass().equals(request.class_id()))) {
+            throw new RuntimeException("Bạn đã đăng ký lớp học này rồi");
+        } else if (enrollments.stream().anyMatch(enrollment -> enrollment.getCourseId().equals(courseId))) {
+            throw new RuntimeException("Bạn đã đăng ký một lớp học khác cho môn học này");
         }
-        return classFindById;
+        return enrollments.stream()
+                .map(Enrollment::getRegistryClass)
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public List<String> validateAndPrepareRegistration(String studentId, RequestChangeClass request, Class newClass) {
+        if (request.old_class_id().equals(request.new_class_id())) {
+            throw new RuntimeException("Lớp mới và lớp cũ không thể giống nhau");
+        }
+        newClass = new Class(getClassById(request.old_class_id()));
+        List<Enrollment> enrollments = getRegistryClass(studentId, newClass.getSemester(), newClass.getYear());
+        if (newClass.getStatus() == ClassStatus.CLOSED) {
+            throw new RuntimeException("Lớp học đã đóng, không thể đăng ký");
+        } else if (newClass.getStatus() == ClassStatus.PLANNING) {
+            throw new RuntimeException("Lớp học đang trong quá trình lên kế hoạch, không thể đăng ký");
+        } else if (enrollments.stream()
+                .anyMatch(enrollment -> enrollment.getRegistryClass().equals(request.old_class_id()))) {
+            throw new RuntimeException("Bạn chưa đăng ký lớp học này " + request.old_class_id());
+        }
+
+        return enrollments.stream()
+                .map(Enrollment::getRegistryClass)
+                .filter(classId -> !classId.equals(request.old_class_id()))
+                .collect(Collectors.toList());
     }
 }

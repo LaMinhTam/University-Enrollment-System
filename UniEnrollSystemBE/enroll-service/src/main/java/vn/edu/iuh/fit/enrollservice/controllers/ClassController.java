@@ -11,7 +11,7 @@ import vn.edu.iuh.fit.enrollservice.models.Class;
 import vn.edu.iuh.fit.enrollservice.services.ClassRedisService;
 import vn.edu.iuh.fit.enrollservice.services.ClassService;
 
-import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -31,7 +31,7 @@ public class ClassController {
 
     @GetMapping
     public ResponseEntity<?> listAllClasses(@RequestHeader("major_id") int majorId, @RequestParam("semester") int semester, @RequestParam("year") int year) {
-        List<MapCourseClass> coursesWithClasses = classRedisService.getAllCourses(majorId, semester, year);
+        Map<String , MapCourseClass> coursesWithClasses = classRedisService.getAllCourses(majorId, semester, year);
 
         if (coursesWithClasses == null) {
             List<Class> classes = classService.listAllClasses(semester, year);
@@ -42,10 +42,9 @@ public class ClassController {
 
             Map<String, List<Class>> classesGroupedByCourseId = classes.stream()
                     .collect(Collectors.groupingBy(Class::getCourseId));
-
-            coursesWithClasses = new ArrayList<>();
+            coursesWithClasses = new HashMap<>();
             for (Course course : courses) {
-                coursesWithClasses.add(new MapCourseClass(course, classesGroupedByCourseId.get(course.getId())));
+                coursesWithClasses.put(course.getId(), new MapCourseClass(course, classesGroupedByCourseId.get(course.getId())));
             }
 
             classRedisService.setAllCourses(majorId, semester, year, coursesWithClasses);

@@ -2,9 +2,11 @@ package vn.edu.iuh.fit.enrollservice.models;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.io.Serial;
 import java.io.Serializable;
 
 @Entity
@@ -12,7 +14,10 @@ import java.io.Serializable;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
+@Builder
 public class Class implements Serializable {
+    @Serial
+    private static final long serialVersionUID = -5421890207543864922L;
     @Id
     private String id;
     private String courseId;
@@ -22,4 +27,14 @@ public class Class implements Serializable {
     private int maxCapacity;
     @Enumerated(EnumType.STRING)
     private ClassStatus status;
+
+    public Class(Class newClass) {
+        this.id = newClass.getId();
+        this.courseId = newClass.getCourseId();
+        this.courseName = newClass.getCourseName();
+        this.semester = newClass.getSemester();
+        this.year = newClass.getYear();
+        this.maxCapacity = newClass.getMaxCapacity();
+        this.status = newClass.getStatus();
+    }
 }

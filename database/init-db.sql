@@ -415,7 +415,6 @@ CREATE PROCEDURE register_class (
 BEGIN
     DECLARE v_max_capacity INT;
     DECLARE v_current_students INT;
-    DECLARE v_class_status ENUM('PLANNING','WAITING','OPENED','CLOSED');
     DECLARE v_semester INT;
     DECLARE v_year INT;
     DECLARE v_course_id VARCHAR(255);
@@ -423,34 +422,16 @@ BEGIN
     START TRANSACTION;
 
     -- Get the maximum capacity and status of the class
-    SELECT max_capacity, status, semester, year, course_id year INTO v_max_capacity, v_class_status, v_semester, v_year, v_course_id FROM classes WHERE id = p_class_id FOR UPDATE;
-    
-    IF v_max_capacity IS NULL OR v_class_status IS NULL THEN
-        SET p_status_code = 404; -- HTTP status code for not found
-        COMMIT;
-    END IF;
+    SELECT max_capacity, semester, year, course_id year INTO v_max_capacity, v_semester, v_year, v_course_id FROM classes WHERE id = p_class_id FOR UPDATE;
 
     -- Get the current number of students registered for the class
     -- Check if the class is full
     IF EXISTS (SELECT 1 FROM enrollments WHERE registry_class = p_class_id HAVING COUNT(*) >= v_max_capacity) THEN
         SET p_status_code = 409; -- HTTP status code for class is full
     ELSE
-        -- Check if the student is already registered for the class
-        IF EXISTS (SELECT 1 FROM enrollments WHERE student_id = p_student_id AND registry_class = p_class_id) THEN
-            SET p_status_code = 400; -- HTTP status code for conflict (Student already registered)
-        ELSE
-            -- Check class status
-            CASE v_class_status
-                WHEN 'CLOSED' THEN
-                    SET p_status_code = 423; -- HTTP status code for forbidden
-                WHEN 'PLANNING' THEN
-                    SET p_status_code = 425; -- HTTP status code for forbidden
-                ELSE
-                    -- Insert enrollment record
-                    INSERT INTO enrollments (registry_class, student_id, created_at, semester, year, course_id) VALUES (p_class_id, p_student_id, NOW(), v_semester, v_year, v_course_id);
-                    SET p_status_code = 201; -- HTTP status code for created
-            END CASE;
-        END IF;
+        -- Insert enrollment record
+        INSERT INTO enrollments (registry_class, student_id, created_at, semester, year, course_id) VALUES (p_class_id, p_student_id, NOW(), v_semester, v_year, v_course_id);
+        SET p_status_code = 201; -- HTTP status code for created
     END IF;
 
     -- Commit transaction
@@ -469,57 +450,23 @@ CREATE PROCEDURE change_class (
 )
 BEGIN
     DECLARE v_max_capacity INT;
-    DECLARE v_class_status ENUM('PLANNING','WAITING','OPENED','CLOSED');
     DECLARE v_old_course_id VARCHAR(255);
     DECLARE v_new_course_id VARCHAR(255);
 
     -- Start transaction
     START TRANSACTION;
 
-    -- Get the course_id of the old and new classes
-    SELECT course_id INTO v_old_course_id FROM classes WHERE id = p_old_class_id;
-    SELECT course_id INTO v_new_course_id FROM classes WHERE id = p_new_class_id;
-
-    -- Check if the old and new classes have the same course_id
-    IF v_old_course_id != v_new_course_id THEN
-        SET p_status_code = 422; -- HTTP status code for conflict (Different courses)
-        COMMIT;
+    -- Get the maximum capacity and status of the new class
+    SELECT max_capacity status INTO v_max_capacity FROM classes WHERE id = p_new_class_id FOR UPDATE;
+    
+    -- Get the current number of students registered for the class
+    -- Check if the class is full
+    IF EXISTS (SELECT 1 FROM enrollments WHERE registry_class = p_new_class_id HAVING COUNT(*) >= v_max_capacity) THEN
+        SET p_status_code = 409; -- HTTP status code for class is full
     ELSE
-        -- Delete the old enrollment
-        DELETE FROM enrollments WHERE student_id = p_student_id AND registry_class = p_old_class_id;
-
-        -- Get the maximum capacity and status of the new class
-        SELECT max_capacity, status INTO v_max_capacity, v_class_status FROM classes WHERE id = p_new_class_id FOR UPDATE;
-        
-        IF v_max_capacity IS NULL OR v_class_status IS NULL THEN
-            SET p_status_code = 404; -- HTTP status code for not found
-            COMMIT;
-        ELSE
-            -- Get the current number of students registered for the class
-            -- Check if the class is full
-            IF EXISTS (SELECT 1 FROM enrollments WHERE registry_class = p_new_class_id HAVING COUNT(*) >= v_max_capacity) THEN
-                SET p_status_code = 409; -- HTTP status code for class is full
-            ELSE
-                -- Check if the student is already registered for the class
-                IF EXISTS (SELECT 1 FROM enrollments WHERE student_id = p_student_id AND registry_class = p_new_class_id) THEN
-                    SET p_status_code = 400; -- HTTP status code for conflict (Student already registered)
-                ELSE
-                    -- Check class status
-                    CASE v_class_status
-                        WHEN 'CLOSED' THEN
-                            SET p_status_code = 423; -- HTTP status code for forbidden
-                        WHEN 'PLANNING' THEN
-                            SET p_status_code = 425; -- HTTP status code for forbidden
-                        WHEN 'OPEN' THEN
-                            SET p_status_code = 406; -- HTTP status code for forbidden
-                        ELSE
-                            -- Update enrollment record
-                            UPDATE enrollments SET registry_class = p_new_class_id WHERE student_id = p_student_id;
-                            SET p_status_code = 200; -- HTTP status code for successful update
-                    END CASE;
-                END IF;
-            END IF;
-        END IF;
+        -- Update enrollment record
+        UPDATE enrollments SET registry_class = p_new_class_id WHERE student_id = p_student_id AND registry_class = p_old_class_id;
+        SET p_status_code = 200; -- HTTP status code for successful update
     END IF;
 
     -- Commit transaction
