@@ -24,5 +24,5 @@ public class Course {
     private int practicalCredit;
     @Field("course_on_major")
     private List<CourseOnMajor> courseOnMajorList;
-    private List<Prerequisite> prerequisites;
+    private List<String> prerequisites;
 }

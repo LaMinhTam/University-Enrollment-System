@@ -1,5 +1,6 @@
-package vn.edu.iuh.fit.courseservice.models;
+package vn.edu.iuh.fit.courseservice.dtos;
 
+import jakarta.persistence.Id;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -11,6 +12,7 @@ import java.io.Serializable;
 @NoArgsConstructor
 @AllArgsConstructor
 public class Prerequisite implements Serializable {
+    @Field("course_id")
     private String id;
     private String name;
     private int credit;

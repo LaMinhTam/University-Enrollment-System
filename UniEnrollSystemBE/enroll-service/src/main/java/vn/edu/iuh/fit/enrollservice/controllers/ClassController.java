@@ -1,20 +1,17 @@
 package vn.edu.iuh.fit.enrollservice.controllers;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import vn.edu.iuh.fit.enrollservice.client.CourseClient;
-import vn.edu.iuh.fit.enrollservice.dtos.ClassWithCourse;
 import vn.edu.iuh.fit.enrollservice.dtos.Course;
+import vn.edu.iuh.fit.enrollservice.dtos.MapCourseClass;
+import vn.edu.iuh.fit.enrollservice.dtos.ResponseWrapper;
 import vn.edu.iuh.fit.enrollservice.models.Class;
 import vn.edu.iuh.fit.enrollservice.services.ClassService;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 @RestController
@@ -29,34 +26,22 @@ public class ClassController {
     }
 
     @GetMapping
-    public ResponseEntity<?> listAllClasses(@RequestParam("semester") int semester, @RequestParam("year") int year) {
-        // Retrieve classes for the specified semester and year
+    public ResponseEntity<?> listAllClasses(@RequestHeader("major_id") int majorId, @RequestParam("semester") int semester, @RequestParam("year") int year) {
         List<Class> classes = classService.listAllClasses(semester, year);
 
-        // Extract course IDs from the retrieved classes
         List<String> courseIds = classes.stream().map(Class::getCourseId).collect(Collectors.toList());
 
-        // Retrieve courses based on the extracted course IDs
-        List<Course> courses = courseClient.getCoursesByIds(courseIds);
+        List<Course> courses = courseClient.getCoursesByIds(majorId, courseIds);
 
-        // Map courses to classes and create ClassWithCourse objects
-        List<ClassWithCourse> classesWithCourses = new ArrayList<>();
-        for (Class clazz : classes) {
-            Optional<Course> optionalCourse = courses.stream().filter(course -> course.id().equals(clazz.getCourseId())).findFirst();
-            optionalCourse.ifPresent(course -> {
-                ClassWithCourse classWithCourse = new ClassWithCourse(
-                        clazz.getId(),
-                        course,
-                        clazz.getSemester(),
-                        clazz.getYear(),
-                        clazz.getMaxCapacity(),
-                        clazz.getStatus()
-                );
-                classesWithCourses.add(classWithCourse);
-            });
-        }
+        Map<String, List<Class>> classesGroupedByCourseId = classes.stream()
+                .collect(Collectors.groupingBy(Class::getCourseId));
 
-        return ResponseEntity.ok(classesWithCourses);
+        List<MapCourseClass> coursesWithClasses = new ArrayList<>();
+        courses.forEach(course -> {
+            coursesWithClasses.add(new MapCourseClass(course, classesGroupedByCourseId.get(course.id())));
+        });
+
+        return ResponseEntity.ok(new ResponseWrapper("Danh sách lớp học", coursesWithClasses, 200));
     }
 
 }

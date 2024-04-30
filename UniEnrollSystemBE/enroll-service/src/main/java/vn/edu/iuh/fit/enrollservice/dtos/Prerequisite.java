@@ -1,13 +1,10 @@
 package vn.edu.iuh.fit.enrollservice.dtos;
 
-import java.util.List;
-
-public record Course(
+public record Prerequisite(
         String id,
         String name,
         int credit,
         int theoryCredit,
-        int practicalCredit,
-        List<Prerequisite> prerequisites
+        int practicalCredit
 ) {
 }

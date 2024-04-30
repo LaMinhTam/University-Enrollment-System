@@ -1,14 +1,17 @@
 package vn.edu.iuh.fit.courseservice.dtos;
 
 import jakarta.persistence.Id;
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.springframework.data.mongodb.core.mapping.Field;
-import vn.edu.iuh.fit.courseservice.models.CourseOnMajor;
 
 import java.util.List;
 
 @Data
-public class CourseDTO {
+@AllArgsConstructor
+@NoArgsConstructor
+public class ListCourseResponse {
     @Id
     private String id;
     private String name;
