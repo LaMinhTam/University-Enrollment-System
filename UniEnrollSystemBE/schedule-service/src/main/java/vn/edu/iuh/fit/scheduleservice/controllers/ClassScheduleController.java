@@ -4,7 +4,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import vn.edu.iuh.fit.scheduleservice.dtos.*;
-import vn.edu.iuh.fit.scheduleservice.models.ClassSchedule;
+import vn.edu.iuh.fit.scheduleservice.models.StudentSchedule;
 import vn.edu.iuh.fit.scheduleservice.services.ClassScheduleService;
 
 import java.text.ParseException;
@@ -20,7 +20,7 @@ public class ClassScheduleController {
     }
 
     @PostMapping("/registry")
-    public List<ClassSchedule> registrySchedule(@RequestHeader("id") String studentId, @RequestParam("course_id") String courseId) {
+    public StudentSchedule registrySchedule(@RequestHeader("id") String studentId, @RequestParam("course_id") String courseId) {
         return classScheduleService.registrySchedule(studentId, courseId);
     }
 

@@ -17,7 +17,6 @@ services:
       - "3306:3306"
     networks:
       - db-mysql-net
-      - db-mongodb-net
 
   adminer:
     image: adminer
@@ -27,7 +26,6 @@ services:
       - "8080:8080"
     networks:
       - db-mysql-net
-      - db-mongodb-net
 
   mongodb:
     image: mongo:latest
@@ -62,8 +60,7 @@ services:
     ports:
       - "9411:9411"
     networks:
-      - db-mysql-net
-      - db-mongodb-net
+      - backend
 
   redis:
     image: redis:latest
@@ -74,6 +71,21 @@ services:
       - REDIS_PASSWORD=123456
       - REDIS_PORT=6379
       - REDIS_DATABASES=16
+    networks:
+      - backend
+
+  rabbitmq:
+    image: rabbitmq:management
+    container_name: rabbitmq-con
+    restart: always
+    ports:
+      - "5672:5672"
+      - "15672:15672"
+    environment:
+      - RABBITMQ_DEFAULT_USER=admin
+      - RABBITMQ_DEFAULT_PASS=123456
+    networks:
+      - backend
 
   # service-registry:
   #   build: ./UniEnrollSystemBE/service-registry
@@ -146,3 +158,4 @@ volumes:
 networks:
   db-mysql-net:
   db-mongodb-net:
+  backend:

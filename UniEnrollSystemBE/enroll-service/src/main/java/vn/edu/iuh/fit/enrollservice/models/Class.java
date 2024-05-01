@@ -37,4 +37,13 @@ public class Class implements Serializable {
         this.maxCapacity = newClass.getMaxCapacity();
         this.status = newClass.getStatus();
     }
+
+    public void setClassDetails(Class classById) {
+        this.courseId = classById.getCourseId();
+        this.courseName = classById.getCourseName();
+        this.semester = classById.getSemester();
+        this.year = classById.getYear();
+        this.maxCapacity = classById.getMaxCapacity();
+        this.status = classById.getStatus();
+    }
 }
