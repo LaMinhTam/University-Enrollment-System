@@ -1,12 +1,13 @@
 package vn.edu.iuh.fit.enrollservice.services.impl;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import jakarta.persistence.Tuple;
 import org.springframework.stereotype.Service;
+import vn.edu.iuh.fit.enrollservice.dtos.ClassDTO;
 import vn.edu.iuh.fit.enrollservice.models.Class;
-import vn.edu.iuh.fit.enrollservice.models.Enrollment;
 import vn.edu.iuh.fit.enrollservice.repositories.ClassRepository;
 import vn.edu.iuh.fit.enrollservice.services.ClassService;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -19,8 +20,14 @@ public class ClassServiceImpl implements ClassService {
 
 
     @Override
-    public List<Class> listAllClasses(int semester, int year) {
-        return classRepository.findBySemesterAndYear(semester, year);
+    public List<ClassDTO> listAllClasses(int semester, int year) {
+        List<Tuple> tuples = classRepository.findBySemesterAndYear(semester, year);
+        List<ClassDTO> classDTOs = new ArrayList<>();
+        for (Tuple tuple : tuples) {
+            ClassDTO classDTO = new ClassDTO((Class) tuple.get(0), (Long) tuple.get(1));
+            classDTOs.add(classDTO);
+        }
+        return classDTOs;
     }
 
     @Override

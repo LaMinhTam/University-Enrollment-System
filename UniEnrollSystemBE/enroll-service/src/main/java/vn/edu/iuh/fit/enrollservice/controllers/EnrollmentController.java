@@ -3,15 +3,17 @@ package vn.edu.iuh.fit.enrollservice.controllers;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import reactor.core.publisher.Mono;
 import vn.edu.iuh.fit.enrollservice.client.ScheduleClient;
 import vn.edu.iuh.fit.enrollservice.dtos.*;
 import vn.edu.iuh.fit.enrollservice.models.Class;
 import vn.edu.iuh.fit.enrollservice.models.Enrollment;
+import vn.edu.iuh.fit.enrollservice.services.ClassRedisService;
 import vn.edu.iuh.fit.enrollservice.services.ClassService;
 import vn.edu.iuh.fit.enrollservice.services.EnrollmentService;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 @RestController
@@ -20,11 +22,13 @@ public class EnrollmentController {
     private final EnrollmentService enrollmentService;
     private final ClassService classService;
     private final ScheduleClient scheduleClient;
+    private final ClassRedisService classRedisService;
 
-    public EnrollmentController(EnrollmentService enrollmentService, ClassService classService, ScheduleClient scheduleClient) {
+    public EnrollmentController(EnrollmentService enrollmentService, ClassService classService, ScheduleClient scheduleClient, ClassRedisService classRedisService) {
         this.enrollmentService = enrollmentService;
         this.classService = classService;
         this.scheduleClient = scheduleClient;
+        this.classRedisService = classRedisService;
     }
 
     @GetMapping("/registry")
@@ -39,20 +43,8 @@ public class EnrollmentController {
     @PostMapping("/register")
     public ResponseEntity<?> registerClass(@RequestHeader("id") String studentId, @RequestBody RegistryRequest request) {
         try {
-            Class newClass = enrollmentService.getClassById(request.class_id());
-            List<Enrollment> registerClasses = enrollmentService.getRegistryClass(studentId, newClass.getSemester(), newClass.getYear());
-
-            // Check if the student is already enrolled in a class with the same courseId
-            boolean isAlreadyEnrolledInCourse = registerClasses.stream()
-                    .anyMatch(enrollment -> enrollment.getCourseId().equals(newClass.getCourseId()));
-            if (isAlreadyEnrolledInCourse) {
-                return ResponseEntity.ok(new ResponseWrapper("Bạn đã đăng ký một lớp học cho môn học này", null, 400));
-            }
-
             // Get the class IDs from the registered classes
-            List<String> enrolledClassIds = registerClasses.stream()
-                    .map(Enrollment::getRegistryClass)
-                    .collect(Collectors.toList());
+            List<String> enrolledClassIds = enrollmentService.validateAndPrepareRegistration(studentId, request);
 
             // Check for schedule conflicts
             List<ConflictResponse> conflictSchedules = scheduleClient.checkScheduleConflict(new ScheduleConflictRequest(enrolledClassIds, request.class_id()));
@@ -69,34 +61,30 @@ public class EnrollmentController {
     }
 
     @PostMapping("/register/change")
-    public ResponseEntity<?> changeClass(@RequestHeader("id") String studentId, @RequestBody RequestChangeClass request) {
+    public ResponseEntity<?> changeClass(@RequestHeader("id") String studentId, @RequestHeader("major_id") int majorId, @RequestBody RequestChangeClass request) {
         try {
-            // Get the new class
-            Class newClass = enrollmentService.getClassById(request.new_class_id());
+            Class newClass = new Class();
+            List<String> enrolledClassIds = enrollmentService.validateAndPrepareRegistration(studentId, request, newClass);
 
-            // Get the registered classes for the same semester and year as the new class
-            List<Enrollment> registerClasses = enrollmentService.getRegistryClass(studentId, newClass.getSemester(), newClass.getYear());
-
-            // check if the student is already enrolled in old_class_id
-            boolean isAlreadyEnrolledInCourse = registerClasses.stream()
-                    .anyMatch(enrollment -> enrollment.getRegistryClass().equals(request.old_class_id()));
-            if (!isAlreadyEnrolledInCourse) {
-                return ResponseEntity.ok(new ResponseWrapper("Bạn chưa đăng ký lớp học này " + request.old_class_id(), null, 400));
+            Map<String, MapCourseClass> coursesWithClasses = classRedisService.getAllCourses(majorId, newClass.getSemester(), newClass.getYear());
+            if (coursesWithClasses == null) {
+                throw new Exception("Hệ thống hiện đang lỗi, vui lòng thử lại sau");
             }
+            MapCourseClass currentCourse = coursesWithClasses.get(newClass.getCourseId());
 
-            // Get the class IDs from the registered classes, excluding the old class ID
-            List<String> enrolledClassIds = registerClasses.stream()
-                    .map(Enrollment::getRegistryClass)
-                    .filter(classId -> !classId.equals(request.old_class_id()))
-                    .collect(Collectors.toList());
+            //check if request old class id and new class id is the same course and time
+            currentCourse.getClasses().stream()
+                    .filter(currentClass ->
+                            currentClass.getId()
+                                    .equals(request.old_class_id()))
+                    .findFirst()
+                    .orElseThrow(() -> new Exception("Lớp mới và lớp cũ không cùng môn học hoặc không cùng học kỳ"));
 
-            // Check for schedule conflicts with the new class
             List<ConflictResponse> conflictSchedules = scheduleClient.checkScheduleConflict(new ScheduleConflictRequest(enrolledClassIds, request.new_class_id()));
             if (conflictSchedules.isEmpty()) {
-                enrollmentService.changeClass(studentId, request.old_class_id(), request.new_class_id());
+                enrollmentService.changeClass(studentId, request);
                 scheduleClient.cancelSchedule(studentId, request.old_class_id());
                 List<ClassSchedule> schedule = scheduleClient.registrySchedule(studentId, request.new_class_id());
-
                 return ResponseEntity.ok(new ResponseWrapper("Thay đổi lớp học thành công", schedule, 200));
             } else {
                 return ResponseEntity.ok(new ResponseWrapper("Lịch học bị trùng", conflictSchedules, 400));

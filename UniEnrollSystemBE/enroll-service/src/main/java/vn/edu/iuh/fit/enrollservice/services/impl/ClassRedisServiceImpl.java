@@ -6,6 +6,7 @@ import vn.edu.iuh.fit.enrollservice.dtos.MapCourseClass;
 import vn.edu.iuh.fit.enrollservice.services.ClassRedisService;
 
 import java.util.List;
+import java.util.Map;
 
 @Service
 public class ClassRedisServiceImpl implements ClassRedisService {
@@ -17,12 +18,12 @@ public class ClassRedisServiceImpl implements ClassRedisService {
 
 
     @Override
-    public List<MapCourseClass> getAllCourses(int majorId, int semester, int year) {
-        return (List<MapCourseClass>) redisTemplate.opsForValue().get(majorId + "-" + semester + "-" + year);
+    public Map<String , MapCourseClass> getAllCourses(int majorId, int semester, int year) {
+        return (Map<String, MapCourseClass>) redisTemplate.opsForValue().get(majorId + "-" + semester + "-" + year);
     }
 
     @Override
-    public void setAllCourses(int majorId, int semester, int year, List<MapCourseClass> courses) {
+    public void setAllCourses(int majorId, int semester, int year, Map<String , MapCourseClass> courses) {
         redisTemplate.opsForValue().set(majorId + "-" + semester + "-" + year, courses);
     }
 }
