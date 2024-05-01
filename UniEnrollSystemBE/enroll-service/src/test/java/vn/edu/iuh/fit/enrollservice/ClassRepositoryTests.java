@@ -37,100 +37,123 @@ public class ClassRepositoryTests {
     }
 
     private static final Random random = new Random();
+    static int year = 2021;
+    int semester = 2;
+    static int startStudyMonth =
+//            Calendar.AUGUST;
+                Calendar.JANUARY;
+    static int endStudyMonth =
+//            Calendar.NOVEMBER;
+                Calendar.APRIL;
+    static int examMiddleMonth =
+//            Calendar.OCTOBER;
+                Calendar.MARCH;
+    static int examFinalMonth =
+//            Calendar.DECEMBER;
+                Calendar.MAY;
+    static Date startDateMiddleExam = new Date(year - 1900, examMiddleMonth, 2);
+    static Date endDateMiddleExam = new Date(year - 1900, examMiddleMonth, 15);
+    private static Date startDateFinalExam = new Date(year, examFinalMonth, 4);
+    private static Date endDateFinalExam = new Date(year, examFinalMonth, 17);
+    static Date firstStartStudyDate = new Date(year - 1900, startStudyMonth, 25);
+    static Date secondStartStudyDate = new Date(year - 1900, startStudyMonth, 1);
+    static Date firstEndStudyDate = new Date(year - 1900, endStudyMonth, 22);
+    static Date secondEndStudyDate = new Date(year - 1900, endStudyMonth, 5);
 
     @Test
     public void generateData() {
         List<Class> classes = new ArrayList<>();
         List<Course> courses = List.of(
-                new Course("4203002009", "Cấu trúc rời rạc", 0, 0, 0, 0, null),
-                new Course("4203003192", "Lý thuyết đồ thị", 0, 0, 0, 0, null),
-                new Course("4203003242", "Cấu trúc dữ liệu và giải thuật", 0, 0, 0, 0, null),
-                new Course("4203003259", "Hệ cơ sở dữ liệu", 0, 0, 0, 0, null),
-                new Course("4203003307", "Lập trình thiết bị di động", 0, 0, 0, 0, null),
-                new Course("4203003848", "Nhập môn Tin học", 0, 0, 0, 0, null),
-                new Course("4203014164", "Pháp luật đại cương", 0, 0, 0, 0, null),
-                new Course("4203014165", "Kỹ năng làm việc nhóm", 0, 0, 0, 0, null),
-                new Course("4203015253", "Hội họa", 0, 0, 0, 0, null),
-                new Course("4203000901", "Xã hội học", 0, 0, 0, 0, null),
-                new Course("4203000942", "Giao tiếp kinh doanh", 0, 0, 0, 0, null),
-                new Course("4203001146", "Kỹ năng xây dựng kế hoạch", 0, 0, 0, 0, null),
-                new Course("4203003196", "Phương pháp luận nghiên cứu khoa học", 0, 0, 0, 0, null),
-                new Course("4203003197", "Âm nhạc – Nhạc lý và Guitar căn bản", 0, 0, 0, 0, null),
-                new Course("4203003205", "Quản trị doanh nghiệp", 0, 0, 0, 0, null),
-                new Course("4203003206", "Môi trường và con người", 0, 0, 0, 0, null),
-                new Course("4203003217", "Quản trị học", 0, 0, 0, 0, null),
-                new Course("4203003285", "Giáo dục Quốc phòng và An ninh 1 ", 0, 0, 0, 0, null),
-                new Course("4203003288", "Tiếng Việt thực hành", 0, 0, 0, 0, null),
-                new Course("4203003591", "Toán cao cấp 1", 0, 0, 0, 0, null),
-                new Course("4203014193", "Kế toán cơ bản", 0, 0, 0, 0, null),
-                new Course("4203015254", "Toán cao cấp 2", 0, 0, 0, 0, null),
-                new Course("4203000908", "Giáo dục thể chất 1 ", 0, 0, 0, 0, null),
-                new Course("4203003194", "Tâm lý học đại cương", 0, 0, 0, 0, null),
-                new Course("4203003195", "Phát triển ứng dụng", 0, 0, 0, 0, null),
-                new Course("4203003198", "Lập trình hướng đối tượng", 0, 0, 0, 0, null),
-                new Course("4203003203", "Đảm bảo chất lượng và Kiểm thử phần mềm", 0, 0, 0, 0, null),
-                new Course("4203003245", "Lập trình WWW (Java)", 0, 0, 0, 0, null),
-                new Course("4203003325", "Phát triển ứng dụng Web với Qt Engine", 0, 0, 0, 0, null),
-                new Course("4203003501", "Nhập môn Lập trình", 0, 0, 0, 0, null),
-                new Course("4203010665", "Lập trình WWW (.NET)", 0, 0, 0, 0, null),
-                new Course("4203014167", "Cơ sở văn hóa Việt Nam", 0, 0, 0, 0, null),
-                new Course("4203014168", "Triết học Mác - Lênin", 0, 0, 0, 0, null),
-                new Course("4203001432", "Kinh tế chính trị Mác - Lênin", 0, 0, 0, 0, null),
-                new Course("4203002422", "Chủ nghĩa xã hội khoa học", 0, 0, 0, 0, null),
-                new Course("4203003592", "Mô hình hóa dữ liệu NoSQL MongoDB", 0, 0, 0, 0, null),
-                new Course("4203003621", "Kỹ năng sử dụng bàn phím và thiết bị văn phòng", 0, 0, 0, 0, null),
-                new Course("4203003774", "Tiếng Anh 1", 0, 0, 0, 0, null),
-                new Course("4203004147", "Tiếng Anh 2", 0, 0, 0, 0, null),
-                new Course("4203004323", "Thực tập doanh nghiệp", 0, 0, 0, 0, null),
-                new Course("4203014169", "Lập trình IoTs", 0, 0, 0, 0, null),
-                new Course("4203003098", "Lịch sử Đảng Cộng sản Việt Nam", 0, 0, 0, 0, null),
-                new Course("4203014170", "Khóa luận tốt nghiệp", 0, 0, 0, 0, null)
+//                new Course("4203002009", "Nhập môn Tin học", 0, 0, 0, 0, null),
+//                new Course("4203003192", "Kỹ năng làm việc nhóm", 0, 0, 0, 0, null),
+//                new Course("4203003242", "Giáo dục Quốc phòng và An ninh 1 ", 0, 0, 0, 0, null),
+//                new Course("4203003259", "Toán cao cấp 1", 0, 0, 0, 0, null),
+//                new Course("4203003307", "Giáo dục thể chất 1", 0, 0, 0, 0, null),
+//                new Course("4203003848", "Nhập môn Lập trình", 0, 0, 0, 0, null),
+//                new Course("4203014164", "Triết học Mác - Lênin", 0, 0, 0, 0, null),
+//                new Course("4203014165", "Kinh tế chính trị Mác - Lênin", 0, 0, 0, 0, null),
+//                new Course("4203015253", "Tiếng Anh 1", 0, 0, 0, 0, null),
+//                new Course("4203000901", "Cấu trúc rời rạc", 0, 0, 0, 0, null),
+//                new Course("4203000942", "Cấu trúc dữ liệu và giải thuật", 0, 0, 0, 0, null),
+//                new Course("4203001146", "Hệ cơ sở dữ liệu", 0, 0, 0, 0, null),
+//                new Course("4203003196", "Giao tiếp kinh doanh", 0, 0, 0, 0, null),
+//                new Course("4203003197", "Kỹ năng xây dựng kế hoạch", 0, 0, 0, 0, null),
+//                new Course("4203003205", "Quản trị doanh nghiệp", 0, 0, 0, 0, null),
+//                new Course("4203003206", "Môi trường và con người", 0, 0, 0, 0, null),
+//                new Course("4203003217", "Quản trị học", 0, 0, 0, 0, null),
+//                new Course("4203003285", "Kế toán cơ bản", 0, 0, 0, 0, null),
+//                new Course("4203003288", "Toán cao cấp 2", 0, 0, 0, 0, null),
+//                new Course("4203003591", "Lập trình hướng đối tượng", 0, 0, 0, 0, null),
+//                new Course("4203014193", "Kỹ năng sử dụng bàn phím và thiết bị văn phòng", 0, 0, 0, 0, null),
+//                new Course("4203015254", "Tiếng Anh 2", 0, 0, 0, 0, null),
+//                new Course("4203000908", "Lý thuyết đồ thị", 0, 0, 0, 0, null),
+//                new Course("4203003194", "Hội họa", 0, 0, 0, 0, null),
+//                new Course("4203003195", "Xã hội học", 0, 0, 0, 0, null),
+//                new Course("4203003198", "Phương pháp luận nghiên cứu khoa học", 0, 0, 0, 0, null),
+//                new Course("4203003203", "Âm nhạc – Nhạc lý và Guitar căn bản", 0, 0, 0, 0, null),
+//                new Course("4203003245", "Tiếng Việt thực hành", 0, 0, 0, 0, null),
+//                new Course("4203003325", "Tâm lý học đại cương", 0, 0, 0, 0, null),
+//                new Course("4203003501", "Phát triển ứng dụng", 0, 0, 0, 0, null),
+//                new Course("4203010665", "Cơ sở văn hóa Việt Nam", 0, 0, 0, 0, null),
+//                new Course("4203014167", "Chủ nghĩa xã hội khoa học", 0, 0, 0, 0, null),
+//                new Course("4203014168", "Mô hình hóa dữ liệu NoSQL MongoDB", 0, 0, 0, 0, null),
+//                new Course("4203001432", "Lập trình thiết bị di động", 0, 0, 0, 0, null),
+//                new Course("4203002422", "Pháp luật đại cương", 0, 0, 0, 0, null),
+//                new Course("4203003592", "Đảm bảo chất lượng và Kiểm thử phần mềm", 0, 0, 0, 0, null),
+//                new Course("4203003621", "Lập trình WWW (Java)", 0, 0, 0, 0, null),
+//                new Course("4203003774", "Phát triển ứng dụng Web với Qt Engine", 0, 0, 0, 0, null),
+//                new Course("4203004147", "Lập trình WWW (.NET)", 0, 0, 0, 0, null),
+//                new Course("4203004323", "Lập trình IoTs", 0, 0, 0, 0, null),
+//                new Course("4203014169", "Lịch sử Đảng Cộng sản Việt Nam", 0, 0, 0, 0, null),
+//                new Course("4203003098", "Thực tập doanh nghiệp", 0, 0, 0, 0, null),
+//                new Course("4203014170", "Khóa luận tốt nghiệp", 0, 0, 0, 0, null)
 
-//                new Course("4203000941", "Tư tưởng Hồ Chí Minh", 0, 0, 0, 0, null),
-//                new Course("4203002137", "Kỹ thuật điện tử", 0, 0, 0, 0, null),
-//                new Course("4203003193", "Kỹ thuật lập trình", 0, 0, 0, 0, null),
-//                new Course("4203003240", "Nhập môn an toàn thông tin", 0, 0, 0, 0, null),
-//                new Course("4203003306", "Mạng máy tính", 0, 0, 0, 0, null),
-//                new Course("4203003320", "Tương tác người máy", 0, 0, 0, 0, null),
-//                new Course("4203003345", "Công nghệ phần mềm", 0, 0, 0, 0, null),
-//                new Course("4203003354", "Hệ quản trị cơ sở dữ liệu", 0, 0, 0, 0, null),
-//                new Course("4203003395", "Automat & ngôn ngữ hình thức", 0, 0, 0, 0, null),
-//                new Course("4203001058", "Kiến trúc và Thiết kế phần mềm", 0, 0, 0, 0, null),
-//                new Course("4203001076", "Lập trình phân tích dữ liệu 1", 0, 0, 0, 0, null),
-//                new Course("4203001207", "Lập trình hướng sự kiện với công nghệ .NET", 0, 0, 0, 0, null),
-//                new Course("4203002044", "Lập trình hướng sự kiện với công nghệ Java", 0, 0, 0, 0, null),
-//                new Course("4203002070", "Hệ Thống Máy tính", 0, 0, 0, 0, null),
-//                new Course("4203002145", "Hệ Thống và Công nghệ Web", 0, 0, 0, 0, null),
-//                new Course("4203003436", "Lập trình phân tán với công nghệ Java", 0, 0, 0, 0, null),
-//                new Course("4203003442", "Nhập môn dữ liệu lớn", 0, 0, 0, 0, null),
-//                new Course("4203003753", "Lập trình phân tích dữ liệu 2", 0, 0, 0, 0, null),
-//                new Course("4203014166", "Lập trình phân tán với công nghệ .NET", 0, 0, 0, 0, null),
-//                new Course("4203000868", "Công nghệ mới trong phát triển ứng dụng CNTT", 0, 0, 0, 0, null),
-//                new Course("4203001004", "Toán ứng dụng", 0, 0, 0, 0, null),
-//                new Course("4203001111", "Hàm phức và phép biến đổi Laplace", 0, 0, 0, 0, null),
-//                new Course("4203002031", "Giáo dục thể chất 2 ", 0, 0, 0, 0, null),
-//                new Course("4203002146", "Phương pháp tính", 0, 0, 0, 0, null),
-//                new Course("4203002349", "Vật lý đại cương", 0, 0, 0, 0, null),
-//                new Course("4203003347", "Những vấn đề xã hội và đạo đức nghề nghiệp", 0, 0, 0, 0, null),
-//                new Course("4203003443", "Giáo dục quốc phòng và an ninh 2", 0, 0, 0, 0, null),
-//                new Course("4203003451", "Logic học", 0, 0, 0, 0, null),
-//                new Course("4203003773", "Thương mại điện tử", 0, 0, 0, 0, null),
-//                new Course("4203000664", "Lập trình GUI với Qt Framework", 0, 0, 0, 0, null),
-//                new Course("4203001366", "Khai thác dữ liệu và ứng dụng", 0, 0, 0, 0, null),
-//                new Course("4203001549", "Thống kê máy tính và ứng dụng", 0, 0, 0, 0, null),
-//                new Course("4203002329", "Tiếp thị điện tử", 0, 0, 0, 0, null),
-//                new Course("4203002330", "Phân tích thiết kế hệ thống", 0, 0, 0, 0, null),
-//                new Course("4203003147", "Kiến trúc hướng dịch vụ và Điện toán đám mây", 0, 0, 0, 0, null),
-//                new Course("4203003453", "Lập trình mạng với Qt Framework", 0, 0, 0, 0, null),
-//                new Course("4203003758", "Lập trình thiết bị di động nâng cao", 0, 0, 0, 0, null),
-//                new Course("4203003775", "Quản lý dự án CNTT", 0, 0, 0, 0, null),
-//                new Course("4203004056", "Hệ quản trị cơ sở dữ liệu NoSQL MongoDB", 0, 0, , 0, null)
+                new Course("4203000941", "Kỹ thuật lập trình", 0, 0, 0, 0, null),
+                new Course("4203002137", "Hệ Thống Máy tính", 0, 0, 0, 0, null),
+                new Course("4203003193", "Toán ứng dụng", 0, 0, 0, 0, null),
+                new Course("4203003240", "Hàm phức và phép biến đổi Laplace", 0, 0, 0, 0, null),
+                new Course("4203003306", "Giáo dục thể chất 2 ", 0, 0, 0, 0, null),
+                new Course("4203003320", "Phương pháp tính", 0, 0, 0, 0, null),
+                new Course("4203003345", "Vật lý đại cương", 0, 0, 0, 0, null),
+                new Course("4203003354", "Giáo dục quốc phòng và an ninh 2", 0, 0, 0, 0, null),
+                new Course("4203003395", "Logic học", 0, 0, 0, 0, null),
+                new Course("4203001058", "Mạng máy tính", 0, 0, 0, 0, null),
+                new Course("4203001076", "Tương tác người máy", 0, 0, 0, 0, null),
+                new Course("4203001207", "Hệ quản trị cơ sở dữ liệu", 0, 0, 0, 0, null),
+                new Course("4203002044", "Lập trình hướng sự kiện với công nghệ .NET", 0, 0, 0, 0, null),
+                new Course("4203002070", "Lập trình hướng sự kiện với công nghệ Java", 0, 0, 0, 0, null),
+                new Course("4203002145", "Hệ Thống và Công nghệ Web", 0, 0, 0, 0, null),
+                new Course("4203003436", "Thương mại điện tử", 0, 0, 0, 0, null),
+                new Course("4203003442", "Lập trình GUI với Qt Framework", 0, 0, 0, 0, null),
+                new Course("4203003753", "Phân tích thiết kế hệ thống", 0, 0, 0, 0, null),
+                new Course("4203014166", "Hệ quản trị cơ sở dữ liệu NoSQL MongoDB", 0, 0, 0, 0, null),
+                new Course("4203000868", "Kỹ thuật điện tử", 0, 0, 0, 0, null),
+                new Course("4203001004", "Nhập môn an toàn thông tin", 0, 0, 0, 0, null),
+                new Course("4203001111", "Công nghệ phần mềm", 0, 0, 0, 0, null),
+                new Course("4203002031", "Lập trình phân tích dữ liệu 1", 0, 0, 0, 0, null),
+                new Course("4203002146", "Lập trình phân tán với công nghệ Java", 0, 0, 0, 0, null),
+                new Course("4203002349", "Lập trình phân tán với công nghệ .NET", 0, 0, 0, 0, null),
+                new Course("4203003347", "Những vấn đề xã hội và đạo đức nghề nghiệp", 0, 0, 0, 0, null),
+                new Course("4203003443", "Khai thác dữ liệu và ứng dụng", 0, 0, 0, 0, null),
+                new Course("4203003451", "Thống kê máy tính và ứng dụng", 0, 0, 0, 0, null),
+                new Course("4203003773", "Lập trình mạng với Qt Framework", 0, 0, 0, 0, null),
+                new Course("4203000664", "Tư tưởng Hồ Chí Minh", 0, 0, 0, 0, null),
+                new Course("4203001366", "Automat & ngôn ngữ hình thức", 0, 0, 0, 0, null),
+                new Course("4203001549", "Kiến trúc và Thiết kế phần mềm", 0, 0, 0, 0, null),
+                new Course("4203002329", "Nhập môn dữ liệu lớn", 0, 0, 0, 0, null),
+                new Course("4203002330", "Lập trình phân tích dữ liệu 2", 0, 0, 0, 0, null),
+                new Course("4203003147", "Công nghệ mới trong phát triển ứng dụng CNTT", 0, 0, 0, 0, null),
+                new Course("4203003453", "Tiếp thị điện tử", 0, 0, 0, 0, null),
+                new Course("4203003758", "Kiến trúc hướng dịch vụ và Điện toán đám mây", 0, 0, 0, 0, null),
+                new Course("4203003775", "Lập trình thiết bị di động nâng cao", 0, 0, 0, 0, null),
+                new Course("4203004056", "Quản lý dự án CNTT", 0, 0, 0, 0, null)
         );
-        courses.forEach(course -> {
-            int year = 2024;
-            int semester = 1;
-            classes.addAll(generateRandomClasses(course, year, semester));
-        });
+        for (int i = 0; i < 4; i++) {
+            int finalI = i;
+            courses.forEach(course -> {
+                classes.addAll(generateRandomClasses(course, year + finalI, semester));
+            });
+        }
         classRepository.saveAll(classes);
     }
 
@@ -138,15 +161,15 @@ public class ClassRepositoryTests {
         List<Class> classes = new ArrayList<>();
         int count = random.nextInt(4) + 1; // Generate random number of classes between 1 and 4
         for (int i = 0; i < count; i++) {
-            String classId = generateClassId(course.id(), year, semester, i + 1);
+            String classId = generateClassId(course.getId(), year, semester, i + 1);
             String status = ClassStatus.values()[random.nextInt(ClassStatus.values().length)].name();
             int maxCapacity = (random.nextInt(3) + 6) * 10; // Generate max capacity between 60, 70, and 80
-            Class newClass = new Class(classId, course.id(), course.name(), semester, year, maxCapacity, ClassStatus.valueOf(status));
+            Class newClass = new Class(classId, course.getId(), course.getName(), semester, year, maxCapacity, ClassStatus.valueOf(status));
             List<Schedule> schedules = generateSchedules(classId);
             System.out.println("{" +
                     "\"classId\":\"" + classId + "\"," +
-                    "\"courseId\":\"" + course.id() + "\"," +
-                    "\"courseName\":\"" + course.name() + "\"," +
+                    "\"courseId\":\"" + course.getId() + "\"," +
+                    "\"courseName\":\"" + course.getName() + "\"," +
                     "\"schedules\":" + "[" +
                     printSchedule(schedules) +
                     "]" +
@@ -211,18 +234,18 @@ public class ClassRepositoryTests {
         int numExams = random.nextInt(3) + 1; // Randomly choose between 1 and 3 exams
 
         for (int i = 0; i < numExams; i++) {
-            schedules.add(generateExamSchedule(ClassType.MID_TERM_EXAM, new Date(2023, 10, 2), new Date(2023, 10, 15)));
-            schedules.add(generateSchedule(ClassType.FINAL_EXAM, new Date(2023, 12, 4), new Date(2023, 12, 17)));
+            schedules.add(generateExamSchedule(ClassType.MID_TERM_EXAM, startDateMiddleExam, endDateMiddleExam));
+            schedules.add(generateSchedule(ClassType.FINAL_EXAM, startDateFinalExam, endDateFinalExam));
 //            schedules.add(generateExamSchedule(ClassType.MID_TERM_EXAM, new Date(2024, 3, 18), new Date(2024, 3, 31)));
 //            schedules.add(generateSchedule(ClassType.FINAL_EXAM, new Date(2024, 5, 12), new Date(2024, 6, 2)));
         }
 
         for (int i = 2; i < numSchedules; i++) {
             ClassType classType = (i % 2 == 0) ? ClassType.THEORY : ClassType.PRACTICE;
-            Date startDate = generateDate(31, 7, 2023, 13, 8, 2023); // Generate random start date
-            Date endDate = generateDate(20, 11, 2023, 3, 12, 2023); // Generate random end date
-//            Date startDate = generateDate(25, 12, 2023, 7, 1, 2024); // Generate random start date
-//            Date endDate = generateDate(22, 4, 2024, 5, 4, 2024); // Generate random end date
+            Date startDate = generateDate(firstStartStudyDate, secondStartStudyDate); // Generate random start date
+            Date endDate = generateDate(firstEndStudyDate, secondEndStudyDate); // Generate random end date
+//            Date startDate = generateDate(); // Generate random start date
+//            Date endDate = generateDate(); // Generate random end date
             schedules.add(generateSchedule(classType, startDate, endDate));
         }
 
@@ -291,9 +314,9 @@ public class ClassRepositoryTests {
         return startSlot + "-" + endSlot;
     }
 
-    private static Date generateDate(int startDay, int startMonth, int startYear, int endDay, int endMonth, int endYear) {
-        long startDateMillis = new Date(startYear - 1900, startMonth - 1, startDay).getTime();
-        long endDateMillis = new Date(endYear - 1900, endMonth - 1, endDay).getTime();
+    private static Date generateDate(Date firstStudyDate, Date secondStudyDate) {
+        long startDateMillis = firstStudyDate.getTime();
+        long endDateMillis = secondStudyDate.getTime();
         long randomDateMillis = random.nextLong() % (endDateMillis - startDateMillis) + startDateMillis;
         return new Date(randomDateMillis);
     }
