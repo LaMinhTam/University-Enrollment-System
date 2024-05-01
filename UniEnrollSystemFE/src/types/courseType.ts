@@ -1,10 +1,6 @@
-interface ICourse {
-    id: string;
-    name: string;
-    credit: number;
-    theoryCredit: number;
-    practicalCredit: number;
-    prerequisites?: ICourse[];
+interface ICourseRegistration {
+    course: ICourse;
+    classes: IClass[];
 }
 
 interface IClass {
@@ -15,19 +11,33 @@ interface IClass {
     year: number;
     maxCapacity: number;
     status: string;
+    quantity: number;
 }
 
-interface ICourseRegistration {
-    course: ICourse;
-    classes: IClass[];
+interface ICourse {
+    id: string;
+    name: string;
+    credit: number;
+    theoryCredit: number;
+    practicalCredit: number;
+    type: number;
+    prerequisites: IPrerequisite[];
+}
+
+interface IPrerequisite {
+    id: string;
+    name: string;
+    credit: number;
+    theoryCredit: number;
+    practicalCredit: number;
 }
 
 type CourseRegistrationResponse = {
     message: string;
-    data: ICourseRegistration[];
+    data: { [key: string]: ICourseRegistration };
     status: number;
 };
 
 export default CourseRegistrationResponse;
 
-export type { ICourse, IClass, ICourseRegistration };
+export type { ICourseRegistration, IClass, ICourse, IPrerequisite };

@@ -17,7 +17,6 @@ const RequiredAuthPage = ({ children }: { children: React.ReactNode }) => {
     const refreshToken = getRefreshToken() ?? "";
     const isAccessTokenExpired = isTokenExpire(accessToken);
     const isRefreshTokenExpired = isTokenExpire(refreshToken);
-
     useEffect(() => {
         async function handleRefreshToken() {
             try {

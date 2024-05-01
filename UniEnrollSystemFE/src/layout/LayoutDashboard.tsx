@@ -6,7 +6,7 @@ import OpenWithIcon from "@mui/icons-material/OpenWith";
 import { useState } from "react";
 
 const LayoutDashboard = () => {
-    const [showSidebar, setShowSidebar] = useState<boolean>(true);
+    const [showSidebar, setShowSidebar] = useState<boolean>(false);
     return (
         <div className="min-h-screen bg-strock">
             <Overlay></Overlay>

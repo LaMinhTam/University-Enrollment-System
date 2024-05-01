@@ -4,6 +4,8 @@ import { v4 as uuidv4 } from "uuid";
 import { Tooltip as ReactTooltip } from "react-tooltip";
 import { useDispatch, useSelector } from "react-redux";
 import {
+    setClassSchedule,
+    setClassScheduleOtherData,
     setCourseSelectedClasses,
     setCourseSelectedId,
 } from "../../store/actions/registrationSlice";
@@ -12,7 +14,9 @@ const TableCourse = ({
     data,
     tableClassesRef,
 }: {
-    data: ICourseRegistration[];
+    data: {
+        [key: string]: ICourseRegistration;
+    };
     tableClassesRef: React.RefObject<HTMLDivElement>;
 }) => {
     const dispatch = useDispatch();
@@ -46,6 +50,18 @@ const TableCourse = ({
     const handleClickCourse = (item: ICourseRegistration) => {
         dispatch(setCourseSelectedId(item.course.id));
         dispatch(setCourseSelectedClasses(item.classes));
+        dispatch(setClassSchedule([]));
+        dispatch(
+            setClassScheduleOtherData({
+                id: "",
+                courseId: "",
+                courseName: "",
+                semester: 0,
+                year: 0,
+                maxCapacity: 0,
+                status: "",
+            })
+        );
         tableClassesRef.current?.scrollIntoView({ behavior: "smooth" });
     };
     if (!data) return null;
@@ -70,7 +86,7 @@ const TableCourse = ({
                     </tr>
                 </thead>
                 <tbody>
-                    {data.map((item, index) => (
+                    {Object.values(data).map((item, index) => (
                         <tr
                             key={uuidv4()}
                             className={`cursor-pointer ${

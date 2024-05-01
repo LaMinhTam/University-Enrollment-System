@@ -6,9 +6,14 @@ import TableClasses from "../modules/registration/TableClasses";
 import TableRegistration from "../modules/registration/TableRegistration";
 import { ICourseRegistration } from "../types/courseType";
 import { UniEnrollSystemAPI } from "../apis/constants";
+import { useDispatch } from "react-redux";
+import { setRegisterClasses } from "../store/actions/registrationSlice";
 
 const CourseRegisterPage = () => {
-    const [data, setData] = useState<ICourseRegistration[]>([]);
+    const [courses, setCourses] = useState<{
+        [key: string]: ICourseRegistration;
+    } | null>(null);
+    const dispatch = useDispatch();
     const tableClassesRef = useRef<HTMLDivElement>(null);
 
     useEffect(() => {
@@ -17,22 +22,38 @@ const CourseRegisterPage = () => {
 
     useEffect(() => {
         async function fetchData() {
-            const response = await UniEnrollSystemAPI.getCourseRegistration(
+            const responseCourse = UniEnrollSystemAPI.getCourseRegistration(
                 1,
                 2024
             );
-            if (response.status === 200) {
-                setData(response.data);
+            const responseClasses = UniEnrollSystemAPI.getClassesEnrolled(
+                1,
+                2024
+            );
+
+            const [course, classes] = await Promise.all([
+                responseCourse,
+                responseClasses,
+            ]);
+
+            if (course.status === 200) {
+                setCourses(course.data);
+            }
+            if (classes.status === 400) {
+                dispatch(setRegisterClasses(classes.data));
             }
         }
         fetchData();
-    }, []);
+    }, [dispatch]);
 
     return (
         <RequiredAuthPage>
             <div className="w-full h-full mt-5 bg-lite p-[10px]">
                 <Header />
-                <TableCourse data={data} tableClassesRef={tableClassesRef} />
+                <TableCourse
+                    data={courses || {}}
+                    tableClassesRef={tableClassesRef}
+                />
                 <div ref={tableClassesRef}>
                     <TableClasses />
                 </div>

@@ -1,7 +1,42 @@
 import PrintIcon from "@mui/icons-material/Print";
 import CheckIcon from "@mui/icons-material/Check";
-
+import ArrowDropUpRoundedIcon from "@mui/icons-material/ArrowDropUpRounded";
+import { useState } from "react";
+import useClickOutSide from "../../hooks/useClickOutSide";
+import { v4 as uuidv4 } from "uuid";
+import renderClassesRegistrationStatus from "../../utils/renderClassesRegistrationStatus";
+import { useDispatch, useSelector } from "react-redux";
+import { RootState } from "../../store/configureStore";
+import { UniEnrollSystemAPI } from "../../apis/constants";
+import { toast } from "react-toastify";
+import { setRegisterClasses } from "../../store/actions/registrationSlice";
 const TableRegistration = () => {
+    const registerClasses = useSelector(
+        (state: RootState) => state.registration.registerClasses
+    );
+    const dispatch = useDispatch();
+    console.log("TableRegistration ~ registerClasses:", registerClasses);
+    const [classesClickedId, setClassesClickedId] = useState("");
+    console.log("TableRegistration ~ classesClickedId:", classesClickedId);
+    const {
+        show: showAction,
+        setShow: setShowAction,
+        nodeRef: actionRef,
+    } = useClickOutSide();
+    // const handleCalculateTotalCredit = (data: IClassesEnrolled[]) => {
+    //     return data.reduce((acc, cur) => acc + cur.course.credit, 0);
+    // };
+    const handleRemoveClassesRegistration = async (id: string) => {
+        if (!id) return;
+        const response = await UniEnrollSystemAPI.removeClassesEnrolled(id);
+        if (response.status === 200) {
+            const newRegisterClasses = registerClasses.filter(
+                (item) => item.id !== id
+            );
+            dispatch(setRegisterClasses(newRegisterClasses));
+            toast.success("Hủy lớp học phần thành công");
+        }
+    };
     return (
         <div>
             <div className="flex items-center justify-between">
@@ -36,21 +71,57 @@ const TableRegistration = () => {
                         <td colSpan={5} className="text-center">
                             Tổng
                         </td>
+                        {/* <td>{handleCalculateTotalCredit(data)}</td> */}
                         <td>19</td>
                     </tr>
-                    {Array.from({ length: 5 }).map(() => (
-                        <tr>
-                            <td>
-                                <button className="px-3 py-[6px] text-lite text-center bg-quinary">
-                                    Hủy
+                    {registerClasses.map((item, index) => (
+                        <tr
+                            key={uuidv4()}
+                            className={`cursor-pointer ${
+                                classesClickedId === item.id ? "chk-course" : ""
+                            }`}
+                            onClick={() => setClassesClickedId(item.id)}
+                        >
+                            <td className="relative">
+                                <button
+                                    onClick={(e) => {
+                                        e.stopPropagation();
+                                        setShowAction(true);
+                                        setClassesClickedId(item.id);
+                                    }}
+                                    className="flex items-center justify-center w-8 h-8 rounded-full text-lite bg-tertiary"
+                                >
+                                    <ArrowDropUpRoundedIcon />
                                 </button>
+                                {showAction && classesClickedId === item.id && (
+                                    <div
+                                        className="absolute top-[-20px] left-[-125px] z-50"
+                                        ref={actionRef}
+                                    >
+                                        <div className="flex flex-col w-full h-[80px] min-w-[120px] bg-lite shadow-md">
+                                            <button
+                                                onClick={() =>
+                                                    handleRemoveClassesRegistration(
+                                                        item.id
+                                                    )
+                                                }
+                                                className="w-full h-[40px] hover:bg-error hover:text-lite"
+                                            >
+                                                Hủy
+                                            </button>
+                                            <button className="w-full h-[40px] hover:bg-primary hover:text-lite">
+                                                Xem lịch học
+                                            </button>
+                                        </div>
+                                    </div>
+                                )}
                             </td>
-                            <td>1</td>
-                            <td>420300319301</td>
-                            <td>Toán ứng dụng</td>
-                            <td>420300319301 - DHMT19A</td>
+                            <td>{index + 1}</td>
+                            <td>{item.id}</td>
+                            <td>{item.courseName}</td>
+                            <td>{item.id}</td>
                             <td>3</td>
-                            <td>1</td>
+                            <td></td>
                             <td>2.450.000</td>
                             <td>13/05/2024</td>
                             <td>
@@ -60,7 +131,9 @@ const TableRegistration = () => {
                             </td>
                             <td>Đã đăng ký</td>
                             <td>13/05/2024</td>
-                            <td>Đã khóa</td>
+                            <td className="text-sm font-medium text-error">
+                                {renderClassesRegistrationStatus(item.status)}
+                            </td>
                         </tr>
                     ))}
                 </tbody>
