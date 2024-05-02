@@ -18,6 +18,7 @@ public class Schedule {
     private String room;
     private String location;
     private String lecturer;
+    private int group;
     private ClassType classType;
     private List<Date> dayOff;
 }

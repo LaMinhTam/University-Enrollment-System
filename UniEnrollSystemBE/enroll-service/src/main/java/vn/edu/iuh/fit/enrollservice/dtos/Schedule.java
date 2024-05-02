@@ -12,6 +12,7 @@ public record Schedule(
         String location,
         String lecturer,
         ClassType classType,
+        int group,
         List<Date> dayOff
 ) {
 }

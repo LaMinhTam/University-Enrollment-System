@@ -100,7 +100,7 @@ public class ClassScheduleServiceImpl implements ClassScheduleService {
         MatchOperation matchStudent = Aggregation.match(new Criteria("studentId").is(studentId));
         LookupOperation lookupSchedule = LookupOperation.newLookup()
                 .from("classSchedule")
-                .localField("classId")
+                .localField("_id")
                 .foreignField("classId")
                 .as("classSchedule");
         UnwindOperation unwindSchedule = Aggregation.unwind("classSchedule");
@@ -110,7 +110,7 @@ public class ClassScheduleServiceImpl implements ClassScheduleService {
                 Criteria.where("classSchedule.schedules.endDate").gte(startDate)
         ));
 
-        ProjectionOperation projectFields = Aggregation.project("classId", "classSchedule.courseId", "classSchedule.courseName", "classSchedule.schedules");
+        ProjectionOperation projectFields = Aggregation.project("_id", "classSchedule.courseId", "classSchedule.courseName", "classSchedule.schedules");
         return Aggregation.newAggregation(
                 matchStudent,
                 lookupSchedule,
@@ -164,7 +164,7 @@ public class ClassScheduleServiceImpl implements ClassScheduleService {
 
     @Override
     public List<QueryClassSchedule> getEachScheduleByClassIds(List<String> ids) {
-        MatchOperation matchClass = Aggregation.match(new Criteria("classId").in(ids));
+        MatchOperation matchClass = Aggregation.match(new Criteria("_id").in(ids));
         UnwindOperation unwindSchedules = Aggregation.unwind("schedules");
 
         Aggregation aggregation = Aggregation.newAggregation(
