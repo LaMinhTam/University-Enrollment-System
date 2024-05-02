@@ -5,11 +5,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.aggregation.*;
 import org.springframework.data.mongodb.core.query.Criteria;
+import org.springframework.data.mongodb.core.query.Query;
+import org.springframework.data.mongodb.core.query.Update;
 import org.springframework.stereotype.Service;
-import vn.edu.iuh.fit.scheduleservice.dtos.ConflictResponse;
-import vn.edu.iuh.fit.scheduleservice.dtos.DateRequest;
-import vn.edu.iuh.fit.scheduleservice.dtos.QueryClassSchedule;
-import vn.edu.iuh.fit.scheduleservice.dtos.WeekScheduleDTO;
+import vn.edu.iuh.fit.scheduleservice.dtos.*;
 import vn.edu.iuh.fit.scheduleservice.models.ClassSchedule;
 import vn.edu.iuh.fit.scheduleservice.models.ClassType;
 import vn.edu.iuh.fit.scheduleservice.models.StudentSchedule;
@@ -49,9 +48,8 @@ public class ClassScheduleServiceImpl implements ClassScheduleService {
     }
 
     @Override
-    public List<ClassSchedule> registrySchedule(String studentId, String courseId) {
-        StudentSchedule studentSchedule = studentScheduleRepository.save(new StudentSchedule(studentId, courseId));
-        return classScheduleRepository.findByClassIdIn(List.of(studentSchedule.getClassId()));
+    public StudentSchedule registrySchedule(String studentId, String courseId) {
+        return studentScheduleRepository.save(new StudentSchedule(studentId, courseId));
     }
 
     @Override
@@ -61,7 +59,13 @@ public class ClassScheduleServiceImpl implements ClassScheduleService {
 
     @Override
     public List<ClassSchedule> getScheduleByClassIds(List<String> ids) {
-        return classScheduleRepository.findByClassIdIn(ids);
+        MatchOperation matchClass = Aggregation.match(new Criteria("_id").in(ids));
+
+        Aggregation aggregation = Aggregation.newAggregation(
+                matchClass
+        );
+        return mongoTemplate.aggregate(aggregation, "classSchedule", ClassSchedule.class).getMappedResults();
+
     }
 
     @Override
@@ -103,7 +107,7 @@ public class ClassScheduleServiceImpl implements ClassScheduleService {
         LookupOperation lookupSchedule = LookupOperation.newLookup()
                 .from("classSchedule")
                 .localField("classId")
-                .foreignField("classId")
+                .foreignField("_id")
                 .as("classSchedule");
         UnwindOperation unwindSchedule = Aggregation.unwind("classSchedule");
         UnwindOperation unwindSchedules = Aggregation.unwind("classSchedule.schedules");
@@ -112,7 +116,8 @@ public class ClassScheduleServiceImpl implements ClassScheduleService {
                 Criteria.where("classSchedule.schedules.endDate").gte(startDate)
         ));
 
-        ProjectionOperation projectFields = Aggregation.project("classId", "classSchedule.courseId", "classSchedule.courseName", "classSchedule.schedules");
+        ProjectionOperation projectFields = Aggregation.project("_id", "classSchedule.courseId", "classSchedule.courseName", "classSchedule.schedules")
+                .and("_id").as("classId");
         return Aggregation.newAggregation(
                 matchStudent,
                 lookupSchedule,
@@ -166,7 +171,7 @@ public class ClassScheduleServiceImpl implements ClassScheduleService {
 
     @Override
     public List<QueryClassSchedule> getEachScheduleByClassIds(List<String> ids) {
-        MatchOperation matchClass = Aggregation.match(new Criteria("classId").in(ids));
+        MatchOperation matchClass = Aggregation.match(new Criteria("_id").in(ids));
         UnwindOperation unwindSchedules = Aggregation.unwind("schedules");
 
         Aggregation aggregation = Aggregation.newAggregation(
@@ -196,6 +201,17 @@ public class ClassScheduleServiceImpl implements ClassScheduleService {
         }
 
         return conflicts;
+    }
+
+    @Override
+    public void changeSchedule(ChangeScheduleRequest request) {
+        Query query = new Query();
+        query.addCriteria(Criteria.where("studentId").is(request.studentId()).and("classId").is(request.oldClassId()));
+
+        Update update = new Update();
+        update.set("classId", request.newClassId());
+
+        mongoTemplate.updateFirst(query, update, StudentSchedule.class);
     }
 
     private boolean isConflict(QueryClassSchedule existingSchedule, QueryClassSchedule newSchedule) {

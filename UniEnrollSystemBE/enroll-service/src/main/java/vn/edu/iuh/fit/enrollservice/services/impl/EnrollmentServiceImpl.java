@@ -97,18 +97,18 @@ public class EnrollmentServiceImpl implements EnrollmentService {
     }
 
     @Override
-    public List<String> validateAndPrepareRegistration(String studentId, RequestChangeClass request, Class newClass) {
+    public List<String> validateAndPrepareRegistration(String studentId, RequestChangeClass request, Class targetClass) {
         if (request.old_class_id().equals(request.new_class_id())) {
             throw new RuntimeException("Lớp mới và lớp cũ không thể giống nhau");
         }
-        newClass = new Class(getClassById(request.old_class_id()));
-        List<Enrollment> enrollments = getRegistryClass(studentId, newClass.getSemester(), newClass.getYear());
-        if (newClass.getStatus() == ClassStatus.CLOSED) {
+        targetClass.setClassDetails(getClassById(request.new_class_id()));
+        List<Enrollment> enrollments = getRegistryClass(studentId, targetClass.getSemester(), targetClass.getYear());
+        if (targetClass.getStatus() == ClassStatus.CLOSED) {
             throw new RuntimeException("Lớp học đã đóng, không thể đăng ký");
-        } else if (newClass.getStatus() == ClassStatus.PLANNING) {
+        } else if (targetClass.getStatus() == ClassStatus.PLANNING) {
             throw new RuntimeException("Lớp học đang trong quá trình lên kế hoạch, không thể đăng ký");
         } else if (enrollments.stream()
-                .anyMatch(enrollment -> enrollment.getRegistryClass().equals(request.old_class_id()))) {
+                .noneMatch(enrollment -> enrollment.getRegistryClass().equals(request.old_class_id()))) {
             throw new RuntimeException("Bạn chưa đăng ký lớp học này " + request.old_class_id());
         }
 

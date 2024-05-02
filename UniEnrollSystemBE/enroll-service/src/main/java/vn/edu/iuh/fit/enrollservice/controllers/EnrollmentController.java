@@ -5,6 +5,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import vn.edu.iuh.fit.enrollservice.client.ScheduleClient;
 import vn.edu.iuh.fit.enrollservice.dtos.*;
+import vn.edu.iuh.fit.enrollservice.messaging.RegisterMessageProducer;
 import vn.edu.iuh.fit.enrollservice.models.Class;
 import vn.edu.iuh.fit.enrollservice.models.Enrollment;
 import vn.edu.iuh.fit.enrollservice.services.ClassRedisService;
@@ -23,12 +24,14 @@ public class EnrollmentController {
     private final ClassService classService;
     private final ScheduleClient scheduleClient;
     private final ClassRedisService classRedisService;
+    private final RegisterMessageProducer registerMessageProducer;
 
-    public EnrollmentController(EnrollmentService enrollmentService, ClassService classService, ScheduleClient scheduleClient, ClassRedisService classRedisService) {
+    public EnrollmentController(EnrollmentService enrollmentService, ClassService classService, ScheduleClient scheduleClient, ClassRedisService classRedisService, RegisterMessageProducer registerMessageProducer) {
         this.enrollmentService = enrollmentService;
         this.classService = classService;
         this.scheduleClient = scheduleClient;
         this.classRedisService = classRedisService;
+        this.registerMessageProducer = registerMessageProducer;
     }
 
     @GetMapping("/registry")
@@ -43,15 +46,15 @@ public class EnrollmentController {
     @PostMapping("/register")
     public ResponseEntity<?> registerClass(@RequestHeader("id") String studentId, @RequestBody RegistryRequest request) {
         try {
-            // Get the class IDs from the registered classes
+//             Get the class IDs from the registered classes
             List<String> enrolledClassIds = enrollmentService.validateAndPrepareRegistration(studentId, request);
 
-            // Check for schedule conflicts
+//             Check for schedule conflicts
             List<ConflictResponse> conflictSchedules = scheduleClient.checkScheduleConflict(new ScheduleConflictRequest(enrolledClassIds, request.class_id()));
             if (conflictSchedules.isEmpty()) {
                 enrollmentService.registerClass(studentId, request.class_id());
-                List<ClassSchedule> schedule = scheduleClient.registrySchedule(studentId, request.class_id());
-                return ResponseEntity.ok(new ResponseWrapper("Đăng ký thành công", schedule, 200));
+                registerMessageProducer.sendRegisterSchedule(new RegisterSchedule(studentId, request.class_id()));
+                return ResponseEntity.ok(new ResponseWrapper("Đăng ký thành công", null, 200));
             } else {
                 return ResponseEntity.ok(new ResponseWrapper("Lịch học bị trùng", conflictSchedules, 400));
             }
@@ -83,9 +86,8 @@ public class EnrollmentController {
             List<ConflictResponse> conflictSchedules = scheduleClient.checkScheduleConflict(new ScheduleConflictRequest(enrolledClassIds, request.new_class_id()));
             if (conflictSchedules.isEmpty()) {
                 enrollmentService.changeClass(studentId, request);
-                scheduleClient.cancelSchedule(studentId, request.old_class_id());
-                List<ClassSchedule> schedule = scheduleClient.registrySchedule(studentId, request.new_class_id());
-                return ResponseEntity.ok(new ResponseWrapper("Thay đổi lớp học thành công", schedule, 200));
+                registerMessageProducer.sendChangeSchedule(new ChangeScheduleRequest(studentId, request.old_class_id(), request.new_class_id()));
+                return ResponseEntity.ok(new ResponseWrapper("Thay đổi lớp học thành công", null, 200));
             } else {
                 return ResponseEntity.ok(new ResponseWrapper("Lịch học bị trùng", conflictSchedules, 400));
             }
@@ -99,7 +101,7 @@ public class EnrollmentController {
         try {
             enrollmentService.cancelEnrollment(studentId, classId);
 
-            scheduleClient.cancelSchedule(studentId, classId);
+            registerMessageProducer.sendCancelSchedule(new RegisterSchedule(studentId, classId));
 
             return ResponseEntity.ok(new ResponseWrapper("Hủy đăng ký thành công", null, HttpStatus.OK.value()));
         } catch (Exception e) {

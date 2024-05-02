@@ -15,6 +15,8 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 public class ClassSchedule {
+    @MongoId
+    @Field("_id")
     private String classId;
     private String courseId;
     private String courseName;
