@@ -1,18 +1,18 @@
 package vn.edu.iuh.fit.enrollservice.client;
 
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.service.annotation.DeleteExchange;
+import org.springframework.web.service.annotation.GetExchange;
 import org.springframework.web.service.annotation.HttpExchange;
 import org.springframework.web.service.annotation.PostExchange;
 import reactor.core.publisher.Mono;
-import vn.edu.iuh.fit.enrollservice.dtos.ClassSchedule;
-import vn.edu.iuh.fit.enrollservice.dtos.ConflictResponse;
-import vn.edu.iuh.fit.enrollservice.dtos.Schedule;
-import vn.edu.iuh.fit.enrollservice.dtos.ScheduleConflictRequest;
+import vn.edu.iuh.fit.enrollservice.dtos.*;
 
 import java.util.List;
+import java.util.Map;
 
 @HttpExchange
 public interface ScheduleClient {
@@ -27,4 +27,7 @@ public interface ScheduleClient {
 
     @PostExchange("/schedules/conflicts")
     public List<ConflictResponse> checkScheduleConflict(@RequestBody ScheduleConflictRequest request);
+
+    @GetExchange("/schedules/classes")
+    public Map<String, ClassSchedule> getSchedules(@RequestBody ClassIdsRequest request);
 }

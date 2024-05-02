@@ -7,15 +7,13 @@ import lombok.NoArgsConstructor;
 import java.io.Serial;
 import java.io.Serializable;
 
-@Data
-@AllArgsConstructor
-@NoArgsConstructor
-public class Prerequisite implements Serializable {
+public record Prerequisite(
+        String id,
+        String name,
+        int credit,
+        int theoryCredit,
+        int practicalCredit
+) implements Serializable {
     @Serial
     private static final long serialVersionUID = -9168140803625611618L;
-    private String id;
-    private String name;
-    private int credit;
-    private int theoryCredit;
-    private int practicalCredit;
 }

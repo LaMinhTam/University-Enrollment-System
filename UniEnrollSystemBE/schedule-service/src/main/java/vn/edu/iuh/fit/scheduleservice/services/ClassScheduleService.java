@@ -6,6 +6,7 @@ import vn.edu.iuh.fit.scheduleservice.models.StudentSchedule;
 
 import java.text.ParseException;
 import java.util.List;
+import java.util.Map;
 
 public interface ClassScheduleService {
     List<ClassSchedule> getAllSchedule(String studentId);
@@ -14,7 +15,7 @@ public interface ClassScheduleService {
 
     void cancelSchedule(String studentId, String classId);
 
-    List<ClassSchedule> getScheduleByClassIds(List<String> id);
+    Map<String, ClassSchedule> getScheduleByClassIds(List<String> id);
 
     List<WeekScheduleDTO> getScheduleByDate(String studentId, DateRequest dateRequest) throws ParseException;
 

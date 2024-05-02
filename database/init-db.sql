@@ -954,6 +954,7 @@ DELIMITER //
 CREATE PROCEDURE register_class (
     IN p_student_id VARCHAR(255),
     IN p_class_id VARCHAR(255),
+    IN p_group_id int,
     OUT p_status_code int
 )
 BEGIN
@@ -974,7 +975,7 @@ BEGIN
         SET p_status_code = 409; -- HTTP status code for class is full
     ELSE
         -- Insert enrollment record
-        INSERT INTO enrollments (registry_class, student_id, created_at, semester, year, course_id) VALUES (p_class_id, p_student_id, NOW(), v_semester, v_year, v_course_id);
+        INSERT INTO enrollments (registry_class, student_id, created_at, updated_at, semester, year, course_id, group_id) VALUES (p_class_id, p_student_id, NOW(), NOW(), v_semester, v_year, v_course_id, p_group_id);
         SET p_status_code = 201; -- HTTP status code for created
     END IF;
 
@@ -990,6 +991,7 @@ CREATE PROCEDURE change_class (
     IN p_student_id VARCHAR(255),
     IN p_old_class_id VARCHAR(255),
     IN p_new_class_id VARCHAR(255),
+    IN p_group_id int,
     OUT p_status_code int
 )
 BEGIN
@@ -1009,7 +1011,7 @@ BEGIN
         SET p_status_code = 409; -- HTTP status code for class is full
     ELSE
         -- Update enrollment record
-        UPDATE enrollments SET registry_class = p_new_class_id WHERE student_id = p_student_id AND registry_class = p_old_class_id;
+        UPDATE enrollments SET registry_class = p_new_class_id,  group_id = p_group_id, updated_at = NOW() WHERE student_id = p_student_id AND registry_class = p_old_class_id;
         SET p_status_code = 200; -- HTTP status code for successful update
     END IF;
 

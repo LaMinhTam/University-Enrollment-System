@@ -4,11 +4,13 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import vn.edu.iuh.fit.scheduleservice.dtos.*;
+import vn.edu.iuh.fit.scheduleservice.models.ClassSchedule;
 import vn.edu.iuh.fit.scheduleservice.models.StudentSchedule;
 import vn.edu.iuh.fit.scheduleservice.services.ClassScheduleService;
 
 import java.text.ParseException;
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/schedules")
@@ -41,14 +43,8 @@ public class ClassScheduleController {
     }
 
     @GetMapping("/classes")
-    public ResponseEntity<?> getSchedules(@RequestBody ClassIdsRequest request) {
-        return ResponseEntity.ok(
-                new ResponseWrapper(
-                        "Lich học",
-                        classScheduleService.getScheduleByClassIds(request.class_ids()),
-                        HttpStatus.OK.value()
-                )
-        );
+    public Map<String, ClassSchedule> getSchedules(@RequestBody ClassIdsRequest request) {
+        return classScheduleService.getScheduleByClassIds(request.class_ids());
     }
 
     @GetMapping("/classes/by-date")

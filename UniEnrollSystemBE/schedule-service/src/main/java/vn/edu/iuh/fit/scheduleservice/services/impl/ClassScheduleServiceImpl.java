@@ -18,6 +18,7 @@ import vn.edu.iuh.fit.scheduleservice.services.ClassScheduleService;
 
 import java.text.ParseException;
 import java.util.*;
+import java.util.function.Function;
 import java.util.stream.Collectors;
 
 @Service
@@ -58,14 +59,18 @@ public class ClassScheduleServiceImpl implements ClassScheduleService {
     }
 
     @Override
-    public List<ClassSchedule> getScheduleByClassIds(List<String> ids) {
+    public Map<String, ClassSchedule> getScheduleByClassIds(List<String> ids) {
         MatchOperation matchClass = Aggregation.match(new Criteria("_id").in(ids));
 
         Aggregation aggregation = Aggregation.newAggregation(
                 matchClass
         );
-        return mongoTemplate.aggregate(aggregation, "classSchedule", ClassSchedule.class).getMappedResults();
+        List<ClassSchedule> results = mongoTemplate.aggregate(aggregation, "classSchedule", ClassSchedule.class).getMappedResults();
 
+        Map<String, ClassSchedule> resultMap = results.stream()
+                .collect(Collectors.toMap(ClassSchedule::getClassId, Function.identity()));
+
+        return resultMap;
     }
 
     @Override
