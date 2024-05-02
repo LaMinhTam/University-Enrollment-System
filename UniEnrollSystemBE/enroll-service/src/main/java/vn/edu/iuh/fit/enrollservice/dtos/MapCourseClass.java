@@ -9,12 +9,10 @@ import java.io.Serial;
 import java.io.Serializable;
 import java.util.List;
 
-@Data
-@NoArgsConstructor
-@AllArgsConstructor
-public class MapCourseClass implements Serializable {
+public record MapCourseClass(
+        Course course,
+        List<ClassDTO> classes
+) implements Serializable {
     @Serial
     private static final long serialVersionUID = 1524478025872001111L;
-    private Course course;
-    private List<ClassDTO> classes;
 }

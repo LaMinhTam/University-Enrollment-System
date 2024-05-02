@@ -8,7 +8,7 @@ import vn.edu.iuh.fit.enrollservice.models.Enrollment;
 import java.util.List;
 
 public interface EnrollmentService {
-    public boolean registerClass(String studentId, String classId) throws RuntimeException, InterruptedException;
+    public boolean registerClass(String studentId, RegistryRequest request) throws RuntimeException, InterruptedException;
 
     public boolean changeClass(String studentId, RequestChangeClass request) throws RuntimeException;
 
@@ -18,7 +18,7 @@ public interface EnrollmentService {
 
     Class getClassById(String classId);
 
-    List<String> validateAndPrepareRegistration(String studentId, RegistryRequest classId) throws RuntimeException;
+    List<String> validateAndPrepareRegistration(String studentId, RegistryRequest classId, Class newClass) throws RuntimeException;
 
     List<String> validateAndPrepareRegistration(String studentId, RequestChangeClass request, Class newClass);
 }

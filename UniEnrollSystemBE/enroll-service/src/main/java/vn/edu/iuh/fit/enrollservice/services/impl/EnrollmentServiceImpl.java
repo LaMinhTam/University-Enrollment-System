@@ -43,14 +43,14 @@ public class EnrollmentServiceImpl implements EnrollmentService {
         }
     }
 
-    public boolean registerClass(String studentId, String classId) throws RuntimeException {
-        int statusCode = enrollmentRepository.registerClass(studentId, classId);
+    public boolean registerClass(String studentId, RegistryRequest request) throws RuntimeException {
+        int statusCode = enrollmentRepository.registerClass(studentId, request.class_id(), request.group());
         handleStatusCode(statusCode);
         return true;
     }
 
     public boolean changeClass(String studentId, RequestChangeClass request) throws RuntimeException {
-        int statusCode = enrollmentRepository.changeClass(studentId, request.old_class_id(), request.new_class_id());
+        int statusCode = enrollmentRepository.changeClass(studentId, request.old_class_id(), request.new_class_id(), request.group());
         handleStatusCode(statusCode);
         return true;
     }
@@ -78,8 +78,8 @@ public class EnrollmentServiceImpl implements EnrollmentService {
     }
 
     @Override
-    public List<String> validateAndPrepareRegistration(String studentId, RegistryRequest request) throws RuntimeException {
-        Class newClass = getClassById(request.class_id());
+    public List<String> validateAndPrepareRegistration(String studentId, RegistryRequest request, Class newClass) throws RuntimeException {
+        newClass.setClassDetails(getClassById(request.class_id()));
         String courseId = newClass.getCourseId();
         List<Enrollment> enrollments = getRegistryClass(studentId, newClass.getSemester(), newClass.getYear());
         if (newClass.getStatus() == ClassStatus.CLOSED) {

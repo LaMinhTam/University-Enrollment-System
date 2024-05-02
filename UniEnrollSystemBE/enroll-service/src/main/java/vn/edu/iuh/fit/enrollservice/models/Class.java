@@ -28,17 +28,8 @@ public class Class implements Serializable {
     @Enumerated(EnumType.STRING)
     private ClassStatus status;
 
-    public Class(Class newClass) {
-        this.id = newClass.getId();
-        this.courseId = newClass.getCourseId();
-        this.courseName = newClass.getCourseName();
-        this.semester = newClass.getSemester();
-        this.year = newClass.getYear();
-        this.maxCapacity = newClass.getMaxCapacity();
-        this.status = newClass.getStatus();
-    }
-
     public void setClassDetails(Class classById) {
+        this.id = classById.getId();
         this.courseId = classById.getCourseId();
         this.courseName = classById.getCourseName();
         this.semester = classById.getSemester();

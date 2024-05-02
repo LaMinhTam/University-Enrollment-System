@@ -147,7 +147,7 @@ public class ClassRepositoryTests {
         for (int i = 0; i < 4; i++) {
             int finalI = i;
             courses.forEach(course -> {
-                if (course.getType() == 0) {
+                if (course.type() == 0) {
                     startStudyMonth = Calendar.JANUARY;
                     endStudyMonth = Calendar.APRIL;
                     examMiddleMonth = Calendar.MARCH;
@@ -170,15 +170,15 @@ public class ClassRepositoryTests {
         List<Class> classes = new ArrayList<>();
         int count = random.nextInt(4) + 1; // Generate random number of classes between 1 and 4
         for (int i = 0; i < count; i++) {
-            String classId = generateClassId(course.getId(), year, semester, i + 1);
+            String classId = generateClassId(course.id(), year, semester, i + 1);
             String status = ClassStatus.values()[random.nextInt(ClassStatus.values().length)].name();
             int maxCapacity = (random.nextInt(3) + 6) * 10; // Generate max capacity between 60, 70, and 80
-            Class newClass = new Class(classId, course.getId(), course.getName(), semester, year, maxCapacity, ClassStatus.valueOf(status));
+            Class newClass = new Class(classId, course.id(), course.name(), semester, year, maxCapacity, ClassStatus.valueOf(status));
             List<Schedule> schedules = generateSchedules(course);
             System.out.println("{" +
                     "\"_id\":\"" + classId + "\"," +
-                    "\"courseId\":\"" + course.getId() + "\"," +
-                    "\"courseName\":\"" + course.getName() + "\"," +
+                    "\"courseId\":\"" + course.id() + "\"," +
+                    "\"courseName\":\"" + course.name() + "\"," +
                     "\"schedules\":" + "[" +
                     printSchedule(schedules) +
                     "]" +
@@ -250,7 +250,7 @@ public class ClassRepositoryTests {
         int practicalGroup = 0;
         for (int i = 2; i < numSchedules; i++) {
             ClassType classType = (i % 2 == 0) ? ClassType.THEORY : ClassType.PRACTICE;
-            if (course.getPracticalCredit() == 0) {
+            if (course.practicalCredit() == 0) {
                 classType = ClassType.THEORY;
             }
             if (classType == ClassType.PRACTICE) {

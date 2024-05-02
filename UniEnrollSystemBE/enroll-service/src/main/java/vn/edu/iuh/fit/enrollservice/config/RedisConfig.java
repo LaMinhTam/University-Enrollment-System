@@ -8,9 +8,6 @@ import org.springframework.data.redis.connection.RedisConnectionFactory;
 import org.springframework.data.redis.connection.RedisStandaloneConfiguration;
 import org.springframework.data.redis.connection.lettuce.LettuceConnectionFactory;
 import org.springframework.data.redis.core.RedisTemplate;
-import vn.edu.iuh.fit.enrollservice.dtos.MapCourseClass;
-
-import java.util.List;
 
 @Configuration
 public class RedisConfig {

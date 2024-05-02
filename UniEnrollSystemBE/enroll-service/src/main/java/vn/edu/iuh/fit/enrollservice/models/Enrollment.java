@@ -23,4 +23,7 @@ public class Enrollment {
     private int semester;
     private int year;
     private Date createdAt;
+    private Date updatedAt;
+    @Column(name = "group_id")
+    private int group;
 }

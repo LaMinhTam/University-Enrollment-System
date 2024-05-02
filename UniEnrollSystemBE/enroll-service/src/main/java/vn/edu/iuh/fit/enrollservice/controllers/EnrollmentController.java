@@ -12,9 +12,7 @@ import vn.edu.iuh.fit.enrollservice.services.ClassRedisService;
 import vn.edu.iuh.fit.enrollservice.services.ClassService;
 import vn.edu.iuh.fit.enrollservice.services.EnrollmentService;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 import java.util.stream.Collectors;
 
 @RestController
@@ -44,15 +42,16 @@ public class EnrollmentController {
     }
 
     @PostMapping("/register")
-    public ResponseEntity<?> registerClass(@RequestHeader("id") String studentId, @RequestBody RegistryRequest request) {
+    public ResponseEntity<?> registerClass(@RequestHeader("id") String studentId, @RequestHeader("major_id") int majorId, @RequestBody RegistryRequest request) {
         try {
-//             Get the class IDs from the registered classes
-            List<String> enrolledClassIds = enrollmentService.validateAndPrepareRegistration(studentId, request);
+            Class newClass = new Class();
+            List<String> enrolledClassIds = enrollmentService.validateAndPrepareRegistration(studentId, request, newClass);
+            classRedisService.validateClassAndGroupForRegistration(majorId, newClass, request.group());
 
 //             Check for schedule conflicts
             List<ConflictResponse> conflictSchedules = scheduleClient.checkScheduleConflict(new ScheduleConflictRequest(enrolledClassIds, request.class_id()));
             if (conflictSchedules.isEmpty()) {
-                enrollmentService.registerClass(studentId, request.class_id());
+                enrollmentService.registerClass(studentId, request);
                 registerMessageProducer.sendRegisterSchedule(new RegisterSchedule(studentId, request.class_id()));
                 return ResponseEntity.ok(new ResponseWrapper("Đăng ký thành công", null, 200));
             } else {
@@ -69,19 +68,7 @@ public class EnrollmentController {
             Class newClass = new Class();
             List<String> enrolledClassIds = enrollmentService.validateAndPrepareRegistration(studentId, request, newClass);
 
-            Map<String, MapCourseClass> coursesWithClasses = classRedisService.getAllCourses(majorId, newClass.getSemester(), newClass.getYear());
-            if (coursesWithClasses == null) {
-                throw new Exception("Hệ thống hiện đang lỗi, vui lòng thử lại sau");
-            }
-            MapCourseClass currentCourse = coursesWithClasses.get(newClass.getCourseId());
-
-            //check if request old class id and new class id is the same course and time
-            currentCourse.getClasses().stream()
-                    .filter(currentClass ->
-                            currentClass.getId()
-                                    .equals(request.old_class_id()))
-                    .findFirst()
-                    .orElseThrow(() -> new Exception("Lớp mới và lớp cũ không cùng môn học hoặc không cùng học kỳ"));
+            classRedisService.validateClassAndGroupForRegistration(majorId, newClass, request.group());
 
             List<ConflictResponse> conflictSchedules = scheduleClient.checkScheduleConflict(new ScheduleConflictRequest(enrolledClassIds, request.new_class_id()));
             if (conflictSchedules.isEmpty()) {

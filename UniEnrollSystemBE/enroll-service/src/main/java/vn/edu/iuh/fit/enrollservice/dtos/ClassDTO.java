@@ -10,6 +10,7 @@ import vn.edu.iuh.fit.enrollservice.models.ClassStatus;
 
 import java.io.Serial;
 import java.io.Serializable;
+import java.util.List;
 
 @Data
 @AllArgsConstructor
@@ -26,7 +27,7 @@ public class ClassDTO implements Serializable {
     private int maxCapacity;
     private ClassStatus status;
     private Long quantity;
-
+    private List<Schedule> schedules;
     public ClassDTO(Class newClass, Long quantity) {
         this.id = newClass.getId();
         this.courseId = newClass.getCourseId();
