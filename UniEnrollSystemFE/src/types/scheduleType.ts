@@ -6,6 +6,7 @@ interface ISchedule {
     room: string;
     location: string;
     lecturer: string;
+    group?: number;
     classType: string;
     dayOff: Date[] | null;
 }

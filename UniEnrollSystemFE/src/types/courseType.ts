@@ -1,3 +1,5 @@
+import { ISchedule } from "./scheduleType";
+
 interface ICourseRegistration {
     course: ICourse;
     classes: IClass[];
@@ -12,6 +14,7 @@ interface IClass {
     maxCapacity: number;
     status: string;
     quantity: number;
+    schedules: ISchedule[];
 }
 
 interface ICourse {

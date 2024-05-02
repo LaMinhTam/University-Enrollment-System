@@ -1,36 +1,48 @@
 import { PayloadAction, createSlice } from "@reduxjs/toolkit";
 import { IClass } from "../../types/courseType";
-import { IClassSchedule } from "../../types/scheduleType";
 import { IClassesEnrolled } from "../../types/classesEnrolledType";
 
 type RegistrationTypes = {
     registerClasses: IClassesEnrolled[];
     courseSelectedId: string;
     courseSelectedClasses: IClass[];
-    classSchedule: IClassSchedule[];
-    classScheduleOtherData: IClassesEnrolled;
+    storedCourseSelectedClasses: IClass[];
+    classSchedule: IClass;
+    registrationPeriod: {
+        semester: number;
+        year: number;
+    };
+    classesEnrolledSchedule: {
+        classType: string;
+        dayOfWeek: number;
+        timeSlot: string;
+        group?: number;
+    }[];
 };
 
 const initialState: RegistrationTypes = {
+    registrationPeriod: {
+        semester: 0,
+        year: 0,
+    },
     registerClasses: [],
     courseSelectedId: "",
     courseSelectedClasses: [],
-    classSchedule: [],
-    classScheduleOtherData: {
-        id: "",
-        courseId: "",
-        courseName: "",
-        semester: 0,
-        year: 0,
-        maxCapacity: 0,
-        status: "",
-    },
+    storedCourseSelectedClasses: [],
+    classSchedule: {} as IClass,
+    classesEnrolledSchedule: [],
 };
 
 const registrationSlice = createSlice({
     name: "registration",
     initialState,
     reducers: {
+        setRegistrationPeriod: (
+            state,
+            action: PayloadAction<{ semester: number; year: number }>
+        ) => {
+            state.registrationPeriod = action.payload;
+        },
         setRegisterClasses: (
             state,
             action: PayloadAction<IClassesEnrolled[]>
@@ -43,23 +55,35 @@ const registrationSlice = createSlice({
         setCourseSelectedClasses: (state, action: PayloadAction<IClass[]>) => {
             state.courseSelectedClasses = action.payload;
         },
-        setClassSchedule: (state, action: PayloadAction<IClassSchedule[]>) => {
+        setStoredSelectedClasses: (state, action: PayloadAction<IClass[]>) => {
+            state.storedCourseSelectedClasses = action.payload;
+        },
+        setClassSchedule: (state, action: PayloadAction<IClass>) => {
             state.classSchedule = action.payload;
         },
-        setClassScheduleOtherData: (
+        setClassesEnrolledSchedule: (
             state,
-            action: PayloadAction<IClassesEnrolled>
+            action: PayloadAction<
+                {
+                    classType: string;
+                    dayOfWeek: number;
+                    timeSlot: string;
+                    group?: number;
+                }[]
+            >
         ) => {
-            state.classScheduleOtherData = action.payload;
+            state.classesEnrolledSchedule = action.payload;
         },
     },
 });
 
 export const {
+    setRegistrationPeriod,
     setRegisterClasses,
     setCourseSelectedId,
     setCourseSelectedClasses,
+    setStoredSelectedClasses,
     setClassSchedule,
-    setClassScheduleOtherData,
+    setClassesEnrolledSchedule,
 } = registrationSlice.actions;
 export default registrationSlice.reducer;

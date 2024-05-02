@@ -2,39 +2,57 @@ import { RootState } from "../../store/configureStore";
 import { v4 as uuidv4 } from "uuid";
 import renderClassesRegistrationStatus from "../../utils/renderClassesRegistrationStatus";
 import { useState } from "react";
+import { IClass } from "../../types/courseType";
 import { useDispatch, useSelector } from "react-redux";
-import { toast } from "react-toastify";
-import { UniEnrollSystemAPI } from "../../apis/constants";
 import {
     setClassSchedule,
-    setClassScheduleOtherData,
+    setCourseSelectedClasses,
 } from "../../store/actions/registrationSlice";
-import { IClass } from "../../types/courseType";
-import { IClassesEnrolled } from "../../types/classesEnrolledType";
 const Classes = () => {
     const courseSelectedClasses = useSelector(
         (state: RootState) => state.registration.courseSelectedClasses
     );
-    const [classSelectedId, setClassSelectedId] = useState<string>("");
     const dispatch = useDispatch();
-    const handleClickClasses = async (item: IClass) => {
-        try {
-            const response = await UniEnrollSystemAPI.getClassSchedule(item.id);
-            if (response.status === 200) {
-                dispatch(setClassSchedule(response.data));
-                setClassSelectedId(item.id);
-                dispatch(
-                    setClassScheduleOtherData({
-                        ...(item as IClassesEnrolled),
-                    })
-                );
-            } else {
-                toast.error("Không tim thấy thông tin lớp học phần");
-            }
-        } catch (error) {
-            toast.error("Có lỗi xảy ra, vui lòng thử lại sau");
+    const [classSelectedId, setClassSelectedId] = useState<string>("");
+    const handleClickClasses = (item: IClass) => {
+        setClassSelectedId(item.id);
+        dispatch(setClassSchedule(item));
+    };
+    const classesEnrolledSchedule = useSelector(
+        (state: RootState) => state.registration.classesEnrolledSchedule
+    );
+    const storedSelectedClasses = useSelector(
+        (state: RootState) => state.registration.storedCourseSelectedClasses
+    );
+    const handleFilterDuplicateSchedule = (
+        e: React.ChangeEvent<HTMLInputElement>
+    ) => {
+        const isChecked = e.target.checked;
+        if (isChecked) {
+            const newCourseSelectedClasses = courseSelectedClasses.filter(
+                (item) => {
+                    const filteredSchedules = item.schedules.filter(
+                        (schedule) =>
+                            schedule.classType === "THEORY" ||
+                            schedule.classType === "PRACTICE"
+                    );
+                    return !filteredSchedules.some((schedule) =>
+                        classesEnrolledSchedule.some(
+                            (enrolled) =>
+                                enrolled.timeSlot === schedule.timeSlot &&
+                                enrolled.dayOfWeek === schedule.dayOfWeek
+                        )
+                    );
+                }
+            );
+            dispatch(setCourseSelectedClasses(newCourseSelectedClasses));
+            console.log("Filter duplicate schedule");
+        } else {
+            dispatch(setCourseSelectedClasses(storedSelectedClasses));
+            console.log("Not filter duplicate schedule");
         }
     };
+
     return (
         <div className="w-full max-h-[600px] overflow-y-auto overflow-x-hidden">
             <div className="w-full px-2 font-bold border-l-4 border-l-error text-text7">
@@ -45,6 +63,7 @@ const Classes = () => {
                     type="checkbox"
                     name="chkFilterCalendar"
                     id="chkFilterCalendar"
+                    onChange={(e) => handleFilterDuplicateSchedule(e)}
                 />
                 <strong className="text-sm font-bold text-error">
                     HIỂN THỊ LỚP HỌC PHẦN KHÔNG TRÙNG LỊCH

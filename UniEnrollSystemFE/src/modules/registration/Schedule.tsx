@@ -9,13 +9,11 @@ import {
     setCourseSelectedClasses,
     setRegisterClasses,
 } from "../../store/actions/registrationSlice";
+import renderDayOfWeek from "../../utils/renderDayOfWeek";
 const Schedule = () => {
     const dispatch = useDispatch();
     const classSchedule = useSelector(
         (state: RootState) => state.registration.classSchedule
-    );
-    const classScheduleOtherData = useSelector(
-        (state: RootState) => state.registration.classScheduleOtherData
     );
     const courseSelectedClasses = useSelector(
         (state: RootState) => state.registration.courseSelectedClasses
@@ -25,20 +23,20 @@ const Schedule = () => {
     );
     const handleRegistrationClasses = async () => {
         const isExist = registerClasses.find(
-            (item) => item.id === classScheduleOtherData.id
+            (item) => item.id === classSchedule.id
         );
         if (isExist) {
             toast.error("Lớp học phần đã được đăng ký");
             return;
         } else {
-            if (classScheduleOtherData.status === "WAITING") {
+            if (classSchedule.status === "WAITING") {
                 const response = await UniEnrollSystemAPI.classesEnrolled(
-                    classScheduleOtherData.id
+                    classSchedule.id
                 );
                 if (response.status === 200) {
                     const newCourseSelectedClasses = courseSelectedClasses.map(
                         (course) => {
-                            if (course.id === classScheduleOtherData.id) {
+                            if (course.id === classSchedule.id) {
                                 return {
                                     ...course,
                                     quantity: course.quantity + 1,
@@ -48,10 +46,7 @@ const Schedule = () => {
                         }
                     );
                     dispatch(
-                        setRegisterClasses([
-                            ...registerClasses,
-                            classScheduleOtherData,
-                        ])
+                        setRegisterClasses([...registerClasses, classSchedule])
                     );
                     dispatch(
                         setCourseSelectedClasses(newCourseSelectedClasses)
@@ -80,57 +75,53 @@ const Schedule = () => {
                             Trạng thái:{" "}
                             <strong className="text-sm font-bold text-error">
                                 {renderClassesRegistrationStatus(
-                                    classScheduleOtherData.status
+                                    classSchedule.status
                                 )}
                             </strong>
                         </th>
-                        <th>
-                            Sĩ số tối đa: {classScheduleOtherData.maxCapacity}
-                        </th>
+                        <th>Nhóm</th>
+                        <th>Sĩ số tối đa: {classSchedule.maxCapacity}</th>
                     </tr>
                 </thead>
                 <tbody>
-                    {classSchedule.map((item) =>
-                        item.schedules
-                            .filter(
-                                (schedule) =>
-                                    schedule.classType === "THEORY" ||
-                                    schedule.classType === "PRACTICE"
-                            )
-                            .map((s) => (
-                                <tr className="bg-senary" key={uuidv4()}>
-                                    <td>
-                                        <span>
-                                            Lịch học:{" "}
-                                            {s.classType === "THEORY"
-                                                ? "LT"
-                                                : "TH"}{" "}
-                                            - Thứ 2 (Tiết {s.timeSlot})
-                                        </span>
-                                        <br />
-                                        <span>
-                                            Cơ sở: Cơ sở 1 (Thành phố Hồ Chí
-                                            Minh)
-                                        </span>
-                                        <br />
-                                        <span>
-                                            Dãy nhà: {s.room.split(/(\d+)/)[0]}{" "}
-                                            (CS1)
-                                        </span>
-                                        <br />
-                                        <span>Phòng: {s.room}</span>
-                                    </td>
-                                    <td>
-                                        <span>GV: {s.lecturer}</span>
-                                        <br />
-                                        <span>
-                                            {formatTime(s.startDate + "")} -{" "}
-                                            {formatTime(s.endDate + "")}
-                                        </span>
-                                    </td>
-                                </tr>
-                            ))
-                    )}
+                    {classSchedule.schedules
+                        ?.filter(
+                            (schedule) =>
+                                schedule.classType === "THEORY" ||
+                                schedule.classType === "PRACTICE"
+                        )
+                        .map((s) => (
+                            <tr className="bg-senary" key={uuidv4()}>
+                                <td>
+                                    <span>
+                                        Lịch học:{" "}
+                                        {s.classType === "THEORY" ? "LT" : "TH"}{" "}
+                                        - Thứ {renderDayOfWeek(s.dayOfWeek)}{" "}
+                                        (Tiết {s.timeSlot})
+                                    </span>
+                                    <br />
+                                    <span>
+                                        Cơ sở: Cơ sở 1 (Thành phố Hồ Chí Minh)
+                                    </span>
+                                    <br />
+                                    <span>
+                                        Dãy nhà: {s.room.split(/(\d+)/)[0]}{" "}
+                                        (CS1)
+                                    </span>
+                                    <br />
+                                    <span>Phòng: {s.room}</span>
+                                </td>
+                                <td>{s.group || ""}</td>
+                                <td>
+                                    <span>GV: {s.lecturer}</span>
+                                    <br />
+                                    <span>
+                                        {formatTime(s.startDate + "")} -{" "}
+                                        {formatTime(s.endDate + "")}
+                                    </span>
+                                </td>
+                            </tr>
+                        ))}
                 </tbody>
             </table>
 
@@ -138,7 +129,7 @@ const Schedule = () => {
                 <button
                     className="px-5 h-[44px] text-lite text-center bg-tertiary w-[210px] mt-5"
                     onClick={handleRegistrationClasses}
-                    disabled={classScheduleOtherData.status !== "WAITING"}
+                    disabled={classSchedule.status !== "WAITING"}
                 >
                     Đăng ký
                 </button>

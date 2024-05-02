@@ -33,7 +33,7 @@ const getEducationPrograms = async () => {
 
 const getCourseRegistration = async (semester: number, year: number) => {
     const response = await axiosPrivate.get<CourseRegistrationResponse>(
-        `${apiURL}/classes?semester=${semester}&year=${year}`
+        `${apiURL}/classes/registrable?semester=${semester}&year=${year}`
     );
     return response.data;
 };

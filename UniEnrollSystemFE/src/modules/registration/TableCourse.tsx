@@ -1,13 +1,13 @@
 import CheckIcon from "@mui/icons-material/Check";
-import { ICourseRegistration } from "../../types/courseType";
+import { IClass, ICourseRegistration } from "../../types/courseType";
 import { v4 as uuidv4 } from "uuid";
 import { Tooltip as ReactTooltip } from "react-tooltip";
 import { useDispatch, useSelector } from "react-redux";
 import {
     setClassSchedule,
-    setClassScheduleOtherData,
     setCourseSelectedClasses,
     setCourseSelectedId,
+    setStoredSelectedClasses,
 } from "../../store/actions/registrationSlice";
 import { RootState } from "../../store/configureStore";
 const TableCourse = ({
@@ -50,18 +50,8 @@ const TableCourse = ({
     const handleClickCourse = (item: ICourseRegistration) => {
         dispatch(setCourseSelectedId(item.course.id));
         dispatch(setCourseSelectedClasses(item.classes));
-        dispatch(setClassSchedule([]));
-        dispatch(
-            setClassScheduleOtherData({
-                id: "",
-                courseId: "",
-                courseName: "",
-                semester: 0,
-                year: 0,
-                maxCapacity: 0,
-                status: "",
-            })
-        );
+        dispatch(setStoredSelectedClasses(item.classes));
+        dispatch(setClassSchedule({} as IClass));
         tableClassesRef.current?.scrollIntoView({ behavior: "smooth" });
     };
     if (!data) return null;

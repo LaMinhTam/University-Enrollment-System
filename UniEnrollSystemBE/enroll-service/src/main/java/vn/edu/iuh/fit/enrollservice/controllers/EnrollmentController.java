@@ -38,7 +38,7 @@ public class EnrollmentController {
         List<Class> classes = classService.getClassesByEnrollment(registerClasses.stream()
                 .map(Enrollment::getRegistryClass)
                 .collect(Collectors.toList()));
-        return ResponseEntity.ok(new ResponseWrapper("Danh sách học phần đã đăng ký", classes, 400));
+        return ResponseEntity.ok(new ResponseWrapper("Danh sách học phần đã đăng ký", classes, 200));
     }
 
     @PostMapping("/register")

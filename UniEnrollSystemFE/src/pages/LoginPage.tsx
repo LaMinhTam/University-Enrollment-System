@@ -57,23 +57,23 @@ const LoginPage = () => {
 
     const handleSignIn = async (data: ILogin) => {
         if (!isValid) return;
-        const response = await UniEnrollSystemAPI.login(data);
-        console.log(response);
-        if (response.status === 200) {
-            toast.success(response.message);
-            saveAccessToken(response.data.accessToken);
-            saveRefreshToken(response.data.refreshToken);
-            setUserInfo(response.data.student);
-            // Encrypt the student data
-            const cipherText = CryptoJS.AES.encrypt(
-                JSON.stringify(response.data.student),
-                response.data.accessToken
-            ).toString();
-            saveUser(cipherText);
-            navigate("/");
-        } else {
-            console.log(response.message);
-            toast.error(response.message);
+        try {
+            const response = await UniEnrollSystemAPI.login(data);
+            if (response.status === 200) {
+                toast.success(response.message);
+                saveAccessToken(response.data.accessToken);
+                saveRefreshToken(response.data.refreshToken);
+                setUserInfo(response.data.student);
+                // Encrypt the student data
+                const cipherText = CryptoJS.AES.encrypt(
+                    JSON.stringify(response.data.student),
+                    response.data.accessToken
+                ).toString();
+                saveUser(cipherText);
+                navigate("/");
+            }
+        } catch (error) {
+            toast.error("Sai tên đăng nhập hoặc mật khẩu");
         }
     };
 
