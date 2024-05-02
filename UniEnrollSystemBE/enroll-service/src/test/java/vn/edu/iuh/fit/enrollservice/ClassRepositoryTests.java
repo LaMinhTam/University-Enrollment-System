@@ -152,11 +152,13 @@ public class ClassRepositoryTests {
                     endStudyMonth = Calendar.APRIL;
                     examMiddleMonth = Calendar.MARCH;
                     examFinalMonth = Calendar.MAY;
+                    semester = 2;
                 } else {
                     startStudyMonth = Calendar.AUGUST;
                     endStudyMonth = Calendar.NOVEMBER;
                     examMiddleMonth = Calendar.OCTOBER;
                     examFinalMonth = Calendar.DECEMBER;
+                    semester = 1;
                 }
                 classes.addAll(generateRandomClasses(course, year + finalI, semester));
             });
@@ -174,7 +176,7 @@ public class ClassRepositoryTests {
             Class newClass = new Class(classId, course.getId(), course.getName(), semester, year, maxCapacity, ClassStatus.valueOf(status));
             List<Schedule> schedules = generateSchedules(course);
             System.out.println("{" +
-                    "\"classId\":\"" + classId + "\"," +
+                    "\"_id\":\"" + classId + "\"," +
                     "\"courseId\":\"" + course.getId() + "\"," +
                     "\"courseName\":\"" + course.getName() + "\"," +
                     "\"schedules\":" + "[" +

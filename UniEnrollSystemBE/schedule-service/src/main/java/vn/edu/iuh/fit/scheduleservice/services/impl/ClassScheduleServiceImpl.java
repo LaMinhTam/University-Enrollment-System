@@ -59,7 +59,13 @@ public class ClassScheduleServiceImpl implements ClassScheduleService {
 
     @Override
     public List<ClassSchedule> getScheduleByClassIds(List<String> ids) {
-        return classScheduleRepository.findByClassIdIn(ids);
+        MatchOperation matchClass = Aggregation.match(new Criteria("_id").in(ids));
+
+        Aggregation aggregation = Aggregation.newAggregation(
+                matchClass
+        );
+        return mongoTemplate.aggregate(aggregation, "classSchedule", ClassSchedule.class).getMappedResults();
+
     }
 
     @Override
@@ -100,8 +106,8 @@ public class ClassScheduleServiceImpl implements ClassScheduleService {
         MatchOperation matchStudent = Aggregation.match(new Criteria("studentId").is(studentId));
         LookupOperation lookupSchedule = LookupOperation.newLookup()
                 .from("classSchedule")
-                .localField("_id")
-                .foreignField("classId")
+                .localField("classId")
+                .foreignField("_id")
                 .as("classSchedule");
         UnwindOperation unwindSchedule = Aggregation.unwind("classSchedule");
         UnwindOperation unwindSchedules = Aggregation.unwind("classSchedule.schedules");
@@ -110,7 +116,8 @@ public class ClassScheduleServiceImpl implements ClassScheduleService {
                 Criteria.where("classSchedule.schedules.endDate").gte(startDate)
         ));
 
-        ProjectionOperation projectFields = Aggregation.project("_id", "classSchedule.courseId", "classSchedule.courseName", "classSchedule.schedules");
+        ProjectionOperation projectFields = Aggregation.project("_id", "classSchedule.courseId", "classSchedule.courseName", "classSchedule.schedules")
+                .and("_id").as("classId");
         return Aggregation.newAggregation(
                 matchStudent,
                 lookupSchedule,
