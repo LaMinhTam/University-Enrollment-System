@@ -58,7 +58,7 @@ public class ClassScheduleController {
         );
     }
 
-    @PostMapping("/conflicts")
+    @GetMapping("/conflicts")
     public List<ConflictResponse> checkScheduleConflict(@RequestBody ScheduleConflictRequest request) {
         return classScheduleService.getScheduleConflicts(request.enrolledClassIds(), request.newClassId());
     }

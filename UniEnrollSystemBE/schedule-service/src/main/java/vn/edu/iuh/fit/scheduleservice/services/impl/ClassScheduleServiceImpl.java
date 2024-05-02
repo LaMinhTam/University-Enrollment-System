@@ -181,7 +181,8 @@ public class ClassScheduleServiceImpl implements ClassScheduleService {
 
         Aggregation aggregation = Aggregation.newAggregation(
                 matchClass,
-                unwindSchedules
+                unwindSchedules,
+                Aggregation.project("_id", "courseId", "courseName", "schedules").and("_id").as("classId")
         );
 
         return mongoTemplate.aggregate(aggregation, "classSchedule", QueryClassSchedule.class).getMappedResults();
@@ -200,6 +201,11 @@ public class ClassScheduleServiceImpl implements ClassScheduleService {
         for (QueryClassSchedule newSchedule : newSchedules) {
             for (QueryClassSchedule existingSchedule : existingSchedules) {
                 if (isConflict(existingSchedule, newSchedule)) {
+                    if (existingSchedule.schedules().getClassType() == ClassType.NO_CLASS_DAY || newSchedule.schedules().getClassType() == ClassType.NO_CLASS_DAY
+                            || existingSchedule.schedules().getClassType() == ClassType.MID_TERM_EXAM || newSchedule.schedules().getClassType() == ClassType.MID_TERM_EXAM
+                            || existingSchedule.schedules().getClassType() == ClassType.FINAL_EXAM || newSchedule.schedules().getClassType() == ClassType.FINAL_EXAM) {
+                        continue;
+                    }
                     conflicts.add(new ConflictResponse(existingSchedule.classId(), existingSchedule.courseId(), existingSchedule.courseName(), existingSchedule.schedules(), newSchedule.classId(), newSchedule.courseId(), newSchedule.courseName(), newSchedule.schedules()));
                 }
             }

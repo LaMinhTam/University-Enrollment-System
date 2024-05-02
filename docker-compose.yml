@@ -38,6 +38,7 @@ services:
       - MONGO_INITDB_ROOT_PASSWORD=123456
     volumes:
       - mongodb-data:/data/db
+      - ./database/init-mongo.js:/docker-entrypoint-initdb.d/init-mongo.js
     networks:
       - db-mongodb-net
 
