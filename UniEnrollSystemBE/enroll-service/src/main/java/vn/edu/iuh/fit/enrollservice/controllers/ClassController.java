@@ -30,7 +30,7 @@ public class ClassController {
         this.classRedisService = classRedisService;
     }
 
-    @GetMapping
+    @GetMapping("/registrable")
     public ResponseEntity<?> listAllClasses(@RequestHeader("major_id") int majorId, @RequestParam("semester") int semester, @RequestParam("year") int year) {
         Map<String , MapCourseClass> coursesWithClasses = classRedisService.getAllCourses(majorId, semester, year);
 
