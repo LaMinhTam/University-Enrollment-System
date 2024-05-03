@@ -21,7 +21,7 @@ public interface ClassScheduleService {
 
     List<QueryClassSchedule> getEachScheduleByClassIds(List<String> ids);
 
-    List<ConflictResponse> getScheduleConflicts(List<String> enrolledClassIds, String newClassId);
-
     void changeSchedule(ChangeScheduleRequest request);
+
+    List<ConflictResponse> getScheduleConflicts(ScheduleConflictRequest request);
 }
