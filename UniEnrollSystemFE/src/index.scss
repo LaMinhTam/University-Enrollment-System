@@ -34,3 +34,11 @@
 .chk-course td {
     @apply text-text7 font-bold;
 }
+
+.chkPractice {
+    @apply bg-tertiary;
+}
+
+.chkPractice td {
+    @apply text-lite font-bold;
+}

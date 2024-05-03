@@ -1,21 +1,25 @@
 import { RootState } from "../../store/configureStore";
 import { v4 as uuidv4 } from "uuid";
 import renderClassesRegistrationStatus from "../../utils/renderClassesRegistrationStatus";
-import { useState } from "react";
 import { IClass } from "../../types/courseType";
 import { useDispatch, useSelector } from "react-redux";
 import {
     setClassSchedule,
+    setClassSelectedId,
     setCourseSelectedClasses,
+    setIsFilterDuplicateSchedule,
 } from "../../store/actions/registrationSlice";
+import filterDuplicateSchedule from "../../utils/filterDuplicateSchedule";
 const Classes = () => {
     const courseSelectedClasses = useSelector(
         (state: RootState) => state.registration.courseSelectedClasses
     );
     const dispatch = useDispatch();
-    const [classSelectedId, setClassSelectedId] = useState<string>("");
+    const classSelectedId = useSelector(
+        (state: RootState) => state.registration.classSelectedId
+    );
     const handleClickClasses = (item: IClass) => {
-        setClassSelectedId(item.id);
+        dispatch(setClassSelectedId(item.id));
         dispatch(setClassSchedule(item));
     };
     const classesEnrolledSchedule = useSelector(
@@ -29,27 +33,13 @@ const Classes = () => {
     ) => {
         const isChecked = e.target.checked;
         if (isChecked) {
-            const newCourseSelectedClasses = courseSelectedClasses.filter(
-                (item) => {
-                    const filteredSchedules = item.schedules.filter(
-                        (schedule) =>
-                            schedule.classType === "THEORY" ||
-                            schedule.classType === "PRACTICE"
-                    );
-                    return !filteredSchedules.some((schedule) =>
-                        classesEnrolledSchedule.some(
-                            (enrolled) =>
-                                enrolled.timeSlot === schedule.timeSlot &&
-                                enrolled.dayOfWeek === schedule.dayOfWeek
-                        )
-                    );
-                }
+            const newCourseSelectedClasses = filterDuplicateSchedule(
+                courseSelectedClasses,
+                classesEnrolledSchedule
             );
             dispatch(setCourseSelectedClasses(newCourseSelectedClasses));
-            console.log("Filter duplicate schedule");
         } else {
             dispatch(setCourseSelectedClasses(storedSelectedClasses));
-            console.log("Not filter duplicate schedule");
         }
     };
 
@@ -63,7 +53,12 @@ const Classes = () => {
                     type="checkbox"
                     name="chkFilterCalendar"
                     id="chkFilterCalendar"
-                    onChange={(e) => handleFilterDuplicateSchedule(e)}
+                    onChange={(e) => {
+                        handleFilterDuplicateSchedule(e);
+                        dispatch(
+                            setIsFilterDuplicateSchedule(e.target.checked)
+                        );
+                    }}
                 />
                 <strong className="text-sm font-bold text-error">
                     HIỂN THỊ LỚP HỌC PHẦN KHÔNG TRÙNG LỊCH

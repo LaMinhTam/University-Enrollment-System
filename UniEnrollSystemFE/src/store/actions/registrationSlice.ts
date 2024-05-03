@@ -1,6 +1,7 @@
 import { PayloadAction, createSlice } from "@reduxjs/toolkit";
 import { IClass } from "../../types/courseType";
 import { IClassesEnrolled } from "../../types/classesEnrolledType";
+import { IClassesEnrolledSchedule } from "../../types/commonType";
 
 type RegistrationTypes = {
     registerClasses: IClassesEnrolled[];
@@ -12,12 +13,10 @@ type RegistrationTypes = {
         semester: number;
         year: number;
     };
-    classesEnrolledSchedule: {
-        classType: string;
-        dayOfWeek: number;
-        timeSlot: string;
-        group?: number;
-    }[];
+    classesEnrolledSchedule: IClassesEnrolledSchedule[];
+    isFilterDuplicateSchedule: boolean;
+    classSelectedId: string;
+    courseChangeQuantityId: string;
 };
 
 const initialState: RegistrationTypes = {
@@ -31,6 +30,9 @@ const initialState: RegistrationTypes = {
     storedCourseSelectedClasses: [],
     classSchedule: {} as IClass,
     classesEnrolledSchedule: [],
+    isFilterDuplicateSchedule: false,
+    classSelectedId: "",
+    courseChangeQuantityId: "",
 };
 
 const registrationSlice = createSlice({
@@ -63,16 +65,21 @@ const registrationSlice = createSlice({
         },
         setClassesEnrolledSchedule: (
             state,
-            action: PayloadAction<
-                {
-                    classType: string;
-                    dayOfWeek: number;
-                    timeSlot: string;
-                    group?: number;
-                }[]
-            >
+            action: PayloadAction<IClassesEnrolledSchedule[]>
         ) => {
             state.classesEnrolledSchedule = action.payload;
+        },
+        setIsFilterDuplicateSchedule: (
+            state,
+            action: PayloadAction<boolean>
+        ) => {
+            state.isFilterDuplicateSchedule = action.payload;
+        },
+        setClassSelectedId: (state, action: PayloadAction<string>) => {
+            state.classSelectedId = action.payload;
+        },
+        setCourseChangeQuantityId: (state, action: PayloadAction<string>) => {
+            state.courseChangeQuantityId = action.payload;
         },
     },
 });
@@ -85,5 +92,8 @@ export const {
     setStoredSelectedClasses,
     setClassSchedule,
     setClassesEnrolledSchedule,
+    setIsFilterDuplicateSchedule,
+    setClassSelectedId,
+    setCourseChangeQuantityId,
 } = registrationSlice.actions;
 export default registrationSlice.reducer;

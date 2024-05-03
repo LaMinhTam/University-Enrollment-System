@@ -9,15 +9,21 @@ import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../store/configureStore";
 import { UniEnrollSystemAPI } from "../../apis/constants";
 import { toast } from "react-toastify";
-import { setRegisterClasses } from "../../store/actions/registrationSlice";
+import {
+    setCourseChangeQuantityId,
+    setCourseSelectedClasses,
+    setRegisterClasses,
+} from "../../store/actions/registrationSlice";
+import { handleDecrementQuantityOfClass } from "../../utils/handleChangeQuantityOfClass";
 const TableRegistration = () => {
     const registerClasses = useSelector(
         (state: RootState) => state.registration.registerClasses
     );
     const dispatch = useDispatch();
-    console.log("TableRegistration ~ registerClasses:", registerClasses);
     const [classesClickedId, setClassesClickedId] = useState("");
-    console.log("TableRegistration ~ classesClickedId:", classesClickedId);
+    const courseSelectedClasses = useSelector(
+        (state: RootState) => state.registration.courseSelectedClasses
+    );
     const {
         show: showAction,
         setShow: setShowAction,
@@ -26,7 +32,10 @@ const TableRegistration = () => {
     // const handleCalculateTotalCredit = (data: IClassesEnrolled[]) => {
     //     return data.reduce((acc, cur) => acc + cur.course.credit, 0);
     // };
-    const handleRemoveClassesRegistration = async (id: string) => {
+    const handleRemoveClassesRegistration = async (
+        id: string,
+        courseId: string
+    ) => {
         if (!id) return;
         const response = await UniEnrollSystemAPI.removeClassesEnrolled(id);
         if (response.status === 200) {
@@ -34,6 +43,12 @@ const TableRegistration = () => {
                 (item) => item.id !== id
             );
             dispatch(setRegisterClasses(newRegisterClasses));
+            const newCourseSelectedClasses = handleDecrementQuantityOfClass(
+                courseSelectedClasses,
+                id
+            );
+            dispatch(setCourseSelectedClasses(newCourseSelectedClasses));
+            dispatch(setCourseChangeQuantityId(courseId));
             toast.success("Hủy lớp học phần thành công");
         }
     };
@@ -102,7 +117,8 @@ const TableRegistration = () => {
                                             <button
                                                 onClick={() =>
                                                     handleRemoveClassesRegistration(
-                                                        item.id
+                                                        item.id,
+                                                        item.courseId
                                                     )
                                                 }
                                                 className="w-full h-[40px] hover:bg-error hover:text-lite"

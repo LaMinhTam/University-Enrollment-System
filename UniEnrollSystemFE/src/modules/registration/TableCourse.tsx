@@ -5,11 +5,14 @@ import { Tooltip as ReactTooltip } from "react-tooltip";
 import { useDispatch, useSelector } from "react-redux";
 import {
     setClassSchedule,
+    setClassSelectedId,
+    setCourseChangeQuantityId,
     setCourseSelectedClasses,
     setCourseSelectedId,
     setStoredSelectedClasses,
 } from "../../store/actions/registrationSlice";
 import { RootState } from "../../store/configureStore";
+import filterDuplicateSchedule from "../../utils/filterDuplicateSchedule";
 const TableCourse = ({
     data,
     tableClassesRef,
@@ -20,8 +23,20 @@ const TableCourse = ({
     tableClassesRef: React.RefObject<HTMLDivElement>;
 }) => {
     const dispatch = useDispatch();
+    const isFilterDuplicateSchedule = useSelector(
+        (state: RootState) => state.registration.isFilterDuplicateSchedule
+    );
     const courseSelectedId = useSelector(
         (state: RootState) => state.registration.courseSelectedId
+    );
+    const classesEnrolledSchedule = useSelector(
+        (state: RootState) => state.registration.classesEnrolledSchedule
+    );
+    const courseSelectedClasses = useSelector(
+        (state: RootState) => state.registration.courseSelectedClasses
+    );
+    const courseChangeQuantityId = useSelector(
+        (state: RootState) => state.registration.courseChangeQuantityId
     );
     const handleTooltipContent = (
         prerequisites: {
@@ -49,8 +64,25 @@ const TableCourse = ({
     };
     const handleClickCourse = (item: ICourseRegistration) => {
         dispatch(setCourseSelectedId(item.course.id));
-        dispatch(setCourseSelectedClasses(item.classes));
-        dispatch(setStoredSelectedClasses(item.classes));
+        dispatch(setClassSelectedId(""));
+        if (isFilterDuplicateSchedule) {
+            const newCourseSelectedClasses = filterDuplicateSchedule(
+                item.classes,
+                classesEnrolledSchedule
+            );
+            dispatch(setCourseSelectedClasses(newCourseSelectedClasses));
+        } else {
+            dispatch(setCourseSelectedClasses(item.classes));
+            dispatch(setStoredSelectedClasses(item.classes));
+        }
+        if (
+            courseChangeQuantityId &&
+            courseChangeQuantityId === item.course.id
+        ) {
+            dispatch(setCourseSelectedClasses(courseSelectedClasses));
+            dispatch(setStoredSelectedClasses(courseSelectedClasses));
+            dispatch(setCourseChangeQuantityId(""));
+        }
         dispatch(setClassSchedule({} as IClass));
         tableClassesRef.current?.scrollIntoView({ behavior: "smooth" });
     };

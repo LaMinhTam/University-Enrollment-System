@@ -11,7 +11,6 @@ const Table = ({
         [key: string]: IEducationPrograms[];
     } | null;
 }) => {
-    console.log("Table ~ programData:", programData);
     const [show, setShow] = useState<number | null>(null);
     const handleCalculateCreditOfSemester = (semester: string) => {
         if (!programData) return 0;

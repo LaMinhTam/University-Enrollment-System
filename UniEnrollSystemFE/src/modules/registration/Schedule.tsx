@@ -6,12 +6,20 @@ import renderClassesRegistrationStatus from "../../utils/renderClassesRegistrati
 import { UniEnrollSystemAPI } from "../../apis/constants";
 import { toast } from "react-toastify";
 import {
+    setCourseChangeQuantityId,
     setCourseSelectedClasses,
     setRegisterClasses,
 } from "../../store/actions/registrationSlice";
 import renderDayOfWeek from "../../utils/renderDayOfWeek";
+import { useState } from "react";
+import Swal from "sweetalert2";
+import handleChangeQuantityOfClass, {
+    handleIncrementQuantityOfClass,
+} from "../../utils/handleChangeQuantityOfClass";
 const Schedule = () => {
     const dispatch = useDispatch();
+    const [selectedGroup, setSelectedGroup] = useState(0);
+    const [isSelectedGroup, setIsSelectedGroup] = useState(false);
     const classSchedule = useSelector(
         (state: RootState) => state.registration.classSchedule
     );
@@ -22,42 +30,137 @@ const Schedule = () => {
         (state: RootState) => state.registration.registerClasses
     );
     const handleRegistrationClasses = async () => {
-        const isExist = registerClasses.find(
+        const isExist = registerClasses.some(
             (item) => item.id === classSchedule.id
+        );
+        const isChangeClass = registerClasses.some(
+            (item) =>
+                item.id !== classSchedule.id &&
+                item.courseId === classSchedule.courseId
+        );
+        const isPractice = classSchedule.schedules.some(
+            (item) => item.classType === "PRACTICE"
         );
         if (isExist) {
             toast.error("Lớp học phần đã được đăng ký");
             return;
+        } else if (isPractice && !isSelectedGroup) {
+            toast.error("Bạn chưa chọn nhóm thực hành!");
         } else {
             if (classSchedule.status === "WAITING") {
-                const response = await UniEnrollSystemAPI.classesEnrolled(
-                    classSchedule.id
-                );
-                if (response.status === 200) {
-                    const newCourseSelectedClasses = courseSelectedClasses.map(
-                        (course) => {
-                            if (course.id === classSchedule.id) {
-                                return {
-                                    ...course,
-                                    quantity: course.quantity + 1,
-                                };
-                            }
-                            return course;
+                try {
+                    const groupId = isPractice ? selectedGroup : 0;
+                    if (isChangeClass) {
+                        const oldClass = registerClasses.find(
+                            (item) => item.courseId === classSchedule.courseId
+                        );
+                        if (oldClass) {
+                            Swal.fire({
+                                title: "Bạn có chắc muốn thay đổi lớp học phần?",
+                                showCancelButton: true,
+                                confirmButtonText: "Đồng ý",
+                                cancelButtonText: "Hủy",
+                            }).then(async (result) => {
+                                if (result.isConfirmed) {
+                                    const response =
+                                        await UniEnrollSystemAPI.changeClassesEnrolled(
+                                            oldClass.id,
+                                            classSchedule.id,
+                                            groupId
+                                        );
+                                    if (response.status === 200) {
+                                        const newRegisterClasses =
+                                            registerClasses.map((item) => {
+                                                if (
+                                                    item.id === oldClass.id &&
+                                                    item.courseId ===
+                                                        classSchedule.courseId
+                                                ) {
+                                                    return classSchedule;
+                                                }
+                                                return item;
+                                            });
+                                        dispatch(
+                                            setRegisterClasses(
+                                                newRegisterClasses
+                                            )
+                                        );
+                                        const newCourseSelectedClasses =
+                                            handleChangeQuantityOfClass(
+                                                courseSelectedClasses,
+                                                classSchedule,
+                                                oldClass.id
+                                            );
+                                        dispatch(
+                                            setCourseSelectedClasses(
+                                                newCourseSelectedClasses
+                                            )
+                                        );
+                                        dispatch(
+                                            setCourseChangeQuantityId(
+                                                classSchedule.courseId
+                                            )
+                                        );
+                                        setIsSelectedGroup(false);
+                                        setSelectedGroup(0);
+                                        toast.success(
+                                            "Đổi lớp học phần thành công"
+                                        );
+                                    }
+                                } else {
+                                    return;
+                                }
+                            });
                         }
-                    );
-                    dispatch(
-                        setRegisterClasses([...registerClasses, classSchedule])
-                    );
-                    dispatch(
-                        setCourseSelectedClasses(newCourseSelectedClasses)
-                    );
-                    toast.success("Đăng ký lớp học phần thành công");
-                } else {
-                    toast.error(response.message);
+                    } else {
+                        const response =
+                            await UniEnrollSystemAPI.classesEnrolled(
+                                classSchedule.id,
+                                groupId
+                            );
+                        if (response.status === 200) {
+                            const newCourseSelectedClasses =
+                                handleIncrementQuantityOfClass(
+                                    courseSelectedClasses,
+                                    classSchedule
+                                );
+                            dispatch(
+                                setRegisterClasses([
+                                    ...registerClasses,
+                                    classSchedule,
+                                ])
+                            );
+                            dispatch(
+                                setCourseSelectedClasses(
+                                    newCourseSelectedClasses
+                                )
+                            );
+                            dispatch(
+                                setCourseChangeQuantityId(
+                                    classSchedule.courseId
+                                )
+                            );
+                            setIsSelectedGroup(false);
+                            setSelectedGroup(0);
+                            toast.success("Đăng ký lớp học phần thành công");
+                        }
+                    }
+                } catch (error) {
+                    toast.error("Đã có lỗi xảy ra!");
                 }
             }
         }
     };
+    const handleClickedPracticeSchedule = (
+        group: number,
+        classType: string
+    ) => {
+        if (classType === "PRACTICE") {
+            setSelectedGroup(group);
+            setIsSelectedGroup(!isSelectedGroup);
+        }
+    };
+
     return (
         <div className="w-full">
             <div className="w-full px-2 font-bold border-l-4 border-l-error text-text7">
@@ -91,7 +194,23 @@ const Schedule = () => {
                                 schedule.classType === "PRACTICE"
                         )
                         .map((s) => (
-                            <tr className="bg-senary" key={uuidv4()}>
+                            <tr
+                                className={`cursor-pointer ${
+                                    isSelectedGroup &&
+                                    s.classType === "PRACTICE"
+                                        ? "chkPractice"
+                                        : ""
+                                } ${
+                                    s.classType === "THEORY" ? "chk-course" : ""
+                                }`}
+                                key={uuidv4()}
+                                onClick={() =>
+                                    handleClickedPracticeSchedule(
+                                        s.group,
+                                        s.classType
+                                    )
+                                }
+                            >
                                 <td>
                                     <span>
                                         Lịch học:{" "}
@@ -111,7 +230,11 @@ const Schedule = () => {
                                     <br />
                                     <span>Phòng: {s.room}</span>
                                 </td>
-                                <td>{s.group || ""}</td>
+                                {s.classType === "PRACTICE" ? (
+                                    <td>{s.group}</td>
+                                ) : (
+                                    <td></td>
+                                )}
                                 <td>
                                     <span>GV: {s.lecturer}</span>
                                     <br />

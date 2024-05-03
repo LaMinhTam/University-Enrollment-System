@@ -1,5 +1,7 @@
 import apiURL from "../config/config";
-import ClassesEnrolledResponse from "../types/classesEnrolledType";
+import ClassesEnrolledResponse, {
+    RemoveClassesEnrolled,
+} from "../types/classesEnrolledType";
 import CourseRegistrationResponse from "../types/courseType";
 import EducationProgramsResponse from "../types/educationProgramType";
 import ClassScheduleResponse from "../types/scheduleType";
@@ -52,11 +54,12 @@ const getClassesEnrolled = async (semester: number, year: number) => {
     return response.data;
 };
 
-const classesEnrolled = async (id: string) => {
+const classesEnrolled = async (id: string, groupId: number) => {
     const response = await axiosPrivate.post<ClassScheduleResponse>(
         `${apiURL}/enrollments/register`,
         {
             class_id: id,
+            group: groupId,
         }
     );
     return response.data;
@@ -65,6 +68,22 @@ const classesEnrolled = async (id: string) => {
 const removeClassesEnrolled = async (id: string) => {
     const response = await axiosPrivate.delete(
         `${apiURL}/enrollments/cancel?class_id=${id}`
+    );
+    return response.data;
+};
+
+const changeClassesEnrolled = async (
+    old_class_id: string,
+    new_class_id: string,
+    group: number
+) => {
+    const response = await axiosPrivate.post<RemoveClassesEnrolled>(
+        `${apiURL}/enrollments/register/change`,
+        {
+            old_class_id: old_class_id,
+            new_class_id: new_class_id,
+            group: group,
+        }
     );
     return response.data;
 };
@@ -78,4 +97,5 @@ export const UniEnrollSystemAPI = {
     getClassesEnrolled,
     classesEnrolled,
     removeClassesEnrolled,
+    changeClassesEnrolled,
 };
