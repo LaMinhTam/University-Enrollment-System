@@ -181,31 +181,11 @@ public class ClassScheduleServiceImpl implements ClassScheduleService {
 
         Aggregation aggregation = Aggregation.newAggregation(
                 matchClass,
-                unwindSchedules
+                unwindSchedules,
+                Aggregation.project("_id", "courseId", "courseName", "schedules").and("_id").as("classId")
         );
 
         return mongoTemplate.aggregate(aggregation, "classSchedule", QueryClassSchedule.class).getMappedResults();
-    }
-
-    @Override
-    public List<ConflictResponse> getScheduleConflicts(List<String> enrolledClassIds, String newClassId) {
-        // Retrieve schedules for the enrolled classes
-        List<QueryClassSchedule> existingSchedules = getEachScheduleByClassIds(enrolledClassIds);
-
-        // Retrieve schedules for the new class
-        List<QueryClassSchedule> newSchedules = getEachScheduleByClassIds(List.of(newClassId));
-
-        // Check if any of the new schedules conflict with the existing schedules
-        List<ConflictResponse> conflicts = new ArrayList<>();
-        for (QueryClassSchedule newSchedule : newSchedules) {
-            for (QueryClassSchedule existingSchedule : existingSchedules) {
-                if (isConflict(existingSchedule, newSchedule)) {
-                    conflicts.add(new ConflictResponse(existingSchedule.classId(), existingSchedule.courseId(), existingSchedule.courseName(), existingSchedule.schedules(), newSchedule.classId(), newSchedule.courseId(), newSchedule.courseName(), newSchedule.schedules()));
-                }
-            }
-        }
-
-        return conflicts;
     }
 
     @Override
@@ -217,6 +197,41 @@ public class ClassScheduleServiceImpl implements ClassScheduleService {
         update.set("classId", request.newClassId());
 
         mongoTemplate.updateFirst(query, update, StudentSchedule.class);
+    }
+
+    @Override
+    public List<ConflictResponse> getScheduleConflicts(ScheduleConflictRequest request) {
+        List<QueryClassSchedule> existingSchedules = getEachScheduleByClassIds(request.enrolledClassIds());
+        List<QueryClassSchedule> newSchedules = getValidSchedules(request.newClassId(), request.groupId());
+
+        return findConflicts(existingSchedules, newSchedules);
+    }
+
+    private List<ConflictResponse> findConflicts(List<QueryClassSchedule> existingSchedules, List<QueryClassSchedule> newSchedules) {
+        List<ConflictResponse> conflicts = new ArrayList<>();
+        for (QueryClassSchedule newSchedule : newSchedules) {
+            for (QueryClassSchedule existingSchedule : existingSchedules) {
+                if (isConflict(existingSchedule, newSchedule)) {
+                    conflicts.add(new ConflictResponse(existingSchedule.classId(), existingSchedule.courseId(), existingSchedule.courseName(), existingSchedule.schedules(), newSchedule.classId(), newSchedule.courseId(), newSchedule.courseName(), newSchedule.schedules()));
+                }
+            }
+        }
+        return conflicts;
+    }
+
+    private List<QueryClassSchedule> getValidSchedules(String newClassId, int groupId) {
+        List<QueryClassSchedule> schedules = getEachScheduleByClassIds(List.of(newClassId));
+        return schedules.stream()
+                .filter(schedule -> isValidSchedule(schedule, groupId))
+                .toList();
+    }
+
+    private boolean isValidSchedule(QueryClassSchedule schedule, int groupId) {
+        ClassType classType = schedule.schedules().getClassType();
+        return  ClassType.THEORY == classType ||(classType != ClassType.NO_CLASS_DAY &&
+                classType != ClassType.MID_TERM_EXAM &&
+                classType != ClassType.FINAL_EXAM &&
+                schedule.schedules().getGroup() == groupId);
     }
 
     private boolean isConflict(QueryClassSchedule existingSchedule, QueryClassSchedule newSchedule) {

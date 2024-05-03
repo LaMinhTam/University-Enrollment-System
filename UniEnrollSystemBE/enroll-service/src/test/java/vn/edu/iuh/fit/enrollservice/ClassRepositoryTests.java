@@ -148,17 +148,17 @@ public class ClassRepositoryTests {
             int finalI = i;
             courses.forEach(course -> {
                 if (course.type() == 0) {
-                    startStudyMonth = Calendar.JANUARY;
-                    endStudyMonth = Calendar.APRIL;
-                    examMiddleMonth = Calendar.MARCH;
-                    examFinalMonth = Calendar.MAY;
-                    semester = 2;
-                } else {
                     startStudyMonth = Calendar.AUGUST;
                     endStudyMonth = Calendar.NOVEMBER;
                     examMiddleMonth = Calendar.OCTOBER;
                     examFinalMonth = Calendar.DECEMBER;
                     semester = 1;
+                } else {
+                    startStudyMonth = Calendar.JANUARY;
+                    endStudyMonth = Calendar.APRIL;
+                    examMiddleMonth = Calendar.MARCH;
+                    examFinalMonth = Calendar.MAY;
+                    semester = 2;
                 }
                 classes.addAll(generateRandomClasses(course, year + finalI, semester));
             });
@@ -247,21 +247,18 @@ public class ClassRepositoryTests {
             schedules.add(generateExamSchedule(i, ClassType.FINAL_EXAM, startDateFinalExam, endDateFinalExam));
         }
         int group = 0;
-        int practicalGroup = 0;
         for (int i = 2; i < numSchedules; i++) {
-            ClassType classType = (i % 2 == 0) ? ClassType.THEORY : ClassType.PRACTICE;
-            if (course.practicalCredit() == 0) {
-                classType = ClassType.THEORY;
-            }
-            if (classType == ClassType.PRACTICE) {
-                practicalGroup++;
-                group = practicalGroup;
-            } else {
-                group = 0;
-            }
             Date startDate = generateDate(firstStartStudyDate, secondStartStudyDate); // Generate random start date
             Date endDate = generateDate(firstEndStudyDate, secondEndStudyDate); // Generate random end date
-            schedules.add(generateSchedule(group, classType, startDate, endDate));
+            schedules.add(generateSchedule(group, ClassType.THEORY, startDate, endDate));
+        }
+        if (course.practicalCredit() != 0) {
+            for (int i = 2; i < numSchedules; i++) {
+                group++;
+                Date startDate = generateDate(firstStartStudyDate, secondStartStudyDate); // Generate random start date
+                Date endDate = generateDate(firstEndStudyDate, secondEndStudyDate); // Generate random end date
+                schedules.add(generateSchedule(group, ClassType.PRACTICE, startDate, endDate));
+            }
         }
 
         return schedules;

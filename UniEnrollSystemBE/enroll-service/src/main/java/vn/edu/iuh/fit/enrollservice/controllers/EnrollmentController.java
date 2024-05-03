@@ -49,7 +49,7 @@ public class EnrollmentController {
             classRedisService.validateClassAndGroupForRegistration(majorId, newClass, request.group());
 
 //             Check for schedule conflicts
-            List<ConflictResponse> conflictSchedules = scheduleClient.checkScheduleConflict(new ScheduleConflictRequest(enrolledClassIds, request.class_id()));
+            List<ConflictResponse> conflictSchedules = scheduleClient.checkScheduleConflict(new ScheduleConflictRequest(enrolledClassIds, request.class_id(), request.group()));
             if (conflictSchedules.isEmpty()) {
                 enrollmentService.registerClass(studentId, request);
                 registerMessageProducer.sendRegisterSchedule(new RegisterSchedule(studentId, request.class_id()));
@@ -70,7 +70,7 @@ public class EnrollmentController {
 
             classRedisService.validateClassAndGroupForRegistration(majorId, newClass, request.group());
 
-            List<ConflictResponse> conflictSchedules = scheduleClient.checkScheduleConflict(new ScheduleConflictRequest(enrolledClassIds, request.new_class_id()));
+            List<ConflictResponse> conflictSchedules = scheduleClient.checkScheduleConflict(new ScheduleConflictRequest(enrolledClassIds, request.new_class_id(), request.group()));
             if (conflictSchedules.isEmpty()) {
                 enrollmentService.changeClass(studentId, request);
                 registerMessageProducer.sendChangeSchedule(new ChangeScheduleRequest(studentId, request.old_class_id(), request.new_class_id()));

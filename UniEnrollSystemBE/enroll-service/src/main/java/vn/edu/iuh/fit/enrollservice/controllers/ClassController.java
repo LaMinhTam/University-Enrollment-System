@@ -33,7 +33,7 @@ public class ClassController {
     public ResponseEntity<?> listAllClasses(@RequestHeader("major_id") int majorId, @RequestParam("semester") int semester, @RequestParam("year") int year) {
         Map<String, MapCourseClass> coursesWithClasses = classRedisService.getAllCourses(majorId, semester, year);
 
-        if (coursesWithClasses == null) {
+        if (coursesWithClasses == null || coursesWithClasses.isEmpty()) {
             List<ClassDTO> classes = classService.listAllClasses(semester, year);
 
             List<String> courseIds = classes.stream().map(ClassDTO::getCourseId).collect(Collectors.toList());

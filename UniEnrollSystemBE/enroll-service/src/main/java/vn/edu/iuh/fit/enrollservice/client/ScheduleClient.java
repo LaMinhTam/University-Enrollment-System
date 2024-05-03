@@ -25,7 +25,7 @@ public interface ScheduleClient {
     @DeleteExchange("/schedules/cancel")
     public void cancelSchedule(@RequestHeader("id") String studentId, @RequestParam("class_id") String classId);
 
-    @PostExchange("/schedules/conflicts")
+    @GetExchange("/schedules/conflicts")
     public List<ConflictResponse> checkScheduleConflict(@RequestBody ScheduleConflictRequest request);
 
     @GetExchange("/schedules/classes")
