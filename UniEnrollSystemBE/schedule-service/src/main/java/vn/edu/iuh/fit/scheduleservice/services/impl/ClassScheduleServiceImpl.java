@@ -116,9 +116,17 @@ public class ClassScheduleServiceImpl implements ClassScheduleService {
                 .as("classSchedule");
         UnwindOperation unwindSchedule = Aggregation.unwind("classSchedule");
         UnwindOperation unwindSchedules = Aggregation.unwind("classSchedule.schedules");
-        MatchOperation matchDate = Aggregation.match(new Criteria().andOperator(
+
+        MatchOperation matchDateAndClassTypeAndGroup = Aggregation.match(new Criteria().andOperator(
                 Criteria.where("classSchedule.schedules.startDate").lte(endDate),
-                Criteria.where("classSchedule.schedules.endDate").gte(startDate)
+                Criteria.where("classSchedule.schedules.endDate").gte(startDate),
+                new Criteria().orOperator(
+                        Criteria.where("classSchedule.schedules.classType").is("THEORY"),
+                        new Criteria().andOperator(
+                                Criteria.where("classSchedule.schedules.classType").is("PRACTICE"),
+                                Criteria.where("group").is("classSchedule.schedules.group")
+                        )
+                )
         ));
 
         ProjectionOperation projectFields = Aggregation.project("_id", "classSchedule.courseId", "classSchedule.courseName", "classSchedule.schedules")
@@ -128,7 +136,7 @@ public class ClassScheduleServiceImpl implements ClassScheduleService {
                 lookupSchedule,
                 unwindSchedule,
                 unwindSchedules,
-                matchDate,
+                matchDateAndClassTypeAndGroup,
                 projectFields
         );
     }
@@ -174,6 +182,7 @@ public class ClassScheduleServiceImpl implements ClassScheduleService {
         return false;
     }
 
+    @Override
     public List<QueryClassSchedule> getEachScheduleByClassIds(List<EnrollGroup> enrollGroups) {
         MatchOperation matchClass = Aggregation.match(new Criteria("_id").in(enrollGroups.stream().map(EnrollGroup::classId).collect(Collectors.toList())));
         UnwindOperation unwindSchedules = Aggregation.unwind("schedules");
@@ -207,61 +216,5 @@ public class ClassScheduleServiceImpl implements ClassScheduleService {
         update.set("classId", request.newClassId());
 
         mongoTemplate.updateFirst(query, update, StudentSchedule.class);
-    }
-
-    @Override
-    public List<ConflictResponse> getScheduleConflicts(ScheduleConflictRequest request) {
-        List<QueryClassSchedule> existingSchedules = getEachScheduleByClassIds(request.enrollGroups());
-        List<QueryClassSchedule> newSchedules = getValidSchedules(request.newClassId(), request.groupId());
-
-        return findConflicts(existingSchedules, newSchedules);
-    }
-
-    private List<ConflictResponse> findConflicts(List<QueryClassSchedule> existingSchedules, List<QueryClassSchedule> newSchedules) {
-        List<ConflictResponse> conflicts = new ArrayList<>();
-        for (QueryClassSchedule newSchedule : newSchedules) {
-            for (QueryClassSchedule existingSchedule : existingSchedules) {
-                if (isConflict(existingSchedule, newSchedule)) {
-                    conflicts.add(new ConflictResponse(existingSchedule.classId(), existingSchedule.courseId(), existingSchedule.courseName(), existingSchedule.schedules(), newSchedule.classId(), newSchedule.courseId(), newSchedule.courseName(), newSchedule.schedules()));
-                }
-            }
-        }
-        return conflicts;
-    }
-
-    private List<QueryClassSchedule> getValidSchedules(String newClassId, int groupId) {
-        List<QueryClassSchedule> schedules = getEachScheduleByClassIds(List.of(new EnrollGroup(newClassId, groupId)));
-        return schedules.stream()
-                .filter(schedule -> isValidSchedule(schedule, groupId))
-                .toList();
-    }
-
-    private boolean isValidSchedule(QueryClassSchedule schedule, int groupId) {
-        ClassType classType = schedule.schedules().getClassType();
-        return ClassType.THEORY == classType || (classType != ClassType.NO_CLASS_DAY &&
-                classType != ClassType.MID_TERM_EXAM &&
-                classType != ClassType.FINAL_EXAM &&
-                schedule.schedules().getGroup() == groupId);
-    }
-
-    private boolean isConflict(QueryClassSchedule existingSchedule, QueryClassSchedule newSchedule) {
-        // Check if the schedules are on the same day of the week
-        if (existingSchedule.schedules().getDayOfWeek() != newSchedule.schedules().getDayOfWeek()) {
-            return false;
-        }
-
-        // Split the time slots into start and end times
-        String[] existingTime = existingSchedule.schedules().getTimeSlot().split("-");
-        String[] newTime = newSchedule.schedules().getTimeSlot().split("-");
-
-        // Check if the schedules overlap in time
-        if (Integer.parseInt(existingTime[0]) < Integer.parseInt(newTime[1]) &&
-                Integer.parseInt(existingTime[1]) > Integer.parseInt(newTime[0])) {
-            // If the schedules overlap in time, check if they also overlap in date
-            return existingSchedule.schedules().getStartDate().before(newSchedule.schedules().getEndDate()) &&
-                    existingSchedule.schedules().getEndDate().after(newSchedule.schedules().getStartDate());
-        }
-
-        return false;
     }
 }

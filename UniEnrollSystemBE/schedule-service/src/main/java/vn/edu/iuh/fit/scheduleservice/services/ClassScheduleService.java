@@ -21,5 +21,5 @@ public interface ClassScheduleService {
 
     void changeSchedule(ChangeScheduleRequest request);
 
-    List<ConflictResponse> getScheduleConflicts(ScheduleConflictRequest request);
+    List<QueryClassSchedule> getEachScheduleByClassIds(List<EnrollGroup> enrollGroups);
 }
