@@ -1,5 +1,6 @@
 import PrintIcon from "@mui/icons-material/Print";
 import CheckIcon from "@mui/icons-material/Check";
+import ClearIcon from "@mui/icons-material/Clear";
 import ArrowDropUpRoundedIcon from "@mui/icons-material/ArrowDropUpRounded";
 import { useState } from "react";
 import useClickOutSide from "../../hooks/useClickOutSide";
@@ -15,6 +16,10 @@ import {
     setRegisterClasses,
 } from "../../store/actions/registrationSlice";
 import { handleDecrementQuantityOfClass } from "../../utils/handleChangeQuantityOfClass";
+import {
+    setClassSelectedSchedule,
+    setIsOpenWatchScheduleModal,
+} from "../../store/actions/modalSlice";
 const TableRegistration = () => {
     const registerClasses = useSelector(
         (state: RootState) => state.registration.registerClasses
@@ -23,6 +28,9 @@ const TableRegistration = () => {
     const [classesClickedId, setClassesClickedId] = useState("");
     const courseSelectedClasses = useSelector(
         (state: RootState) => state.registration.courseSelectedClasses
+    );
+    const classesEnrolledSchedule = useSelector(
+        (state: RootState) => state.registration.classesEnrolledSchedule
     );
     const {
         show: showAction,
@@ -51,6 +59,14 @@ const TableRegistration = () => {
             dispatch(setCourseChangeQuantityId(courseId));
             toast.success("Hủy lớp học phần thành công");
         }
+    };
+    const handleWatchSchedule = () => {
+        const classSchedule = classesEnrolledSchedule.filter(
+            (item) => item.id === classesClickedId
+        );
+        if (!classSchedule) return;
+        dispatch(setClassSelectedSchedule(classSchedule));
+        dispatch(setIsOpenWatchScheduleModal(true));
     };
     return (
         <div>
@@ -125,7 +141,10 @@ const TableRegistration = () => {
                                             >
                                                 Hủy
                                             </button>
-                                            <button className="w-full h-[40px] hover:bg-primary hover:text-lite">
+                                            <button
+                                                onClick={handleWatchSchedule}
+                                                className="w-full h-[40px] hover:bg-primary hover:text-lite"
+                                            >
                                                 Xem lịch học
                                             </button>
                                         </div>
@@ -136,17 +155,23 @@ const TableRegistration = () => {
                             <td>{item.id}</td>
                             <td>{item.courseName}</td>
                             <td>{item.id}</td>
-                            <td>3</td>
-                            <td></td>
-                            <td>2.450.000</td>
-                            <td>13/05/2024</td>
+                            <td>{item.credit}</td>
+                            <td>{item.group}</td>
+                            <td>{item.fee}</td>
+                            <td>{item.updatedAt}</td>
                             <td>
-                                <span className="flex items-center justify-center w-6 h-6 rounded-full bg-primary text-lite">
-                                    <CheckIcon />
-                                </span>
+                                {item.isPaid ? (
+                                    <span className="flex items-center justify-center w-6 h-6 rounded-full bg-primary text-lite">
+                                        <CheckIcon />
+                                    </span>
+                                ) : (
+                                    <span className="flex items-center justify-center w-6 h-6 rounded-full bg-error text-lite">
+                                        <ClearIcon />
+                                    </span>
+                                )}
                             </td>
                             <td>Đã đăng ký</td>
-                            <td>13/05/2024</td>
+                            <td>{item.updatedAt}</td>
                             <td className="text-sm font-medium text-error">
                                 {renderClassesRegistrationStatus(item.status)}
                             </td>

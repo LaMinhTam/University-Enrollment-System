@@ -6,6 +6,7 @@ interface IClassesEnrolled {
     year: number;
     maxCapacity: number;
     status: string;
+    credit?: number;
     group?: number;
     isPaid?: boolean;
     updatedAt?: string;

@@ -47,107 +47,138 @@ const Schedule = () => {
         } else if (isPractice && !isSelectedGroup) {
             toast.error("Bạn chưa chọn nhóm thực hành!");
         } else {
-            if (classSchedule.status === "WAITING") {
+            if (
+                classSchedule.status === "WAITING" ||
+                classSchedule.status === "OPENED"
+            ) {
                 try {
-                    const groupId = isPractice ? selectedGroup : 0;
-                    if (isChangeClass) {
-                        const oldClass = registerClasses.find(
-                            (item) => item.courseId === classSchedule.courseId
-                        );
-                        if (oldClass) {
-                            Swal.fire({
-                                title: "Bạn có chắc muốn thay đổi lớp học phần?",
-                                showCancelButton: true,
-                                confirmButtonText: "Đồng ý",
-                                cancelButtonText: "Hủy",
-                            }).then(async (result) => {
-                                if (result.isConfirmed) {
-                                    const response =
-                                        await UniEnrollSystemAPI.changeClassesEnrolled(
-                                            oldClass.id,
-                                            classSchedule.id,
-                                            groupId
-                                        );
-                                    if (response.status === 200) {
-                                        const newRegisterClasses =
-                                            registerClasses.map((item) => {
-                                                if (
-                                                    item.id === oldClass.id &&
-                                                    item.courseId ===
-                                                        classSchedule.courseId
-                                                ) {
-                                                    return classSchedule;
-                                                }
-                                                return item;
-                                            });
-                                        dispatch(
-                                            setRegisterClasses(
-                                                newRegisterClasses
-                                            )
-                                        );
-                                        const newCourseSelectedClasses =
-                                            handleChangeQuantityOfClass(
-                                                courseSelectedClasses,
-                                                classSchedule,
-                                                oldClass.id
+                    if (classSchedule.quantity < classSchedule.maxCapacity) {
+                        const groupId = isPractice ? selectedGroup : 0;
+                        if (isChangeClass) {
+                            const oldClass = registerClasses.find(
+                                (item) =>
+                                    item.courseId === classSchedule.courseId
+                            );
+                            if (oldClass) {
+                                Swal.fire({
+                                    title: "Bạn có chắc muốn thay đổi lớp học phần?",
+                                    showCancelButton: true,
+                                    confirmButtonText: "Đồng ý",
+                                    cancelButtonText: "Hủy",
+                                }).then(async (result) => {
+                                    if (result.isConfirmed) {
+                                        const response =
+                                            await UniEnrollSystemAPI.changeClassesEnrolled(
+                                                oldClass.id,
+                                                classSchedule.id,
+                                                groupId
                                             );
-                                        dispatch(
-                                            setCourseSelectedClasses(
-                                                newCourseSelectedClasses
-                                            )
-                                        );
-                                        dispatch(
-                                            setCourseChangeQuantityId(
-                                                classSchedule.courseId
-                                            )
-                                        );
-                                        setIsSelectedGroup(false);
-                                        setSelectedGroup(0);
-                                        toast.success(
-                                            "Đổi lớp học phần thành công"
-                                        );
+                                        if (response.status === 200) {
+                                            const newRegisterClasses =
+                                                registerClasses.map((item) => {
+                                                    if (
+                                                        item.id ===
+                                                            oldClass.id &&
+                                                        item.courseId ===
+                                                            classSchedule.courseId
+                                                    ) {
+                                                        return {
+                                                            ...classSchedule,
+                                                            credit: 3,
+                                                            group: item.group,
+                                                            isPaid: false,
+                                                            updatedAt:
+                                                                "13/05/2024",
+                                                            fee: "2.450.000",
+                                                        };
+                                                    }
+                                                    return item;
+                                                });
+                                            dispatch(
+                                                setRegisterClasses(
+                                                    newRegisterClasses
+                                                )
+                                            );
+                                            const newCourseSelectedClasses =
+                                                handleChangeQuantityOfClass(
+                                                    courseSelectedClasses,
+                                                    classSchedule,
+                                                    oldClass.id
+                                                );
+                                            dispatch(
+                                                setCourseSelectedClasses(
+                                                    newCourseSelectedClasses
+                                                )
+                                            );
+                                            dispatch(
+                                                setCourseChangeQuantityId(
+                                                    classSchedule.courseId
+                                                )
+                                            );
+                                            setIsSelectedGroup(false);
+                                            setSelectedGroup(0);
+                                            toast.success(
+                                                "Đổi lớp học phần thành công"
+                                            );
+                                        }
+                                    } else {
+                                        return;
                                     }
-                                } else {
-                                    return;
-                                }
-                            });
+                                });
+                            }
+                        } else {
+                            const response =
+                                await UniEnrollSystemAPI.classesEnrolled(
+                                    classSchedule.id,
+                                    groupId
+                                );
+                            if (response.status === 200) {
+                                const newCourseSelectedClasses =
+                                    handleIncrementQuantityOfClass(
+                                        courseSelectedClasses,
+                                        classSchedule
+                                    );
+                                dispatch(
+                                    setRegisterClasses([
+                                        ...registerClasses,
+                                        {
+                                            ...classSchedule,
+                                            credit: 3,
+                                            group: groupId,
+                                            isPaid: false,
+                                            updatedAt: "13/05/2024",
+                                            fee: "2.450.000",
+                                        },
+                                    ])
+                                );
+                                dispatch(
+                                    setCourseSelectedClasses(
+                                        newCourseSelectedClasses
+                                    )
+                                );
+                                dispatch(
+                                    setCourseChangeQuantityId(
+                                        classSchedule.courseId
+                                    )
+                                );
+                                setIsSelectedGroup(false);
+                                setSelectedGroup(0);
+                                toast.success(
+                                    "Đăng ký lớp học phần thành công"
+                                );
+                            }
                         }
                     } else {
-                        const response =
-                            await UniEnrollSystemAPI.classesEnrolled(
-                                classSchedule.id,
-                                groupId
-                            );
-                        if (response.status === 200) {
-                            const newCourseSelectedClasses =
-                                handleIncrementQuantityOfClass(
-                                    courseSelectedClasses,
-                                    classSchedule
-                                );
-                            dispatch(
-                                setRegisterClasses([
-                                    ...registerClasses,
-                                    classSchedule,
-                                ])
-                            );
-                            dispatch(
-                                setCourseSelectedClasses(
-                                    newCourseSelectedClasses
-                                )
-                            );
-                            dispatch(
-                                setCourseChangeQuantityId(
-                                    classSchedule.courseId
-                                )
-                            );
-                            setIsSelectedGroup(false);
-                            setSelectedGroup(0);
-                            toast.success("Đăng ký lớp học phần thành công");
-                        }
+                        toast.error("Lớp học phần đã đầy!");
+                        return;
                     }
                 } catch (error) {
                     toast.error("Đã có lỗi xảy ra!");
                 }
+            } else if (classSchedule.status === "CLOSED") {
+                toast.error("Lớp học phần đã đóng!");
+            } else if (classSchedule.status === "PLANNING") {
+                toast.error("Lớp học phần đang lên kế hoạch!");
             }
         }
     };
@@ -157,7 +188,11 @@ const Schedule = () => {
     ) => {
         if (classType === "PRACTICE") {
             setSelectedGroup(group);
-            setIsSelectedGroup(!isSelectedGroup);
+            if (selectedGroup === group) {
+                setIsSelectedGroup(!isSelectedGroup);
+            } else {
+                setIsSelectedGroup(true);
+            }
         }
     };
 
@@ -165,11 +200,6 @@ const Schedule = () => {
         <div className="w-full">
             <div className="w-full px-2 font-bold border-l-4 border-l-error text-text7">
                 Chi tiết lớp học phần
-            </div>
-            <div className="flex items-center justify-end mt-5">
-                <button className="px-3 py-[6px] text-lite text-center bg-quinary">
-                    Xem lịch trùng
-                </button>
             </div>
             <table className="w-full mt-5 border border-collapse border-text2">
                 <thead>
@@ -197,6 +227,7 @@ const Schedule = () => {
                             <tr
                                 className={`cursor-pointer ${
                                     isSelectedGroup &&
+                                    selectedGroup === s.group &&
                                     s.classType === "PRACTICE"
                                         ? "chkPractice"
                                         : ""
@@ -252,7 +283,6 @@ const Schedule = () => {
                 <button
                     className="px-5 h-[44px] text-lite text-center bg-tertiary w-[210px] mt-5"
                     onClick={handleRegistrationClasses}
-                    disabled={classSchedule.status !== "WAITING"}
                 >
                     Đăng ký
                 </button>

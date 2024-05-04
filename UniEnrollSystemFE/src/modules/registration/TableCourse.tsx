@@ -1,4 +1,5 @@
 import CheckIcon from "@mui/icons-material/Check";
+import ClearIcon from "@mui/icons-material/Clear";
 import { IClass, ICourseRegistration } from "../../types/courseType";
 import { v4 as uuidv4 } from "uuid";
 import { Tooltip as ReactTooltip } from "react-tooltip";
@@ -134,9 +135,15 @@ const TableCourse = ({
                             <td>{item.course.name}</td>
                             <td>{item.course.credit}</td>
                             <td>
-                                <span className="flex items-center justify-center w-6 h-6 rounded-full bg-primary text-lite">
-                                    <CheckIcon />
-                                </span>
+                                {item.course.type === 1 ? (
+                                    <span className="flex items-center justify-center w-6 h-6 rounded-full bg-primary text-lite">
+                                        <CheckIcon />
+                                    </span>
+                                ) : (
+                                    <span className="flex items-center justify-center w-6 h-6 rounded-full bg-error text-lite">
+                                        <ClearIcon />
+                                    </span>
+                                )}
                             </td>
                             {item.course.prerequisites &&
                             item.course.prerequisites.length > 0 ? (

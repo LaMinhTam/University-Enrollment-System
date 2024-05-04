@@ -1,8 +1,10 @@
 import { configureStore, combineReducers } from "@reduxjs/toolkit";
 import registrationSlice from "./actions/registrationSlice";
+import modalSlice from "./actions/modalSlice";
 
 const reducer = combineReducers({
     registration: registrationSlice,
+    modal: modalSlice,
 });
 
 const store = configureStore({

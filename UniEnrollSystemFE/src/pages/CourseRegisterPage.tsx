@@ -13,6 +13,8 @@ import {
 import Header from "../modules/registration/Header";
 import { RootState } from "../store/configureStore";
 import { toast } from "react-toastify";
+import handleGetClassesEnrolledSchedule from "../utils/handleGetClassesEnrolledSchedule";
+import { IClassesEnrolledSchedule } from "../types/commonType";
 
 const CourseRegisterPage = () => {
     const [courses, setCourses] = useState<{
@@ -22,6 +24,9 @@ const CourseRegisterPage = () => {
     const tableClassesRef = useRef<HTMLDivElement>(null);
     const registrationPeriod = useSelector(
         (state: RootState) => state.registration.registrationPeriod
+    );
+    const classes = useSelector(
+        (state: RootState) => state.registration.registerClasses
     );
     useEffect(() => {
         document.title = "Đăng ký học phần";
@@ -48,43 +53,17 @@ const CourseRegisterPage = () => {
                     setCourses(coursesRes.data);
                 }
                 if (classesRes.status === 200) {
-                    dispatch(setRegisterClasses(classesRes.data));
-                }
-                if (coursesRes.status === 200 && classesRes.status === 200) {
-                    const result = classesRes.data.flatMap((item) => {
-                        return Object.values(coursesRes.data).flatMap((v) => {
-                            return v.classes.filter((c) => {
-                                if (c.id === item.id) {
-                                    return true;
-                                }
-                                return false;
-                            });
-                        });
+                    const classes = classesRes.data.map((item) => {
+                        return {
+                            ...item,
+                            credit: 3,
+                            group: 1,
+                            isPaid: false,
+                            updatedAt: "13/05/2024",
+                            fee: "2.450.000",
+                        };
                     });
-                    const classesEnrolledSchedule = result
-                        .map((item) =>
-                            item.schedules.filter(
-                                (schedule) =>
-                                    schedule.classType === "THEORY" ||
-                                    schedule.classType === "PRACTICE"
-                            )
-                        )
-                        .map((s) => {
-                            return s.map((i) => {
-                                return {
-                                    classType: i.classType,
-
-                                    dayOfWeek: i.dayOfWeek,
-                                    timeSlot: i.timeSlot,
-                                    group: i.group,
-                                };
-                            });
-                        });
-                    dispatch(
-                        setClassesEnrolledSchedule(
-                            classesEnrolledSchedule.flat()
-                        )
-                    );
+                    dispatch(setRegisterClasses(classes));
                 }
             } catch (error) {
                 toast.error("Lỗi khi lấy dữ liệu học phần");
@@ -92,6 +71,16 @@ const CourseRegisterPage = () => {
         }
         fetchData();
     }, [dispatch, registrationPeriod.semester, registrationPeriod.year]);
+
+    useEffect(() => {
+        if (courses && classes) {
+            const classesEnrolledSchedule = handleGetClassesEnrolledSchedule(
+                classes,
+                courses
+            ) as IClassesEnrolledSchedule[];
+            dispatch(setClassesEnrolledSchedule(classesEnrolledSchedule));
+        }
+    }, [classes, courses, dispatch]);
 
     return (
         <RequiredAuthPage>
