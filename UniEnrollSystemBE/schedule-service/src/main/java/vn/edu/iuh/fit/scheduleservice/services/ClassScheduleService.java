@@ -11,15 +11,13 @@ import java.util.Map;
 public interface ClassScheduleService {
     List<ClassSchedule> getAllSchedule(String studentId);
 
-    StudentSchedule registrySchedule(String studentId, String courseId);
+    StudentSchedule registrySchedule(String studentId, String courseId, int i);
 
     void cancelSchedule(String studentId, String classId);
 
     Map<String, ClassSchedule> getScheduleByClassIds(List<String> id);
 
     List<WeekScheduleDTO> getScheduleByDate(String studentId, DateRequest dateRequest) throws ParseException;
-
-    List<QueryClassSchedule> getEachScheduleByClassIds(List<String> ids);
 
     void changeSchedule(ChangeScheduleRequest request);
 

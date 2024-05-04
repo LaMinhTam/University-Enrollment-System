@@ -7,12 +7,14 @@ import vn.edu.iuh.fit.enrollservice.client.ScheduleClient;
 import vn.edu.iuh.fit.enrollservice.dtos.*;
 import vn.edu.iuh.fit.enrollservice.messaging.RegisterMessageProducer;
 import vn.edu.iuh.fit.enrollservice.models.Class;
+import vn.edu.iuh.fit.enrollservice.models.ClassStatus;
 import vn.edu.iuh.fit.enrollservice.models.Enrollment;
 import vn.edu.iuh.fit.enrollservice.services.ClassRedisService;
 import vn.edu.iuh.fit.enrollservice.services.ClassService;
 import vn.edu.iuh.fit.enrollservice.services.EnrollmentService;
 
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 @RestController
@@ -34,7 +36,7 @@ public class EnrollmentController {
 
     @GetMapping("/registry")
     public ResponseEntity<?> getRegistryBySemesterAndYear(@RequestHeader("id") String studentId, @RequestParam int semester, @RequestParam int year) {
-        List<Enrollment> registerClasses = enrollmentService.getRegistryClass(studentId, semester, year);
+        List<Enrollment> registerClasses = enrollmentService.getRegistryClassBySemesterAndYear(studentId, semester, year);
         List<Class> classes = classService.getClassesByEnrollment(registerClasses.stream()
                 .map(Enrollment::getRegistryClass)
                 .collect(Collectors.toList()));
@@ -44,12 +46,20 @@ public class EnrollmentController {
     @PostMapping("/register")
     public ResponseEntity<?> registerClass(@RequestHeader("id") String studentId, @RequestHeader("major_id") int majorId, @RequestBody RegistryRequest request) {
         try {
-            Class newClass = new Class();
-            List<String> enrolledClassIds = enrollmentService.validateAndPrepareRegistration(studentId, request, newClass);
-            classRedisService.validateClassAndGroupForRegistration(majorId, newClass, request.group());
+            Class newClass = enrollmentService.getClassById(request.class_id());
+            List<Enrollment> enrollmentsByYearAndSemester = enrollmentService.getRegistryClassBySemesterAndYear(studentId, newClass.getSemester(), newClass.getYear());
+            List<Enrollment> enrollmentsNotInYearAndSemester = enrollmentService.getRegistryClassNotInSemesterAndYear(studentId, newClass.getSemester(), newClass.getYear());
+
+            Map<String, MapCourseClass> classesBySemesterAndYear = classRedisService.getAllCourses(majorId, newClass.getSemester(), newClass.getYear());
+
+            validateRegister(enrollmentsByYearAndSemester, enrollmentsNotInYearAndSemester, classesBySemesterAndYear, newClass, request.group());
+
+            List<EnrollGroup> enrollGroups = enrollmentsByYearAndSemester.stream()
+                    .map(enrollment -> new EnrollGroup(enrollment.getRegistryClass(), enrollment.getGroup()))
+                    .toList();
 
 //             Check for schedule conflicts
-            List<ConflictResponse> conflictSchedules = scheduleClient.checkScheduleConflict(new ScheduleConflictRequest(enrolledClassIds, request.class_id(), request.group()));
+            List<ConflictResponse> conflictSchedules = scheduleClient.checkScheduleConflict(new ScheduleConflictRequest(enrollGroups, request.class_id(), request.group()));
             if (conflictSchedules.isEmpty()) {
                 enrollmentService.registerClass(studentId, request);
                 registerMessageProducer.sendRegisterSchedule(new RegisterSchedule(studentId, request.class_id()));
@@ -62,15 +72,46 @@ public class EnrollmentController {
         }
     }
 
+    private void validateRegister(List<Enrollment> enrollmentsByYearAndSemester, List<Enrollment> enrollmentsNotInYearAndSemester, Map<String, MapCourseClass> classesBySemesterAndYear, Class targetClass, int group) {
+        if (targetClass.getStatus() == ClassStatus.CLOSED) {
+            throw new RuntimeException("Lớp học đã đóng, không thể đăng ký");
+        } else if (targetClass.getStatus() == ClassStatus.PLANNING) {
+            throw new RuntimeException("Lớp học đang trong quá trình lên kế hoạch, không thể đăng ký");
+        } else if (enrollmentsByYearAndSemester.stream().anyMatch(enrollment -> enrollment.getRegistryClass().equals(targetClass.getId()))) {
+            throw new RuntimeException("Bạn đã đăng ký lớp học này rồi");
+        } else if (enrollmentsNotInYearAndSemester.stream().anyMatch(enrollment -> enrollment.getCourseId().equals(targetClass.getCourseId()))) {
+            throw new RuntimeException("Bạn đã đăng ký một lớp học khác cho môn học này");
+        } else if (classesBySemesterAndYear == null || classesBySemesterAndYear.isEmpty()) {
+            throw new RuntimeException("Hệ thống hiện đang lỗi, vui lòng thử lại sau");
+        } else if (group != 0) {
+            boolean isMatchFound = classesBySemesterAndYear.get(targetClass.getCourseId()).classes().stream()
+                    .filter(classObject -> classObject.getId().equals(targetClass.getId()))
+                    .flatMap(classObject -> classObject.getSchedules().stream())
+                    .anyMatch(schedule -> schedule.group() == group && schedule.classType() == ClassType.PRACTICE);
+            if (!isMatchFound) {
+                throw new RuntimeException("Nhóm thực hành không tồn tại");
+            }
+        } else if (classesBySemesterAndYear.get(targetClass.getCourseId()).course().practicalCredit() != 0) {
+            throw new RuntimeException("Hãy đăng ký nhóm thực hành");
+        }
+    }
+
     @PostMapping("/register/change")
     public ResponseEntity<?> changeClass(@RequestHeader("id") String studentId, @RequestHeader("major_id") int majorId, @RequestBody RequestChangeClass request) {
         try {
-            Class newClass = new Class();
-            List<String> enrolledClassIds = enrollmentService.validateAndPrepareRegistration(studentId, request, newClass);
+            Class oldClass = enrollmentService.getClassById(request.old_class_id());
+            Class newClass = enrollmentService.getClassById(request.new_class_id());
+            List<Enrollment> enrollmentsByYearAndSemester = enrollmentService.getRegistryClassBySemesterAndYear(studentId, newClass.getSemester(), newClass.getYear());
+            List<Enrollment> enrollmentsNotInYearAndSemester = enrollmentService.getRegistryClassNotInSemesterAndYear(studentId, newClass.getSemester(), newClass.getYear());
 
-            classRedisService.validateClassAndGroupForRegistration(majorId, newClass, request.group());
+            Map<String, MapCourseClass> classesBySemesterAndYear = classRedisService.getAllCourses(majorId, newClass.getSemester(), newClass.getYear());
+            validateChange(enrollmentsByYearAndSemester, enrollmentsNotInYearAndSemester, classesBySemesterAndYear, oldClass, newClass, request);
 
-            List<ConflictResponse> conflictSchedules = scheduleClient.checkScheduleConflict(new ScheduleConflictRequest(enrolledClassIds, request.new_class_id(), request.group()));
+            List<EnrollGroup> enrollGroups = enrollmentsByYearAndSemester.stream()
+                    .map(enrollment -> new EnrollGroup(enrollment.getRegistryClass(), enrollment.getGroup()))
+                    .toList();
+
+            List<ConflictResponse> conflictSchedules = scheduleClient.checkScheduleConflict(new ScheduleConflictRequest(enrollGroups, request.new_class_id(), request.group()));
             if (conflictSchedules.isEmpty()) {
                 enrollmentService.changeClass(studentId, request);
                 registerMessageProducer.sendChangeSchedule(new ChangeScheduleRequest(studentId, request.old_class_id(), request.new_class_id()));
@@ -80,6 +121,41 @@ public class EnrollmentController {
             }
         } catch (Exception e) {
             return ResponseEntity.ok(new ResponseWrapper(e.getMessage(), null, 400));
+        }
+    }
+
+    private void validateChange(List<Enrollment> enrollmentsByYearAndSemester, List<Enrollment> enrollmentsNotInYearAndSemester, Map<String, MapCourseClass> classesBySemesterAndYear, Class oldClass, Class newClass, RequestChangeClass request) {
+        if (request.old_class_id().equals(request.new_class_id())) {
+            throw new RuntimeException("Không thể đổi cùng một lớp học");
+        } else if (oldClass.getStatus() == ClassStatus.OPENED) {
+            throw new RuntimeException("Lớp học đã mở không thể đổi lớp khác");
+        } else if (newClass.getStatus() == ClassStatus.CLOSED) {
+            throw new RuntimeException("Lớp học đã đóng, không thể đăng ký");
+        } else if (newClass.getStatus() == ClassStatus.PLANNING) {
+            throw new RuntimeException("Lớp học đang trong quá trình lên kế hoạch, không thể đăng ký");
+        } else if (enrollmentsByYearAndSemester.stream().anyMatch(enrollment -> enrollment.getRegistryClass().equals(newClass.getId()))) {
+            throw new RuntimeException("Bạn đã đăng ký lớp học này rồi");
+        } else if (enrollmentsNotInYearAndSemester.stream().anyMatch(enrollment -> enrollment.getCourseId().equals(newClass.getCourseId()))) {
+            throw new RuntimeException("Bạn đã đăng ký một lớp học khác cho môn học này");
+        } else if (classesBySemesterAndYear == null || classesBySemesterAndYear.isEmpty()) {
+            throw new RuntimeException("Hệ thống hiện đang lỗi, vui lòng thử lại sau");
+        } else if (enrollmentsByYearAndSemester.stream()
+                .noneMatch(enrollment -> enrollment.getRegistryClass().equals(oldClass.getId()))) {
+            throw new RuntimeException("Bạn chưa đăng ký lớp học này");
+        } else if (classesBySemesterAndYear.get(newClass.getCourseId()).course().prerequisites().stream()
+                .anyMatch(prerequisite -> enrollmentsNotInYearAndSemester.stream()
+                        .noneMatch(enrollment -> enrollment.getCourseId().equals(prerequisite.id())))) {
+            throw new RuntimeException("Bạn chưa đăng ký môn học tiên quyết");
+        } else if (request.group() != 0) {
+            boolean isMatchFound = classesBySemesterAndYear.get(newClass.getCourseId()).classes().stream()
+                    .filter(classObject -> classObject.getId().equals(newClass.getId()))
+                    .flatMap(classObject -> classObject.getSchedules().stream())
+                    .anyMatch(schedule -> schedule.group() == request.group() && schedule.classType() == ClassType.PRACTICE);
+            if (!isMatchFound) {
+                throw new RuntimeException("Nhóm thực hành không tồn tại");
+            }
+        } else if (classesBySemesterAndYear.get(newClass.getCourseId()).course().practicalCredit() != 0) {
+            throw new RuntimeException("Hãy đăng ký nhóm thực hành");
         }
     }
 

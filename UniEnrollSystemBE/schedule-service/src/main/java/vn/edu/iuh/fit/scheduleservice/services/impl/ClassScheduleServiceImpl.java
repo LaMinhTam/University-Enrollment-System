@@ -49,8 +49,8 @@ public class ClassScheduleServiceImpl implements ClassScheduleService {
     }
 
     @Override
-    public StudentSchedule registrySchedule(String studentId, String courseId) {
-        return studentScheduleRepository.save(new StudentSchedule(studentId, courseId));
+    public StudentSchedule registrySchedule(String studentId, String courseId, int groupId) {
+        return studentScheduleRepository.save(new StudentSchedule(studentId, courseId, groupId));
     }
 
     @Override
@@ -174,14 +174,24 @@ public class ClassScheduleServiceImpl implements ClassScheduleService {
         return false;
     }
 
-    @Override
-    public List<QueryClassSchedule> getEachScheduleByClassIds(List<String> ids) {
-        MatchOperation matchClass = Aggregation.match(new Criteria("_id").in(ids));
+    public List<QueryClassSchedule> getEachScheduleByClassIds(List<EnrollGroup> enrollGroups) {
+        MatchOperation matchClass = Aggregation.match(new Criteria("_id").in(enrollGroups.stream().map(EnrollGroup::classId).collect(Collectors.toList())));
         UnwindOperation unwindSchedules = Aggregation.unwind("schedules");
+
+        Map<String, Integer> groupMap = enrollGroups.stream().collect(Collectors.toMap(EnrollGroup::classId, EnrollGroup::group));
 
         Aggregation aggregation = Aggregation.newAggregation(
                 matchClass,
                 unwindSchedules,
+                //if the schedule have classType is practice, then compare if group = group in the request
+                Aggregation.match(new Criteria().orOperator(
+                        Criteria.where("schedules.classType").in(ClassType.THEORY),
+                        new Criteria().andOperator(
+                                Criteria.where("schedules.classType").is(ClassType.PRACTICE),
+                                Criteria.where("_id").in(groupMap.keySet()),
+                                Criteria.where("schedules.group").in(groupMap.values())
+                        )
+                )),
                 Aggregation.project("_id", "courseId", "courseName", "schedules").and("_id").as("classId")
         );
 
@@ -201,7 +211,7 @@ public class ClassScheduleServiceImpl implements ClassScheduleService {
 
     @Override
     public List<ConflictResponse> getScheduleConflicts(ScheduleConflictRequest request) {
-        List<QueryClassSchedule> existingSchedules = getEachScheduleByClassIds(request.enrolledClassIds());
+        List<QueryClassSchedule> existingSchedules = getEachScheduleByClassIds(request.enrollGroups());
         List<QueryClassSchedule> newSchedules = getValidSchedules(request.newClassId(), request.groupId());
 
         return findConflicts(existingSchedules, newSchedules);
@@ -220,7 +230,7 @@ public class ClassScheduleServiceImpl implements ClassScheduleService {
     }
 
     private List<QueryClassSchedule> getValidSchedules(String newClassId, int groupId) {
-        List<QueryClassSchedule> schedules = getEachScheduleByClassIds(List.of(newClassId));
+        List<QueryClassSchedule> schedules = getEachScheduleByClassIds(List.of(new EnrollGroup(newClassId, groupId)));
         return schedules.stream()
                 .filter(schedule -> isValidSchedule(schedule, groupId))
                 .toList();
@@ -228,7 +238,7 @@ public class ClassScheduleServiceImpl implements ClassScheduleService {
 
     private boolean isValidSchedule(QueryClassSchedule schedule, int groupId) {
         ClassType classType = schedule.schedules().getClassType();
-        return  ClassType.THEORY == classType ||(classType != ClassType.NO_CLASS_DAY &&
+        return ClassType.THEORY == classType || (classType != ClassType.NO_CLASS_DAY &&
                 classType != ClassType.MID_TERM_EXAM &&
                 classType != ClassType.FINAL_EXAM &&
                 schedule.schedules().getGroup() == groupId);

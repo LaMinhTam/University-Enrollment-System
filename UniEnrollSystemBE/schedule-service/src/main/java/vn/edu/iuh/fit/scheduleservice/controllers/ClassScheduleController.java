@@ -21,10 +21,10 @@ public class ClassScheduleController {
         this.classScheduleService = classScheduleService;
     }
 
-    @PostMapping("/registry")
-    public StudentSchedule registrySchedule(@RequestHeader("id") String studentId, @RequestParam("course_id") String courseId) {
-        return classScheduleService.registrySchedule(studentId, courseId);
-    }
+//    @PostMapping("/registry")
+//    public StudentSchedule registrySchedule(@RequestHeader("id") String studentId, @RequestParam("course_id") String courseId) {
+//        return classScheduleService.registrySchedule(studentId, courseId, schedule.groupId());
+//    }
 
     @DeleteMapping("/cancel")
     public void cancelSchedule(@RequestHeader("id") String studentId, @RequestParam("class_id") String classId) {

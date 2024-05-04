@@ -68,8 +68,13 @@ public class EnrollmentServiceImpl implements EnrollmentService {
     }
 
     @Override
-    public List<Enrollment> getRegistryClass(String studentId, int semester, int year) {
+    public List<Enrollment> getRegistryClassBySemesterAndYear(String studentId, int semester, int year) {
         return enrollmentRepository.findByStudentIdAndSemesterAndYear(studentId, semester, year);
+    }
+
+    @Override
+    public List<Enrollment> getRegistryClassNotInSemesterAndYear(String studentId, int semester, int year) {
+        return enrollmentRepository.findByStudentIdAndSemesterNotAndYearNot(studentId, semester, year);
     }
 
     @Override
@@ -77,14 +82,15 @@ public class EnrollmentServiceImpl implements EnrollmentService {
         return classRepository.findById(classId).orElseThrow(() -> new RuntimeException("Không tìm thấy lớp học"));
     }
 
+
+
     @Override
-    public List<String> validateAndPrepareRegistration(String studentId, RegistryRequest request, Class newClass) throws RuntimeException {
-        newClass.setClassDetails(getClassById(request.class_id()));
-        String courseId = newClass.getCourseId();
-        List<Enrollment> enrollments = getRegistryClass(studentId, newClass.getSemester(), newClass.getYear());
-        if (newClass.getStatus() == ClassStatus.CLOSED) {
+    public List<String> validateAndPrepareRegistration(String studentId, RegistryRequest request, Class targetClass) throws RuntimeException {
+        String courseId = targetClass.getCourseId();
+        List<Enrollment> enrollments = getRegistryClassBySemesterAndYear(studentId, targetClass.getSemester(), targetClass.getYear());
+        if (targetClass.getStatus() == ClassStatus.CLOSED) {
             throw new RuntimeException("Lớp học đã đóng, không thể đăng ký");
-        } else if (newClass.getStatus() == ClassStatus.PLANNING) {
+        } else if (targetClass.getStatus() == ClassStatus.PLANNING) {
             throw new RuntimeException("Lớp học đang trong quá trình lên kế hoạch, không thể đăng ký");
         } else if (enrollments.stream().anyMatch(enrollment -> enrollment.getRegistryClass().equals(request.class_id()))) {
             throw new RuntimeException("Bạn đã đăng ký lớp học này rồi");
@@ -102,7 +108,7 @@ public class EnrollmentServiceImpl implements EnrollmentService {
             throw new RuntimeException("Lớp mới và lớp cũ không thể giống nhau");
         }
         targetClass.setClassDetails(getClassById(request.new_class_id()));
-        List<Enrollment> enrollments = getRegistryClass(studentId, targetClass.getSemester(), targetClass.getYear());
+        List<Enrollment> enrollments = getRegistryClassBySemesterAndYear(studentId, targetClass.getSemester(), targetClass.getYear());
         if (targetClass.getStatus() == ClassStatus.CLOSED) {
             throw new RuntimeException("Lớp học đã đóng, không thể đăng ký");
         } else if (targetClass.getStatus() == ClassStatus.PLANNING) {

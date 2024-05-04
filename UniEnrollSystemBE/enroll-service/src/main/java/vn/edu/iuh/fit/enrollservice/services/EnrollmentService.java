@@ -14,8 +14,8 @@ public interface EnrollmentService {
 
     Enrollment cancelEnrollment(String studentId, String classId);
 
-    List<Enrollment> getRegistryClass(String studentId, int semester, int year);
-
+    List<Enrollment> getRegistryClassBySemesterAndYear(String studentId, int semester, int year);
+    List<Enrollment> getRegistryClassNotInSemesterAndYear(String studentId, int semester, int year);
     Class getClassById(String classId);
 
     List<String> validateAndPrepareRegistration(String studentId, RegistryRequest classId, Class newClass) throws RuntimeException;
