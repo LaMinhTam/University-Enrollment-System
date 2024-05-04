@@ -1,9 +1,9 @@
-import CheckIcon from "@mui/icons-material/Check";
 import { useState } from "react";
 import { IEducationPrograms } from "../../types/educationProgramType";
-import { Tooltip as ReactTooltip } from "react-tooltip";
 import { v4 as uuidv4 } from "uuid";
 import { COURSE_TYPE } from "../../constants/global";
+import TableItem from "./TableItem";
+import TableInfo from "./TableInfo";
 const Table = ({
     programData,
 }: {
@@ -120,51 +120,14 @@ const Table = ({
                                             COURSE_TYPE.MANDATORY
                                     )
                                     .map((course, index) => (
-                                        <tr key={uuidv4()}>
-                                            <td>{index + 1}</td>
-                                            <td>{course.name}</td>
-                                            <td>{course.id}</td>
-                                            {course.prerequisites.length > 0 ? (
-                                                <td
-                                                    className="text-sm font-medium cursor-pointer text-error"
-                                                    data-tooltip-id={course.id}
-                                                    data-tooltip-html={handleTooltipContent(
-                                                        course.prerequisites
-                                                    )}
-                                                >
-                                                    {course.prerequisites
-                                                        .map(
-                                                            (prerequisite) =>
-                                                                prerequisite.id.split(
-                                                                    "4203"
-                                                                )[1]
-                                                        )
-                                                        .join(", ") + "(a)"}
-                                                    <ReactTooltip
-                                                        id={course.id}
-                                                        style={{
-                                                            maxWidth: "500px",
-                                                            backgroundColor:
-                                                                "#f3f3f3",
-                                                            boxShadow:
-                                                                "0 0 5px #333",
-                                                        }}
-                                                    />
-                                                </td>
-                                            ) : (
-                                                <td></td>
-                                            )}
-                                            <td>{course.credit}</td>
-                                            <td>{course.theoryCredit}</td>
-                                            <td>{course.practicalCredit}</td>
-                                            <td></td>
-                                            <td></td>
-                                            <td>
-                                                <span className="flex items-center justify-center w-6 h-6 rounded-full bg-primary text-lite">
-                                                    <CheckIcon />
-                                                </span>
-                                            </td>
-                                        </tr>
+                                        <TableItem
+                                            key={uuidv4()}
+                                            course={course}
+                                            handleTooltipContent={
+                                                handleTooltipContent
+                                            }
+                                            index={index}
+                                        />
                                     ))}
                                 {handleCalculateTotalCreditOfTypeAtSemester(
                                     0,
@@ -192,62 +155,14 @@ const Table = ({
                                                     COURSE_TYPE.OPTIONAL
                                             )
                                             .map((course, index) => (
-                                                <tr key={uuidv4()}>
-                                                    <td>{index + 1}</td>
-                                                    <td>{course.name}</td>
-                                                    <td>{course.id}</td>
-                                                    {course.prerequisites
-                                                        .length > 0 ? (
-                                                        <td
-                                                            className="text-sm font-medium cursor-pointer text-error"
-                                                            data-tooltip-id={
-                                                                course.id
-                                                            }
-                                                            data-tooltip-html={handleTooltipContent(
-                                                                course.prerequisites
-                                                            )}
-                                                        >
-                                                            {course.prerequisites
-                                                                .map(
-                                                                    (
-                                                                        prerequisite
-                                                                    ) =>
-                                                                        prerequisite.id.split(
-                                                                            "4203"
-                                                                        )[1]
-                                                                )
-                                                                .join(", ") +
-                                                                "(a)"}
-                                                            <ReactTooltip
-                                                                id={course.id}
-                                                                style={{
-                                                                    maxWidth:
-                                                                        "500px",
-                                                                    backgroundColor:
-                                                                        "#f3f3f3",
-                                                                    boxShadow:
-                                                                        "0 0 5px #333",
-                                                                }}
-                                                            />
-                                                        </td>
-                                                    ) : (
-                                                        <td></td>
-                                                    )}
-                                                    <td>{course.credit}</td>
-                                                    <td>
-                                                        {course.theoryCredit}
-                                                    </td>
-                                                    <td>
-                                                        {course.practicalCredit}
-                                                    </td>
-                                                    <td></td>
-                                                    <td></td>
-                                                    <td>
-                                                        <span className="flex items-center justify-center w-6 h-6 rounded-full bg-primary text-lite">
-                                                            <CheckIcon />
-                                                        </span>
-                                                    </td>
-                                                </tr>
+                                                <TableItem
+                                                    key={uuidv4()}
+                                                    course={course}
+                                                    handleTooltipContent={
+                                                        handleTooltipContent
+                                                    }
+                                                    index={index}
+                                                />
                                             ))}
                                     </>
                                 )}
@@ -255,39 +170,9 @@ const Table = ({
                         )}
                     </>
                 ))}
-                <tr className="trSemester">
-                    <td colSpan={4}>Tổng tín chỉ yêu cầu</td>
-                    <td
-                        style={{
-                            color: "red",
-                        }}
-                    >
-                        {handleCalculateTotalCredit()}
-                    </td>
-                    <td colSpan={5}></td>
-                </tr>
-                <tr className="trSemester">
-                    <td colSpan={4}>Tổng tín chỉ bắt buộc</td>
-                    <td
-                        style={{
-                            color: "red",
-                        }}
-                    >
-                        106
-                    </td>
-                    <td colSpan={5}></td>
-                </tr>
-                <tr className="trSemester">
-                    <td colSpan={4}>Tổng tín chỉ tự chọn</td>
-                    <td
-                        style={{
-                            color: "red",
-                        }}
-                    >
-                        32
-                    </td>
-                    <td colSpan={5}></td>
-                </tr>
+                <TableInfo
+                    handleCalculateTotalCredit={handleCalculateTotalCredit}
+                />
             </tbody>
         </table>
     );
