@@ -3982,7 +3982,7 @@ db.classSchedule.insertMany([
         ],
       },
       {
-        dayOfWeek: 6,
+        dayOfWeek: 3,
         timeSlot: "7-9",
         startDate:
           new Date("2021-01-15T15:05:01.709Z"),
@@ -17677,7 +17677,7 @@ db.classSchedule.insertMany([
         classType: "FINAL_EXAM",
       },
       {
-        dayOfWeek: 4,
+        dayOfWeek: 5,
         timeSlot: "4-6",
         startDate: 
           new Date("2021-02-03T03:42:07.054Z"),
@@ -17693,35 +17693,6 @@ db.classSchedule.insertMany([
         dayOff: [
           
             new Date("2021-02-10T03:42:07.054Z"),
-          
-        ],
-      },
-      {
-        dayOfWeek: 6,
-        timeSlot: "1-3",
-        startDate: 
-          new Date("2021-01-15T21:11:19.532Z"),
-        
-        endDate: 
-          new Date("2021-04-20T21:08:42.707Z"),
-        
-        room: "D06",
-        location: "12 Nguyễn Văn Bảo Phường 4",
-        lecturer: "Nguyễn Văn A",
-        group: 0,
-        classType: "THEORY",
-        dayOff: [
-          
-            new Date("2021-01-22T21:11:19.532Z"),
-          
-          
-            new Date("2021-01-29T21:11:19.532Z"),
-          
-          
-            new Date("2021-02-05T21:11:19.532Z"),
-          
-          
-            new Date("2021-02-12T21:11:19.532Z"),
           
         ],
       },
@@ -32636,22 +32607,6 @@ db.classSchedule.insertMany([
         lecturer: "Trần Thị B",
         group: 3,
         classType: "FINAL_EXAM",
-      },
-      {
-        dayOfWeek: 5,
-        timeSlot: "4-6",
-        startDate: 
-          new Date("2021-01-14T19:24:14.530Z"),
-        
-        endDate: 
-          new Date("2021-04-23T00:53:05.904Z"),
-        
-        room: "C01",
-        location: "12 Nguyễn Văn Bảo Phường 4",
-        lecturer: "Trần Thị B",
-        group: 0,
-        classType: "THEORY",
-        dayOff: [],
       },
       {
         dayOfWeek: 2,
@@ -52158,7 +52113,7 @@ db.classSchedule.insertMany([
         classType: "FINAL_EXAM",
       },
       {
-        dayOfWeek: 7,
+        dayOfWeek: 6,
         timeSlot: "13-15",
         startDate: 
           new Date("2021-01-16T22:40:35.881Z"),
@@ -96564,22 +96519,6 @@ db.classSchedule.insertMany([
       },
       {
         dayOfWeek: 3,
-        timeSlot: "7-9",
-        startDate: 
-          new Date("2021-01-05T06:29:30.244Z"),
-        
-        endDate: 
-          new Date("2021-04-25T06:49:10.902Z"),
-        
-        room: "B05",
-        location: "53 Phạm Văn Chiêu, Phường 9",
-        lecturer: "Phạm Thị D",
-        group: 0,
-        classType: "THEORY",
-        dayOff: [],
-      },
-      {
-        dayOfWeek: 3,
         timeSlot: "1-3",
         startDate: 
           new Date("2021-01-05T01:09:34.740Z"),
@@ -99066,676 +99005,90 @@ db.classSchedule.insertMany([
 db.createCollection("studentSchedule");
 
 db.studentSchedule.insertMany([
-  {
-    _id: {
-      $oid: "6633a974a3d79274f0b4b7ca",
-    },
-    studentId: "21082081",
-    classId: "420300200921103",
-    _class: "vn.edu.iuh.fit.scheduleservice.models.StudentSchedule",
-  },
-  {
-    _id: {
-      $oid: "6633a9b2a3d79274f0b4b7cb",
-    },
-    studentId: "21023911",
-    classId: "420300200921103",
-    _class: "vn.edu.iuh.fit.scheduleservice.models.StudentSchedule",
-  },
-  {
-    _id: {
-      $oid: "6633ac5f6bbc832a613c89ed",
-    },
-    studentId: "21082081",
-    classId: "420300319221102",
-    _class: "vn.edu.iuh.fit.scheduleservice.models.StudentSchedule",
-  },
-  {
-    _id: {
-      $oid: "6633ac706bbc832a613c89ee",
-    },
-    studentId: "21023911",
-    classId: "420300319221102",
-    _class: "vn.edu.iuh.fit.scheduleservice.models.StudentSchedule",
-  },
-  {
-    _id: {
-      $oid: "6633aca56bbc832a613c89ef",
-    },
-    studentId: "21082081",
-    classId: "420300324221101",
-    _class: "vn.edu.iuh.fit.scheduleservice.models.StudentSchedule",
-  },
-  {
-    _id: {
-      $oid: "6633aca96bbc832a613c89f0",
-    },
-    studentId: "21023911",
-    classId: "420300324221101",
-    _class: "vn.edu.iuh.fit.scheduleservice.models.StudentSchedule",
-  },
-  {
-    _id: {
-      $oid: "6633acd86bbc832a613c89f1",
-    },
-    studentId: "21082081",
-    classId: "420300325921101",
-    _class: "vn.edu.iuh.fit.scheduleservice.models.StudentSchedule",
-  },
-  {
-    _id: {
-      $oid: "6633acda6bbc832a613c89f2",
-    },
-    studentId: "21023911",
-    classId: "420300325921101",
-    _class: "vn.edu.iuh.fit.scheduleservice.models.StudentSchedule",
-  },
-  {
-    _id: {
-      $oid: "6633ad456bbc832a613c89f3",
-    },
-    studentId: "21023911",
-    classId: "420300330721101",
-    _class: "vn.edu.iuh.fit.scheduleservice.models.StudentSchedule",
-  },
-  {
-    _id: {
-      $oid: "6633ad496bbc832a613c89f4",
-    },
-    studentId: "21082081",
-    classId: "420300330721101",
-    _class: "vn.edu.iuh.fit.scheduleservice.models.StudentSchedule",
-  },
-  {
-    _id: {
-      $oid: "6633ad736bbc832a613c89f5",
-    },
-    studentId: "21082081",
-    classId: "420300384821103",
-    _class: "vn.edu.iuh.fit.scheduleservice.models.StudentSchedule",
-  },
-  {
-    _id: {
-      $oid: "6633ad806bbc832a613c89f6",
-    },
-    studentId: "21023911",
-    classId: "420300384821103",
-    _class: "vn.edu.iuh.fit.scheduleservice.models.StudentSchedule",
-  },
-  {
-    _id: {
-      $oid: "6633adcc6bbc832a613c89f7",
-    },
-    studentId: "21023911",
-    classId: "420301416421103",
-    _class: "vn.edu.iuh.fit.scheduleservice.models.StudentSchedule",
-  },
-  {
-    _id: {
-      $oid: "6633adcf6bbc832a613c89f8",
-    },
-    studentId: "21082081",
-    classId: "420301416421103",
-    _class: "vn.edu.iuh.fit.scheduleservice.models.StudentSchedule",
-  },
-  {
-    _id: {
-      $oid: "6633ae4e6bbc832a613c89f9",
-    },
-    studentId: "21082081",
-    classId: "420300094121203",
-    _class: "vn.edu.iuh.fit.scheduleservice.models.StudentSchedule",
-  },
-  {
-    _id: {
-      $oid: "6633ae526bbc832a613c89fa",
-    },
-    studentId: "21023911",
-    classId: "420300094121203",
-    _class: "vn.edu.iuh.fit.scheduleservice.models.StudentSchedule",
-  },
-  {
-    _id: {
-      $oid: "6633ae726bbc832a613c89fb",
-    },
-    studentId: "21023911",
-    classId: "420300213721201",
-    _class: "vn.edu.iuh.fit.scheduleservice.models.StudentSchedule",
-  },
-  {
-    _id: {
-      $oid: "6633ae756bbc832a613c89fc",
-    },
-    studentId: "21082081",
-    classId: "420300213721201",
-    _class: "vn.edu.iuh.fit.scheduleservice.models.StudentSchedule",
-  },
-  {
-    _id: {
-      $oid: "6633aed86bbc832a613c89fd",
-    },
-    studentId: "21082081",
-    classId: "420300330621201",
-    _class: "vn.edu.iuh.fit.scheduleservice.models.StudentSchedule",
-  },
-  {
-    _id: {
-      $oid: "6633aede6bbc832a613c89fe",
-    },
-    studentId: "21023911",
-    classId: "420300330621201",
-    _class: "vn.edu.iuh.fit.scheduleservice.models.StudentSchedule",
-  },
-  {
-    _id: {
-      $oid: "6633afa16bbc832a613c89ff",
-    },
-    studentId: "21023911",
-    classId: "420300335421201",
-    _class: "vn.edu.iuh.fit.scheduleservice.models.StudentSchedule",
-  },
-  {
-    _id: {
-      $oid: "6633afa56bbc832a613c8a00",
-    },
-    studentId: "21082081",
-    classId: "420300335421201",
-    _class: "vn.edu.iuh.fit.scheduleservice.models.StudentSchedule",
-  },
-  {
-    _id: {
-      $oid: "6633afcd6bbc832a613c8a01",
-    },
-    studentId: "21082081",
-    classId: "420301416521101",
-    _class: "vn.edu.iuh.fit.scheduleservice.models.StudentSchedule",
-  },
-  {
-    _id: {
-      $oid: "6633afd06bbc832a613c8a02",
-    },
-    studentId: "21023911",
-    classId: "420301416521101",
-    _class: "vn.edu.iuh.fit.scheduleservice.models.StudentSchedule",
-  },
-  {
-    _id: {
-      $oid: "6633afef6bbc832a613c8a03",
-    },
-    studentId: "21023911",
-    classId: "420301525321101",
-    _class: "vn.edu.iuh.fit.scheduleservice.models.StudentSchedule",
-  },
-  {
-    _id: {
-      $oid: "6633aff26bbc832a613c8a04",
-    },
-    studentId: "21082081",
-    classId: "420301525321101",
-    _class: "vn.edu.iuh.fit.scheduleservice.models.StudentSchedule",
-  },
-  {
-    _id: {
-      $oid: "6633b1e66bbc832a613c8a05",
-    },
-    studentId: "21082081",
-    classId: "420300332021201",
-    _class: "vn.edu.iuh.fit.scheduleservice.models.StudentSchedule",
-  },
-  {
-    _id: {
-      $oid: "6633b1e96bbc832a613c8a06",
-    },
-    studentId: "21023911",
-    classId: "420300332021201",
-    _class: "vn.edu.iuh.fit.scheduleservice.models.StudentSchedule",
-  },
-  {
-    _id: {
-      $oid: "6633b2136bbc832a613c8a07",
-    },
-    studentId: "21023911",
-    classId: "420300090122103",
-    _class: "vn.edu.iuh.fit.scheduleservice.models.StudentSchedule",
-  },
-  {
-    _id: {
-      $oid: "6633b2166bbc832a613c8a08",
-    },
-    studentId: "21082081",
-    classId: "420300090122103",
-    _class: "vn.edu.iuh.fit.scheduleservice.models.StudentSchedule",
-  },
-  {
-    _id: {
-      $oid: "6633b2496bbc832a613c8a09",
-    },
-    studentId: "21082081",
-    classId: "420300094222101",
-    _class: "vn.edu.iuh.fit.scheduleservice.models.StudentSchedule",
-  },
-  {
-    _id: {
-      $oid: "6633b2526bbc832a613c8a0a",
-    },
-    studentId: "21023911",
-    classId: "420300094222101",
-    _class: "vn.edu.iuh.fit.scheduleservice.models.StudentSchedule",
-  },
-  {
-    _id: {
-      $oid: "6633b2626bbc832a613c8a0b",
-    },
-    studentId: "21023911",
-    classId: "420300114622102",
-    _class: "vn.edu.iuh.fit.scheduleservice.models.StudentSchedule",
-  },
-  {
-    _id: {
-      $oid: "6633b2666bbc832a613c8a0c",
-    },
-    studentId: "21082081",
-    classId: "420300114622102",
-    _class: "vn.edu.iuh.fit.scheduleservice.models.StudentSchedule",
-  },
-  {
-    _id: {
-      $oid: "6633b3096bbc832a613c8a0d",
-    },
-    studentId: "21082081",
-    classId: "420300328822101",
-    _class: "vn.edu.iuh.fit.scheduleservice.models.StudentSchedule",
-  },
-  {
-    _id: {
-      $oid: "6633b30c6bbc832a613c8a0e",
-    },
-    studentId: "21023911",
-    classId: "420300328822101",
-    _class: "vn.edu.iuh.fit.scheduleservice.models.StudentSchedule",
-  },
-  {
-    _id: {
-      $oid: "6633b3fe6bbc832a613c8a0f",
-    },
-    studentId: "21023911",
-    classId: "420300359122101",
-    _class: "vn.edu.iuh.fit.scheduleservice.models.StudentSchedule",
-  },
-  {
-    _id: {
-      $oid: "6633b40b6bbc832a613c8a10",
-    },
-    studentId: "21082081",
-    classId: "420300359122101",
-    _class: "vn.edu.iuh.fit.scheduleservice.models.StudentSchedule",
-  },
-  {
-    _id: {
-      $oid: "6633b41e6bbc832a613c8a11",
-    },
-    studentId: "21082081",
-    classId: "420301525422101",
-    _class: "vn.edu.iuh.fit.scheduleservice.models.StudentSchedule",
-  },
-  {
-    _id: {
-      $oid: "6633b4216bbc832a613c8a12",
-    },
-    studentId: "21023911",
-    classId: "420301525422101",
-    _class: "vn.edu.iuh.fit.scheduleservice.models.StudentSchedule",
-  },
-  {
-    _id: {
-      $oid: "6633b4bd6bbc832a613c8a13",
-    },
-    studentId: "21023911",
-    classId: "420300320622101",
-    _class: "vn.edu.iuh.fit.scheduleservice.models.StudentSchedule",
-  },
-  {
-    _id: {
-      $oid: "6633b4c06bbc832a613c8a14",
-    },
-    studentId: "21082081",
-    classId: "420300320622101",
-    _class: "vn.edu.iuh.fit.scheduleservice.models.StudentSchedule",
-  },
-  {
-    _id: {
-      $oid: "6633b5116bbc832a613c8a15",
-    },
-    studentId: "21082081",
-    classId: "420300105822202",
-    _class: "vn.edu.iuh.fit.scheduleservice.models.StudentSchedule",
-  },
-  {
-    _id: {
-      $oid: "6633b5156bbc832a613c8a16",
-    },
-    studentId: "21023911",
-    classId: "420300105822202",
-    _class: "vn.edu.iuh.fit.scheduleservice.models.StudentSchedule",
-  },
-  {
-    _id: {
-      $oid: "6633b53a6bbc832a613c8a17",
-    },
-    studentId: "21023911",
-    classId: "420300214522201",
-    _class: "vn.edu.iuh.fit.scheduleservice.models.StudentSchedule",
-  },
-  {
-    _id: {
-      $oid: "6633b5426bbc832a613c8a18",
-    },
-    studentId: "21082081",
-    classId: "420300214522201",
-    _class: "vn.edu.iuh.fit.scheduleservice.models.StudentSchedule",
-  },
-  {
-    _id: {
-      $oid: "6633b5526bbc832a613c8a19",
-    },
-    studentId: "21023911",
-    classId: "420300375322202",
-    _class: "vn.edu.iuh.fit.scheduleservice.models.StudentSchedule",
-  },
-  {
-    _id: {
-      $oid: "6633b5556bbc832a613c8a1a",
-    },
-    studentId: "21082081",
-    classId: "420300375322202",
-    _class: "vn.edu.iuh.fit.scheduleservice.models.StudentSchedule",
-  },
-  {
-    _id: {
-      $oid: "6633b5666bbc832a613c8a1b",
-    },
-    studentId: "21082081",
-    classId: "420301416622203",
-    _class: "vn.edu.iuh.fit.scheduleservice.models.StudentSchedule",
-  },
-  {
-    _id: {
-      $oid: "6633b56a6bbc832a613c8a1c",
-    },
-    studentId: "21023911",
-    classId: "420301416622203",
-    _class: "vn.edu.iuh.fit.scheduleservice.models.StudentSchedule",
-  },
-  {
-    _id: {
-      $oid: "6633b5856bbc832a613c8a1d",
-    },
-    studentId: "21023911",
-    classId: "420300120722201",
-    _class: "vn.edu.iuh.fit.scheduleservice.models.StudentSchedule",
-  },
-  {
-    _id: {
-      $oid: "6633b58c6bbc832a613c8a1e",
-    },
-    studentId: "21082081",
-    classId: "420300120722201",
-    _class: "vn.edu.iuh.fit.scheduleservice.models.StudentSchedule",
-  },
-  {
-    _id: {
-      $oid: "6633b5ef6bbc832a613c8a1f",
-    },
-    studentId: "21082081",
-    classId: "420300207022201",
-    _class: "vn.edu.iuh.fit.scheduleservice.models.StudentSchedule",
-  },
-  {
-    _id: {
-      $oid: "6633b5f56bbc832a613c8a20",
-    },
-    studentId: "21023911",
-    classId: "420300207022201",
-    _class: "vn.edu.iuh.fit.scheduleservice.models.StudentSchedule",
-  },
-  {
-    _id: {
-      $oid: "6633b7346bbc832a613c8a21",
-    },
-    studentId: "21082081",
-    classId: "420300090823101",
-    _class: "vn.edu.iuh.fit.scheduleservice.models.StudentSchedule",
-  },
-  {
-    _id: {
-      $oid: "6633b7366bbc832a613c8a22",
-    },
-    studentId: "21023911",
-    classId: "420300090823101",
-    _class: "vn.edu.iuh.fit.scheduleservice.models.StudentSchedule",
-  },
-  {
-    _id: {
-      $oid: "6633b74d6bbc832a613c8a23",
-    },
-    studentId: "21023911",
-    classId: "420300319823102",
-    _class: "vn.edu.iuh.fit.scheduleservice.models.StudentSchedule",
-  },
-  {
-    _id: {
-      $oid: "6633b7506bbc832a613c8a24",
-    },
-    studentId: "21082081",
-    classId: "420300319823102",
-    _class: "vn.edu.iuh.fit.scheduleservice.models.StudentSchedule",
-  },
-  {
-    _id: {
-      $oid: "6633b7796bbc832a613c8a25",
-    },
-    studentId: "21082081",
-    classId: "420300350123103",
-    _class: "vn.edu.iuh.fit.scheduleservice.models.StudentSchedule",
-  },
-  {
-    _id: {
-      $oid: "6633b7806bbc832a613c8a26",
-    },
-    studentId: "21023911",
-    classId: "420300350123103",
-    _class: "vn.edu.iuh.fit.scheduleservice.models.StudentSchedule",
-  },
-  {
-    _id: {
-      $oid: "6633b7ae6bbc832a613c8a27",
-    },
-    studentId: "21082081",
-    classId: "420301416723104",
-    _class: "vn.edu.iuh.fit.scheduleservice.models.StudentSchedule",
-  },
-  {
-    _id: {
-      $oid: "6633b7b06bbc832a613c8a28",
-    },
-    studentId: "21023911",
-    classId: "420301416723104",
-    _class: "vn.edu.iuh.fit.scheduleservice.models.StudentSchedule",
-  },
-  {
-    _id: {
-      $oid: "6633b8236bbc832a613c8a29",
-    },
-    studentId: "21023911",
-    classId: "420301416823101",
-    _class: "vn.edu.iuh.fit.scheduleservice.models.StudentSchedule",
-  },
-  {
-    _id: {
-      $oid: "6633b8276bbc832a613c8a2a",
-    },
-    studentId: "21082081",
-    classId: "420301416823101",
-    _class: "vn.edu.iuh.fit.scheduleservice.models.StudentSchedule",
-  },
-  {
-    _id: {
-      $oid: "6633b83c6bbc832a613c8a2b",
-    },
-    studentId: "21082081",
-    classId: "420300324523102",
-    _class: "vn.edu.iuh.fit.scheduleservice.models.StudentSchedule",
-  },
-  {
-    _id: {
-      $oid: "6633b8416bbc832a613c8a2c",
-    },
-    studentId: "21023911",
-    classId: "420300324523102",
-    _class: "vn.edu.iuh.fit.scheduleservice.models.StudentSchedule",
-  },
-  {
-    _id: {
-      $oid: "6633b8776bbc832a613c8a2d",
-    },
-    studentId: "21023911",
-    classId: "420300100423202",
-    _class: "vn.edu.iuh.fit.scheduleservice.models.StudentSchedule",
-  },
-  {
-    _id: {
-      $oid: "6633b87a6bbc832a613c8a2e",
-    },
-    studentId: "21082081",
-    classId: "420300100423202",
-    _class: "vn.edu.iuh.fit.scheduleservice.models.StudentSchedule",
-  },
-  {
-    _id: {
-      $oid: "6633b88d6bbc832a613c8a2f",
-    },
-    studentId: "21082081",
-    classId: "420300111123201",
-    _class: "vn.edu.iuh.fit.scheduleservice.models.StudentSchedule",
-  },
-  {
-    _id: {
-      $oid: "6633b8936bbc832a613c8a30",
-    },
-    studentId: "21023911",
-    classId: "420300111123201",
-    _class: "vn.edu.iuh.fit.scheduleservice.models.StudentSchedule",
-  },
-  {
-    _id: {
-      $oid: "6633b8a26bbc832a613c8a31",
-    },
-    studentId: "21023911",
-    classId: "420300334723201",
-    _class: "vn.edu.iuh.fit.scheduleservice.models.StudentSchedule",
-  },
-  {
-    _id: {
-      $oid: "6633b8a56bbc832a613c8a32",
-    },
-    studentId: "21082081",
-    classId: "420300334723201",
-    _class: "vn.edu.iuh.fit.scheduleservice.models.StudentSchedule",
-  },
-  {
-    _id: {
-      $oid: "6633b8ca6bbc832a613c8a33",
-    },
-    studentId: "21082081",
-    classId: "420300345123203",
-    _class: "vn.edu.iuh.fit.scheduleservice.models.StudentSchedule",
-  },
-  {
-    _id: {
-      $oid: "6633b8ce6bbc832a613c8a34",
-    },
-    studentId: "21023911",
-    classId: "420300345123203",
-    _class: "vn.edu.iuh.fit.scheduleservice.models.StudentSchedule",
-  },
-  {
-    _id: {
-      $oid: "6633b90d6bbc832a613c8a35",
-    },
-    studentId: "21023911",
-    classId: "420300214623201",
-    _class: "vn.edu.iuh.fit.scheduleservice.models.StudentSchedule",
-  },
-  {
-    _id: {
-      $oid: "6633b9126bbc832a613c8a36",
-    },
-    studentId: "21082081",
-    classId: "420300214623201",
-    _class: "vn.edu.iuh.fit.scheduleservice.models.StudentSchedule",
-  },
-  {
-    _id: {
-      $oid: "6633b9686bbc832a613c8a37",
-    },
-    studentId: "21082081",
-    classId: "420300203123202",
-    _class: "vn.edu.iuh.fit.scheduleservice.models.StudentSchedule",
-  },
-  {
-    _id: {
-      $oid: "6633b96c6bbc832a613c8a38",
-    },
-    studentId: "21023911",
-    classId: "420300203123202",
-    _class: "vn.edu.iuh.fit.scheduleservice.models.StudentSchedule",
-  },
-  {
-    _id: {
-      $oid: "6633b9976bbc832a613c8a39",
-    },
-    studentId: "21023911",
-    classId: "420300143223101",
-    _class: "vn.edu.iuh.fit.scheduleservice.models.StudentSchedule",
-  },
-  {
-    _id: {
-      $oid: "6633b99a6bbc832a613c8a3a",
-    },
-    studentId: "21082081",
-    classId: "420300143223101",
-    _class: "vn.edu.iuh.fit.scheduleservice.models.StudentSchedule",
-  },
-  {
-    _id: {
-      $oid: "6633ba046bbc832a613c8a3b",
-    },
-    studentId: "21082081",
-    classId: "420300314723201",
-    _class: "vn.edu.iuh.fit.scheduleservice.models.StudentSchedule",
-  },
-  {
-    _id: {
-      $oid: "6633ba206bbc832a613c8a3c",
-    },
-    studentId: "21023911",
-    classId: "420300314723201",
-    _class: "vn.edu.iuh.fit.scheduleservice.models.StudentSchedule",
-  },
-  {
-    _id: {
-      $oid: "6633ba7d6bbc832a613c8a3d",
-    },
-    studentId: "21082081",
-    classId: "420300154923202",
-    _class: "vn.edu.iuh.fit.scheduleservice.models.StudentSchedule",
-  },
-  {
-    _id: {
-      $oid: "6633ba966bbc832a613c8a3e",
-    },
-    studentId: "21023911",
-    classId: "420300154923202",
-    _class: "vn.edu.iuh.fit.scheduleservice.models.StudentSchedule",
-  },
+  {"studentId":"21023911","classId":"420300200921101","group":0},
+{"studentId":"21082081","classId":"420300200921101","group":0},
+{"studentId":"21023911","classId":"420300319221102","group":0},
+{"studentId":"21082081","classId":"420300319221102","group":0},
+{"studentId":"21082081","classId":"420300324221102","group":0},
+{"studentId":"21023911","classId":"420300324221102","group":0},
+{"studentId":"21023911","classId":"420300325921101","group":0},
+{"studentId":"21082081","classId":"420300325921101","group":0},
+{"studentId":"21082081","classId":"420300330721102","group":1},
+{"studentId":"21023911","classId":"420300330721102","group":2},
+{"studentId":"21082081","classId":"420300384821103","group":1},
+{"studentId":"21023911","classId":"420300384821103","group":1},
+{"studentId":"21082081","classId":"420301416421103","group":0},
+{"studentId":"21023911","classId":"420301416421103","group":0},
+{"studentId":"21023911","classId":"420300094121202","group":1},
+{"studentId":"21082081","classId":"420300094121202","group":2},
+{"studentId":"21082081","classId":"420300213721203","group":1},
+{"studentId":"21023911","classId":"420300213721203","group":1},
+{"studentId":"21023911","classId":"420300330621201","group":1},
+{"studentId":"21082081","classId":"420300330621201","group":2},
+{"studentId":"21082081","classId":"420300335421202","group":1},
+{"studentId":"21023911","classId":"420300335421202","group":1},
+{"studentId":"21023911","classId":"420301416521101","group":0},
+{"studentId":"21082081","classId":"420301416521101","group":0},
+{"studentId":"21082081","classId":"420301525321101","group":0},
+{"studentId":"21023911","classId":"420301525321101","group":0},
+{"studentId":"21023911","classId":"420300090122104","group":0},
+{"studentId":"21082081","classId":"420300090122104","group":0},
+{"studentId":"21082081","classId":"420300094222101","group":1},
+{"studentId":"21023911","classId":"420300094222101","group":2},
+{"studentId":"21023911","classId":"420300114622101","group":1},
+{"studentId":"21082081","classId":"420300114622101","group":1},
+{"studentId":"21082081","classId":"420300328822101","group":0},
+{"studentId":"21023911","classId":"420300328822101","group":0},
+{"studentId":"21023911","classId":"420300359122101","group":2},
+{"studentId":"21082081","classId":"420300359122101","group":2},
+{"studentId":"21082081","classId":"420300320622101","group":0},
+{"studentId":"21023911","classId":"420300320622101","group":0},
+{"studentId":"21023911","classId":"420301525422101","group":0},
+{"studentId":"21082081","classId":"420301525422101","group":0},
+{"studentId":"21023911","classId":"420300105822202","group":0},
+{"studentId":"21082081","classId":"420300105822202","group":0},
+{"studentId":"21082081","classId":"420300214522201","group":1},
+{"studentId":"21023911","classId":"420300214522201","group":1},
+{"studentId":"21023911","classId":"420300375322202","group":1},
+{"studentId":"21082081","classId":"420300375322202","group":1},
+{"studentId":"21082081","classId":"420301416622203","group":1},
+{"studentId":"21023911","classId":"420301416622203","group":1},
+{"studentId":"21023911","classId":"420300120722201","group":1},
+{"studentId":"21082081","classId":"420300120722201","group":1},
+{"studentId":"21023911","classId":"420300207022201","group":1},
+{"studentId":"21082081","classId":"420300207022201","group":2},
+{"studentId":"21082081","classId":"420300090823101","group":0},
+{"studentId":"21023911","classId":"420300090823101","group":0},
+{"studentId":"21023911","classId":"420300319823102","group":0},
+{"studentId":"21082081","classId":"420300319823102","group":0},
+{"studentId":"21082081","classId":"420300350123101","group":1},
+{"studentId":"21023911","classId":"420300350123101","group":2},
+{"studentId":"21023911","classId":"420301416723104","group":0},
+{"studentId":"21082081","classId":"420301416723104","group":0},
+{"studentId":"21082081","classId":"420301416823101","group":0},
+{"studentId":"21023911","classId":"420301416823101","group":0},
+{"studentId":"21023911","classId":"420300324523101","group":0},
+{"studentId":"21082081","classId":"420300324523101","group":0},
+{"studentId":"21082081","classId":"420300100423201","group":0},
+{"studentId":"21023911","classId":"420300100423201","group":0},
+{"studentId":"21023911","classId":"420300111123203","group":0},
+{"studentId":"21082081","classId":"420300111123203","group":0},
+{"studentId":"21082081","classId":"420300334723201","group":0},
+{"studentId":"21023911","classId":"420300334723201","group":0},
+{"studentId":"21023911","classId":"420300345123202","group":2},
+{"studentId":"21082081","classId":"420300345123202","group":1},
+{"studentId":"21082081","classId":"420300214623201","group":1},
+{"studentId":"21023911","classId":"420300214623201","group":1},
+{"studentId":"21023911","classId":"420300203123201","group":1},
+{"studentId":"21082081","classId":"420300203123201","group":1},
+{"studentId":"21023911","classId":"420300143224101","group":1},
+{"studentId":"21082081","classId":"420300143224101","group":2},
+{"studentId":"21082081","classId":"420300242224103","group":0},
+{"studentId":"21023911","classId":"420300242224103","group":0},
+{"studentId":"21023911","classId":"420300359224102","group":2},
+{"studentId":"21082081","classId":"420300359224102","group":2},
+{"studentId":"21082081","classId":"420301416924103","group":0},
+{"studentId":"21023911","classId":"420301416924103","group":0},
+{"studentId":"21023911","classId":"420300362124101","group":2},
+{"studentId":"21082081","classId":"420300362124101","group":1}
 ]);

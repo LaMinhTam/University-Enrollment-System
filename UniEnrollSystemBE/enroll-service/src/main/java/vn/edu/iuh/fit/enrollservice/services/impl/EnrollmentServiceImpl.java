@@ -69,12 +69,12 @@ public class EnrollmentServiceImpl implements EnrollmentService {
 
     @Override
     public List<Enrollment> getRegistryClassBySemesterAndYear(String studentId, int semester, int year) {
-        return enrollmentRepository.findByStudentIdAndSemesterAndYear(studentId, semester, year);
+        return enrollmentRepository.findEnrollmentsIncludingSemesterAndYear(studentId, semester, year);
     }
 
     @Override
     public List<Enrollment> getRegistryClassNotInSemesterAndYear(String studentId, int semester, int year) {
-        return enrollmentRepository.findByStudentIdAndSemesterNotAndYearNot(studentId, semester, year);
+        return enrollmentRepository.findEnrollmentsExcludingSemesterAndYear(studentId, semester, year);
     }
 
     @Override

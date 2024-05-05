@@ -11,7 +11,7 @@ import java.util.Map;
 public interface ClassScheduleService {
     List<ClassSchedule> getAllSchedule(String studentId);
 
-    StudentSchedule registrySchedule(String studentId, String courseId, int i);
+    StudentSchedule registrySchedule(String studentId, String courseId, int group);
 
     void cancelSchedule(String studentId, String classId);
 

@@ -49,8 +49,8 @@ public class ClassScheduleServiceImpl implements ClassScheduleService {
     }
 
     @Override
-    public StudentSchedule registrySchedule(String studentId, String courseId, int groupId) {
-        return studentScheduleRepository.save(new StudentSchedule(studentId, courseId, groupId));
+    public StudentSchedule registrySchedule(String studentId, String courseId, int group) {
+        return studentScheduleRepository.save(new StudentSchedule(studentId, courseId, group));
     }
 
     @Override
@@ -121,7 +121,7 @@ public class ClassScheduleServiceImpl implements ClassScheduleService {
                 Criteria.where("classSchedule.schedules.startDate").lte(endDate),
                 Criteria.where("classSchedule.schedules.endDate").gte(startDate),
                 new Criteria().orOperator(
-                        Criteria.where("classSchedule.schedules.classType").is("THEORY"),
+                        Criteria.where("classSchedule.schedules.classType").in("THEORY","MID_TERM_EXAM", "FINAL_EXAM"),
                         new Criteria().andOperator(
                                 Criteria.where("classSchedule.schedules.classType").is("PRACTICE"),
                                 Criteria.where("group").is("classSchedule.schedules.group")
@@ -130,7 +130,7 @@ public class ClassScheduleServiceImpl implements ClassScheduleService {
         ));
 
         ProjectionOperation projectFields = Aggregation.project("_id", "classSchedule.courseId", "classSchedule.courseName", "classSchedule.schedules")
-                .and("_id").as("classId");
+                .and("classSchedule._id").as("classId");
         return Aggregation.newAggregation(
                 matchStudent,
                 lookupSchedule,

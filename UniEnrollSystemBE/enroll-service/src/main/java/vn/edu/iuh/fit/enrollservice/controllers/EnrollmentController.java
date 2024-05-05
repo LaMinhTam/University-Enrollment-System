@@ -40,6 +40,7 @@ public class EnrollmentController {
         List<Class> classes = classService.getClassesByEnrollment(registerClasses.stream()
                 .map(Enrollment::getRegistryClass)
                 .collect(Collectors.toList()));
+        ClassDTO
         return ResponseEntity.ok(new ResponseWrapper("Danh sách học phần đã đăng ký", classes, 200));
     }
 
@@ -62,7 +63,7 @@ public class EnrollmentController {
             List<ConflictResponse> conflictSchedules = scheduleClient.checkScheduleConflict(new ScheduleConflictRequest(enrollGroups, request.class_id(), request.group()));
             if (conflictSchedules.isEmpty()) {
                 enrollmentService.registerClass(studentId, request);
-                registerMessageProducer.sendRegisterSchedule(new RegisterSchedule(studentId, request.class_id()));
+                registerMessageProducer.sendRegisterSchedule(new RegisterSchedule(studentId, request.class_id(), request.group()));
                 return ResponseEntity.ok(new ResponseWrapper("Đăng ký thành công", null, 200));
             } else {
                 return ResponseEntity.ok(new ResponseWrapper("Lịch học bị trùng", conflictSchedules, 400));
@@ -73,6 +74,12 @@ public class EnrollmentController {
     }
 
     private void validateRegister(List<Enrollment> enrollmentsByYearAndSemester, List<Enrollment> enrollmentsNotInYearAndSemester, Map<String, MapCourseClass> classesBySemesterAndYear, Class targetClass, int group) {
+        List<String> unregisteredPrerequisites = classesBySemesterAndYear.get(targetClass.getCourseId()).course().prerequisites().stream()
+                .filter(prerequisite -> enrollmentsNotInYearAndSemester.stream()
+                        .noneMatch(enrollment -> enrollment.getCourseId().equals(prerequisite.id())))
+                .map(prerequisite -> prerequisite.id() + " - " + prerequisite.name())
+                .collect(Collectors.toList());
+
         if (targetClass.getStatus() == ClassStatus.CLOSED) {
             throw new RuntimeException("Lớp học đã đóng, không thể đăng ký");
         } else if (targetClass.getStatus() == ClassStatus.PLANNING) {
@@ -83,7 +90,9 @@ public class EnrollmentController {
             throw new RuntimeException("Bạn đã đăng ký một lớp học khác cho môn học này");
         } else if (classesBySemesterAndYear == null || classesBySemesterAndYear.isEmpty()) {
             throw new RuntimeException("Hệ thống hiện đang lỗi, vui lòng thử lại sau");
-        } else if (group != 0) {
+        } else if (!unregisteredPrerequisites.isEmpty()) {
+            throw new RuntimeException("Bạn chưa đăng ký môn học tiên quyết " + String.join(", ", unregisteredPrerequisites));
+        }else if (group != 0) {
             boolean isMatchFound = classesBySemesterAndYear.get(targetClass.getCourseId()).classes().stream()
                     .filter(classObject -> classObject.getId().equals(targetClass.getId()))
                     .flatMap(classObject -> classObject.getSchedules().stream())
@@ -164,7 +173,7 @@ public class EnrollmentController {
         try {
             enrollmentService.cancelEnrollment(studentId, classId);
 
-            registerMessageProducer.sendCancelSchedule(new RegisterSchedule(studentId, classId));
+            registerMessageProducer.sendCancelSchedule(new RegisterSchedule(studentId, classId, 0));
 
             return ResponseEntity.ok(new ResponseWrapper("Hủy đăng ký thành công", null, HttpStatus.OK.value()));
         } catch (Exception e) {
