@@ -11,7 +11,7 @@ import java.util.Map;
 public interface ClassScheduleService {
     List<ClassSchedule> getAllSchedule(String studentId);
 
-    StudentSchedule registrySchedule(String studentId, String courseId);
+    StudentSchedule registrySchedule(String studentId, String courseId, int group);
 
     void cancelSchedule(String studentId, String classId);
 
@@ -19,9 +19,7 @@ public interface ClassScheduleService {
 
     List<WeekScheduleDTO> getScheduleByDate(String studentId, DateRequest dateRequest) throws ParseException;
 
-    List<QueryClassSchedule> getEachScheduleByClassIds(List<String> ids);
-
     void changeSchedule(ChangeScheduleRequest request);
 
-    List<ConflictResponse> getScheduleConflicts(ScheduleConflictRequest request);
+    List<QueryClassSchedule> getEachScheduleByClassIds(List<EnrollGroup> enrollGroups);
 }

@@ -16,7 +16,7 @@ public class RegisterMessageConsumer {
 
     @RabbitListener(queues = "enroll-queue")
     public void receiveRegisterSchedule(RegisterSchedule schedule) {
-        classScheduleService.registrySchedule(schedule.studentId(), schedule.classId());
+        classScheduleService.registrySchedule(schedule.studentId(), schedule.classId(), schedule.group());
     }
 
     @RabbitListener(queues = "cancel-queue")

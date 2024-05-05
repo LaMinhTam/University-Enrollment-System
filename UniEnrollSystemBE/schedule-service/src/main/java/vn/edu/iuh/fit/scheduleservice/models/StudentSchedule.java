@@ -12,4 +12,5 @@ import org.springframework.data.mongodb.core.mapping.Document;
 public class StudentSchedule {
     private String studentId;
     private String classId;
+    private int group;
 }
