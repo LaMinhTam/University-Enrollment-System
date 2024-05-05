@@ -22,6 +22,9 @@ const Schedule = () => {
     const registerClasses = useSelector(
         (state: RootState) => state.registration.registerClasses
     );
+    const courseSelectedCredit = useSelector(
+        (state: RootState) => state.registration.courseSelectedCredit
+    );
     const handleRegistrationClasses = async () => {
         const isExist = registerClasses.some(
             (item) => item.id === classSchedule.id
@@ -83,7 +86,8 @@ const Schedule = () => {
                                 dispatch,
                                 courseSelectedClasses,
                                 setIsSelectedGroup,
-                                setSelectedGroup
+                                setSelectedGroup,
+                                courseSelectedCredit
                             );
                         }
                     } else {
@@ -164,8 +168,8 @@ const Schedule = () => {
                                     <span>
                                         Lịch học:{" "}
                                         {s.classType === "THEORY" ? "LT" : "TH"}{" "}
-                                        - Thứ {renderDayOfWeek(s.dayOfWeek)}{" "}
-                                        (Tiết {s.timeSlot})
+                                        - {renderDayOfWeek(s.dayOfWeek)} (Tiết{" "}
+                                        {s.timeSlot})
                                     </span>
                                     <br />
                                     <span>

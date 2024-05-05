@@ -17,7 +17,8 @@ export default async function handleEnrollClass(
     dispatch: Dispatch<UnknownAction>,
     courseSelectedClasses: IClass[],
     setIsSelectedGroup: (value: boolean) => void,
-    setSelectedGroup: (value: number) => void
+    setSelectedGroup: (value: number) => void,
+    courseSelectedCredit: number
 ) {
     try {
         const response = await UniEnrollSystemAPI.classesEnrolled(
@@ -34,7 +35,7 @@ export default async function handleEnrollClass(
                     ...registerClasses,
                     {
                         ...classSchedule,
-                        credit: 3,
+                        credit: courseSelectedCredit,
                         group: groupId,
                         isPaid: false,
                         updatedAt: "13/05/2024",

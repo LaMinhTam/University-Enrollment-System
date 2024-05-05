@@ -17,6 +17,7 @@ type RegistrationTypes = {
     isFilterDuplicateSchedule: boolean;
     classSelectedId: string;
     courseChangeQuantityId: string;
+    courseSelectedCredit: number;
 };
 
 const initialState: RegistrationTypes = {
@@ -33,6 +34,7 @@ const initialState: RegistrationTypes = {
     isFilterDuplicateSchedule: false,
     classSelectedId: "",
     courseChangeQuantityId: "",
+    courseSelectedCredit: 0,
 };
 
 const registrationSlice = createSlice({
@@ -81,6 +83,9 @@ const registrationSlice = createSlice({
         setCourseChangeQuantityId: (state, action: PayloadAction<string>) => {
             state.courseChangeQuantityId = action.payload;
         },
+        setCourseSelectedCredit: (state, action: PayloadAction<number>) => {
+            state.courseSelectedCredit = action.payload;
+        },
     },
 });
 
@@ -95,5 +100,6 @@ export const {
     setIsFilterDuplicateSchedule,
     setClassSelectedId,
     setCourseChangeQuantityId,
+    setCourseSelectedCredit,
 } = registrationSlice.actions;
 export default registrationSlice.reducer;

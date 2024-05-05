@@ -8,6 +8,7 @@ import { RootState } from "../../store/configureStore";
 import { IClassesEnrolledSchedule } from "../../types/commonType";
 import formatTime from "../../utils/formatTime";
 import { v4 as uuidv4 } from "uuid";
+import renderDayOfWeek from "../../utils/renderDayOfWeek";
 const WatchScheduleModal = () => {
     const dispatch = useDispatch();
     const classSelectedSchedule = useSelector(
@@ -63,8 +64,8 @@ const TableItem = ({
         <tr>
             <td>{index + 1}</td>
             <td>
-                {item.classType === "THEORY" ? "LT - " : "TH - "} (Tiết{" "}
-                {item.timeSlot})
+                {item.classType === "THEORY" ? "LT - " : "TH - "}{" "}
+                {renderDayOfWeek(item.dayOfWeek)} (Tiết {item.timeSlot})
             </td>
             <td>{item.group !== 0 ? item.group : ""}</td>
             <td>{item.room}</td>

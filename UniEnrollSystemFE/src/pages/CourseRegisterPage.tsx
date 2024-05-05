@@ -56,8 +56,6 @@ const CourseRegisterPage = () => {
                     const classes = classesRes.data.map((item) => {
                         return {
                             ...item,
-                            credit: 3,
-                            group: 1,
                             isPaid: false,
                             updatedAt: "13/05/2024",
                             fee: "2.450.000",
@@ -69,7 +67,9 @@ const CourseRegisterPage = () => {
                 toast.error("Lỗi khi lấy dữ liệu học phần");
             }
         }
-        fetchData();
+        if (registrationPeriod.semester && registrationPeriod.year) {
+            fetchData();
+        }
     }, [dispatch, registrationPeriod.semester, registrationPeriod.year]);
 
     useEffect(() => {

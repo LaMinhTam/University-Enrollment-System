@@ -9,6 +9,7 @@ import {
     setClassSelectedId,
     setCourseChangeQuantityId,
     setCourseSelectedClasses,
+    setCourseSelectedCredit,
     setCourseSelectedId,
     setStoredSelectedClasses,
 } from "../../store/actions/registrationSlice";
@@ -24,6 +25,9 @@ const TableCourse = ({
     tableClassesRef: React.RefObject<HTMLDivElement>;
 }) => {
     const dispatch = useDispatch();
+    const registerClasses = useSelector(
+        (state: RootState) => state.registration.registerClasses
+    );
     const isFilterDuplicateSchedule = useSelector(
         (state: RootState) => state.registration.isFilterDuplicateSchedule
     );
@@ -65,6 +69,7 @@ const TableCourse = ({
     };
     const handleClickCourse = (item: ICourseRegistration) => {
         dispatch(setCourseSelectedId(item.course.id));
+        dispatch(setCourseSelectedCredit(item.course.credit));
         dispatch(setClassSelectedId(""));
         if (isFilterDuplicateSchedule) {
             const newCourseSelectedClasses = filterDuplicateSchedule(
@@ -73,8 +78,13 @@ const TableCourse = ({
             );
             dispatch(setCourseSelectedClasses(newCourseSelectedClasses));
         } else {
-            dispatch(setCourseSelectedClasses(item.classes));
-            dispatch(setStoredSelectedClasses(item.classes));
+            const newCourseSelectedClasses = item.classes.filter((item) => {
+                return !registerClasses.some(
+                    (classEnrolled) => classEnrolled.id === item.id
+                );
+            });
+            dispatch(setCourseSelectedClasses(newCourseSelectedClasses));
+            dispatch(setStoredSelectedClasses(newCourseSelectedClasses));
         }
         if (
             courseChangeQuantityId &&

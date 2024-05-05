@@ -34,8 +34,8 @@ export default async function handleChangeClass(
                 ) {
                     return {
                         ...classSchedule,
-                        credit: 3,
-                        group: item.group,
+                        credit: item.credit,
+                        group: groupId,
                         isPaid: false,
                         updatedAt: "13/05/2024",
                         fee: "2.450.000",

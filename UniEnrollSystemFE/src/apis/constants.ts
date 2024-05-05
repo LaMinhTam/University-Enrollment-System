@@ -66,7 +66,7 @@ const classesEnrolled = async (id: string, groupId: number) => {
 };
 
 const removeClassesEnrolled = async (id: string) => {
-    const response = await axiosPrivate.delete(
+    const response = await axiosPrivate.delete<RemoveClassesEnrolled>(
         `${apiURL}/enrollments/cancel?class_id=${id}`
     );
     return response.data;

@@ -20,6 +20,7 @@ import {
     setClassSelectedSchedule,
     setIsOpenWatchScheduleModal,
 } from "../../store/actions/modalSlice";
+import { IClassesEnrolled } from "../../types/classesEnrolledType";
 const TableRegistration = () => {
     const registerClasses = useSelector(
         (state: RootState) => state.registration.registerClasses
@@ -37,27 +38,33 @@ const TableRegistration = () => {
         setShow: setShowAction,
         nodeRef: actionRef,
     } = useClickOutSide();
-    // const handleCalculateTotalCredit = (data: IClassesEnrolled[]) => {
-    //     return data.reduce((acc, cur) => acc + cur.course.credit, 0);
-    // };
+    const handleCalculateTotalCredit = (data: IClassesEnrolled[]) => {
+        return data.reduce((acc, cur) => acc + cur.credit, 0);
+    };
     const handleRemoveClassesRegistration = async (
         id: string,
         courseId: string
     ) => {
         if (!id) return;
-        const response = await UniEnrollSystemAPI.removeClassesEnrolled(id);
-        if (response.status === 200) {
-            const newRegisterClasses = registerClasses.filter(
-                (item) => item.id !== id
-            );
-            dispatch(setRegisterClasses(newRegisterClasses));
-            const newCourseSelectedClasses = handleDecrementQuantityOfClass(
-                courseSelectedClasses,
-                id
-            );
-            dispatch(setCourseSelectedClasses(newCourseSelectedClasses));
-            dispatch(setCourseChangeQuantityId(courseId));
-            toast.success("Hủy lớp học phần thành công");
+        try {
+            const response = await UniEnrollSystemAPI.removeClassesEnrolled(id);
+            if (response.status === 200) {
+                const newRegisterClasses = registerClasses.filter(
+                    (item) => item.id !== id
+                );
+                dispatch(setRegisterClasses(newRegisterClasses));
+                const newCourseSelectedClasses = handleDecrementQuantityOfClass(
+                    courseSelectedClasses,
+                    id
+                );
+                dispatch(setCourseSelectedClasses(newCourseSelectedClasses));
+                dispatch(setCourseChangeQuantityId(courseId));
+                toast.success("Hủy lớp học phần thành công");
+            } else {
+                toast.error(response.message);
+            }
+        } catch (error) {
+            toast.error("Hủy lớp học phần thất bại");
         }
     };
     const handleWatchSchedule = () => {
@@ -102,8 +109,8 @@ const TableRegistration = () => {
                         <td colSpan={5} className="text-center">
                             Tổng
                         </td>
-                        {/* <td>{handleCalculateTotalCredit(data)}</td> */}
-                        <td>19</td>
+                        <td>{handleCalculateTotalCredit(registerClasses)}</td>
+                        {/* <td>19</td> */}
                     </tr>
                     {registerClasses.map((item, index) => (
                         <tr
