@@ -35,13 +35,29 @@ public class EnrollmentController {
     }
 
     @GetMapping("/registry")
-    public ResponseEntity<?> getRegistryBySemesterAndYear(@RequestHeader("id") String studentId, @RequestParam int semester, @RequestParam int year) {
+    public ResponseEntity<?> getRegistryBySemesterAndYear(@RequestHeader("id") String studentId, @RequestHeader("major_id") int majorId, @RequestParam int semester, @RequestParam int year) {
+        Map<String, MapCourseClass> classesBySemesterAndYear = classRedisService.getAllCourses(majorId, semester, year);
+        if(classesBySemesterAndYear == null || classesBySemesterAndYear.isEmpty()) {
+            return ResponseEntity.badRequest().body(new ResponseWrapper("Hệ thống hiện đang lỗi, vui lòng thử lại sau", null, 400));
+        }
         List<Enrollment> registerClasses = enrollmentService.getRegistryClassBySemesterAndYear(studentId, semester, year);
         List<Class> classes = classService.getClassesByEnrollment(registerClasses.stream()
                 .map(Enrollment::getRegistryClass)
                 .collect(Collectors.toList()));
-        ClassDTO
-        return ResponseEntity.ok(new ResponseWrapper("Danh sách học phần đã đăng ký", classes, 200));
+        //map the classes with registerClasses group to RegistryResponse
+        List<RegistryResponse> registryResponse = registerClasses.stream()
+                .map(enrollment -> new RegistryResponse(classes.stream()
+                        .filter(classObject -> classObject.getId().equals(enrollment.getRegistryClass()))
+                        .findFirst()
+                        .orElseThrow(),
+                        enrollment,
+                        classesBySemesterAndYear.get(classes.stream()
+                                .filter(classObject -> classObject.getId().equals(enrollment.getRegistryClass()))
+                                .findFirst()
+                                .orElseThrow()
+                                .getCourseId()).course()))
+                .toList();
+        return ResponseEntity.ok(new ResponseWrapper("Danh sách học phần đã đăng ký", registryResponse, 200));
     }
 
     @PostMapping("/register")
@@ -92,7 +108,7 @@ public class EnrollmentController {
             throw new RuntimeException("Hệ thống hiện đang lỗi, vui lòng thử lại sau");
         } else if (!unregisteredPrerequisites.isEmpty()) {
             throw new RuntimeException("Bạn chưa đăng ký môn học tiên quyết " + String.join(", ", unregisteredPrerequisites));
-        }else if (group != 0) {
+        } else if (group != 0) {
             boolean isMatchFound = classesBySemesterAndYear.get(targetClass.getCourseId()).classes().stream()
                     .filter(classObject -> classObject.getId().equals(targetClass.getId()))
                     .flatMap(classObject -> classObject.getSchedules().stream())
