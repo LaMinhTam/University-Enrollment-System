@@ -40,7 +40,7 @@ const sidebarLinks: sidebarType[] = [
             },
             {
                 title: "Lịch theo tuần",
-                link: "/lich-theo-tuan",
+                link: "/lich-theo-tuan?type=1",
             },
         ],
     },

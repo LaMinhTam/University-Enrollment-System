@@ -42,3 +42,11 @@
 .chkPractice td {
     @apply text-lite font-bold;
 }
+
+.table-schedule td {
+    @apply text-tertiary font-bold h-[150px];
+}
+
+.table-schedule thead th {
+    @apply text-tertiary bg-text8;
+}

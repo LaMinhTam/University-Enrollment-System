@@ -8,6 +8,7 @@ import "./index.scss";
 import "./App.scss";
 import "react-toastify/dist/ReactToastify.css";
 import "react-tooltip/dist/react-tooltip.css";
+import "react-datepicker/dist/react-datepicker.css";
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
 import { AuthProvider } from "./contexts/auth-context.tsx";
 import LoginPage from "./pages/LoginPage.tsx";
@@ -26,6 +27,10 @@ const CourseRegisterPage = React.lazy(
     () => import("./pages/CourseRegisterPage.tsx")
 );
 
+const StudentSchedulePage = React.lazy(
+    () => import("./pages/StudentSchedulePage.tsx")
+);
+
 const router = createBrowserRouter([
     {
         element: <LayoutDashboard />,
@@ -41,6 +46,10 @@ const router = createBrowserRouter([
             {
                 path: "/dang-ky-hoc-phan",
                 element: <CourseRegisterPage />,
+            },
+            {
+                path: "/lich-theo-tuan",
+                element: <StudentSchedulePage />,
             },
         ],
     },

@@ -5,3 +5,9 @@ export const COURSE_TYPE = {
     MANDATORY: 1,
     OPTIONAL: 0,
 };
+
+export const SCHEDULE_TYPE = {
+    ALL: 0,
+    STUDY: 1,
+    EXAM: 2,
+};

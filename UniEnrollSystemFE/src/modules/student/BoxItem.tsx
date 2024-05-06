@@ -8,7 +8,7 @@ interface BoxItemProps {
 }
 const BoxItem = ({ type, num }: BoxItemProps) => {
     let className =
-        "shadow-md p-[15px] w-full h-full flex flex-col gap-y-3 text-sm";
+        "shadow-md p-[15px] w-full h-full flex flex-col gap-y-3 text-sm cursor-pointer";
     if (type === "reminder") {
         className += " bg-lite";
     } else if (type === "learn-calendar") {
@@ -16,8 +16,16 @@ const BoxItem = ({ type, num }: BoxItemProps) => {
     } else {
         className += " bg-quinary text-quinary bg-opacity-20";
     }
+    let path = "";
+    if (type === "reminder") {
+        path = "ghi-chu-nhac-nho-sinh-vien";
+    } else if (type === "learn-calendar") {
+        path = "lich-theo-tuan?type=1";
+    } else {
+        path = "lich-theo-tuan?type=2";
+    }
     return (
-        <div className={className}>
+        <Link className={className} to={path}>
             {type === "reminder" && <span>Nhắc nhở mới, chưa xem</span>}
             {type === "learn-calendar" && <span>Lịch học trong tuần</span>}
             {type === "exam-calendar" && <span>Lịch thi trong tuần</span>}
@@ -31,17 +39,10 @@ const BoxItem = ({ type, num }: BoxItemProps) => {
                     )}
                 </button>
             </div>
-            <Link
-                to={
-                    type === "reminder"
-                        ? "ghi-chu-nhac-nho-sinh-vien"
-                        : "lich-hoc-tuan"
-                }
-                className="text-sm font-normal text-tertiary"
-            >
+            <Link to={path} className="text-sm font-normal text-tertiary">
                 Xem chi tiết
             </Link>
-        </div>
+        </Link>
     );
 };
 
