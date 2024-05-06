@@ -1,12 +1,12 @@
 import { PayloadAction, createSlice } from "@reduxjs/toolkit";
 
 type ScheduleType = {
-    targetDate: Date;
+    targetDate: string;
     dates?: string[];
 };
 
 const initialState: ScheduleType = {
-    targetDate: new Date(),
+    targetDate: new Date().toISOString(),
     dates: [],
 };
 
@@ -14,7 +14,7 @@ const scheduleSlice = createSlice({
     name: "modal",
     initialState,
     reducers: {
-        setTargetDate(state, action: PayloadAction<Date>) {
+        setTargetDate(state, action: PayloadAction<string>) {
             state.targetDate = action.payload;
         },
         setDates(state, action: PayloadAction<string[]>) {

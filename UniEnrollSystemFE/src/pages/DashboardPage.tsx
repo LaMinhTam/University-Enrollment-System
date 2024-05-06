@@ -6,7 +6,6 @@ import StudentChartMetric from "../modules/student/StudentChartMetric";
 
 const DashboardPage = () => {
     const { userInfo } = useAuth();
-    console.log("DashboardPage ~ userInfo:", userInfo);
     return (
         <RequiredAuthPage>
             <StudentInfo userInfo={userInfo} />

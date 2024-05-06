@@ -17,7 +17,7 @@ const Header = ({ type }: { type: number }) => {
     const handleNextCalendar = () => {
         const nextDate = new Date(targetDate);
         nextDate.setDate(nextDate.getDate() + 7);
-        dispatch(setTargetDate(nextDate));
+        dispatch(setTargetDate(nextDate.toISOString()));
         const weekDays = Array.from({ length: 7 }, (_, i) => {
             const day = new Date(nextDate);
             day.setDate(nextDate.getDate() + i);
@@ -29,7 +29,7 @@ const Header = ({ type }: { type: number }) => {
     const handlePrevCalendar = () => {
         const prevDate = new Date(targetDate);
         prevDate.setDate(prevDate.getDate() - 7);
-        dispatch(setTargetDate(prevDate));
+        dispatch(setTargetDate(prevDate.toISOString()));
         const weekDays = Array.from({ length: 7 }, (_, i) => {
             const day = new Date(prevDate);
             day.setDate(prevDate.getDate() + i);
@@ -42,7 +42,7 @@ const Header = ({ type }: { type: number }) => {
         const startOfWeek = new Date(date);
         startOfWeek.setDate(startOfWeek.getDate() - startOfWeek.getDay() + 1); // +1 to make Monday the first day of the week
 
-        dispatch(setTargetDate(date));
+        dispatch(setTargetDate(date.toISOString()));
 
         const weekDays = Array.from({ length: 7 }, (_, i) => {
             const day = new Date(startOfWeek);
@@ -104,7 +104,7 @@ const Header = ({ type }: { type: number }) => {
                         </label>
                     </div>
                     <DatePicker
-                        selected={targetDate}
+                        selected={new Date(targetDate)}
                         onChange={handleSelectDate}
                         dateFormat={`dd/MM/yyyy`}
                         className="focus:border-tertiary border border-text4 rounded py-2 px-2 w-[160px]"
