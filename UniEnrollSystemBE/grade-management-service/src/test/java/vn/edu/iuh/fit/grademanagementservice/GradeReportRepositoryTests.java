@@ -4,19 +4,26 @@ package vn.edu.iuh.fit.grademanagementservice;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.data.util.Pair;
 import org.springframework.test.annotation.Rollback;
 import vn.edu.iuh.fit.grademanagementservice.models.Course;
 import vn.edu.iuh.fit.grademanagementservice.models.CourseReportStatus;
 import vn.edu.iuh.fit.grademanagementservice.models.GradeReport;
+import vn.edu.iuh.fit.grademanagementservice.models.SemesterSummary;
 import vn.edu.iuh.fit.grademanagementservice.repositories.GradeReportRepository;
+import vn.edu.iuh.fit.grademanagementservice.repositories.SemesterSummaryRepository;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 @SpringBootTest
 @Rollback(false)
 public class GradeReportRepositoryTests {
     @Autowired
     private GradeReportRepository gradeReportRepository;
+
+    @Autowired
+    private SemesterSummaryRepository semesterSummaryRepository;
 
     @Test
     public void autoGenerateGradeReport() {
@@ -36,7 +43,7 @@ public class GradeReportRepositoryTests {
                 new Course("4203003206", "Môi trường và con người", 3, 3, 0, 0),
                 new Course("4203003288", "Toán cao cấp 2", 2, 2, 0, 0),
                 new Course("4203003591", "Lập trình hướng đối tượng", 3, 2, 1, 0),
-                new Course("4203015254", "Tiếng Anh 2", 30, 3, 0, 0),
+                new Course("4203015254", "Tiếng Anh 2", 3, 3, 0, 0),
                 new Course("4203000908", "Lý thuyết đồ thị", 3, 3, 0, 0),
                 new Course("4203003198", "Phương pháp luận nghiên cứu khoa học", 2, 2, 0, 0),
                 new Course("4203003245", "Tiếng Việt thực hành", 3, 3, 0, 0),
@@ -203,7 +210,7 @@ public class GradeReportRepositoryTests {
 
     private static List<Float> generateRandomScoreList(int count) {
         List<Float> scores = new ArrayList<>();
-        if(count == 0) return scores;
+        if (count == 0) return scores;
         for (int i = 0; i < 3; i++) {
             scores.add(generateRandomScore());
         }
@@ -226,5 +233,53 @@ public class GradeReportRepositoryTests {
         }
 
         return overallScore;
+    }
+
+    @Test
+    public void testCreateSemesterSummaries() {
+        createSemesterSummaries("21082081");
+        createSemesterSummaries("21023911");
+    }
+
+    public void createSemesterSummaries(String studentId) {
+        // Get all GradeReport objects for the student
+        List<GradeReport> gradeReports = gradeReportRepository.findByStudentId(studentId);
+
+        // Group the GradeReport objects by semester and year
+        Map<Pair<Integer, Integer>, List<GradeReport>> groupedReports = gradeReports.stream()
+                .collect(Collectors.groupingBy(report -> {
+                    String classId = report.getClassId();
+                    int year = Integer.parseInt("20" + classId.substring(10, 12));
+                    int semester = Integer.parseInt(classId.substring(12, 13));
+                    return Pair.of(semester, year);
+                }));
+
+        // For each group, create a SemesterSummary object
+        for (Map.Entry<Pair<Integer, Integer>, List<GradeReport>> entry : groupedReports.entrySet()) {
+            Pair<Integer, Integer> semesterYear = entry.getKey();
+            List<GradeReport> reports = entry.getValue();
+
+            SemesterSummary summary = new SemesterSummary();
+            summary.setStudentId(studentId);
+            summary.setSemester(semesterYear.getFirst());
+            summary.setYear(semesterYear.getSecond());
+            summary.setGradeReports(reports);
+
+            // Calculate the GPA, total credits, and total passed credits
+            // This assumes you have methods in the GradeReport class to get the credits and whether the course was passed
+            summary.setGpa((float) reports.stream()
+                    .mapToDouble(report ->
+                            (report.getTheoryScores().stream().mapToDouble(Float::doubleValue).average().orElse(0) * report.getTheoryCredit()
+                                    + report.getPracticalScores().stream().mapToDouble(Float::doubleValue).average().orElse(0) * report.getPracticalCredit())
+                                    / (report.getTheoryCredit() + report.getPracticalCredit()))
+                    .average()
+                    .orElse(0));
+            summary.setTotalCredits(reports.stream().mapToInt(GradeReport::getCredit).sum());
+            summary.setTotalPassedCredits(reports.stream().filter(gradeReport -> gradeReport.getStatus().equals(CourseReportStatus.PASSED)).mapToInt(GradeReport::getCredit).sum());
+
+            System.out.println(groupedReports);
+            // Save the SemesterSummary object
+            semesterSummaryRepository.save(summary);
+        }
     }
 }

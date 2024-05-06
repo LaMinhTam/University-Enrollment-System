@@ -1,10 +1,13 @@
-package vn.edu.iuh.fit.grademanagementservice.repositories;
+package vn.edu.iuh.fit.grademanagementservice.repositories.custom;
 
+import org.springframework.data.domain.Sort;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
-import org.springframework.stereotype.Repository;
 import vn.edu.iuh.fit.grademanagementservice.models.GradeReport;
+import vn.edu.iuh.fit.grademanagementservice.models.SemesterSummary;
+
+import java.util.List;
 
 public class CustomGradeReportRepositoryImpl implements CustomGradeReportRepository {
     private final MongoTemplate mongoTemplate;

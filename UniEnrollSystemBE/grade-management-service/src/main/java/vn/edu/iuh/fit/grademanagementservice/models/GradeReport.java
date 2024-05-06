@@ -15,7 +15,6 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 public class GradeReport {
-    @MongoId
     @Field("class_id")
     private String classId;
     @Field("student_id")
