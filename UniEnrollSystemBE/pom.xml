@@ -23,5 +23,7 @@
         <module>enroll-service</module>
         <module>schedule-service</module>
         <module>course-service</module>
+        <module>grade-management-service</module>
+        <module>payment-service</module>
     </modules>
 </project>

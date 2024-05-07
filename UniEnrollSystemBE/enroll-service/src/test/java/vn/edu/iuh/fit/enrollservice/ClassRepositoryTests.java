@@ -37,7 +37,7 @@ public class ClassRepositoryTests {
     }
 
     private static final Random random = new Random();
-    static int year = 2021;
+    static int year = 2021 - 1900;
     int semester = 2;
     static int startStudyMonth =
             Calendar.JANUARY;
@@ -145,6 +145,14 @@ public class ClassRepositoryTests {
 //                new Course("4203004056", "Quản lý dự án CNTT", 3, 2, 1, 1, null)
         );
         for (int i = 0; i < 4; i++) {
+            startDateMiddleExam.setYear(year + i);
+            endDateMiddleExam.setYear(year + i);
+            startDateFinalExam.setYear(year + i);
+            endDateFinalExam.setYear(year + i);
+            firstStartStudyDate.setYear(year + i);
+            secondStartStudyDate.setYear(year + i);
+            firstEndStudyDate.setYear(year + i);
+            secondEndStudyDate.setYear(year + i);
             int finalI = i;
             courses.forEach(course -> {
                 if (course.type() == 0) {
@@ -162,8 +170,8 @@ public class ClassRepositoryTests {
                 }
                 classes.addAll(generateRandomClasses(course, year + finalI, semester));
             });
+            classRepository.saveAll(classes);
         }
-        classRepository.saveAll(classes);
     }
 
     public static List<Class> generateRandomClasses(Course course, int year, int semester) {

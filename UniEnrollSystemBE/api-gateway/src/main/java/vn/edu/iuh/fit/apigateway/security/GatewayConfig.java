@@ -42,6 +42,10 @@ public class GatewayConfig {
                 .route("grade-management-service", r -> r.path("/grade-report/**", "/semester-report/**")
                         .filters(f -> f.filter(filter))
                         .uri("lb://grade-management-service"))
+
+                .route("payment-service", r -> r.path("/payments/**")
+                        .filters(f -> f.filter(filter))
+                        .uri("lb://payment-service"))
                 .build();
     }
 
