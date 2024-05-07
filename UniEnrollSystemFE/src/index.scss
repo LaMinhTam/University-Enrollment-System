@@ -1,3 +1,52 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer base {
+    body {
+        @apply font-primary text-base font-normal mx-auto text-text1;
+        text-rendering: optimizeLegibility;
+        -webkit-font-smoothing: antialiased;
+    }
+    input {
+        outline: none;
+    }
+    th {
+        @apply text-sm font-bold text-tertiary border border-text2 px-[5px] py-4;
+    }
+    td {
+        @apply text-sm font-normal text-text1 border border-text2 p-[5px];
+    }
+}
+
+.trSemester {
+    @apply bg-text7 bg-opacity-15 hover:bg-opacity-30 cursor-pointer;
+}
+
+.trSemester td {
+    @apply text-text7 font-bold;
+}
+
+.chk-course {
+    @apply bg-senary;
+}
+
+.chk-course td {
+    @apply text-text7 font-bold;
+}
+
+.chkPractice {
+    @apply bg-tertiary;
+}
+
+.chkPractice td {
+    @apply text-lite font-bold;
+}
+
+.table-schedule td {
+    @apply text-tertiary font-bold h-[150px];
+}
+
+.table-schedule thead th {
+    @apply text-tertiary bg-text8;
+}

@@ -19,7 +19,7 @@ public class ClassRedisServiceImpl implements ClassRedisService {
     }
 
     @Override
-    public Map<String, MapCourseClass> getAllCourses(int majorId, int semester, int year) {
+    public Map<String , MapCourseClass> getAllCourses(int majorId, int semester, int year) {
         return (Map<String, MapCourseClass>) redisTemplate.opsForValue().get(majorId + "-" + semester + "-" + year);
     }
 

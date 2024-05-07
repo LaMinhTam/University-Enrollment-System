@@ -1,0 +1,24 @@
+import { toast } from "react-toastify";
+import { UniEnrollSystemAPI } from "../apis/constants";
+import { saveAccessToken, saveRefreshToken, saveUser } from "./auth";
+import { NavigateFunction } from "react-router-dom";
+
+export default async function handleRefreshToken(
+    refreshToken: string,
+    navigate: NavigateFunction
+) {
+    try {
+        const response = await UniEnrollSystemAPI.refreshToken(refreshToken);
+        if (response.status === 200) {
+            console.log("Refresh token success");
+            saveAccessToken(response.data.accessToken);
+            saveRefreshToken(response.data.refreshToken);
+        }
+    } catch (error) {
+        saveAccessToken("");
+        saveRefreshToken("");
+        saveUser("");
+        toast.error("Phiên đăng nhập đã hết hạn, vui lòng đăng nhập lại");
+        navigate("/dang-nhap");
+    }
+}

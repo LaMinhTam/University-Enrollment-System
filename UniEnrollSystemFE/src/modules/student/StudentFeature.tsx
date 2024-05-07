@@ -1,0 +1,72 @@
+import CalendarTodayIcon from "@mui/icons-material/CalendarToday";
+import InsightsIcon from "@mui/icons-material/Insights";
+import EventAvailableIcon from "@mui/icons-material/EventAvailable";
+import AttachMoneyIcon from "@mui/icons-material/AttachMoney";
+import PaymentIcon from "@mui/icons-material/Payment";
+import ReceiptLongIcon from "@mui/icons-material/ReceiptLong";
+import NotificationsNoneIcon from "@mui/icons-material/NotificationsNone";
+import { Link } from "react-router-dom";
+const featureList = [
+    {
+        title: "Lịch theo tuần",
+        icon: <CalendarTodayIcon />,
+        link: "/lich-theo-tuan",
+    },
+    {
+        title: "Kết quả học tập",
+        icon: <InsightsIcon />,
+        link: "/ket-qua-hoc-tap",
+    },
+    {
+        title: "Đăng ký học phần",
+        icon: <EventAvailableIcon />,
+        link: "/dang-ky-hoc-phan",
+    },
+    {
+        title: "Tra cứu công nợ",
+        icon: <AttachMoneyIcon />,
+        link: "/tra-cuu-cong-no",
+    },
+    {
+        title: "Thanh toán trực tuyến",
+        icon: <PaymentIcon />,
+        link: "/thanh-toan-truc-tuyen",
+    },
+    {
+        title: "Phiếu thu tổng hợp",
+        icon: <ReceiptLongIcon />,
+        link: "/phieu-thu-tong-hop",
+    },
+    {
+        title: "Lịch theo tiến độ",
+        icon: <CalendarTodayIcon />,
+        link: "/lich-theo-tien-do",
+    },
+    {
+        title: "Nhắc nhở",
+        icon: <NotificationsNoneIcon />,
+        link: "/nhac-nho",
+    },
+];
+const StudentFeature = () => {
+    return (
+        <div className="grid grid-cols-8 gap-4 mt-5">
+            {featureList.map((feature, index) => (
+                <Link
+                    to={feature.link}
+                    key={index}
+                    className="flex flex-col items-center justify-center rounded-lg shadow-md bg-lite p-[10px] h-[120px]"
+                >
+                    <div className="text-tertiary w-full flex items-center justify-center h-[50px] mb-[10px]">
+                        {feature.icon}
+                    </div>
+                    <div className="text-sm font-normal text-center">
+                        {feature.title}
+                    </div>
+                </Link>
+            ))}
+        </div>
+    );
+};
+
+export default StudentFeature;
