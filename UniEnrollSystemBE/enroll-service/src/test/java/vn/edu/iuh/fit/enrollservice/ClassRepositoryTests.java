@@ -37,7 +37,7 @@ public class ClassRepositoryTests {
     }
 
     private static final Random random = new Random();
-    static int year = 2021 - 1900;
+    static int year = 2021;
     int semester = 2;
     static int startStudyMonth =
             Calendar.JANUARY;
@@ -145,14 +145,14 @@ public class ClassRepositoryTests {
 //                new Course("4203004056", "Quản lý dự án CNTT", 3, 2, 1, 1, null)
         );
         for (int i = 0; i < 4; i++) {
-            startDateMiddleExam.setYear(year + i);
-            endDateMiddleExam.setYear(year + i);
-            startDateFinalExam.setYear(year + i);
-            endDateFinalExam.setYear(year + i);
-            firstStartStudyDate.setYear(year + i);
-            secondStartStudyDate.setYear(year + i);
-            firstEndStudyDate.setYear(year + i);
-            secondEndStudyDate.setYear(year + i);
+            startDateMiddleExam.setYear(startDateMiddleExam.getYear() + i);
+            endDateMiddleExam.setYear(endDateMiddleExam.getYear() + i);
+            startDateFinalExam.setYear(startDateFinalExam.getYear() + i);
+            endDateFinalExam.setYear(endDateFinalExam.getYear() + i);
+            firstStartStudyDate.setYear(firstStartStudyDate.getYear() + i);
+            secondStartStudyDate.setYear(secondStartStudyDate.getYear() + i);
+            firstEndStudyDate.setYear(firstEndStudyDate.getYear() + i);
+            secondEndStudyDate.setYear(secondEndStudyDate.getYear() + i);
             int finalI = i;
             courses.forEach(course -> {
                 if (course.type() == 0) {
@@ -236,7 +236,7 @@ public class ClassRepositoryTests {
 
     public static String toISODate(Date date) {
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
-        return "{\"$date\":\"" + sdf.format(date) + "\"}";
+        return "new Date(\"" + sdf.format(date) + "\")";
     }
 
     private static String generateClassId(String courseIdPart, int year, int semester, int count) {
@@ -261,7 +261,7 @@ public class ClassRepositoryTests {
             schedules.add(generateSchedule(group, ClassType.THEORY, startDate, endDate));
         }
         if (course.practicalCredit() != 0) {
-            for (int i = 2; i < numSchedules; i++) {
+            for (int i = 0; i < 3; i++) {
                 group++;
                 Date startDate = generateDate(firstStartStudyDate, secondStartStudyDate); // Generate random start date
                 Date endDate = generateDate(firstEndStudyDate, secondEndStudyDate); // Generate random end date

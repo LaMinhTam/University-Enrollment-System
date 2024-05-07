@@ -4,6 +4,7 @@ import org.apache.commons.lang.time.DateUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.aggregation.*;
+import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.data.mongodb.core.query.Update;
@@ -121,7 +122,7 @@ public class ClassScheduleServiceImpl implements ClassScheduleService {
                 Criteria.where("classSchedule.schedules.startDate").lte(endDate),
                 Criteria.where("classSchedule.schedules.endDate").gte(startDate),
                 new Criteria().orOperator(
-                        Criteria.where("classSchedule.schedules.classType").in("THEORY","MID_TERM_EXAM", "FINAL_EXAM"),
+                        Criteria.where("classSchedule.schedules.classType").in("THEORY", "MID_TERM_EXAM", "FINAL_EXAM"),
                         new Criteria().andOperator(
                                 Criteria.where("classSchedule.schedules.classType").is("PRACTICE"),
                                 Criteria.where("group").is("classSchedule.schedules.group")
@@ -192,19 +193,32 @@ public class ClassScheduleServiceImpl implements ClassScheduleService {
         Aggregation aggregation = Aggregation.newAggregation(
                 matchClass,
                 unwindSchedules,
-                //if the schedule have classType is practice, then compare if group = group in the request
-                Aggregation.match(new Criteria().orOperator(
-                        Criteria.where("schedules.classType").in(ClassType.THEORY),
-                        new Criteria().andOperator(
-                                Criteria.where("schedules.classType").is(ClassType.PRACTICE),
-                                Criteria.where("_id").in(groupMap.keySet()),
-                                Criteria.where("schedules.group").in(groupMap.values())
+                Aggregation.project()
+                        .and("schedules").as("schedule")
+                        .and("_id").as("classId")
+                        .and("courseId").as("courseId")
+                        .and("courseName").as("courseName"),
+                Aggregation.match(
+                        new Criteria().orOperator(
+                                Criteria.where("schedule.classType").is(ClassType.THEORY),
+                                Criteria.where("schedule.classType").is(ClassType.PRACTICE)
                         )
-                )),
-                Aggregation.project("_id", "courseId", "courseName", "schedules").and("_id").as("classId")
+                ),
+                Aggregation.project()
+                        .and("_id").as("classId")
+                        .and("courseId").as("courseId")
+                        .and("courseName").as("courseName")
+                        .and("schedule").as("schedules")
         );
 
-        return mongoTemplate.aggregate(aggregation, "classSchedule", QueryClassSchedule.class).getMappedResults();
+        List<QueryClassSchedule> classSchedules = mongoTemplate.aggregate(aggregation, "classSchedule", QueryClassSchedule.class).getMappedResults();
+        List<QueryClassSchedule> filteredSchedules = new ArrayList<>();
+        for (QueryClassSchedule schedule : classSchedules) {
+            if (schedule.schedules().getClassType().equals(ClassType.THEORY) || groupMap.get(schedule.classId()) == schedule.schedules().getGroup()) {
+                filteredSchedules.add(schedule);
+            }
+        }
+        return filteredSchedules;
     }
 
     @Override
