@@ -9,7 +9,7 @@ const StudentSchedulePage = () => {
     const type = params.get("type");
     return (
         <RequiredAuthPage>
-            <div className="w-full h-full p-3 mt-5 shadow-md select-none bg-lite">
+            <div className="w-full h-full p-3 mt-5 shadow-md select-none bg-lite max-w-[1140px] mx-auto">
                 <Header type={Number(type)} />
                 <Table />
                 <Footer />

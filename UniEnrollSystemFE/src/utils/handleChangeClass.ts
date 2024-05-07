@@ -3,11 +3,11 @@ import { UniEnrollSystemAPI } from "../apis/constants";
 import { IClassesEnrolled } from "../types/classesEnrolledType";
 import { IClass } from "../types/courseType";
 import {
-    setCourseChangeQuantityId,
+    setClassSchedule,
     setCourseSelectedClasses,
+    setCourseSelectedId,
     setRegisterClasses,
 } from "../store/actions/registrationSlice";
-import handleChangeQuantityOfClass from "./handleChangeQuantityOfClass";
 import { toast } from "react-toastify";
 
 export default async function handleChangeClass(
@@ -16,7 +16,6 @@ export default async function handleChangeClass(
     classSchedule: IClass,
     registerClasses: IClassesEnrolled[],
     dispatch: Dispatch<UnknownAction>,
-    courseSelectedClasses: IClass[],
     setIsSelectedGroup: (value: boolean) => void,
     setSelectedGroup: (value: number) => void
 ) {
@@ -44,13 +43,9 @@ export default async function handleChangeClass(
                 return item;
             });
             dispatch(setRegisterClasses(newRegisterClasses));
-            const newCourseSelectedClasses = handleChangeQuantityOfClass(
-                courseSelectedClasses,
-                classSchedule,
-                oldClass.id
-            );
-            dispatch(setCourseSelectedClasses(newCourseSelectedClasses));
-            dispatch(setCourseChangeQuantityId(classSchedule.courseId));
+            dispatch(setCourseSelectedClasses([]));
+            dispatch(setClassSchedule({} as IClass));
+            dispatch(setCourseSelectedId(""));
             setIsSelectedGroup(false);
             setSelectedGroup(0);
             toast.success("Đổi lớp học phần thành công");

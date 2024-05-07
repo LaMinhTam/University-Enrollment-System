@@ -7,14 +7,17 @@ import { useDispatch, useSelector } from "react-redux";
 import {
     setClassSchedule,
     setClassSelectedId,
+    setCourseChangeQuantityClassId,
     setCourseChangeQuantityId,
     setCourseSelectedClasses,
     setCourseSelectedCredit,
     setCourseSelectedId,
+    setIsRemoveClass,
     setStoredSelectedClasses,
 } from "../../store/actions/registrationSlice";
 import { RootState } from "../../store/configureStore";
 import filterDuplicateSchedule from "../../utils/filterDuplicateSchedule";
+import { useEffect } from "react";
 const TableCourse = ({
     data,
     tableClassesRef,
@@ -37,11 +40,14 @@ const TableCourse = ({
     const classesEnrolledSchedule = useSelector(
         (state: RootState) => state.registration.classesEnrolledSchedule
     );
-    const courseSelectedClasses = useSelector(
-        (state: RootState) => state.registration.courseSelectedClasses
+    const isRemoveClass = useSelector(
+        (state: RootState) => state.registration.isRemoveClass
     );
     const courseChangeQuantityId = useSelector(
         (state: RootState) => state.registration.courseChangeQuantityId
+    );
+    const courseChangeQuantityClassId = useSelector(
+        (state: RootState) => state.registration.courseChangeQuantityClassId
     );
     const handleTooltipContent = (
         prerequisites: {
@@ -86,17 +92,39 @@ const TableCourse = ({
             dispatch(setCourseSelectedClasses(newCourseSelectedClasses));
             dispatch(setStoredSelectedClasses(newCourseSelectedClasses));
         }
-        if (
-            courseChangeQuantityId &&
-            courseChangeQuantityId === item.course.id
-        ) {
-            dispatch(setCourseSelectedClasses(courseSelectedClasses));
-            dispatch(setStoredSelectedClasses(courseSelectedClasses));
-            dispatch(setCourseChangeQuantityId(""));
-        }
         dispatch(setClassSchedule({} as IClass));
         tableClassesRef.current?.scrollIntoView({ behavior: "smooth" });
     };
+
+    useEffect(() => {
+        if (
+            isRemoveClass &&
+            courseChangeQuantityClassId &&
+            courseChangeQuantityId
+        ) {
+            data[courseChangeQuantityId].classes = data[
+                courseChangeQuantityId
+            ].classes.map((item) => {
+                if (item.id === courseChangeQuantityClassId) {
+                    return {
+                        ...item,
+                        quantity: item.quantity - 1,
+                    };
+                }
+                return item;
+            });
+            dispatch(setCourseChangeQuantityClassId(""));
+            dispatch(setCourseChangeQuantityId(""));
+            dispatch(setIsRemoveClass(false));
+        }
+    }, [
+        courseChangeQuantityClassId,
+        courseChangeQuantityId,
+        data,
+        dispatch,
+        isRemoveClass,
+    ]);
+
     if (!data) return null;
     return (
         <div className="mt-5 mb-10">

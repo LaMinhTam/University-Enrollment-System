@@ -1,17 +1,17 @@
-export default function renderClassesRegistrationStatus(status: string) {
+export default function renderColorClassNameOfStatus(status: string) {
     let str = "";
     switch (status) {
         case "CLOSED":
-            str = "Đã khóa";
+            str = "text-error";
             break;
         case "WAITING":
-            str = "Đang chờ sinh viên đăng ký";
+            str = "text-secondary";
             break;
         case "PLANNING":
-            str = "Đang lên kế hoạch";
+            str = "text-text7";
             break;
         case "OPENED":
-            str = "Đã mở";
+            str = "text-primary";
             break;
         default:
             str = "";

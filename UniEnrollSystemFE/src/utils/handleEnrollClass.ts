@@ -3,19 +3,23 @@ import { IClassesEnrolled } from "../types/classesEnrolledType";
 import { IClass } from "../types/courseType";
 import { Dispatch, UnknownAction } from "@reduxjs/toolkit";
 import {
-    setCourseChangeQuantityId,
+    setClassSchedule,
     setCourseSelectedClasses,
+    setCourseSelectedId,
     setRegisterClasses,
 } from "../store/actions/registrationSlice";
-import { handleIncrementQuantityOfClass } from "./handleChangeQuantityOfClass";
 import { toast } from "react-toastify";
+import {
+    setDuplicateSchedule,
+    setIsOpenScheduleDuplicateModal,
+} from "../store/actions/modalSlice";
+import { IExistedSchedule } from "../types/scheduleType";
 
 export default async function handleEnrollClass(
     groupId: number,
     classSchedule: IClass,
     registerClasses: IClassesEnrolled[],
     dispatch: Dispatch<UnknownAction>,
-    courseSelectedClasses: IClass[],
     setIsSelectedGroup: (value: boolean) => void,
     setSelectedGroup: (value: number) => void,
     courseSelectedCredit: number
@@ -26,10 +30,6 @@ export default async function handleEnrollClass(
             groupId
         );
         if (response.status === 200) {
-            const newCourseSelectedClasses = handleIncrementQuantityOfClass(
-                courseSelectedClasses,
-                classSchedule
-            );
             dispatch(
                 setRegisterClasses([
                     ...registerClasses,
@@ -43,12 +43,15 @@ export default async function handleEnrollClass(
                     },
                 ])
             );
-            dispatch(setCourseSelectedClasses(newCourseSelectedClasses));
-            dispatch(setCourseChangeQuantityId(classSchedule.courseId));
+            dispatch(setCourseSelectedClasses([]));
+            dispatch(setClassSchedule({} as IClass));
+            dispatch(setCourseSelectedId(""));
             setIsSelectedGroup(false);
             setSelectedGroup(0);
             toast.success("Đăng ký lớp học phần thành công");
         } else {
+            dispatch(setIsOpenScheduleDuplicateModal(true));
+            dispatch(setDuplicateSchedule(response.data as IExistedSchedule[]));
             toast.error(response.message);
         }
     } catch (error) {

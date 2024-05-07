@@ -22,7 +22,6 @@ const RequiredAuthPage = ({ children }: { children: React.ReactNode }) => {
                 console.log("Access token expired");
                 refreshTokenHandler(navigate);
             } else if (!isAccessTokenExpired) {
-                console.log("Access token not expired");
                 return;
             } else {
                 saveAccessToken("");

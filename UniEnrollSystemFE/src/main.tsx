@@ -14,6 +14,7 @@ import { AuthProvider } from "./contexts/auth-context.tsx";
 import LoginPage from "./pages/LoginPage.tsx";
 import AuthType from "./types/authType.ts";
 import store from "./store/configureStore.ts";
+import StudyResultPage from "./pages/StudyResultPage.tsx";
 const LayoutDashboard = React.lazy(
     () => import("./layout/LayoutDashboard.tsx")
 );
@@ -50,6 +51,10 @@ const router = createBrowserRouter([
             {
                 path: "/lich-theo-tuan",
                 element: <StudentSchedulePage />,
+            },
+            {
+                path: "/ket-qua-hoc-tap",
+                element: <StudyResultPage></StudyResultPage>,
             },
         ],
     },

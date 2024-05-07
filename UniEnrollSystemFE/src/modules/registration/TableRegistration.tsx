@@ -11,25 +11,23 @@ import { RootState } from "../../store/configureStore";
 import { UniEnrollSystemAPI } from "../../apis/constants";
 import { toast } from "react-toastify";
 import {
+    setCourseChangeQuantityClassId,
     setCourseChangeQuantityId,
-    setCourseSelectedClasses,
+    setIsRemoveClass,
     setRegisterClasses,
 } from "../../store/actions/registrationSlice";
-import { handleDecrementQuantityOfClass } from "../../utils/handleChangeQuantityOfClass";
 import {
     setClassSelectedSchedule,
     setIsOpenWatchScheduleModal,
 } from "../../store/actions/modalSlice";
 import { IClassesEnrolled } from "../../types/classesEnrolledType";
+import renderColorClassNameOfStatus from "../../utils/renderColorClassNameOfStatus";
 const TableRegistration = () => {
     const registerClasses = useSelector(
         (state: RootState) => state.registration.registerClasses
     );
     const dispatch = useDispatch();
     const [classesClickedId, setClassesClickedId] = useState("");
-    const courseSelectedClasses = useSelector(
-        (state: RootState) => state.registration.courseSelectedClasses
-    );
     const classesEnrolledSchedule = useSelector(
         (state: RootState) => state.registration.classesEnrolledSchedule
     );
@@ -53,12 +51,9 @@ const TableRegistration = () => {
                     (item) => item.id !== id
                 );
                 dispatch(setRegisterClasses(newRegisterClasses));
-                const newCourseSelectedClasses = handleDecrementQuantityOfClass(
-                    courseSelectedClasses,
-                    id
-                );
-                dispatch(setCourseSelectedClasses(newCourseSelectedClasses));
                 dispatch(setCourseChangeQuantityId(courseId));
+                dispatch(setCourseChangeQuantityClassId(id));
+                dispatch(setIsRemoveClass(true));
                 toast.success("Hủy lớp học phần thành công");
             } else {
                 toast.error(response.message);
@@ -179,7 +174,11 @@ const TableRegistration = () => {
                             </td>
                             <td>Đã đăng ký</td>
                             <td>{item.updatedAt}</td>
-                            <td className="text-sm font-medium text-error">
+                            <td
+                                className={`text-sm font-semibold ${renderColorClassNameOfStatus(
+                                    item.status
+                                )}`}
+                            >
                                 {renderClassesRegistrationStatus(item.status)}
                             </td>
                         </tr>

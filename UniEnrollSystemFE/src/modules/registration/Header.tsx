@@ -1,12 +1,27 @@
 import { useDispatch } from "react-redux";
-import { setRegistrationPeriod } from "../../store/actions/registrationSlice";
+import {
+    setClassSchedule,
+    setCourseSelectedClasses,
+    setCourseSelectedId,
+    setRegistrationPeriod,
+} from "../../store/actions/registrationSlice";
+import { IClass } from "../../types/courseType";
 
 const Header = () => {
     const dispatch = useDispatch();
     const handleChangePeriod = (e: React.ChangeEvent<HTMLSelectElement>) => {
         const value = e.target.value;
-        const [semester, year] = value.split("-");
-        dispatch(setRegistrationPeriod({ semester: +semester, year: +year }));
+        if (value === "0") {
+            dispatch(setRegistrationPeriod({ semester: 0, year: 0 }));
+        } else {
+            const [semester, year] = value.split("-");
+            dispatch(setCourseSelectedClasses([]));
+            dispatch(setClassSchedule({} as IClass));
+            dispatch(setCourseSelectedId(""));
+            dispatch(
+                setRegistrationPeriod({ semester: +semester, year: +year })
+            );
+        }
     };
     return (
         <>

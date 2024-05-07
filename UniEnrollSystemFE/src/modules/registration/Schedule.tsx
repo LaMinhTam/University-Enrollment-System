@@ -16,9 +16,6 @@ const Schedule = () => {
     const classSchedule = useSelector(
         (state: RootState) => state.registration.classSchedule
     );
-    const courseSelectedClasses = useSelector(
-        (state: RootState) => state.registration.courseSelectedClasses
-    );
     const registerClasses = useSelector(
         (state: RootState) => state.registration.registerClasses
     );
@@ -69,7 +66,6 @@ const Schedule = () => {
                                             classSchedule,
                                             registerClasses,
                                             dispatch,
-                                            courseSelectedClasses,
                                             setIsSelectedGroup,
                                             setSelectedGroup
                                         );
@@ -84,7 +80,6 @@ const Schedule = () => {
                                 classSchedule,
                                 registerClasses,
                                 dispatch,
-                                courseSelectedClasses,
                                 setIsSelectedGroup,
                                 setSelectedGroup,
                                 courseSelectedCredit

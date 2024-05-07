@@ -27,7 +27,7 @@ const LayoutDashboard = () => {
                         </button>
                     </div>
                 </div>
-                <div className="w-full max-w-[1140px] h-full mx-auto pt-[60px]">
+                <div className="w-full h-full pt-[60px]">
                     <Outlet></Outlet>
                 </div>
             </div>

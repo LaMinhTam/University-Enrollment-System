@@ -7,6 +7,8 @@ import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import { useState } from "react";
 import sidebarType from "../../types/sidebarType";
 import { Link } from "react-router-dom";
+import handleResetCourseRegisterPage from "../../utils/handleResetCourseRegisterPage";
+import { useDispatch } from "react-redux";
 
 const sidebarLinks: sidebarType[] = [
     {
@@ -81,7 +83,8 @@ const sidebarLinks: sidebarType[] = [
 ];
 
 const DashboardSidebar = () => {
-    const [activeIndex, setActiveIndex] = useState(-1); // Add this state
+    const [activeIndex, setActiveIndex] = useState(-1);
+    const dispatch = useDispatch();
 
     const handleIconClick = (index: number) => {
         setActiveIndex(index === activeIndex ? -1 : index);
@@ -134,6 +137,18 @@ const DashboardSidebar = () => {
                                         key={index}
                                         className="hover:text-primary flex items-center hover:border-l-2 hover:border-l-text1 
                                         px-3 py-4 justify-start text-xs text-text5 w-full h-[45px] cursor-pointer"
+                                        onClick={() => {
+                                            if (
+                                                subLink.link ===
+                                                "/dang-ky-hoc-phan"
+                                            ) {
+                                                handleResetCourseRegisterPage(
+                                                    dispatch
+                                                );
+                                            } else {
+                                                return;
+                                            }
+                                        }}
                                     >
                                         <span>{subLink.title}</span>
                                     </Link>

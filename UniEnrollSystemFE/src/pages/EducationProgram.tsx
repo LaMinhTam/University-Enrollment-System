@@ -23,7 +23,7 @@ const EducationProgram = () => {
 
     return (
         <RequiredAuthPage>
-            <div className="w-full h-full mt-5 bg-lite p-[10px]">
+            <div className="w-full h-full mt-5 bg-lite p-[10px] max-w-[1140px] mx-auto">
                 <Header />
                 <Table programData={data} />
                 <Footer />
