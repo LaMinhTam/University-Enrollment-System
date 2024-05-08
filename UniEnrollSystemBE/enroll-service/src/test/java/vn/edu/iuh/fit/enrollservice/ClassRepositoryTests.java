@@ -145,6 +145,14 @@ public class ClassRepositoryTests {
 //                new Course("4203004056", "Quản lý dự án CNTT", 3, 2, 1, 1, null)
         );
         for (int i = 0; i < 4; i++) {
+            startDateMiddleExam.setYear(startDateMiddleExam.getYear() + i);
+            endDateMiddleExam.setYear(endDateMiddleExam.getYear() + i);
+            startDateFinalExam.setYear(startDateFinalExam.getYear() + i);
+            endDateFinalExam.setYear(endDateFinalExam.getYear() + i);
+            firstStartStudyDate.setYear(firstStartStudyDate.getYear() + i);
+            secondStartStudyDate.setYear(secondStartStudyDate.getYear() + i);
+            firstEndStudyDate.setYear(firstEndStudyDate.getYear() + i);
+            secondEndStudyDate.setYear(secondEndStudyDate.getYear() + i);
             int finalI = i;
             courses.forEach(course -> {
                 if (course.type() == 0) {
@@ -162,8 +170,8 @@ public class ClassRepositoryTests {
                 }
                 classes.addAll(generateRandomClasses(course, year + finalI, semester));
             });
+            classRepository.saveAll(classes);
         }
-        classRepository.saveAll(classes);
     }
 
     public static List<Class> generateRandomClasses(Course course, int year, int semester) {
@@ -228,7 +236,7 @@ public class ClassRepositoryTests {
 
     public static String toISODate(Date date) {
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
-        return "{\"$date\":\"" + sdf.format(date) + "\"}";
+        return "new Date(\"" + sdf.format(date) + "\")";
     }
 
     private static String generateClassId(String courseIdPart, int year, int semester, int count) {
@@ -253,7 +261,7 @@ public class ClassRepositoryTests {
             schedules.add(generateSchedule(group, ClassType.THEORY, startDate, endDate));
         }
         if (course.practicalCredit() != 0) {
-            for (int i = 2; i < numSchedules; i++) {
+            for (int i = 0; i < 3; i++) {
                 group++;
                 Date startDate = generateDate(firstStartStudyDate, secondStartStudyDate); // Generate random start date
                 Date endDate = generateDate(firstEndStudyDate, secondEndStudyDate); // Generate random end date

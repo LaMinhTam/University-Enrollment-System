@@ -16,7 +16,7 @@ public interface EnrollmentRepository extends JpaRepository<Enrollment, Enrollme
     Optional<Enrollment> findByStudentIdAndRegistryClass(String studentId, String classId);
 
     @Procedure("register_class")
-    int registerClass(@Param("p_student_id") String studentId, @Param("p_class_id") String classId, int group);
+    int registerClass(String p_student_id, String p_class_id, int group);
 
     @Procedure("change_class")
     int changeClass(@Param("p_student_id") String studentId, @Param("p_old_class_id") String oldClassId, @Param("p_new_class_id") String newClassId, @Param("p_group_id") int group);

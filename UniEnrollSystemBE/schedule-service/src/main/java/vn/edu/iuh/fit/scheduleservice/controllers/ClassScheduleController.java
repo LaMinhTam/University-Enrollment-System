@@ -53,7 +53,7 @@ public class ClassScheduleController {
     @GetMapping("/conflicts")
     public List<ConflictResponse> checkScheduleConflict(@RequestBody ScheduleConflictRequest request) {
         List<QueryClassSchedule> existingSchedules = classScheduleService.getEachScheduleByClassIds(request.enrollGroups());
-        List<QueryClassSchedule> newSchedules = getValidSchedules(request.newClassId(), request.groupId());
+        List<QueryClassSchedule> newSchedules = classScheduleService.getEachScheduleByClassIds(List.of(new EnrollGroup(request.newClassId(), request.groupId())));
 
         return findConflicts(existingSchedules, newSchedules);
     }
@@ -68,21 +68,6 @@ public class ClassScheduleController {
             }
         }
         return conflicts;
-    }
-
-    private List<QueryClassSchedule> getValidSchedules(String newClassId, int groupId) {
-        List<QueryClassSchedule> schedules = classScheduleService.getEachScheduleByClassIds(List.of(new EnrollGroup(newClassId, groupId)));
-        return schedules.stream()
-                .filter(schedule -> isValidSchedule(schedule, groupId))
-                .toList();
-    }
-
-    private boolean isValidSchedule(QueryClassSchedule schedule, int groupId) {
-        ClassType classType = schedule.schedules().getClassType();
-        return ClassType.THEORY == classType || (classType != ClassType.NO_CLASS_DAY &&
-                classType != ClassType.MID_TERM_EXAM &&
-                classType != ClassType.FINAL_EXAM &&
-                schedule.schedules().getGroup() == groupId);
     }
 
     private boolean isConflict(QueryClassSchedule existingSchedule, QueryClassSchedule newSchedule) {
