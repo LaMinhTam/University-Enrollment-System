@@ -43,7 +43,7 @@ public class GatewayConfig {
                         .filters(f -> f.filter(filter))
                         .uri("lb://grade-management-service"))
 
-                .route("payment-service", r -> r.path("/payments/**")
+                .route("payment-service", r -> r.path("/payments/**", "/invoices/**", "/course-payments/**")
                         .filters(f -> f.filter(filter))
                         .uri("lb://payment-service"))
                 .build();

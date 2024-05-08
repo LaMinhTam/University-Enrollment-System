@@ -55,6 +55,8 @@ spring:
           uri: lb://payment-service
           predicates:
             - Path=/payments/**
+            - Path=/invoices/**
+            - Path=/course-payments/**
       globalcors:
         corsConfigurations:
           '[/**]':
