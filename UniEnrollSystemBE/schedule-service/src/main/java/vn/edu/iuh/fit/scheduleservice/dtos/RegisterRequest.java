@@ -1,4 +1,4 @@
 package vn.edu.iuh.fit.scheduleservice.dtos;
 
-public record RegisterSchedule(String studentId, String classId, int group) {
+public record RegisterRequest(String studentId, String classId, int group) {
 }

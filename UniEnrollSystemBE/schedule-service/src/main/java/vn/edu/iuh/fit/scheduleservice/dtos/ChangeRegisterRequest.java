@@ -1,4 +1,4 @@
 package vn.edu.iuh.fit.scheduleservice.dtos;
 
-public record ChangeScheduleRequest(String studentId, String oldClassId, String newClassId) {
+public record ChangeRegisterRequest(String studentId, String oldClassId, String newClassId) {
 }

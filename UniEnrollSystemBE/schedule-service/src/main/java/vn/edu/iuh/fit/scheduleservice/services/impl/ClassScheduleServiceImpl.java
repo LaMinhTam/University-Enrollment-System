@@ -4,7 +4,6 @@ import org.apache.commons.lang.time.DateUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.aggregation.*;
-import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.data.mongodb.core.query.Update;
@@ -222,7 +221,7 @@ public class ClassScheduleServiceImpl implements ClassScheduleService {
     }
 
     @Override
-    public void changeSchedule(ChangeScheduleRequest request) {
+    public void changeSchedule(ChangeRegisterRequest request) {
         Query query = new Query();
         query.addCriteria(Criteria.where("studentId").is(request.studentId()).and("classId").is(request.oldClassId()));
 
