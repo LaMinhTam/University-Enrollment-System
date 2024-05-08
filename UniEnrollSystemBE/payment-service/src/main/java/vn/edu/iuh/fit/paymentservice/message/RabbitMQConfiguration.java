@@ -1,4 +1,4 @@
-package vn.edu.iuh.fit.scheduleservice.messaging;
+package vn.edu.iuh.fit.paymentservice.message;
 
 import org.springframework.amqp.core.Queue;
 import org.springframework.amqp.rabbit.connection.ConnectionFactory;
@@ -10,18 +10,18 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class RabbitMQConfiguration {
     @Bean
-    public Queue scheduleEnrollQueue() {
-        return new Queue("schedule-enroll-queue");
+    public Queue paymentEnrollQueue() {
+        return new Queue("payment-enroll-queue");
     }
 
     @Bean
-    public Queue scheduleCancelQueue() {
-        return new Queue("schedule-cancel-queue");
+    public Queue paymentCancelQueue() {
+        return new Queue("payment-cancel-queue");
     }
 
     @Bean
-    public Queue scheduleChangeQueue() {
-        return new Queue("schedule-change-queue");
+    public Queue paymentChangeQueue() {
+        return new Queue("payment-change-queue");
     }
 
     @Bean
