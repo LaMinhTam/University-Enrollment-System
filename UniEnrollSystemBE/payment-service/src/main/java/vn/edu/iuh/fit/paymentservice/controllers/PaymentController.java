@@ -2,11 +2,13 @@ package vn.edu.iuh.fit.paymentservice.controllers;
 
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+import vn.edu.iuh.fit.paymentservice.dtos.PaymentRequest;
 import vn.edu.iuh.fit.paymentservice.dtos.ResponseWrapper;
+import vn.edu.iuh.fit.paymentservice.models.CoursePayment;
+import vn.edu.iuh.fit.paymentservice.models.PaymentStatus;
+import vn.edu.iuh.fit.paymentservice.services.CoursePaymentService;
+import vn.edu.iuh.fit.paymentservice.services.InvoiceService;
 import vn.edu.iuh.fit.paymentservice.vnpay.VNPayConfig;
 
 import java.io.UnsupportedEncodingException;
@@ -18,11 +20,32 @@ import java.util.*;
 @RestController
 @RequestMapping("/payments")
 public class PaymentController {
+    private final InvoiceService invoiceService;
+    private final CoursePaymentService coursePaymentService;
+
+    public PaymentController(InvoiceService invoiceService, CoursePaymentService coursePaymentService) {
+        this.invoiceService = invoiceService;
+        this.coursePaymentService = coursePaymentService;
+    }
+
     @PostMapping("/create_payment")
-    public ResponseEntity<?> createPayment(HttpServletRequest req, @RequestBody PaymentRequest request) throws UnsupportedEncodingException {
+    public ResponseEntity<?> createPayment(HttpServletRequest req, @RequestHeader("id") String studentId, @RequestBody PaymentRequest request) throws UnsupportedEncodingException {
+        List<CoursePayment> coursePayments = coursePaymentService.getCoursePaymentsById(studentId, request.class_ids());
+        List<String> missingClassId = new ArrayList<>();
+        coursePayments.forEach(coursePayment -> {
+            if (!request.class_ids().contains(coursePayment.getClassId())) {
+                missingClassId.add(coursePayment.getClassId());
+            }
+        });
+        if (!missingClassId.isEmpty()) {
+            return ResponseEntity.badRequest().body("Các lớp học không tồn tại: " + missingClassId);
+        }
+
+        CoursePayment coursePayment = coursePayments.get(0);
+        String invoiceId = coursePayment.getSemester() + coursePayment.getYear() + VNPayConfig.getRandomNumber(8) + "1";
+
         String orderType = "other";
         long amount = request.amount() * 100;
-        String bankCode = request.bankCode();
 
         String vnp_TxnRef = VNPayConfig.getRandomNumber(8);
         String vnp_IpAddr = VNPayConfig.getIpAddress(req);
@@ -94,6 +117,7 @@ public class PaymentController {
 //        job.addProperty("data", paymentUrl);
 //        Gson gson = new Gson();
 //        resp.getWriter().write(gson.toJson(job));
+        invoiceService.createInvoice(invoiceId, studentId, "VNPAY", Double.valueOf(request.amount()), coursePayments);
         return ResponseEntity.ok(paymentUrl);
     }
 
@@ -117,16 +141,19 @@ public class PaymentController {
         String signValue = VNPayConfig.hashAllFields(fields);
         if (vnp_SecureHash.equals(signValue)) {
             String vnp_ResponseCode = req.getParameter("vnp_ResponseCode");
+            String invoiceId = Arrays.toString(parameterMap.get("vnp_TxnRef"));
             if ("00".equals(vnp_ResponseCode)) {
                 //Thanh toan thanh cong
                 //Cap nhat trang thai don hang trong csdl
+                invoiceService.updatePaymentStatus(invoiceId, PaymentStatus.PAID);
                 return ResponseEntity.ok(new ResponseWrapper("Giao dịch thành công", null, 200));
             } else {
                 //Thanh toan khong thanh cong. Ma loi: vnp_ResponseCode
-                return ResponseEntity.ok(new ResponseWrapper("Giao dịch thất bại. Mã lỗi: " + vnp_ResponseCode, null, 400));
+                invoiceService.updatePaymentStatus(invoiceId, PaymentStatus.ERROR);
+                return ResponseEntity.badRequest().body("Giao dịch thất bại. Mã lỗi: " + vnp_ResponseCode);
             }
         } else {
-            return ResponseEntity.ok(new ResponseWrapper("Chữ ký không hợp lệ", null, 400));
+            return ResponseEntity.badRequest().body("Chữ ký không hợp lệ");
         }
     }
 }

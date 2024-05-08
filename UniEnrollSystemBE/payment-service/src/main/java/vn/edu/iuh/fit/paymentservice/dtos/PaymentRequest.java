@@ -1,4 +1,4 @@
-package vn.edu.iuh.fit.paymentservice.controllers;
+package vn.edu.iuh.fit.paymentservice.dtos;
 
 import java.util.List;
 
