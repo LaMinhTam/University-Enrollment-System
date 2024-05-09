@@ -26,16 +26,16 @@ public class InvoiceServiceImpl implements InvoiceService {
     public List<Invoice> getAllInvoices(String studentId, int page, int size) {
         Sort sort = Sort.by(Sort.Order.asc("semester"), Sort.Order.asc("year"));
         Pageable pageable = PageRequest.of(page - 1, size, sort);
-        return invoiceRepository.findByStudentId(studentId, pageable);
+        return invoiceRepository.findByStudentId(studentId, pageable).getContent();
     }
 
     @Override
     public void updatePaymentStatus(String invoiceId, PaymentStatus paymentStatus) {
+        invoiceRepository.updatePaymentStatus(invoiceId, paymentStatus);
     }
 
     @Override
     public void createInvoice(String invoiceId,String studentId, String collectingUnit, Double amount, List<CoursePayment> coursePayments) {
-
         invoiceRepository.save(new Invoice(invoiceId, studentId, amount, new Date(), collectingUnit, coursePayments, PaymentStatus.PENDING));
     }
 }

@@ -42,12 +42,12 @@ public class PaymentController {
         }
 
         CoursePayment coursePayment = coursePayments.get(0);
-        String invoiceId = coursePayment.getSemester() + coursePayment.getYear() + VNPayConfig.getRandomNumber(8) + "1";
+        String invoiceId = coursePayment.getSemester() + "" + coursePayment.getYear() + VNPayConfig.getRandomNumber(8) + "1";
 
         String orderType = "other";
         long amount = request.amount() * 100;
 
-        String vnp_TxnRef = VNPayConfig.getRandomNumber(8);
+        String vnp_TxnRef = invoiceId;
         String vnp_IpAddr = VNPayConfig.getIpAddress(req);
 
         String vnp_TmnCode = VNPayConfig.vnp_TmnCode;
@@ -141,12 +141,12 @@ public class PaymentController {
         String signValue = VNPayConfig.hashAllFields(fields);
         if (vnp_SecureHash.equals(signValue)) {
             String vnp_ResponseCode = req.getParameter("vnp_ResponseCode");
-            String invoiceId = Arrays.toString(parameterMap.get("vnp_TxnRef"));
+            String invoiceId = fields.get("vnp_TxnRef");
             if ("00".equals(vnp_ResponseCode)) {
                 //Thanh toan thanh cong
                 //Cap nhat trang thai don hang trong csdl
                 invoiceService.updatePaymentStatus(invoiceId, PaymentStatus.PAID);
-                return ResponseEntity.ok(new ResponseWrapper("Giao dịch thành công", null, 200));
+                return ResponseEntity.ok("Giao dịch thành công");
             } else {
                 //Thanh toan khong thanh cong. Ma loi: vnp_ResponseCode
                 invoiceService.updatePaymentStatus(invoiceId, PaymentStatus.ERROR);

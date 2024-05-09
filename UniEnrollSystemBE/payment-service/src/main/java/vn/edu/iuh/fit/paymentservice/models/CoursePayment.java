@@ -6,13 +6,14 @@ import lombok.NoArgsConstructor;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.Field;
 
+import java.io.Serializable;
 import java.util.Date;
 
 @Document
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
-public class CoursePayment {
+public class CoursePayment implements Serializable {
     @Field("class_id")
     private String classId;
     @Field("course_id")

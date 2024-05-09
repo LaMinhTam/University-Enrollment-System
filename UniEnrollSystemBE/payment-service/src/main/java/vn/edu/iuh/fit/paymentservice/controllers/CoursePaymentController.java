@@ -1,6 +1,7 @@
 package vn.edu.iuh.fit.paymentservice.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import vn.edu.iuh.fit.paymentservice.models.CoursePayment;
 import vn.edu.iuh.fit.paymentservice.services.CoursePaymentService;
@@ -17,7 +18,7 @@ public class CoursePaymentController {
     }
 
     @GetMapping
-    public List<CoursePayment> getCoursePayments(@RequestHeader("id") String studentId, @RequestParam int page, @RequestParam int size) {
-        return coursePaymentService.getAllCoursePayments(studentId, page, size);
+    public ResponseEntity<?> getCoursePayments(@RequestHeader("id") String studentId, @RequestParam int page, @RequestParam int size) {
+        return ResponseEntity.ok(coursePaymentService.getAllCoursePayments(studentId, page, size));
     }
 }
