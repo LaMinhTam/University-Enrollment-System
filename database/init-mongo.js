@@ -2255,62 +2255,18 @@ db.gradeReport.insertMany([
 
 db.createCollection("semesterSummary")
 
-db.semesterSummary.insertMany([{
-  "_id": {
-    "$oid": "663a2581ea942f6d785be3bc"
-  },
-  "class_id": "420300090122102",
-  "student_id": "21082081",
-  "course_id": "4203000901",
-  "course_name": "Cấu trúc rời rạc",
-  "credit": 3,
-  "theory_credit": 3,
-  "practical_credit": 0,
-  "midterm_score": 4.5,
-  "final_score": 4.5,
-  "theory_scores": [
+db.semesterSummary.insertMany([
+{"class_id": "420300090122102","student_id": "21082081","course_id": "4203000901","course_name": "Cấu trúc rời rạc","credit": 3,"theory_credit": 3,"practical_credit": 0,"midterm_score": 4.5,"final_score": 4.5,"theory_scores": [
     9.25,
     9.5,
     7.25
-  ],
-  "overall_score": 5.3333335,
-  "status": "PASSED"
-},
-{
-  "_id": {
-    "$oid": "663a2581ea942f6d785be3bd"
-  },
-  "class_id": "420300090823102",
-  "student_id": "21082081",
-  "course_id": "4203000908",
-  "course_name": "Lý thuyết đồ thị",
-  "credit": 3,
-  "theory_credit": 3,
-  "practical_credit": 0,
-  "midterm_score": 10,
-  "final_score": 8.25,
-  "theory_scores": [
+  ],"overall_score": 5.3333335,"status": "PASSED"},
+{"class_id": "420300090823102","student_id": "21082081","course_id": "4203000908","course_name": "Lý thuyết đồ thị","credit": 3,"theory_credit": 3,"practical_credit": 0,"midterm_score": 10,"final_score": 8.25,"theory_scores": [
     10,
     4.25,
     6.25
-  ],
-  "overall_score": 8.491667,
-  "status": "PASSED"
-},
-{
-  "_id": {
-    "$oid": "663a2581ea942f6d785be3be"
-  },
-  "class_id": "420300094121201",
-  "student_id": "21082081",
-  "course_id": "4203000941",
-  "course_name": "Kỹ thuật lập trình",
-  "credit": 3,
-  "theory_credit": 1,
-  "practical_credit": 2,
-  "midterm_score": 9.25,
-  "final_score": 7.75,
-  "practical_scores": [
+  ],"overall_score": 8.491667,"status": "PASSED"},
+{"class_id": "420300094121201","student_id": "21082081","course_id": "4203000941","course_name": "Kỹ thuật lập trình","credit": 3,"theory_credit": 1,"practical_credit": 2,"midterm_score": 9.25,"final_score": 7.75,"practical_scores": [
     7.75,
     6.25,
     10
@@ -2319,24 +2275,8 @@ db.semesterSummary.insertMany([{
     6,
     7.25,
     6.5
-  ],
-  "overall_score": 8.108334,
-  "status": "PASSED"
-},
-{
-  "_id": {
-    "$oid": "663a2581ea942f6d785be3bf"
-  },
-  "class_id": "420300094222101",
-  "student_id": "21082081",
-  "course_id": "4203000942",
-  "course_name": "Cấu trúc dữ liệu và giải thuật",
-  "credit": 4,
-  "theory_credit": 3,
-  "practical_credit": 1,
-  "midterm_score": 10,
-  "final_score": 4,
-  "practical_scores": [
+  ],"overall_score": 8.108334,"status": "PASSED"},
+{"class_id": "420300094222101","student_id": "21082081","course_id": "4203000942","course_name": "Cấu trúc dữ liệu và giải thuật","credit": 4,"theory_credit": 3,"practical_credit": 1,"midterm_score": 10,"final_score": 4,"practical_scores": [
     7.75,
     4.5,
     7.25
@@ -2345,87 +2285,23 @@ db.semesterSummary.insertMany([{
     5.5,
     7.75,
     10
-  ],
-  "overall_score": 6.425,
-  "status": "PASSED"
-},
-{
-  "_id": {
-    "$oid": "663a2581ea942f6d785be3c0"
-  },
-  "class_id": "420300100423202",
-  "student_id": "21082081",
-  "course_id": "4203001004",
-  "course_name": "Nhập môn an toàn thông tin",
-  "credit": 3,
-  "theory_credit": 3,
-  "practical_credit": 0,
-  "midterm_score": 9.5,
-  "final_score": 7.5,
-  "theory_scores": [
+  ],"overall_score": 6.425,"status": "PASSED"},
+{"class_id": "420300100423202","student_id": "21082081","course_id": "4203001004","course_name": "Nhập môn an toàn thông tin","credit": 3,"theory_credit": 3,"practical_credit": 0,"midterm_score": 9.5,"final_score": 7.5,"theory_scores": [
     9.5,
     6.25,
     8
-  ],
-  "overall_score": 8.183333,
-  "status": "PASSED"
-},
-{
-  "_id": {
-    "$oid": "663a2581ea942f6d785be3c1"
-  },
-  "class_id": "420300105822201",
-  "student_id": "21082081",
-  "course_id": "4203001058",
-  "course_name": "Mạng máy tính",
-  "credit": 3,
-  "theory_credit": 3,
-  "practical_credit": 0,
-  "midterm_score": 7.5,
-  "final_score": 5.75,
-  "theory_scores": [
+  ],"overall_score": 8.183333,"status": "PASSED"},
+{"class_id": "420300105822201","student_id": "21082081","course_id": "4203001058","course_name": "Mạng máy tính","credit": 3,"theory_credit": 3,"practical_credit": 0,"midterm_score": 7.5,"final_score": 5.75,"theory_scores": [
     5.5,
     6.5,
     7.25
-  ],
-  "overall_score": 6.4083333,
-  "status": "PASSED"
-},
-{
-  "_id": {
-    "$oid": "663a2581ea942f6d785be3c2"
-  },
-  "class_id": "420300111123201",
-  "student_id": "21082081",
-  "course_id": "4203001111",
-  "course_name": "Công nghệ phần mềm",
-  "credit": 3,
-  "theory_credit": 3,
-  "practical_credit": 0,
-  "midterm_score": 5.75,
-  "final_score": 7.25,
-  "theory_scores": [
+  ],"overall_score": 6.4083333,"status": "PASSED"},
+{"class_id": "420300111123201","student_id": "21082081","course_id": "4203001111","course_name": "Công nghệ phần mềm","credit": 3,"theory_credit": 3,"practical_credit": 0,"midterm_score": 5.75,"final_score": 7.25,"theory_scores": [
     4.25,
     4,
     7.5
-  ],
-  "overall_score": 6.4,
-  "status": "PASSED"
-},
-{
-  "_id": {
-    "$oid": "663a2581ea942f6d785be3c3"
-  },
-  "class_id": "420300114622103",
-  "student_id": "21082081",
-  "course_id": "4203001146",
-  "course_name": "Hệ cơ sở dữ liệu",
-  "credit": 4,
-  "theory_credit": 3,
-  "practical_credit": 1,
-  "midterm_score": 10,
-  "final_score": 10,
-  "practical_scores": [
+  ],"overall_score": 6.4,"status": "PASSED"},
+{"class_id": "420300114622103","student_id": "21082081","course_id": "4203001146","course_name": "Hệ cơ sở dữ liệu","credit": 4,"theory_credit": 3,"practical_credit": 1,"midterm_score": 10,"final_score": 10,"practical_scores": [
     10,
     7,
     8.25
@@ -2434,24 +2310,8 @@ db.semesterSummary.insertMany([{
     8.5,
     6,
     8
-  ],
-  "overall_score": 9.591667,
-  "status": "PASSED"
-},
-{
-  "_id": {
-    "$oid": "663a2581ea942f6d785be3c4"
-  },
-  "class_id": "420300120722202",
-  "student_id": "21082081",
-  "course_id": "4203001207",
-  "course_name": "Hệ quản trị cơ sở dữ liệu",
-  "credit": 3,
-  "theory_credit": 2,
-  "practical_credit": 1,
-  "midterm_score": 9.5,
-  "final_score": 5.25,
-  "practical_scores": [
+  ],"overall_score": 9.591667,"status": "PASSED"},
+{"class_id": "420300120722202","student_id": "21082081","course_id": "4203001207","course_name": "Hệ quản trị cơ sở dữ liệu","credit": 3,"theory_credit": 2,"practical_credit": 1,"midterm_score": 9.5,"final_score": 5.25,"practical_scores": [
     6.75,
     9,
     9.5
@@ -2460,24 +2320,8 @@ db.semesterSummary.insertMany([{
     9.75,
     4,
     4
-  ],
-  "overall_score": 6.908334,
-  "status": "PASSED"
-},
-{
-  "_id": {
-    "$oid": "663a2581ea942f6d785be3c5"
-  },
-  "class_id": "420300143224101",
-  "student_id": "21082081",
-  "course_id": "4203001432",
-  "course_name": "Lập trình thiết bị di động",
-  "credit": 4,
-  "theory_credit": 3,
-  "practical_credit": 1,
-  "midterm_score": 5.25,
-  "final_score": 5.75,
-  "practical_scores": [
+  ],"overall_score": 6.908334,"status": "PASSED"},
+{"class_id": "420300143224101","student_id": "21082081","course_id": "4203001432","course_name": "Lập trình thiết bị di động","credit": 4,"theory_credit": 3,"practical_credit": 1,"midterm_score": 5.25,"final_score": 5.75,"practical_scores": [
     9.75,
     10,
     4.25
@@ -2486,45 +2330,13 @@ db.semesterSummary.insertMany([{
     10,
     6.25,
     8.75
-  ],
-  "overall_score": 6.083333,
-  "status": "PASSED"
-},
-{
-  "_id": {
-    "$oid": "663a2581ea942f6d785be3c6"
-  },
-  "class_id": "420300200921101",
-  "student_id": "21082081",
-  "course_id": "4203002009",
-  "course_name": "Nhập môn Tin học",
-  "credit": 2,
-  "theory_credit": 2,
-  "practical_credit": 0,
-  "midterm_score": 10,
-  "final_score": 7.25,
-  "theory_scores": [
+  ],"overall_score": 6.083333,"status": "PASSED"},
+{"class_id": "420300200921101","student_id": "21082081","course_id": "4203002009","course_name": "Nhập môn Tin học","credit": 2,"theory_credit": 2,"practical_credit": 0,"midterm_score": 10,"final_score": 7.25,"theory_scores": [
     7.75,
     7,
     8
-  ],
-  "overall_score": 8.141666,
-  "status": "PASSED"
-},
-{
-  "_id": {
-    "$oid": "663a2581ea942f6d785be3c7"
-  },
-  "class_id": "420300207022201",
-  "student_id": "21082081",
-  "course_id": "4203002070",
-  "course_name": "Lập trình hướng sự kiện với công nghệ Java",
-  "credit": 4,
-  "theory_credit": 3,
-  "practical_credit": 1,
-  "midterm_score": 9.75,
-  "final_score": 7.5,
-  "practical_scores": [
+  ],"overall_score": 8.141666,"status": "PASSED"},
+{"class_id": "420300207022201","student_id": "21082081","course_id": "4203002070","course_name": "Lập trình hướng sự kiện với công nghệ Java","credit": 4,"theory_credit": 3,"practical_credit": 1,"midterm_score": 9.75,"final_score": 7.5,"practical_scores": [
     10,
     7.5,
     9.75
@@ -2533,24 +2345,8 @@ db.semesterSummary.insertMany([{
     8,
     5.25,
     5
-  ],
-  "overall_score": 8.191667,
-  "status": "PASSED"
-},
-{
-  "_id": {
-    "$oid": "663a2581ea942f6d785be3c8"
-  },
-  "class_id": "420300213721203",
-  "student_id": "21082081",
-  "course_id": "4203002137",
-  "course_name": "Hệ Thống Máy tính",
-  "credit": 4,
-  "theory_credit": 1,
-  "practical_credit": 3,
-  "midterm_score": 10,
-  "final_score": 10,
-  "practical_scores": [
+  ],"overall_score": 8.191667,"status": "PASSED"},
+{"class_id": "420300213721203","student_id": "21082081","course_id": "4203002137","course_name": "Hệ Thống Máy tính","credit": 4,"theory_credit": 1,"practical_credit": 3,"midterm_score": 10,"final_score": 10,"practical_scores": [
     7.5,
     8.75,
     7.5
@@ -2559,24 +2355,8 @@ db.semesterSummary.insertMany([{
     7.25,
     7.5,
     5
-  ],
-  "overall_score": 9.45,
-  "status": "PASSED"
-},
-{
-  "_id": {
-    "$oid": "663a2581ea942f6d785be3c9"
-  },
-  "class_id": "420300214522201",
-  "student_id": "21082081",
-  "course_id": "4203002145",
-  "course_name": "Hệ Thống và Công nghệ Web",
-  "credit": 3,
-  "theory_credit": 2,
-  "practical_credit": 1,
-  "midterm_score": 10,
-  "final_score": 9.25,
-  "practical_scores": [
+  ],"overall_score": 9.45,"status": "PASSED"},
+{"class_id": "420300214522201","student_id": "21082081","course_id": "4203002145","course_name": "Hệ Thống và Công nghệ Web","credit": 3,"theory_credit": 2,"practical_credit": 1,"midterm_score": 10,"final_score": 9.25,"practical_scores": [
     9.25,
     9.5,
     4
@@ -2585,24 +2365,8 @@ db.semesterSummary.insertMany([{
     9.5,
     8.5,
     8
-  ],
-  "overall_score": 9.25,
-  "status": "PASSED"
-},
-{
-  "_id": {
-    "$oid": "663a2581ea942f6d785be3ca"
-  },
-  "class_id": "420300214623201",
-  "student_id": "21082081",
-  "course_id": "4203002146",
-  "course_name": "Lập trình phân tán với công nghệ Java",
-  "credit": 3,
-  "theory_credit": 2,
-  "practical_credit": 1,
-  "midterm_score": 8.25,
-  "final_score": 9.75,
-  "practical_scores": [
+  ],"overall_score": 9.25,"status": "PASSED"},
+{"class_id": "420300214623201","student_id": "21082081","course_id": "4203002146","course_name": "Lập trình phân tán với công nghệ Java","credit": 3,"theory_credit": 2,"practical_credit": 1,"midterm_score": 8.25,"final_score": 9.75,"practical_scores": [
     5,
     5.25,
     10
@@ -2611,255 +2375,63 @@ db.semesterSummary.insertMany([{
     4.5,
     10,
     5.5
-  ],
-  "overall_score": 8.691667,
-  "status": "PASSED"
-},
-{
-  "_id": {
-    "$oid": "663a2581ea942f6d785be3cb"
-  },
-  "class_id": "420300242224103",
-  "student_id": "21082081",
-  "course_id": "4203002422",
-  "course_name": "Pháp luật đại cương",
-  "credit": 2,
-  "theory_credit": 2,
-  "practical_credit": 0,
-  "midterm_score": 9.75,
-  "final_score": 7,
-  "theory_scores": [
+  ],"overall_score": 8.691667,"status": "PASSED"},
+{"class_id": "420300242224103","student_id": "21082081","course_id": "4203002422","course_name": "Pháp luật đại cương","credit": 2,"theory_credit": 2,"practical_credit": 0,"midterm_score": 9.75,"final_score": 7,"theory_scores": [
     5.75,
     9,
     9.25
-  ],
-  "overall_score": 8.025001,
-  "status": "PASSED"
-},
-{
-  "_id": {
-    "$oid": "663a2581ea942f6d785be3cc"
-  },
-  "class_id": "420300319221101",
-  "student_id": "21082081",
-  "course_id": "4203003192",
-  "course_name": "Kỹ năng làm việc nhóm",
-  "credit": 2,
-  "theory_credit": 2,
-  "practical_credit": 0,
-  "midterm_score": 6.25,
-  "final_score": 4,
-  "theory_scores": [
+  ],"overall_score": 8.025001,"status": "PASSED"},
+{"class_id": "420300319221101","student_id": "21082081","course_id": "4203003192","course_name": "Kỹ năng làm việc nhóm","credit": 2,"theory_credit": 2,"practical_credit": 0,"midterm_score": 6.25,"final_score": 4,"theory_scores": [
     6,
     6.5,
     8.25
-  ],
-  "overall_score": 5.258333,
-  "status": "PASSED"
-},
-{
-  "_id": {
-    "$oid": "663a2581ea942f6d785be3cd"
-  },
-  "class_id": "420300319823101",
-  "student_id": "21082081",
-  "course_id": "4203003198",
-  "course_name": "Phương pháp luận nghiên cứu khoa học",
-  "credit": 2,
-  "theory_credit": 2,
-  "practical_credit": 0,
-  "midterm_score": 6,
-  "final_score": 7.75,
-  "theory_scores": [
+  ],"overall_score": 5.258333,"status": "PASSED"},
+{"class_id": "420300319823101","student_id": "21082081","course_id": "4203003198","course_name": "Phương pháp luận nghiên cứu khoa học","credit": 2,"theory_credit": 2,"practical_credit": 0,"midterm_score": 6,"final_score": 7.75,"theory_scores": [
     7.75,
     10,
     7.25
-  ],
-  "overall_score": 7.3416667,
-  "status": "PASSED"
-},
-{
-  "_id": {
-    "$oid": "663a2581ea942f6d785be3ce"
-  },
-  "class_id": "420300324221101",
-  "student_id": "21082081",
-  "course_id": "4203003242",
-  "course_name": "Giáo dục Quốc phòng và An ninh 1 ",
-  "credit": 4,
-  "theory_credit": 4,
-  "practical_credit": 0,
-  "midterm_score": 8.75,
-  "final_score": 10,
-  "theory_scores": [
+  ],"overall_score": 7.3416667,"status": "PASSED"},
+{"class_id": "420300324221101","student_id": "21082081","course_id": "4203003242","course_name": "Giáo dục Quốc phòng và An ninh 1 ","credit": 4,"theory_credit": 4,"practical_credit": 0,"midterm_score": 8.75,"final_score": 10,"theory_scores": [
     5.5,
     6.5,
     5
-  ],
-  "overall_score": 8.758333,
-  "status": "PASSED"
-},
-{
-  "_id": {
-    "$oid": "663a2581ea942f6d785be3cf"
-  },
-  "class_id": "420300324523101",
-  "student_id": "21082081",
-  "course_id": "4203003245",
-  "course_name": "Tiếng Việt thực hành",
-  "credit": 3,
-  "theory_credit": 3,
-  "practical_credit": 0,
-  "midterm_score": 6.5,
-  "final_score": 8.25,
-  "theory_scores": [
+  ],"overall_score": 8.758333,"status": "PASSED"},
+{"class_id": "420300324523101","student_id": "21082081","course_id": "4203003245","course_name": "Tiếng Việt thực hành","credit": 3,"theory_credit": 3,"practical_credit": 0,"midterm_score": 6.5,"final_score": 8.25,"theory_scores": [
     7.25,
     5.75,
     7.5
-  ],
-  "overall_score": 7.4416666,
-  "status": "PASSED"
-},
-{
-  "_id": {
-    "$oid": "663a2581ea942f6d785be3d0"
-  },
-  "class_id": "420300325921101",
-  "student_id": "21082081",
-  "course_id": "4203003259",
-  "course_name": "Toán cao cấp 1",
-  "credit": 2,
-  "theory_credit": 2,
-  "practical_credit": 0,
-  "midterm_score": 5.25,
-  "final_score": 8.25,
-  "theory_scores": [
+  ],"overall_score": 7.4416666,"status": "PASSED"},
+{"class_id": "420300325921101","student_id": "21082081","course_id": "4203003259","course_name": "Toán cao cấp 1","credit": 2,"theory_credit": 2,"practical_credit": 0,"midterm_score": 5.25,"final_score": 8.25,"theory_scores": [
     5.25,
     7.5,
     4.75
-  ],
-  "overall_score": 6.866667,
-  "status": "PASSED"
-},
-{
-  "_id": {
-    "$oid": "663a2581ea942f6d785be3d1"
-  },
-  "class_id": "420300328822103",
-  "student_id": "21082081",
-  "course_id": "4203003288",
-  "course_name": "Toán cao cấp 2",
-  "credit": 2,
-  "theory_credit": 2,
-  "practical_credit": 0,
-  "midterm_score": 10,
-  "final_score": 9,
-  "theory_scores": [
+  ],"overall_score": 6.866667,"status": "PASSED"},
+{"class_id": "420300328822103","student_id": "21082081","course_id": "4203003288","course_name": "Toán cao cấp 2","credit": 2,"theory_credit": 2,"practical_credit": 0,"midterm_score": 10,"final_score": 9,"theory_scores": [
     10,
     8.75,
     5
-  ],
-  "overall_score": 9.083333,
-  "status": "PASSED"
-},
-{
-  "_id": {
-    "$oid": "663a2581ea942f6d785be3d2"
-  },
-  "class_id": "420300330621201",
-  "student_id": "21082081",
-  "course_id": "4203003306",
-  "course_name": "Giáo dục thể chất 2 ",
-  "credit": 2,
-  "theory_credit": 0,
-  "practical_credit": 2,
-  "midterm_score": 4,
-  "final_score": 10,
-  "practical_scores": [
+  ],"overall_score": 9.083333,"status": "PASSED"},
+{"class_id": "420300330621201","student_id": "21082081","course_id": "4203003306","course_name": "Giáo dục thể chất 2 ","credit": 2,"theory_credit": 0,"practical_credit": 2,"midterm_score": 4,"final_score": 10,"practical_scores": [
     5.75,
     10,
     9.25
-  ],
-  "overall_score": 7.8666663,
-  "status": "PASSED"
-},
-{
-  "_id": {
-    "$oid": "663a2581ea942f6d785be3d3"
-  },
-  "class_id": "420300330721102",
-  "student_id": "21082081",
-  "course_id": "4203003307",
-  "course_name": "Giáo dục thể chất 1 ",
-  "credit": 2,
-  "theory_credit": 0,
-  "practical_credit": 2,
-  "midterm_score": 8.25,
-  "final_score": 6,
-  "practical_scores": [
+  ],"overall_score": 7.8666663,"status": "PASSED"},
+{"class_id": "420300330721102","student_id": "21082081","course_id": "4203003307","course_name": "Giáo dục thể chất 1 ","credit": 2,"theory_credit": 0,"practical_credit": 2,"midterm_score": 8.25,"final_score": 6,"practical_scores": [
     5.75,
     9.5,
     10
-  ],
-  "overall_score": 7.158334,
-  "status": "PASSED"
-},
-{
-  "_id": {
-    "$oid": "663a2581ea942f6d785be3d4"
-  },
-  "class_id": "420300332021201",
-  "student_id": "21082081",
-  "course_id": "4203003320",
-  "course_name": "Phương pháp tính",
-  "credit": 3,
-  "theory_credit": 3,
-  "practical_credit": 0,
-  "midterm_score": 7,
-  "final_score": 6.25,
-  "theory_scores": [
+  ],"overall_score": 7.158334,"status": "PASSED"},
+{"class_id": "420300332021201","student_id": "21082081","course_id": "4203003320","course_name": "Phương pháp tính","credit": 3,"theory_credit": 3,"practical_credit": 0,"midterm_score": 7,"final_score": 6.25,"theory_scores": [
     8.5,
     4.25,
     7.25
-  ],
-  "overall_score": 6.558334,
-  "status": "PASSED"
-},
-{
-  "_id": {
-    "$oid": "663a2581ea942f6d785be3d5"
-  },
-  "class_id": "420300334723203",
-  "student_id": "21082081",
-  "course_id": "4203003347",
-  "course_name": "Những vấn đề xã hội và đạo đức nghề nghiệp",
-  "credit": 3,
-  "theory_credit": 3,
-  "practical_credit": 0,
-  "midterm_score": 10,
-  "final_score": 5.25,
-  "theory_scores": [
+  ],"overall_score": 6.558334,"status": "PASSED"},
+{"class_id": "420300334723203","student_id": "21082081","course_id": "4203003347","course_name": "Những vấn đề xã hội và đạo đức nghề nghiệp","credit": 3,"theory_credit": 3,"practical_credit": 0,"midterm_score": 10,"final_score": 5.25,"theory_scores": [
     8.75,
     4.5,
     8
-  ],
-  "overall_score": 7.041667,
-  "status": "PASSED"
-},
-{
-  "_id": {
-    "$oid": "663a2581ea942f6d785be3d6"
-  },
-  "class_id": "420300335421201",
-  "student_id": "21082081",
-  "course_id": "4203003354",
-  "course_name": "Giáo dục quốc phòng và an ninh 2",
-  "credit": 4,
-  "theory_credit": 2,
-  "practical_credit": 2,
-  "midterm_score": 10,
-  "final_score": 9.5,
-  "practical_scores": [
+  ],"overall_score": 7.041667,"status": "PASSED"},
+{"class_id": "420300335421201","student_id": "21082081","course_id": "4203003354","course_name": "Giáo dục quốc phòng và an ninh 2","credit": 4,"theory_credit": 2,"practical_credit": 2,"midterm_score": 10,"final_score": 9.5,"practical_scores": [
     9,
     10,
     9.5
@@ -2868,24 +2440,8 @@ db.semesterSummary.insertMany([{
     10,
     7.25,
     7.5
-  ],
-  "overall_score": 9.525,
-  "status": "PASSED"
-},
-{
-  "_id": {
-    "$oid": "663a2581ea942f6d785be3d7"
-  },
-  "class_id": "420300345123201",
-  "student_id": "21082081",
-  "course_id": "4203003451",
-  "course_name": "Thống kê máy tính và ứng dụng",
-  "credit": 3,
-  "theory_credit": 2,
-  "practical_credit": 1,
-  "midterm_score": 8,
-  "final_score": 10,
-  "practical_scores": [
+  ],"overall_score": 9.525,"status": "PASSED"},
+{"class_id": "420300345123201","student_id": "21082081","course_id": "4203003451","course_name": "Thống kê máy tính và ứng dụng","credit": 3,"theory_credit": 2,"practical_credit": 1,"midterm_score": 8,"final_score": 10,"practical_scores": [
     6.25,
     8,
     5.75
@@ -2894,24 +2450,8 @@ db.semesterSummary.insertMany([{
     8.5,
     7,
     7.25
-  ],
-  "overall_score": 8.825,
-  "status": "PASSED"
-},
-{
-  "_id": {
-    "$oid": "663a2581ea942f6d785be3d8"
-  },
-  "class_id": "420300350123102",
-  "student_id": "21082081",
-  "course_id": "4203003501",
-  "course_name": "Phát triển ứng dụng",
-  "credit": 3,
-  "theory_credit": 2,
-  "practical_credit": 1,
-  "midterm_score": 6.5,
-  "final_score": 6.25,
-  "practical_scores": [
+  ],"overall_score": 8.825,"status": "PASSED"},
+{"class_id": "420300350123102","student_id": "21082081","course_id": "4203003501","course_name": "Phát triển ứng dụng","credit": 3,"theory_credit": 2,"practical_credit": 1,"midterm_score": 6.5,"final_score": 6.25,"practical_scores": [
     6,
     5.75,
     5
@@ -2920,24 +2460,8 @@ db.semesterSummary.insertMany([{
     7.25,
     7.5,
     4.75
-  ],
-  "overall_score": 6.2833333,
-  "status": "PASSED"
-},
-{
-  "_id": {
-    "$oid": "663a2581ea942f6d785be3d9"
-  },
-  "class_id": "420300359122101",
-  "student_id": "21082081",
-  "course_id": "4203003591",
-  "course_name": "Lập trình hướng đối tượng",
-  "credit": 3,
-  "theory_credit": 2,
-  "practical_credit": 1,
-  "midterm_score": 9.75,
-  "final_score": 10,
-  "practical_scores": [
+  ],"overall_score": 6.2833333,"status": "PASSED"},
+{"class_id": "420300359122101","student_id": "21082081","course_id": "4203003591","course_name": "Lập trình hướng đối tượng","credit": 3,"theory_credit": 2,"practical_credit": 1,"midterm_score": 9.75,"final_score": 10,"practical_scores": [
     10,
     4,
     10
@@ -2946,24 +2470,8 @@ db.semesterSummary.insertMany([{
     10,
     10,
     6
-  ],
-  "overall_score": 9.591667,
-  "status": "PASSED"
-},
-{
-  "_id": {
-    "$oid": "663a2581ea942f6d785be3da"
-  },
-  "class_id": "420300359224101",
-  "student_id": "21082081",
-  "course_id": "4203003592",
-  "course_name": "Đảm bảo chất lượng và Kiểm thử phần mềm",
-  "credit": 3,
-  "theory_credit": 2,
-  "practical_credit": 1,
-  "midterm_score": 8.25,
-  "final_score": 5,
-  "practical_scores": [
+  ],"overall_score": 9.591667,"status": "PASSED"},
+{"class_id": "420300359224101","student_id": "21082081","course_id": "4203003592","course_name": "Đảm bảo chất lượng và Kiểm thử phần mềm","credit": 3,"theory_credit": 2,"practical_credit": 1,"midterm_score": 8.25,"final_score": 5,"practical_scores": [
     7.75,
     7.25,
     6.25
@@ -2972,24 +2480,8 @@ db.semesterSummary.insertMany([{
     5,
     5.5,
     6.25
-  ],
-  "overall_score": 6.2416673,
-  "status": "PASSED"
-},
-{
-  "_id": {
-    "$oid": "663a2581ea942f6d785be3db"
-  },
-  "class_id": "420300362124101",
-  "student_id": "21082081",
-  "course_id": "4203003621",
-  "course_name": "Lập trình WWW (Java)",
-  "credit": 4,
-  "theory_credit": 3,
-  "practical_credit": 1,
-  "midterm_score": 7.75,
-  "final_score": 9.75,
-  "practical_scores": [
+  ],"overall_score": 6.2416673,"status": "PASSED"},
+{"class_id": "420300362124101","student_id": "21082081","course_id": "4203003621","course_name": "Lập trình WWW (Java)","credit": 4,"theory_credit": 3,"practical_credit": 1,"midterm_score": 7.75,"final_score": 9.75,"practical_scores": [
     10,
     5.75,
     10
@@ -2998,24 +2490,8 @@ db.semesterSummary.insertMany([{
     5,
     5,
     8.5
-  ],
-  "overall_score": 8.675,
-  "status": "PASSED"
-},
-{
-  "_id": {
-    "$oid": "663a2581ea942f6d785be3dc"
-  },
-  "class_id": "420300375322201",
-  "student_id": "21082081",
-  "course_id": "4203003753",
-  "course_name": "Phân tích thiết kế hệ thống",
-  "credit": 3,
-  "theory_credit": 2,
-  "practical_credit": 1,
-  "midterm_score": 8.75,
-  "final_score": 9.75,
-  "practical_scores": [
+  ],"overall_score": 8.675,"status": "PASSED"},
+{"class_id": "420300375322201","student_id": "21082081","course_id": "4203003753","course_name": "Phân tích thiết kế hệ thống","credit": 3,"theory_credit": 2,"practical_credit": 1,"midterm_score": 8.75,"final_score": 9.75,"practical_scores": [
     7.5,
     10,
     5.25
@@ -3024,66 +2500,18 @@ db.semesterSummary.insertMany([{
     8.75,
     4.75,
     10
-  ],
-  "overall_score": 9.041667,
-  "status": "PASSED"
-},
-{
-  "_id": {
-    "$oid": "663a2581ea942f6d785be3dd"
-  },
-  "class_id": "420300384821103",
-  "student_id": "21082081",
-  "course_id": "4203003848",
-  "course_name": "Nhập môn Lập trình",
-  "credit": 2,
-  "theory_credit": 0,
-  "practical_credit": 2,
-  "midterm_score": 10,
-  "final_score": 4.25,
-  "practical_scores": [
+  ],"overall_score": 9.041667,"status": "PASSED"},
+{"class_id": "420300384821103","student_id": "21082081","course_id": "4203003848","course_name": "Nhập môn Lập trình","credit": 2,"theory_credit": 0,"practical_credit": 2,"midterm_score": 10,"final_score": 4.25,"practical_scores": [
     10,
     5.25,
     6.5
-  ],
-  "overall_score": 6.575,
-  "status": "PASSED"
-},
-{
-  "_id": {
-    "$oid": "663a2581ea942f6d785be3de"
-  },
-  "class_id": "420301416421101",
-  "student_id": "21082081",
-  "course_id": "4203014164",
-  "course_name": "Triết học Mác - Lênin",
-  "credit": 3,
-  "theory_credit": 3,
-  "practical_credit": 0,
-  "midterm_score": 10,
-  "final_score": 10,
-  "theory_scores": [
+  ],"overall_score": 6.575,"status": "PASSED"},
+{"class_id": "420301416421101","student_id": "21082081","course_id": "4203014164","course_name": "Triết học Mác - Lênin","credit": 3,"theory_credit": 3,"practical_credit": 0,"midterm_score": 10,"final_score": 10,"theory_scores": [
     8.5,
     8.5,
     7.25
-  ],
-  "overall_score": 9.616667,
-  "status": "PASSED"
-},
-{
-  "_id": {
-    "$oid": "663a2581ea942f6d785be3df"
-  },
-  "class_id": "420301416622201",
-  "student_id": "21082081",
-  "course_id": "4203014166",
-  "course_name": "Hệ quản trị cơ sở dữ liệu NoSQL MongoDB",
-  "credit": 3,
-  "theory_credit": 2,
-  "practical_credit": 1,
-  "midterm_score": 4.25,
-  "final_score": 4.75,
-  "practical_scores": [
+  ],"overall_score": 9.616667,"status": "PASSED"},
+{"class_id": "420301416622201","student_id": "21082081","course_id": "4203014166","course_name": "Hệ quản trị cơ sở dữ liệu NoSQL MongoDB","credit": 3,"theory_credit": 2,"practical_credit": 1,"midterm_score": 4.25,"final_score": 4.75,"practical_scores": [
     6,
     6.5,
     4.5
@@ -3092,129 +2520,33 @@ db.semesterSummary.insertMany([{
     9,
     8.5,
     4.75
-  ],
-  "overall_score": 4.9583335,
-  "status": "FAILED"
-},
-{
-  "_id": {
-    "$oid": "663a2581ea942f6d785be3e0"
-  },
-  "class_id": "420301416823101",
-  "student_id": "21082081",
-  "course_id": "4203014168",
-  "course_name": "Mô hình hóa dữ liệu NoSQL MongoDB",
-  "credit": 3,
-  "theory_credit": 3,
-  "practical_credit": 0,
-  "midterm_score": 4.5,
-  "final_score": 4.5,
-  "theory_scores": [
+  ],"overall_score": 4.9583335,"status": "FAILED"},
+{"class_id": "420301416823101","student_id": "21082081","course_id": "4203014168","course_name": "Mô hình hóa dữ liệu NoSQL MongoDB","credit": 3,"theory_credit": 3,"practical_credit": 0,"midterm_score": 4.5,"final_score": 4.5,"theory_scores": [
     7,
     8.25,
     10
-  ],
-  "overall_score": 5.2833333,
-  "status": "PASSED"
-},
-{
-  "_id": {
-    "$oid": "663a2581ea942f6d785be3e1"
-  },
-  "class_id": "420301525321101",
-  "student_id": "21082081",
-  "course_id": "4203015253",
-  "course_name": "Tiếng Anh 1",
-  "credit": 3,
-  "theory_credit": 3,
-  "practical_credit": 0,
-  "midterm_score": 6.5,
-  "final_score": 4.75,
-  "theory_scores": [
+  ],"overall_score": 5.2833333,"status": "PASSED"},
+{"class_id": "420301525321101","student_id": "21082081","course_id": "4203015253","course_name": "Tiếng Anh 1","credit": 3,"theory_credit": 3,"practical_credit": 0,"midterm_score": 6.5,"final_score": 4.75,"theory_scores": [
     4.25,
     7.5,
     10
-  ],
-  "overall_score": 5.7749996,
-  "status": "PASSED"
-},
-{
-  "_id": {
-    "$oid": "663a2581ea942f6d785be3e2"
-  },
-  "class_id": "42030152542210",
-  "student_id": "21082081",
-  "course_id": "4203015254",
-  "course_name": "Tiếng Anh 2",
-  "credit": 3,
-  "theory_credit": 3,
-  "practical_credit": 0,
-  "midterm_score": 9.25,
-  "final_score": 5,
-  "theory_scores": [
+  ],"overall_score": 5.7749996,"status": "PASSED"},
+{"class_id": "42030152542210","student_id": "21082081","course_id": "4203015254","course_name": "Tiếng Anh 2","credit": 3,"theory_credit": 3,"practical_credit": 0,"midterm_score": 9.25,"final_score": 5,"theory_scores": [
     8.5,
     5.75,
     6.75
-  ],
-  "overall_score": 6.675,
-  "status": "PASSED"
-},
-{
-  "_id": {
-    "$oid": "663a25e0ea942f6d785be3e4"
-  },
-  "class_id": "420300090122102",
-  "student_id": "21082081",
-  "course_id": "4203000901",
-  "course_name": "Cấu trúc rời rạc",
-  "credit": 3,
-  "theory_credit": 3,
-  "practical_credit": 0,
-  "midterm_score": 8.75,
-  "final_score": 8.5,
-  "theory_scores": [
+  ],"overall_score": 6.675,"status": "PASSED"},
+{"class_id": "420300090122102","student_id": "21082081","course_id": "4203000901","course_name": "Cấu trúc rời rạc","credit": 3,"theory_credit": 3,"practical_credit": 0,"midterm_score": 8.75,"final_score": 8.5,"theory_scores": [
     10,
     9,
     6.75
-  ],
-  "overall_score": 8.591666,
-  "status": "PASSED"
-},
-{
-  "_id": {
-    "$oid": "663a25e0ea942f6d785be3e5"
-  },
-  "class_id": "420300090823102",
-  "student_id": "21082081",
-  "course_id": "4203000908",
-  "course_name": "Lý thuyết đồ thị",
-  "credit": 3,
-  "theory_credit": 3,
-  "practical_credit": 0,
-  "midterm_score": 5.5,
-  "final_score": 7.25,
-  "theory_scores": [
+  ],"overall_score": 8.591666,"status": "PASSED"},
+{"class_id": "420300090823102","student_id": "21082081","course_id": "4203000908","course_name": "Lý thuyết đồ thị","credit": 3,"theory_credit": 3,"practical_credit": 0,"midterm_score": 5.5,"final_score": 7.25,"theory_scores": [
     9.25,
     4.5,
     6.25
-  ],
-  "overall_score": 6.6083336,
-  "status": "PASSED"
-},
-{
-  "_id": {
-    "$oid": "663a25e0ea942f6d785be3e6"
-  },
-  "class_id": "420300094121201",
-  "student_id": "21082081",
-  "course_id": "4203000941",
-  "course_name": "Kỹ thuật lập trình",
-  "credit": 3,
-  "theory_credit": 1,
-  "practical_credit": 2,
-  "midterm_score": 9.25,
-  "final_score": 9.5,
-  "practical_scores": [
+  ],"overall_score": 6.6083336,"status": "PASSED"},
+{"class_id": "420300094121201","student_id": "21082081","course_id": "4203000941","course_name": "Kỹ thuật lập trình","credit": 3,"theory_credit": 1,"practical_credit": 2,"midterm_score": 9.25,"final_score": 9.5,"practical_scores": [
     10,
     10,
     5.75
@@ -3223,24 +2555,8 @@ db.semesterSummary.insertMany([{
     9.75,
     10,
     5.25
-  ],
-  "overall_score": 9.216667,
-  "status": "PASSED"
-},
-{
-  "_id": {
-    "$oid": "663a25e0ea942f6d785be3e7"
-  },
-  "class_id": "420300094222101",
-  "student_id": "21082081",
-  "course_id": "4203000942",
-  "course_name": "Cấu trúc dữ liệu và giải thuật",
-  "credit": 4,
-  "theory_credit": 3,
-  "practical_credit": 1,
-  "midterm_score": 6.75,
-  "final_score": 9.5,
-  "practical_scores": [
+  ],"overall_score": 9.216667,"status": "PASSED"},
+{"class_id": "420300094222101","student_id": "21082081","course_id": "4203000942","course_name": "Cấu trúc dữ liệu và giải thuật","credit": 4,"theory_credit": 3,"practical_credit": 1,"midterm_score": 6.75,"final_score": 9.5,"practical_scores": [
     5.25,
     7.5,
     4
@@ -3249,87 +2565,23 @@ db.semesterSummary.insertMany([{
     9.75,
     6.25,
     6
-  ],
-  "overall_score": 8.066667,
-  "status": "PASSED"
-},
-{
-  "_id": {
-    "$oid": "663a25e0ea942f6d785be3e8"
-  },
-  "class_id": "420300100423202",
-  "student_id": "21082081",
-  "course_id": "4203001004",
-  "course_name": "Nhập môn an toàn thông tin",
-  "credit": 3,
-  "theory_credit": 3,
-  "practical_credit": 0,
-  "midterm_score": 8.5,
-  "final_score": 4.25,
-  "theory_scores": [
+  ],"overall_score": 8.066667,"status": "PASSED"},
+{"class_id": "420300100423202","student_id": "21082081","course_id": "4203001004","course_name": "Nhập môn an toàn thông tin","credit": 3,"theory_credit": 3,"practical_credit": 0,"midterm_score": 8.5,"final_score": 4.25,"theory_scores": [
     9.75,
     6.5,
     4.25
-  ],
-  "overall_score": 6.041667,
-  "status": "PASSED"
-},
-{
-  "_id": {
-    "$oid": "663a25e0ea942f6d785be3e9"
-  },
-  "class_id": "420300105822201",
-  "student_id": "21082081",
-  "course_id": "4203001058",
-  "course_name": "Mạng máy tính",
-  "credit": 3,
-  "theory_credit": 3,
-  "practical_credit": 0,
-  "midterm_score": 6.5,
-  "final_score": 6.25,
-  "theory_scores": [
+  ],"overall_score": 6.041667,"status": "PASSED"},
+{"class_id": "420300105822201","student_id": "21082081","course_id": "4203001058","course_name": "Mạng máy tính","credit": 3,"theory_credit": 3,"practical_credit": 0,"midterm_score": 6.5,"final_score": 6.25,"theory_scores": [
     6.25,
     9.75,
     9.25
-  ],
-  "overall_score": 6.758333,
-  "status": "PASSED"
-},
-{
-  "_id": {
-    "$oid": "663a25e0ea942f6d785be3ea"
-  },
-  "class_id": "420300111123201",
-  "student_id": "21082081",
-  "course_id": "4203001111",
-  "course_name": "Công nghệ phần mềm",
-  "credit": 3,
-  "theory_credit": 3,
-  "practical_credit": 0,
-  "midterm_score": 6.25,
-  "final_score": 10,
-  "theory_scores": [
+  ],"overall_score": 6.758333,"status": "PASSED"},
+{"class_id": "420300111123201","student_id": "21082081","course_id": "4203001111","course_name": "Công nghệ phần mềm","credit": 3,"theory_credit": 3,"practical_credit": 0,"midterm_score": 6.25,"final_score": 10,"theory_scores": [
     7,
     5,
     10
-  ],
-  "overall_score": 8.341667,
-  "status": "PASSED"
-},
-{
-  "_id": {
-    "$oid": "663a25e0ea942f6d785be3eb"
-  },
-  "class_id": "420300114622103",
-  "student_id": "21082081",
-  "course_id": "4203001146",
-  "course_name": "Hệ cơ sở dữ liệu",
-  "credit": 4,
-  "theory_credit": 3,
-  "practical_credit": 1,
-  "midterm_score": 10,
-  "final_score": 9.75,
-  "practical_scores": [
+  ],"overall_score": 8.341667,"status": "PASSED"},
+{"class_id": "420300114622103","student_id": "21082081","course_id": "4203001146","course_name": "Hệ cơ sở dữ liệu","credit": 4,"theory_credit": 3,"practical_credit": 1,"midterm_score": 10,"final_score": 9.75,"practical_scores": [
     6.5,
     4.75,
     6.5
@@ -3338,24 +2590,8 @@ db.semesterSummary.insertMany([{
     8.75,
     10,
     6
-  ],
-  "overall_score": 9.291667,
-  "status": "PASSED"
-},
-{
-  "_id": {
-    "$oid": "663a25e0ea942f6d785be3ec"
-  },
-  "class_id": "420300120722202",
-  "student_id": "21082081",
-  "course_id": "4203001207",
-  "course_name": "Hệ quản trị cơ sở dữ liệu",
-  "credit": 3,
-  "theory_credit": 2,
-  "practical_credit": 1,
-  "midterm_score": 7.5,
-  "final_score": 10,
-  "practical_scores": [
+  ],"overall_score": 9.291667,"status": "PASSED"},
+{"class_id": "420300120722202","student_id": "21082081","course_id": "4203001207","course_name": "Hệ quản trị cơ sở dữ liệu","credit": 3,"theory_credit": 2,"practical_credit": 1,"midterm_score": 7.5,"final_score": 10,"practical_scores": [
     10,
     6.25,
     10
@@ -3364,24 +2600,8 @@ db.semesterSummary.insertMany([{
     10,
     4.75,
     9.75
-  ],
-  "overall_score": 8.941667,
-  "status": "PASSED"
-},
-{
-  "_id": {
-    "$oid": "663a25e0ea942f6d785be3ed"
-  },
-  "class_id": "420300143224101",
-  "student_id": "21082081",
-  "course_id": "4203001432",
-  "course_name": "Lập trình thiết bị di động",
-  "credit": 4,
-  "theory_credit": 3,
-  "practical_credit": 1,
-  "midterm_score": 9,
-  "final_score": 9.25,
-  "practical_scores": [
+  ],"overall_score": 8.941667,"status": "PASSED"},
+{"class_id": "420300143224101","student_id": "21082081","course_id": "4203001432","course_name": "Lập trình thiết bị di động","credit": 4,"theory_credit": 3,"practical_credit": 1,"midterm_score": 9,"final_score": 9.25,"practical_scores": [
     5.25,
     6.5,
     7.75
@@ -3390,45 +2610,13 @@ db.semesterSummary.insertMany([{
     7.75,
     4.25,
     10
-  ],
-  "overall_score": 8.708333,
-  "status": "PASSED"
-},
-{
-  "_id": {
-    "$oid": "663a25e0ea942f6d785be3ee"
-  },
-  "class_id": "420300200921101",
-  "student_id": "21082081",
-  "course_id": "4203002009",
-  "course_name": "Nhập môn Tin học",
-  "credit": 2,
-  "theory_credit": 2,
-  "practical_credit": 0,
-  "midterm_score": 9,
-  "final_score": 6.25,
-  "theory_scores": [
+  ],"overall_score": 8.708333,"status": "PASSED"},
+{"class_id": "420300200921101","student_id": "21082081","course_id": "4203002009","course_name": "Nhập môn Tin học","credit": 2,"theory_credit": 2,"practical_credit": 0,"midterm_score": 9,"final_score": 6.25,"theory_scores": [
     4.25,
     10,
     5
-  ],
-  "overall_score": 7.108333,
-  "status": "PASSED"
-},
-{
-  "_id": {
-    "$oid": "663a25e0ea942f6d785be3ef"
-  },
-  "class_id": "420300207022201",
-  "student_id": "21082081",
-  "course_id": "4203002070",
-  "course_name": "Lập trình hướng sự kiện với công nghệ Java",
-  "credit": 4,
-  "theory_credit": 3,
-  "practical_credit": 1,
-  "midterm_score": 9.25,
-  "final_score": 9.5,
-  "practical_scores": [
+  ],"overall_score": 7.108333,"status": "PASSED"},
+{"class_id": "420300207022201","student_id": "21082081","course_id": "4203002070","course_name": "Lập trình hướng sự kiện với công nghệ Java","credit": 4,"theory_credit": 3,"practical_credit": 1,"midterm_score": 9.25,"final_score": 9.5,"practical_scores": [
     7,
     5.25,
     4.5
@@ -3437,24 +2625,8 @@ db.semesterSummary.insertMany([{
     8.75,
     9.75,
     10
-  ],
-  "overall_score": 9.033334,
-  "status": "PASSED"
-},
-{
-  "_id": {
-    "$oid": "663a25e0ea942f6d785be3f0"
-  },
-  "class_id": "420300213721203",
-  "student_id": "21082081",
-  "course_id": "4203002137",
-  "course_name": "Hệ Thống Máy tính",
-  "credit": 4,
-  "theory_credit": 1,
-  "practical_credit": 3,
-  "midterm_score": 6.5,
-  "final_score": 7,
-  "practical_scores": [
+  ],"overall_score": 9.033334,"status": "PASSED"},
+{"class_id": "420300213721203","student_id": "21082081","course_id": "4203002137","course_name": "Hệ Thống Máy tính","credit": 4,"theory_credit": 1,"practical_credit": 3,"midterm_score": 6.5,"final_score": 7,"practical_scores": [
     4.25,
     9.25,
     5.5
@@ -3463,24 +2635,8 @@ db.semesterSummary.insertMany([{
     9.75,
     8.5,
     5.75
-  ],
-  "overall_score": 6.883333,
-  "status": "PASSED"
-},
-{
-  "_id": {
-    "$oid": "663a25e0ea942f6d785be3f1"
-  },
-  "class_id": "420300214522201",
-  "student_id": "21082081",
-  "course_id": "4203002145",
-  "course_name": "Hệ Thống và Công nghệ Web",
-  "credit": 3,
-  "theory_credit": 2,
-  "practical_credit": 1,
-  "midterm_score": 10,
-  "final_score": 7.75,
-  "practical_scores": [
+  ],"overall_score": 6.883333,"status": "PASSED"},
+{"class_id": "420300214522201","student_id": "21082081","course_id": "4203002145","course_name": "Hệ Thống và Công nghệ Web","credit": 3,"theory_credit": 2,"practical_credit": 1,"midterm_score": 10,"final_score": 7.75,"practical_scores": [
     5.25,
     5,
     7.25
@@ -3489,24 +2645,8 @@ db.semesterSummary.insertMany([{
     6.5,
     7.5,
     9
-  ],
-  "overall_score": 8.225,
-  "status": "PASSED"
-},
-{
-  "_id": {
-    "$oid": "663a25e0ea942f6d785be3f2"
-  },
-  "class_id": "420300214623201",
-  "student_id": "21082081",
-  "course_id": "4203002146",
-  "course_name": "Lập trình phân tán với công nghệ Java",
-  "credit": 3,
-  "theory_credit": 2,
-  "practical_credit": 1,
-  "midterm_score": 4,
-  "final_score": 5.25,
-  "practical_scores": [
+  ],"overall_score": 8.225,"status": "PASSED"},
+{"class_id": "420300214623201","student_id": "21082081","course_id": "4203002146","course_name": "Lập trình phân tán với công nghệ Java","credit": 3,"theory_credit": 2,"practical_credit": 1,"midterm_score": 4,"final_score": 5.25,"practical_scores": [
     4,
     9.25,
     9
@@ -3515,255 +2655,63 @@ db.semesterSummary.insertMany([{
     7.5,
     7.5,
     8.25
-  ],
-  "overall_score": 5.3416667,
-  "status": "PASSED"
-},
-{
-  "_id": {
-    "$oid": "663a25e0ea942f6d785be3f3"
-  },
-  "class_id": "420300242224103",
-  "student_id": "21082081",
-  "course_id": "4203002422",
-  "course_name": "Pháp luật đại cương",
-  "credit": 2,
-  "theory_credit": 2,
-  "practical_credit": 0,
-  "midterm_score": 8.25,
-  "final_score": 4,
-  "theory_scores": [
+  ],"overall_score": 5.3416667,"status": "PASSED"},
+{"class_id": "420300242224103","student_id": "21082081","course_id": "4203002422","course_name": "Pháp luật đại cương","credit": 2,"theory_credit": 2,"practical_credit": 0,"midterm_score": 8.25,"final_score": 4,"theory_scores": [
     9.5,
     4,
     9.5
-  ],
-  "overall_score": 6.0083337,
-  "status": "PASSED"
-},
-{
-  "_id": {
-    "$oid": "663a25e0ea942f6d785be3f4"
-  },
-  "class_id": "420300319221101",
-  "student_id": "21082081",
-  "course_id": "4203003192",
-  "course_name": "Kỹ năng làm việc nhóm",
-  "credit": 2,
-  "theory_credit": 2,
-  "practical_credit": 0,
-  "midterm_score": 6,
-  "final_score": 9.5,
-  "theory_scores": [
+  ],"overall_score": 6.0083337,"status": "PASSED"},
+{"class_id": "420300319221101","student_id": "21082081","course_id": "4203003192","course_name": "Kỹ năng làm việc nhóm","credit": 2,"theory_credit": 2,"practical_credit": 0,"midterm_score": 6,"final_score": 9.5,"theory_scores": [
     9.25,
     10,
     7.5
-  ],
-  "overall_score": 8.333334,
-  "status": "PASSED"
-},
-{
-  "_id": {
-    "$oid": "663a25e0ea942f6d785be3f5"
-  },
-  "class_id": "420300319823101",
-  "student_id": "21082081",
-  "course_id": "4203003198",
-  "course_name": "Phương pháp luận nghiên cứu khoa học",
-  "credit": 2,
-  "theory_credit": 2,
-  "practical_credit": 0,
-  "midterm_score": 9.75,
-  "final_score": 10,
-  "theory_scores": [
+  ],"overall_score": 8.333334,"status": "PASSED"},
+{"class_id": "420300319823101","student_id": "21082081","course_id": "4203003198","course_name": "Phương pháp luận nghiên cứu khoa học","credit": 2,"theory_credit": 2,"practical_credit": 0,"midterm_score": 9.75,"final_score": 10,"theory_scores": [
     7.25,
     6.75,
     5.25
-  ],
-  "overall_score": 9.208334,
-  "status": "PASSED"
-},
-{
-  "_id": {
-    "$oid": "663a25e0ea942f6d785be3f6"
-  },
-  "class_id": "420300324221101",
-  "student_id": "21082081",
-  "course_id": "4203003242",
-  "course_name": "Giáo dục Quốc phòng và An ninh 1 ",
-  "credit": 4,
-  "theory_credit": 4,
-  "practical_credit": 0,
-  "midterm_score": 4.25,
-  "final_score": 7.25,
-  "theory_scores": [
+  ],"overall_score": 9.208334,"status": "PASSED"},
+{"class_id": "420300324221101","student_id": "21082081","course_id": "4203003242","course_name": "Giáo dục Quốc phòng và An ninh 1 ","credit": 4,"theory_credit": 4,"practical_credit": 0,"midterm_score": 4.25,"final_score": 7.25,"theory_scores": [
     8,
     9.75,
     4.75
-  ],
-  "overall_score": 6.4,
-  "status": "PASSED"
-},
-{
-  "_id": {
-    "$oid": "663a25e0ea942f6d785be3f7"
-  },
-  "class_id": "420300324523101",
-  "student_id": "21082081",
-  "course_id": "4203003245",
-  "course_name": "Tiếng Việt thực hành",
-  "credit": 3,
-  "theory_credit": 3,
-  "practical_credit": 0,
-  "midterm_score": 5.75,
-  "final_score": 7.5,
-  "theory_scores": [
+  ],"overall_score": 6.4,"status": "PASSED"},
+{"class_id": "420300324523101","student_id": "21082081","course_id": "4203003245","course_name": "Tiếng Việt thực hành","credit": 3,"theory_credit": 3,"practical_credit": 0,"midterm_score": 5.75,"final_score": 7.5,"theory_scores": [
     9.5,
     10,
     6.25
-  ],
-  "overall_score": 7.1916666,
-  "status": "PASSED"
-},
-{
-  "_id": {
-    "$oid": "663a25e0ea942f6d785be3f8"
-  },
-  "class_id": "420300325921101",
-  "student_id": "21082081",
-  "course_id": "4203003259",
-  "course_name": "Toán cao cấp 1",
-  "credit": 2,
-  "theory_credit": 2,
-  "practical_credit": 0,
-  "midterm_score": 5,
-  "final_score": 9.75,
-  "theory_scores": [
+  ],"overall_score": 7.1916666,"status": "PASSED"},
+{"class_id": "420300325921101","student_id": "21082081","course_id": "4203003259","course_name": "Toán cao cấp 1","credit": 2,"theory_credit": 2,"practical_credit": 0,"midterm_score": 5,"final_score": 9.75,"theory_scores": [
     8.25,
     4.25,
     6.25
-  ],
-  "overall_score": 7.625,
-  "status": "PASSED"
-},
-{
-  "_id": {
-    "$oid": "663a25e0ea942f6d785be3f9"
-  },
-  "class_id": "420300328822103",
-  "student_id": "21082081",
-  "course_id": "4203003288",
-  "course_name": "Toán cao cấp 2",
-  "credit": 2,
-  "theory_credit": 2,
-  "practical_credit": 0,
-  "midterm_score": 10,
-  "final_score": 6.75,
-  "theory_scores": [
+  ],"overall_score": 7.625,"status": "PASSED"},
+{"class_id": "420300328822103","student_id": "21082081","course_id": "4203003288","course_name": "Toán cao cấp 2","credit": 2,"theory_credit": 2,"practical_credit": 0,"midterm_score": 10,"final_score": 6.75,"theory_scores": [
     6.5,
     7.5,
     8.75
-  ],
-  "overall_score": 7.891667,
-  "status": "PASSED"
-},
-{
-  "_id": {
-    "$oid": "663a25e0ea942f6d785be3fa"
-  },
-  "class_id": "420300330621201",
-  "student_id": "21082081",
-  "course_id": "4203003306",
-  "course_name": "Giáo dục thể chất 2 ",
-  "credit": 2,
-  "theory_credit": 0,
-  "practical_credit": 2,
-  "midterm_score": 7,
-  "final_score": 10,
-  "practical_scores": [
+  ],"overall_score": 7.891667,"status": "PASSED"},
+{"class_id": "420300330621201","student_id": "21082081","course_id": "4203003306","course_name": "Giáo dục thể chất 2 ","credit": 2,"theory_credit": 0,"practical_credit": 2,"midterm_score": 7,"final_score": 10,"practical_scores": [
     9.75,
     5.25,
     8
-  ],
-  "overall_score": 8.633333,
-  "status": "PASSED"
-},
-{
-  "_id": {
-    "$oid": "663a25e0ea942f6d785be3fb"
-  },
-  "class_id": "420300330721102",
-  "student_id": "21082081",
-  "course_id": "4203003307",
-  "course_name": "Giáo dục thể chất 1 ",
-  "credit": 2,
-  "theory_credit": 0,
-  "practical_credit": 2,
-  "midterm_score": 10,
-  "final_score": 6.5,
-  "practical_scores": [
+  ],"overall_score": 8.633333,"status": "PASSED"},
+{"class_id": "420300330721102","student_id": "21082081","course_id": "4203003307","course_name": "Giáo dục thể chất 1 ","credit": 2,"theory_credit": 0,"practical_credit": 2,"midterm_score": 10,"final_score": 6.5,"practical_scores": [
     10,
     7.5,
     10
-  ],
-  "overall_score": 8.083333,
-  "status": "PASSED"
-},
-{
-  "_id": {
-    "$oid": "663a25e0ea942f6d785be3fc"
-  },
-  "class_id": "420300332021201",
-  "student_id": "21082081",
-  "course_id": "4203003320",
-  "course_name": "Phương pháp tính",
-  "credit": 3,
-  "theory_credit": 3,
-  "practical_credit": 0,
-  "midterm_score": 6,
-  "final_score": 10,
-  "theory_scores": [
+  ],"overall_score": 8.083333,"status": "PASSED"},
+{"class_id": "420300332021201","student_id": "21082081","course_id": "4203003320","course_name": "Phương pháp tính","credit": 3,"theory_credit": 3,"practical_credit": 0,"midterm_score": 6,"final_score": 10,"theory_scores": [
     10,
     4.25,
     5.5
-  ],
-  "overall_score": 8.116667,
-  "status": "PASSED"
-},
-{
-  "_id": {
-    "$oid": "663a25e0ea942f6d785be3fd"
-  },
-  "class_id": "420300334723203",
-  "student_id": "21082081",
-  "course_id": "4203003347",
-  "course_name": "Những vấn đề xã hội và đạo đức nghề nghiệp",
-  "credit": 3,
-  "theory_credit": 3,
-  "practical_credit": 0,
-  "midterm_score": 9.5,
-  "final_score": 8,
-  "theory_scores": [
+  ],"overall_score": 8.116667,"status": "PASSED"},
+{"class_id": "420300334723203","student_id": "21082081","course_id": "4203003347","course_name": "Những vấn đề xã hội và đạo đức nghề nghiệp","credit": 3,"theory_credit": 3,"practical_credit": 0,"midterm_score": 9.5,"final_score": 8,"theory_scores": [
     8.25,
     6,
     6.5
-  ],
-  "overall_score": 8.233334,
-  "status": "PASSED"
-},
-{
-  "_id": {
-    "$oid": "663a25e0ea942f6d785be3fe"
-  },
-  "class_id": "420300335421201",
-  "student_id": "21082081",
-  "course_id": "4203003354",
-  "course_name": "Giáo dục quốc phòng và an ninh 2",
-  "credit": 4,
-  "theory_credit": 2,
-  "practical_credit": 2,
-  "midterm_score": 10,
-  "final_score": 8.5,
-  "practical_scores": [
+  ],"overall_score": 8.233334,"status": "PASSED"},
+{"class_id": "420300335421201","student_id": "21082081","course_id": "4203003354","course_name": "Giáo dục quốc phòng và an ninh 2","credit": 4,"theory_credit": 2,"practical_credit": 2,"midterm_score": 10,"final_score": 8.5,"practical_scores": [
     6.75,
     6.25,
     6.25
@@ -3772,24 +2720,8 @@ db.semesterSummary.insertMany([{
     8.5,
     10,
     7.25
-  ],
-  "overall_score": 8.75,
-  "status": "PASSED"
-},
-{
-  "_id": {
-    "$oid": "663a25e0ea942f6d785be3ff"
-  },
-  "class_id": "420300345123201",
-  "student_id": "21082081",
-  "course_id": "4203003451",
-  "course_name": "Thống kê máy tính và ứng dụng",
-  "credit": 3,
-  "theory_credit": 2,
-  "practical_credit": 1,
-  "midterm_score": 5.25,
-  "final_score": 6.75,
-  "practical_scores": [
+  ],"overall_score": 8.75,"status": "PASSED"},
+{"class_id": "420300345123201","student_id": "21082081","course_id": "4203003451","course_name": "Thống kê máy tính và ứng dụng","credit": 3,"theory_credit": 2,"practical_credit": 1,"midterm_score": 5.25,"final_score": 6.75,"practical_scores": [
     8.25,
     6.75,
     9
@@ -3798,24 +2730,8 @@ db.semesterSummary.insertMany([{
     7.5,
     4.75,
     8.75
-  ],
-  "overall_score": 6.45,
-  "status": "PASSED"
-},
-{
-  "_id": {
-    "$oid": "663a25e0ea942f6d785be400"
-  },
-  "class_id": "420300350123102",
-  "student_id": "21082081",
-  "course_id": "4203003501",
-  "course_name": "Phát triển ứng dụng",
-  "credit": 3,
-  "theory_credit": 2,
-  "practical_credit": 1,
-  "midterm_score": 5.75,
-  "final_score": 8.25,
-  "practical_scores": [
+  ],"overall_score": 6.45,"status": "PASSED"},
+{"class_id": "420300350123102","student_id": "21082081","course_id": "4203003501","course_name": "Phát triển ứng dụng","credit": 3,"theory_credit": 2,"practical_credit": 1,"midterm_score": 5.75,"final_score": 8.25,"practical_scores": [
     10,
     7.75,
     5
@@ -3824,24 +2740,8 @@ db.semesterSummary.insertMany([{
     7.75,
     8.5,
     5.5
-  ],
-  "overall_score": 7.3333335,
-  "status": "PASSED"
-},
-{
-  "_id": {
-    "$oid": "663a25e0ea942f6d785be401"
-  },
-  "class_id": "420300359122101",
-  "student_id": "21082081",
-  "course_id": "4203003591",
-  "course_name": "Lập trình hướng đối tượng",
-  "credit": 3,
-  "theory_credit": 2,
-  "practical_credit": 1,
-  "midterm_score": 8.5,
-  "final_score": 6.25,
-  "practical_scores": [
+  ],"overall_score": 7.3333335,"status": "PASSED"},
+{"class_id": "420300359122101","student_id": "21082081","course_id": "4203003591","course_name": "Lập trình hướng đối tượng","credit": 3,"theory_credit": 2,"practical_credit": 1,"midterm_score": 8.5,"final_score": 6.25,"practical_scores": [
     8.5,
     5.5,
     7.75
@@ -3850,24 +2750,8 @@ db.semesterSummary.insertMany([{
     8.25,
     6.25,
     10
-  ],
-  "overall_score": 7.216667,
-  "status": "PASSED"
-},
-{
-  "_id": {
-    "$oid": "663a25e0ea942f6d785be402"
-  },
-  "class_id": "420300359224101",
-  "student_id": "21082081",
-  "course_id": "4203003592",
-  "course_name": "Đảm bảo chất lượng và Kiểm thử phần mềm",
-  "credit": 3,
-  "theory_credit": 2,
-  "practical_credit": 1,
-  "midterm_score": 8.5,
-  "final_score": 6.25,
-  "practical_scores": [
+  ],"overall_score": 7.216667,"status": "PASSED"},
+{"class_id": "420300359224101","student_id": "21082081","course_id": "4203003592","course_name": "Đảm bảo chất lượng và Kiểm thử phần mềm","credit": 3,"theory_credit": 2,"practical_credit": 1,"midterm_score": 8.5,"final_score": 6.25,"practical_scores": [
     5.25,
     9.5,
     7.75
@@ -3876,24 +2760,8 @@ db.semesterSummary.insertMany([{
     8,
     10,
     4.25
-  ],
-  "overall_score": 7.166667,
-  "status": "PASSED"
-},
-{
-  "_id": {
-    "$oid": "663a25e0ea942f6d785be403"
-  },
-  "class_id": "420300362124101",
-  "student_id": "21082081",
-  "course_id": "4203003621",
-  "course_name": "Lập trình WWW (Java)",
-  "credit": 4,
-  "theory_credit": 3,
-  "practical_credit": 1,
-  "midterm_score": 7.5,
-  "final_score": 6,
-  "practical_scores": [
+  ],"overall_score": 7.166667,"status": "PASSED"},
+{"class_id": "420300362124101","student_id": "21082081","course_id": "4203003621","course_name": "Lập trình WWW (Java)","credit": 4,"theory_credit": 3,"practical_credit": 1,"midterm_score": 7.5,"final_score": 6,"practical_scores": [
     4.75,
     9.25,
     8
@@ -3902,24 +2770,8 @@ db.semesterSummary.insertMany([{
     5.25,
     7.5,
     7.5
-  ],
-  "overall_score": 6.6583333,
-  "status": "PASSED"
-},
-{
-  "_id": {
-    "$oid": "663a25e0ea942f6d785be404"
-  },
-  "class_id": "420300375322201",
-  "student_id": "21082081",
-  "course_id": "4203003753",
-  "course_name": "Phân tích thiết kế hệ thống",
-  "credit": 3,
-  "theory_credit": 2,
-  "practical_credit": 1,
-  "midterm_score": 9,
-  "final_score": 9,
-  "practical_scores": [
+  ],"overall_score": 6.6583333,"status": "PASSED"},
+{"class_id": "420300375322201","student_id": "21082081","course_id": "4203003753","course_name": "Phân tích thiết kế hệ thống","credit": 3,"theory_credit": 2,"practical_credit": 1,"midterm_score": 9,"final_score": 9,"practical_scores": [
     8.75,
     6.25,
     4.5
@@ -3928,138 +2780,10 @@ db.semesterSummary.insertMany([{
     8.25,
     8.5,
     6.25
-  ],
-  "overall_score": 8.616667,
-  "status": "PASSED"
-},
-{
-  "_id": {
-    "$oid": "663a25e0ea942f6d785be405"
-  },
-  "class_id": "420300384821103",
-  "student_id": "21082081",
-  "course_id": "4203003848",
-  "course_name": "Nhập môn Lập trình",
-  "credit": 2,
-  "theory_credit": 0,
-  "practical_credit": 2,
-  "midterm_score": 7,
-  "final_score": 8.75,
-  "practical_scores": [
-    5,
-    7.25,
-    8.25
-  ],
-  "overall_score": 7.841667,
-  "status": "PASSED"
-},
-{
-  "_id": {
-    "$oid": "663a25e0ea942f6d785be406"
-  },
-  "class_id": "420301416421101",
-  "student_id": "21082081",
-  "course_id": "4203014164",
-  "course_name": "Triết học Mác - Lênin",
-  "credit": 3,
-  "theory_credit": 3,
-  "practical_credit": 0,
-  "midterm_score": 4.5,
-  "final_score": 10,
-  "theory_scores": [
-    6,
-    5,
-    6
-  ],
-  "overall_score": 7.483333,
-  "status": "PASSED"
-},
-{
-  "_id": {
-    "$oid": "663a25e0ea942f6d785be407"
-  },
-  "class_id": "420301416622201",
-  "student_id": "21082081",
-  "course_id": "4203014166",
-  "course_name": "Hệ quản trị cơ sở dữ liệu NoSQL MongoDB",
-  "credit": 3,
-  "theory_credit": 2,
-  "practical_credit": 1,
-  "midterm_score": 8.5,
-  "final_score": 9.5,
-  "practical_scores": [
-    6.5,
-    5.25,
-    5
-  ],
-  "theory_scores": [
-    4.5,
-    6.25,
-    4.75
-  ],
-  "overall_score": 8.375,
-  "status": "PASSED"
-},
-{
-  "_id": {
-    "$oid": "663a25e0ea942f6d785be408"
-  },
-  "class_id": "420301416823101",
-  "student_id": "21082081",
-  "course_id": "4203014168",
-  "course_name": "Mô hình hóa dữ liệu NoSQL MongoDB",
-  "credit": 3,
-  "theory_credit": 3,
-  "practical_credit": 0,
-  "midterm_score": 8,
-  "final_score": 5.5,
-  "theory_scores": [
-    9,
-    6.25,
-    9.75
-  ],
-  "overall_score": 6.8166666,
-  "status": "PASSED"
-},
-{
-  "_id": {
-    "$oid": "663a25e0ea942f6d785be409"
-  },
-  "class_id": "420301525321101",
-  "student_id": "21082081",
-  "course_id": "4203015253",
-  "course_name": "Tiếng Anh 1",
-  "credit": 3,
-  "theory_credit": 3,
-  "practical_credit": 0,
-  "midterm_score": 9,
-  "final_score": 9.75,
-  "theory_scores": [
-    10,
-    8.75,
-    7.5
-  ],
-  "overall_score": 9.325,
-  "status": "PASSED"
-},
-{
-  "_id": {
-    "$oid": "663a25e0ea942f6d785be40a"
-  },
-  "class_id": "420301525422101",
-  "student_id": "21082081",
-  "course_id": "4203015254",
-  "course_name": "Tiếng Anh 2",
-  "credit": 3,
-  "theory_credit": 3,
-  "practical_credit": 0,
-  "midterm_score": 6.5,
-  "final_score": 8.75,
-  "theory_scores": [
-    8.25,
-    9.25,
-    7
-  ],
-  "overall_score": 7.958333,
-  "status": "PASSED"
-}])
+  ],"overall_score": 8.616667,"status": "PASSED"},
+{"class_id": "420300384821103","student_id": "21082081","course_id": "4203003848","course_name": "Nhập môn Lập trình","credit": 2,"theory_credit": 0,"practical_credit": 2,"midterm_score": 7,"final_score": 8.75,"practical_scores": [  5,  7.25,  8.25],"overall_score": 7.841667,"status": "PASSED"},
+{"class_id": "420301416421101","student_id": "21082081","course_id": "4203014164","course_name": "Triết học Mác - Lênin","credit": 3,"theory_credit": 3,"practical_credit": 0,"midterm_score": 4.5,"final_score": 10,"theory_scores": [  6,  5,  6],"overall_score": 7.483333,"status": "PASSED"},
+{"class_id": "420301416622201","student_id": "21082081","course_id": "4203014166","course_name": "Hệ quản trị cơ sở dữ liệu NoSQL MongoDB","credit": 3,"theory_credit": 2,"practical_credit": 1,"midterm_score": 8.5,"final_score": 9.5,"practical_scores": [  6.5,  5.25,  5],"theory_scores": [4.5,6.25,4.75],"overall_score": 8.375,"status": "PASSED"},
+{"class_id": "420301416823101","student_id": "21082081","course_id": "4203014168","course_name": "Mô hình hóa dữ liệu NoSQL MongoDB","credit": 3,"theory_credit": 3,"practical_credit": 0,"midterm_score": 8,"final_score": 5.5,"theory_scores": [9,6.25,9.75],"overall_score": 6.8166666,"status": "PASSED"},
+{"class_id": "420301525321101","student_id": "21082081","course_id": "4203015253","course_name": "Tiếng Anh 1","credit": 3,"theory_credit": 3,"practical_credit": 0,"midterm_score": 9,"final_score": 9.75,"theory_scores": [10,8.75,7.5],"overall_score": 9.325,"status": "PASSED"},
+{"class_id": "420301525422101","student_id": "21082081","course_id": "4203015254","course_name": "Tiếng Anh 2","credit": 3,"theory_credit": 3,"practical_credit": 0,"midterm_score": 6.5,"final_score": 8.75,"theory_scores": [8.25,9.25,7],"overall_score": 7.958333,"status": "PASSED"}])
