@@ -47,4 +47,9 @@ public class CoursePaymentServiceImpl implements CoursePaymentService {
     public List<CoursePayment> getCoursePaymentsById(String studentId, List<String> strings) {
         return coursePaymentRepository.findByStudentIdAndClassIdIn(studentId, strings);
     }
+
+    @Override
+    public void updatePaymentStatus(String studentId, List<String> classIds, PaymentStatus paymentStatus) {
+        coursePaymentRepository.updatePaymentStatus(studentId, classIds, paymentStatus);
+    }
 }

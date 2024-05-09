@@ -1,5 +1,8 @@
 package vn.edu.iuh.fit.paymentservice.message;
 
+import org.springframework.amqp.core.BindingBuilder;
+import org.springframework.amqp.core.Declarables;
+import org.springframework.amqp.core.FanoutExchange;
 import org.springframework.amqp.core.Queue;
 import org.springframework.amqp.rabbit.connection.ConnectionFactory;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
@@ -10,18 +13,22 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class RabbitMQConfiguration {
     @Bean
-    public Queue paymentEnrollQueue() {
-        return new Queue("payment-enroll-queue");
-    }
+    public Declarables fanoutBindings() {
+        FanoutExchange checkoutExchange = new FanoutExchange("checkout-fanout-exchange");
 
-    @Bean
-    public Queue paymentCancelQueue() {
-        return new Queue("payment-cancel-queue");
-    }
+        Queue checkoutQueue = new Queue("checkout-queue");
+        Queue enrollScheduleQueue = new Queue("payment-enroll-queue");
+        Queue cancelPaymentQueue = new Queue("payment-cancel-queue");
+        Queue changeScheduleQueue = new Queue("payment-change-queue");
 
-    @Bean
-    public Queue paymentChangeQueue() {
-        return new Queue("payment-change-queue");
+        return new Declarables(
+                checkoutQueue,
+                enrollScheduleQueue,
+                cancelPaymentQueue,
+                changeScheduleQueue,
+                checkoutExchange,
+                BindingBuilder.bind(checkoutQueue).to(checkoutExchange)
+        );
     }
 
     @Bean

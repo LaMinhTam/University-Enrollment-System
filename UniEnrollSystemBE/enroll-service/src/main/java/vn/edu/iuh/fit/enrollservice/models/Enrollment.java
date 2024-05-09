@@ -26,4 +26,6 @@ public class Enrollment {
     private Date updatedAt;
     @Column(name = "group_id")
     private int group;
+    @Enumerated(EnumType.STRING)
+    private PaymentStatus status;
 }

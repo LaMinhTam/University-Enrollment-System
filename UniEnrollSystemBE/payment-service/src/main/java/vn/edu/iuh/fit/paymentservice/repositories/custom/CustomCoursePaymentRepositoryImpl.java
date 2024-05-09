@@ -5,6 +5,9 @@ import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.data.mongodb.core.query.Update;
 import vn.edu.iuh.fit.paymentservice.models.CoursePayment;
+import vn.edu.iuh.fit.paymentservice.models.PaymentStatus;
+
+import java.util.List;
 
 public class CustomCoursePaymentRepositoryImpl implements CustomCoursePaymentRepository {
     private final MongoTemplate mongoTemplate;
@@ -22,5 +25,16 @@ public class CustomCoursePaymentRepositoryImpl implements CustomCoursePaymentRep
         update.set("class_id", newClassId);
 
         mongoTemplate.updateFirst(query, update, CoursePayment.class);
+    }
+
+    @Override
+    public void updatePaymentStatus(String studentId, List<String> classIds, PaymentStatus paymentStatus) {
+        Query query = new Query();
+        query.addCriteria(Criteria.where("student_id").is(studentId).and("class_id").in(classIds));
+
+        Update update = new Update();
+        update.set("payment_status", paymentStatus);
+
+        mongoTemplate.updateMulti(query, update, CoursePayment.class);
     }
 }

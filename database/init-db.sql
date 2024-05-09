@@ -1016,7 +1016,7 @@ BEGIN
         SET p_status_code = 409; -- HTTP status code for class is full
     ELSE
         -- Insert enrollment record
-        INSERT INTO enrollments (registry_class, student_id, created_at, updated_at, semester, year, course_id, group_id) VALUES (p_class_id, p_student_id, NOW(), NOW(), v_semester, v_year, v_course_id, p_group_id);
+        INSERT INTO enrollments (registry_class, student_id, created_at, updated_at, semester, year, course_id, group_id, status) VALUES (p_class_id, p_student_id, NOW(), NOW(), v_semester, v_year, v_course_id, p_group_id, "UNPAID");
         SET p_status_code = 201; -- HTTP status code for created
     END IF;
 

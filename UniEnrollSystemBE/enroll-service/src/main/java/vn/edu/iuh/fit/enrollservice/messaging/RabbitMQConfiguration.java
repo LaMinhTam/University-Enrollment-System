@@ -21,7 +21,7 @@ public class RabbitMQConfiguration {
         Queue cancelPaymentQueue = new Queue("payment-cancel-queue");
         Queue changeScheduleQueue = new Queue("schedule-change-queue");
         Queue changePaymentQueue = new Queue("payment-change-queue");
-
+        Queue checkoutQueue = new Queue("checkout-queue");
         return new Declarables(
                 enrollScheduleQueue,
                 enrollPaymentQueue,
@@ -29,6 +29,7 @@ public class RabbitMQConfiguration {
                 cancelPaymentQueue,
                 changeScheduleQueue,
                 changePaymentQueue,
+                checkoutQueue,
                 enrollExchange,
                 cancelExchange,
                 changeExchange,

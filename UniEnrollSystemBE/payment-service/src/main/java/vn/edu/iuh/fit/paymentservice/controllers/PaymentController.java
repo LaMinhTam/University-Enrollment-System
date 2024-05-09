@@ -5,7 +5,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import vn.edu.iuh.fit.paymentservice.dtos.PaymentRequest;
 import vn.edu.iuh.fit.paymentservice.dtos.ResponseWrapper;
+import vn.edu.iuh.fit.paymentservice.message.CheckoutMessageProducer;
 import vn.edu.iuh.fit.paymentservice.models.CoursePayment;
+import vn.edu.iuh.fit.paymentservice.models.Invoice;
 import vn.edu.iuh.fit.paymentservice.models.PaymentStatus;
 import vn.edu.iuh.fit.paymentservice.services.CoursePaymentService;
 import vn.edu.iuh.fit.paymentservice.services.InvoiceService;
@@ -22,20 +24,24 @@ import java.util.*;
 public class PaymentController {
     private final InvoiceService invoiceService;
     private final CoursePaymentService coursePaymentService;
+    private final CheckoutMessageProducer checkoutMessageProducer;
 
-    public PaymentController(InvoiceService invoiceService, CoursePaymentService coursePaymentService) {
+    public PaymentController(InvoiceService invoiceService, CoursePaymentService coursePaymentService, CheckoutMessageProducer checkoutMessageProducer) {
         this.invoiceService = invoiceService;
         this.coursePaymentService = coursePaymentService;
+        this.checkoutMessageProducer = checkoutMessageProducer;
     }
 
     @PostMapping("/create_payment")
     public ResponseEntity<?> createPayment(HttpServletRequest req, @RequestHeader("id") String studentId, @RequestBody PaymentRequest request) throws UnsupportedEncodingException {
         List<CoursePayment> coursePayments = coursePaymentService.getCoursePaymentsById(studentId, request.class_ids());
+        List<String> classIds = coursePayments.stream().map(CoursePayment::getClassId).toList();
         List<String> missingClassId = new ArrayList<>();
-        coursePayments.forEach(coursePayment -> {
-            if (!request.class_ids().contains(coursePayment.getClassId())) {
-                missingClassId.add(coursePayment.getClassId());
+        request.class_ids().forEach(classId -> {
+            if (!classIds.contains(classId)) {
+                missingClassId.add(classId);
             }
+
         });
         if (!missingClassId.isEmpty()) {
             return ResponseEntity.badRequest().body("Các lớp học không tồn tại: " + missingClassId);
@@ -123,7 +129,7 @@ public class PaymentController {
 
 
     @PostMapping("/payment_callback")
-    public ResponseEntity<?> paymentCallback(HttpServletRequest req) {
+    public ResponseEntity<?> paymentCallback(HttpServletRequest req, @RequestHeader("id") String studentId) {
         Map<String, String> fields = new HashMap<>();
         Map<String, String[]> parameterMap = req.getParameterMap();
         for (String key : parameterMap.keySet()) {
@@ -136,16 +142,25 @@ public class PaymentController {
                 e.printStackTrace();
             }
         }
+
+        String invoiceId = fields.get("vnp_TxnRef");
+
+        if(invoiceService.getInvoicesById(invoiceId).getStatus() == PaymentStatus.PAID){
+            return ResponseEntity.badRequest().body("Giao dịch đã được xử lý");
+        }
+
         String vnp_SecureHash = req.getParameter("vnp_SecureHash");
         fields.remove("vnp_SecureHash");
         String signValue = VNPayConfig.hashAllFields(fields);
         if (vnp_SecureHash.equals(signValue)) {
             String vnp_ResponseCode = req.getParameter("vnp_ResponseCode");
-            String invoiceId = fields.get("vnp_TxnRef");
             if ("00".equals(vnp_ResponseCode)) {
                 //Thanh toan thanh cong
                 //Cap nhat trang thai don hang trong csdl
-                invoiceService.updatePaymentStatus(invoiceId, PaymentStatus.PAID);
+                Invoice invoice = invoiceService.updatePaymentStatus(invoiceId, PaymentStatus.PAID);
+                List<String> classIds = invoice.getCoursePayments().stream().map(CoursePayment::getClassId).toList();
+                coursePaymentService.updatePaymentStatus(studentId, classIds, PaymentStatus.PAID);
+                        checkoutMessageProducer.sendCheckoutMessage(studentId, invoiceId, PaymentStatus.PAID);
                 return ResponseEntity.ok("Giao dịch thành công");
             } else {
                 //Thanh toan khong thanh cong. Ma loi: vnp_ResponseCode

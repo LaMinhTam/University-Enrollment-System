@@ -30,12 +30,19 @@ public class InvoiceServiceImpl implements InvoiceService {
     }
 
     @Override
-    public void updatePaymentStatus(String invoiceId, PaymentStatus paymentStatus) {
-        invoiceRepository.updatePaymentStatus(invoiceId, paymentStatus);
+    public Invoice updatePaymentStatus(String invoiceId, PaymentStatus paymentStatus) {
+        Invoice invoice = invoiceRepository.findById(invoiceId).get();
+        invoice.setStatus(paymentStatus);
+        return invoiceRepository.save(invoice);
     }
 
     @Override
-    public void createInvoice(String invoiceId,String studentId, String collectingUnit, Double amount, List<CoursePayment> coursePayments) {
+    public void createInvoice(String invoiceId, String studentId, String collectingUnit, Double amount, List<CoursePayment> coursePayments) {
         invoiceRepository.save(new Invoice(invoiceId, studentId, amount, new Date(), collectingUnit, coursePayments, PaymentStatus.PENDING));
+    }
+
+    @Override
+    public Invoice getInvoicesById(String invoiceId) {
+        return invoiceRepository.findById(invoiceId).orElseThrow(() -> new RuntimeException("Không tồn tại hóa đơn này"));
     }
 }

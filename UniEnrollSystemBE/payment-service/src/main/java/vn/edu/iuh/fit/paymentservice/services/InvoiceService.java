@@ -11,7 +11,9 @@ public interface InvoiceService {
 
     List<Invoice> getAllInvoices(String studentId, int page, int size);
 
-    void updatePaymentStatus(String invoiceId, PaymentStatus paymentStatus);
+    Invoice updatePaymentStatus(String invoiceId, PaymentStatus paymentStatus);
 
     void createInvoice(String invoiceCode, String studentId, String collectingUnit, Double amount, List<CoursePayment> coursePayments);
+
+    Invoice getInvoicesById(String invoiceId);
 }
