@@ -40,11 +40,11 @@ public class ClassScheduleController {
     }
 
     @GetMapping("/classes/by-date")
-    public ResponseEntity<?> getSchedulesByDate(@RequestHeader("id") String studentId, @RequestBody DateRequest dateRequest) throws ParseException {
+    public ResponseEntity<?> getSchedulesByDate(@RequestHeader("id") String studentId, @RequestParam int day, @RequestParam int month, @RequestParam int year) throws ParseException {
         return ResponseEntity.ok(
                 new ResponseWrapper(
                         "Lịch học",
-                        classScheduleService.getScheduleByDate(studentId, dateRequest),
+                        classScheduleService.getScheduleByDate(studentId, new DateRequest(day, month, year)),
                         HttpStatus.OK.value()
                 )
         );
