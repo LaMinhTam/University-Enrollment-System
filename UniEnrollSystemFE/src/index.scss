@@ -44,9 +44,17 @@
 }
 
 .table-schedule td {
-    @apply text-tertiary font-bold h-[150px];
+    @apply text-tertiary font-bold w-[150px];
 }
 
 .table-schedule thead th {
     @apply text-tertiary bg-text8;
+}
+
+.tblStudyResult th {
+    @apply text-tertiary bg-text8 min-w-[80px] px-1 py-4;
+}
+
+.tblStudyResult .trSemesterInfo {
+    @apply bg-text7 bg-opacity-15 text-sm;
 }

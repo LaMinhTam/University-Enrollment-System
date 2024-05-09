@@ -1,8 +1,101 @@
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../store/configureStore";
+import { Schedule, ScheduleData } from "../../types/studyScheduleType";
+import { useEffect, useState } from "react";
+import { formatDate } from "../../utils/formatTime";
+import { setDates } from "../../store/actions/scheduleSlice";
+import { v4 as uuidv4 } from "uuid";
+import ScheduleItem from "./ScheduleItem";
 
-const Table = () => {
+interface ScheduleCustomData {
+    date: string;
+    schedule: Schedule[];
+}
+
+const Table = ({ schedules }: { schedules: ScheduleData[] }) => {
+    const [morningSchedule, setMorningSchedule] = useState<
+        ScheduleCustomData[]
+    >([]);
+    const [afternoonSchedule, setAfternoonSchedule] = useState<
+        ScheduleCustomData[]
+    >([]);
+    const [eveningSchedule, setEveningSchedule] = useState<
+        ScheduleCustomData[]
+    >([]);
     const dates = useSelector((state: RootState) => state.schedule.dates);
+    const targetDate = useSelector(
+        (state: RootState) => state.schedule.targetDate
+    );
+    const dispatch = useDispatch();
+    useEffect(() => {
+        if (!dates || dates.length <= 0) {
+            const startOfWeek = new Date(targetDate);
+            startOfWeek.setDate(
+                startOfWeek.getDate() - startOfWeek.getDay() + 1
+            );
+
+            const weekDays = Array.from({ length: 7 }, (_, i) => {
+                const day = new Date(startOfWeek);
+                day.setDate(startOfWeek.getDate() + i);
+                return formatDate(day);
+            });
+
+            dispatch(setDates(weekDays));
+        }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, []);
+
+    useEffect(() => {
+        if (schedules && schedules.length > 0 && dates && dates.length > 0) {
+            const morningSchedules: ScheduleCustomData[] = [];
+            const afternoonSchedules: ScheduleCustomData[] = [];
+            const eveningSchedules: ScheduleCustomData[] = [];
+
+            dates?.forEach((date) => {
+                const item = schedules.find(
+                    (s) => formatDate(new Date(s.date)) === date
+                );
+
+                const morning = item
+                    ? item.schedule.filter((s) =>
+                          ["1-3", "4-6"].includes(s.schedules.timeSlot)
+                      )
+                    : [];
+
+                const afternoon = item
+                    ? item.schedule.filter((s) =>
+                          ["7-9", "10-12"].includes(s.schedules.timeSlot)
+                      )
+                    : [];
+
+                const evening = item
+                    ? item.schedule.filter((s) =>
+                          ["13-15", "16-18"].includes(s.schedules.timeSlot)
+                      )
+                    : [];
+
+                morningSchedules.push({
+                    date: date,
+                    schedule: morning,
+                });
+
+                afternoonSchedules.push({
+                    date: date,
+                    schedule: afternoon,
+                });
+
+                eveningSchedules.push({
+                    date: date,
+                    schedule: evening,
+                });
+            });
+
+            setMorningSchedule(morningSchedules);
+            setAfternoonSchedule(afternoonSchedules);
+            setEveningSchedule(eveningSchedules);
+        }
+    }, [dates, schedules]);
+
     if (!dates) return null;
     return (
         <table className="w-full mt-5 border border-collapse border-text2 table-schedule">
@@ -43,33 +136,33 @@ const Table = () => {
             <tbody>
                 <tr>
                     <td className="text-center bg-senary text-text1">Sáng</td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
+                    {morningSchedule.map((item) => (
+                        <td key={uuidv4()}>
+                            {item.schedule.map((s) => (
+                                <ScheduleItem key={uuidv4()} item={s} />
+                            ))}
+                        </td>
+                    ))}
                 </tr>
                 <tr>
                     <td className="text-center bg-senary text-text1">Chiều</td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
+                    {afternoonSchedule.map((item) => (
+                        <td key={uuidv4()}>
+                            {item.schedule.map((s) => (
+                                <ScheduleItem key={uuidv4()} item={s} />
+                            ))}
+                        </td>
+                    ))}
                 </tr>
                 <tr>
                     <td className="text-center bg-senary text-text1">Tối</td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
+                    {eveningSchedule.map((item) => (
+                        <td key={uuidv4()}>
+                            {item.schedule.map((s) => (
+                                <ScheduleItem key={uuidv4()} item={s} />
+                            ))}
+                        </td>
+                    ))}
                 </tr>
             </tbody>
         </table>
