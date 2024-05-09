@@ -9,6 +9,7 @@ import vn.edu.iuh.fit.enrollservice.messaging.RegisterMessageProducer;
 import vn.edu.iuh.fit.enrollservice.models.Class;
 import vn.edu.iuh.fit.enrollservice.models.ClassStatus;
 import vn.edu.iuh.fit.enrollservice.models.Enrollment;
+import vn.edu.iuh.fit.enrollservice.models.PaymentStatus;
 import vn.edu.iuh.fit.enrollservice.services.ClassRedisService;
 import vn.edu.iuh.fit.enrollservice.services.ClassService;
 import vn.edu.iuh.fit.enrollservice.services.EnrollmentService;
@@ -155,6 +156,9 @@ public class EnrollmentController {
     private void validateChange(List<Enrollment> enrollmentsByYearAndSemester, List<Enrollment> enrollmentsNotInYearAndSemester, Map<String, MapCourseClass> classesBySemesterAndYear, Class oldClass, Class newClass, RequestChangeClass request) {
         if (request.old_class_id().equals(request.new_class_id())) {
             throw new RuntimeException("Không thể đổi cùng một lớp học");
+        } else if (enrollmentsByYearAndSemester.stream()
+                .anyMatch(enrollment -> enrollment.getRegistryClass().equals(oldClass.getId()) && enrollment.getStatus() == PaymentStatus.PAID)) {
+            throw new RuntimeException("Lớp học đã thanh toán không thể đổi");
         } else if (oldClass.getStatus() == ClassStatus.OPENED) {
             throw new RuntimeException("Lớp học đã mở không thể đổi lớp khác");
         } else if (newClass.getStatus() == ClassStatus.CLOSED) {
