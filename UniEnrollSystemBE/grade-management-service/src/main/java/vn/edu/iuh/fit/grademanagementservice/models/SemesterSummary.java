@@ -21,7 +21,7 @@ public class SemesterSummary {
     @Field("year")
     private int year;
     @Field("major_id")
-    private String majorId;
+    private int majorId;
     @Field("grades")
     private List<GradeReport> gradeReports = new ArrayList<>();
     private float gpa;

@@ -261,7 +261,7 @@ public class GradeReportRepositoryTests {
             summary.setSemester(semesterYear.getFirst());
             summary.setYear(semesterYear.getSecond());
             summary.setGradeReports(reports);
-
+            summary.setMajorId(1);
             // Calculate the GPA, total credits, and total passed credits
             // This assumes you have methods in the GradeReport class to get the credits and whether the course was passed
             summary.setGpa((float) reports.stream()
