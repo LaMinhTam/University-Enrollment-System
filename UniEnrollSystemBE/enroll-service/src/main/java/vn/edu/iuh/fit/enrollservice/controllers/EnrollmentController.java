@@ -135,6 +135,7 @@ public class EnrollmentController {
             validateChange(enrollmentsByYearAndSemester, enrollmentsNotInYearAndSemester, classesBySemesterAndYear, oldClass, newClass, request);
 
             List<EnrollGroup> enrollGroups = enrollmentsByYearAndSemester.stream()
+                    .filter(enrollment -> !enrollment.getCourseId().equals(newClass.getCourseId()))
                     .map(enrollment -> new EnrollGroup(enrollment.getRegistryClass(), enrollment.getGroup()))
                     .toList();
 
@@ -160,10 +161,6 @@ public class EnrollmentController {
             throw new RuntimeException("Lớp học đã đóng, không thể đăng ký");
         } else if (newClass.getStatus() == ClassStatus.PLANNING) {
             throw new RuntimeException("Lớp học đang trong quá trình lên kế hoạch, không thể đăng ký");
-        } else if (enrollmentsByYearAndSemester.stream().anyMatch(enrollment -> enrollment.getRegistryClass().equals(newClass.getId()))) {
-            throw new RuntimeException("Bạn đã đăng ký lớp học này rồi");
-        } else if (enrollmentsNotInYearAndSemester.stream().anyMatch(enrollment -> enrollment.getCourseId().equals(newClass.getCourseId()))) {
-            throw new RuntimeException("Bạn đã đăng ký một lớp học khác cho môn học này");
         } else if (classesBySemesterAndYear == null || classesBySemesterAndYear.isEmpty()) {
             throw new RuntimeException("Hệ thống hiện đang lỗi, vui lòng thử lại sau");
         } else if (enrollmentsByYearAndSemester.stream()
