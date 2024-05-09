@@ -2,6 +2,7 @@ package vn.edu.iuh.fit.enrollservice.services.impl;
 
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.support.TransactionTemplate;
+import vn.edu.iuh.fit.enrollservice.models.PaymentStatus;
 import vn.edu.iuh.fit.enrollservice.dtos.RegistryRequest;
 import vn.edu.iuh.fit.enrollservice.dtos.RequestChangeClass;
 import vn.edu.iuh.fit.enrollservice.models.Class;
@@ -12,7 +13,6 @@ import vn.edu.iuh.fit.enrollservice.repositories.EnrollmentRepository;
 import vn.edu.iuh.fit.enrollservice.services.EnrollmentService;
 
 import java.util.List;
-import java.util.Map;
 import java.util.stream.Collectors;
 
 @Service
@@ -84,7 +84,6 @@ public class EnrollmentServiceImpl implements EnrollmentService {
     }
 
 
-
     @Override
     public List<String> validateAndPrepareRegistration(String studentId, RegistryRequest request, Class targetClass) throws RuntimeException {
         String courseId = targetClass.getCourseId();
@@ -123,5 +122,14 @@ public class EnrollmentServiceImpl implements EnrollmentService {
                 .map(Enrollment::getRegistryClass)
                 .filter(classId -> !classId.equals(request.old_class_id()))
                 .collect(Collectors.toList());
+    }
+
+    @Override
+    public void updateEnrollmentStatus(String studentId, List<String> classIds, PaymentStatus status) {
+        List<Enrollment> enrollments = enrollmentRepository.findEnrollmentByStudentIdAndRegistryClassIn(studentId, classIds);
+        enrollments.forEach(enrollment -> {
+            enrollment.setStatus(status);
+        });
+        enrollmentRepository.saveAll(enrollments);
     }
 }

@@ -2,11 +2,15 @@ package vn.edu.iuh.fit.paymentservice.controllers;
 
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+import vn.edu.iuh.fit.paymentservice.dtos.PaymentRequest;
 import vn.edu.iuh.fit.paymentservice.dtos.ResponseWrapper;
+import vn.edu.iuh.fit.paymentservice.message.CheckoutMessageProducer;
+import vn.edu.iuh.fit.paymentservice.models.CoursePayment;
+import vn.edu.iuh.fit.paymentservice.models.Invoice;
+import vn.edu.iuh.fit.paymentservice.models.PaymentStatus;
+import vn.edu.iuh.fit.paymentservice.services.CoursePaymentService;
+import vn.edu.iuh.fit.paymentservice.services.InvoiceService;
 import vn.edu.iuh.fit.paymentservice.vnpay.VNPayConfig;
 
 import java.io.UnsupportedEncodingException;
@@ -18,13 +22,38 @@ import java.util.*;
 @RestController
 @RequestMapping("/payments")
 public class PaymentController {
+    private final InvoiceService invoiceService;
+    private final CoursePaymentService coursePaymentService;
+    private final CheckoutMessageProducer checkoutMessageProducer;
+
+    public PaymentController(InvoiceService invoiceService, CoursePaymentService coursePaymentService, CheckoutMessageProducer checkoutMessageProducer) {
+        this.invoiceService = invoiceService;
+        this.coursePaymentService = coursePaymentService;
+        this.checkoutMessageProducer = checkoutMessageProducer;
+    }
+
     @PostMapping("/create_payment")
-    public ResponseEntity<?> createPayment(HttpServletRequest req, @RequestBody PaymentRequest request) throws UnsupportedEncodingException {
+    public ResponseEntity<?> createPayment(HttpServletRequest req, @RequestHeader("id") String studentId, @RequestBody PaymentRequest request) throws UnsupportedEncodingException {
+        List<CoursePayment> coursePayments = coursePaymentService.getCoursePaymentsById(studentId, request.class_ids());
+        List<String> classIds = coursePayments.stream().map(CoursePayment::getClassId).toList();
+        List<String> missingClassId = new ArrayList<>();
+        request.class_ids().forEach(classId -> {
+            if (!classIds.contains(classId)) {
+                missingClassId.add(classId);
+            }
+
+        });
+        if (!missingClassId.isEmpty()) {
+            return ResponseEntity.badRequest().body("Các lớp học không tồn tại: " + missingClassId);
+        }
+
+        CoursePayment coursePayment = coursePayments.get(0);
+        String invoiceId = coursePayment.getSemester() + "" + coursePayment.getYear() + VNPayConfig.getRandomNumber(8) + "1";
+
         String orderType = "other";
         long amount = request.amount() * 100;
-        String bankCode = request.bankCode();
 
-        String vnp_TxnRef = VNPayConfig.getRandomNumber(8);
+        String vnp_TxnRef = invoiceId;
         String vnp_IpAddr = VNPayConfig.getIpAddress(req);
 
         String vnp_TmnCode = VNPayConfig.vnp_TmnCode;
@@ -94,12 +123,13 @@ public class PaymentController {
 //        job.addProperty("data", paymentUrl);
 //        Gson gson = new Gson();
 //        resp.getWriter().write(gson.toJson(job));
+        invoiceService.createInvoice(invoiceId, studentId, "VNPAY", Double.valueOf(request.amount()), coursePayments);
         return ResponseEntity.ok(paymentUrl);
     }
 
 
     @PostMapping("/payment_callback")
-    public ResponseEntity<?> paymentCallback(HttpServletRequest req) {
+    public ResponseEntity<?> paymentCallback(HttpServletRequest req, @RequestHeader("id") String studentId) {
         Map<String, String> fields = new HashMap<>();
         Map<String, String[]> parameterMap = req.getParameterMap();
         for (String key : parameterMap.keySet()) {
@@ -112,6 +142,13 @@ public class PaymentController {
                 e.printStackTrace();
             }
         }
+
+        String invoiceId = fields.get("vnp_TxnRef");
+
+        if(invoiceService.getInvoicesById(invoiceId).getStatus() == PaymentStatus.PAID){
+            return ResponseEntity.badRequest().body("Giao dịch đã được xử lý");
+        }
+
         String vnp_SecureHash = req.getParameter("vnp_SecureHash");
         fields.remove("vnp_SecureHash");
         String signValue = VNPayConfig.hashAllFields(fields);
@@ -120,13 +157,18 @@ public class PaymentController {
             if ("00".equals(vnp_ResponseCode)) {
                 //Thanh toan thanh cong
                 //Cap nhat trang thai don hang trong csdl
-                return ResponseEntity.ok(new ResponseWrapper("Giao dịch thành công", null, 200));
+                Invoice invoice = invoiceService.updatePaymentStatus(invoiceId, PaymentStatus.PAID);
+                List<String> classIds = invoice.getCoursePayments().stream().map(CoursePayment::getClassId).toList();
+                coursePaymentService.updatePaymentStatus(studentId, classIds, PaymentStatus.PAID);
+                        checkoutMessageProducer.sendCheckoutMessage(studentId, invoiceId, PaymentStatus.PAID);
+                return ResponseEntity.ok("Giao dịch thành công");
             } else {
                 //Thanh toan khong thanh cong. Ma loi: vnp_ResponseCode
-                return ResponseEntity.ok(new ResponseWrapper("Giao dịch thất bại. Mã lỗi: " + vnp_ResponseCode, null, 400));
+                invoiceService.updatePaymentStatus(invoiceId, PaymentStatus.ERROR);
+                return ResponseEntity.badRequest().body("Giao dịch thất bại. Mã lỗi: " + vnp_ResponseCode);
             }
         } else {
-            return ResponseEntity.ok(new ResponseWrapper("Chữ ký không hợp lệ", null, 400));
+            return ResponseEntity.badRequest().body("Chữ ký không hợp lệ");
         }
     }
 }

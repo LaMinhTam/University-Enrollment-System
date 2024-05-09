@@ -2,8 +2,8 @@ package vn.edu.iuh.fit.scheduleservice.messaging;
 
 import org.springframework.amqp.rabbit.annotation.RabbitListener;
 import org.springframework.stereotype.Service;
-import vn.edu.iuh.fit.scheduleservice.dtos.ChangeScheduleRequest;
-import vn.edu.iuh.fit.scheduleservice.dtos.RegisterSchedule;
+import vn.edu.iuh.fit.scheduleservice.dtos.ChangeRegisterRequest;
+import vn.edu.iuh.fit.scheduleservice.dtos.RegisterRequest;
 import vn.edu.iuh.fit.scheduleservice.services.ClassScheduleService;
 
 @Service
@@ -14,18 +14,18 @@ public class RegisterMessageConsumer {
         this.classScheduleService = classScheduleService;
     }
 
-    @RabbitListener(queues = "enroll-queue")
-    public void receiveRegisterSchedule(RegisterSchedule schedule) {
-        classScheduleService.registrySchedule(schedule.studentId(), schedule.classId(), schedule.group());
+    @RabbitListener(queues = "schedule-enroll-queue")
+    public void receiveScheduleRegisterSchedule(RegisterRequest request) {
+        classScheduleService.registrySchedule(request.studentId(), request.classId(), request.group());
     }
 
-    @RabbitListener(queues = "cancel-queue")
-    public void receiveCancelSchedule(RegisterSchedule schedule) {
-        classScheduleService.cancelSchedule(schedule.studentId(), schedule.classId());
+    @RabbitListener(queues = "schedule-cancel-queue")
+    public void receiveScheduleCancelSchedule(RegisterRequest request) {
+        classScheduleService.cancelSchedule(request.studentId(), request.classId());
     }
 
-    @RabbitListener(queues = "change-queue")
-    public void receiveChangeSchedule(ChangeScheduleRequest schedule) {
-        classScheduleService.changeSchedule(schedule);
+    @RabbitListener(queues = "schedule-change-queue")
+    public void receiveScheduleChangeSchedule(ChangeRegisterRequest request) {
+        classScheduleService.changeSchedule(request);
     }
 }

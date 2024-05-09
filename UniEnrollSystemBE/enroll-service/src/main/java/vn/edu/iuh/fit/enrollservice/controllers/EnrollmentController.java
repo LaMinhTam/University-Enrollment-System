@@ -9,6 +9,7 @@ import vn.edu.iuh.fit.enrollservice.messaging.RegisterMessageProducer;
 import vn.edu.iuh.fit.enrollservice.models.Class;
 import vn.edu.iuh.fit.enrollservice.models.ClassStatus;
 import vn.edu.iuh.fit.enrollservice.models.Enrollment;
+import vn.edu.iuh.fit.enrollservice.models.PaymentStatus;
 import vn.edu.iuh.fit.enrollservice.services.ClassRedisService;
 import vn.edu.iuh.fit.enrollservice.services.ClassService;
 import vn.edu.iuh.fit.enrollservice.services.EnrollmentService;
@@ -37,7 +38,7 @@ public class EnrollmentController {
     @GetMapping("/registry")
     public ResponseEntity<?> getRegistryBySemesterAndYear(@RequestHeader("id") String studentId, @RequestHeader("major_id") int majorId, @RequestParam int semester, @RequestParam int year) {
         Map<String, MapCourseClass> classesBySemesterAndYear = classRedisService.getAllCourses(majorId, semester, year);
-        if(classesBySemesterAndYear == null || classesBySemesterAndYear.isEmpty()) {
+        if (classesBySemesterAndYear == null || classesBySemesterAndYear.isEmpty()) {
             return ResponseEntity.badRequest().body(new ResponseWrapper("Hệ thống hiện đang lỗi, vui lòng thử lại sau", null, 400));
         }
         List<Enrollment> registerClasses = enrollmentService.getRegistryClassBySemesterAndYear(studentId, semester, year);
@@ -79,7 +80,9 @@ public class EnrollmentController {
             List<ConflictResponse> conflictSchedules = scheduleClient.checkScheduleConflict(new ScheduleConflictRequest(enrollGroups, request.class_id(), request.group()));
             if (conflictSchedules.isEmpty()) {
                 enrollmentService.registerClass(studentId, request);
-                registerMessageProducer.sendRegisterSchedule(new RegisterSchedule(studentId, request.class_id(), request.group()));
+                Course course = classesBySemesterAndYear.get(newClass.getCourseId()).course();
+                Double amount = course.practicalCredit() * 800000.0 + course.theoryCredit() * 680000.0;
+                registerMessageProducer.sendRegisterSchedule(new RegisterRequest(studentId, request.class_id(), request.group(), newClass.getCourseId(), newClass.getCourseName(), newClass.getYear(), newClass.getSemester(), amount, course.credit()));
                 return ResponseEntity.ok(new ResponseWrapper("Đăng ký thành công", null, 200));
             } else {
                 return ResponseEntity.ok(new ResponseWrapper("Lịch học bị trùng", conflictSchedules, 400));
@@ -102,7 +105,7 @@ public class EnrollmentController {
             throw new RuntimeException("Lớp học đang trong quá trình lên kế hoạch, không thể đăng ký");
         } else if (enrollmentsByYearAndSemester.stream().anyMatch(enrollment -> enrollment.getRegistryClass().equals(targetClass.getId()))) {
             throw new RuntimeException("Bạn đã đăng ký lớp học này rồi");
-        } else if (enrollmentsNotInYearAndSemester.stream().anyMatch(enrollment -> enrollment.getCourseId().equals(targetClass.getCourseId()))) {
+        } else if (enrollmentsByYearAndSemester.stream().anyMatch(enrollment -> enrollment.getCourseId().equals(targetClass.getCourseId()))) {
             throw new RuntimeException("Bạn đã đăng ký một lớp học khác cho môn học này");
         } else if (classesBySemesterAndYear == null || classesBySemesterAndYear.isEmpty()) {
             throw new RuntimeException("Hệ thống hiện đang lỗi, vui lòng thử lại sau");
@@ -133,13 +136,14 @@ public class EnrollmentController {
             validateChange(enrollmentsByYearAndSemester, enrollmentsNotInYearAndSemester, classesBySemesterAndYear, oldClass, newClass, request);
 
             List<EnrollGroup> enrollGroups = enrollmentsByYearAndSemester.stream()
+                    .filter(enrollment -> !enrollment.getCourseId().equals(newClass.getCourseId()))
                     .map(enrollment -> new EnrollGroup(enrollment.getRegistryClass(), enrollment.getGroup()))
                     .toList();
 
             List<ConflictResponse> conflictSchedules = scheduleClient.checkScheduleConflict(new ScheduleConflictRequest(enrollGroups, request.new_class_id(), request.group()));
             if (conflictSchedules.isEmpty()) {
                 enrollmentService.changeClass(studentId, request);
-                registerMessageProducer.sendChangeSchedule(new ChangeScheduleRequest(studentId, request.old_class_id(), request.new_class_id()));
+                registerMessageProducer.sendChangeSchedule(new ChangeRegisterRequest(studentId, request.old_class_id(), request.new_class_id()));
                 return ResponseEntity.ok(new ResponseWrapper("Thay đổi lớp học thành công", null, 200));
             } else {
                 return ResponseEntity.ok(new ResponseWrapper("Lịch học bị trùng", conflictSchedules, 400));
@@ -152,16 +156,15 @@ public class EnrollmentController {
     private void validateChange(List<Enrollment> enrollmentsByYearAndSemester, List<Enrollment> enrollmentsNotInYearAndSemester, Map<String, MapCourseClass> classesBySemesterAndYear, Class oldClass, Class newClass, RequestChangeClass request) {
         if (request.old_class_id().equals(request.new_class_id())) {
             throw new RuntimeException("Không thể đổi cùng một lớp học");
+        } else if (enrollmentsByYearAndSemester.stream()
+                .anyMatch(enrollment -> enrollment.getRegistryClass().equals(oldClass.getId()) && enrollment.getStatus() == PaymentStatus.PAID)) {
+            throw new RuntimeException("Lớp học đã thanh toán không thể đổi");
         } else if (oldClass.getStatus() == ClassStatus.OPENED) {
             throw new RuntimeException("Lớp học đã mở không thể đổi lớp khác");
         } else if (newClass.getStatus() == ClassStatus.CLOSED) {
             throw new RuntimeException("Lớp học đã đóng, không thể đăng ký");
         } else if (newClass.getStatus() == ClassStatus.PLANNING) {
             throw new RuntimeException("Lớp học đang trong quá trình lên kế hoạch, không thể đăng ký");
-        } else if (enrollmentsByYearAndSemester.stream().anyMatch(enrollment -> enrollment.getRegistryClass().equals(newClass.getId()))) {
-            throw new RuntimeException("Bạn đã đăng ký lớp học này rồi");
-        } else if (enrollmentsNotInYearAndSemester.stream().anyMatch(enrollment -> enrollment.getCourseId().equals(newClass.getCourseId()))) {
-            throw new RuntimeException("Bạn đã đăng ký một lớp học khác cho môn học này");
         } else if (classesBySemesterAndYear == null || classesBySemesterAndYear.isEmpty()) {
             throw new RuntimeException("Hệ thống hiện đang lỗi, vui lòng thử lại sau");
         } else if (enrollmentsByYearAndSemester.stream()
@@ -189,7 +192,7 @@ public class EnrollmentController {
         try {
             enrollmentService.cancelEnrollment(studentId, classId);
 
-            registerMessageProducer.sendCancelSchedule(new RegisterSchedule(studentId, classId, 0));
+            registerMessageProducer.sendCancelSchedule(new CancelRequest(studentId, classId, 0));
 
             return ResponseEntity.ok(new ResponseWrapper("Hủy đăng ký thành công", null, HttpStatus.OK.value()));
         } catch (Exception e) {

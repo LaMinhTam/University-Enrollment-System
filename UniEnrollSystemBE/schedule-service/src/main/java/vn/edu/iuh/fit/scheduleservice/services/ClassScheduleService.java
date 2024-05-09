@@ -19,7 +19,7 @@ public interface ClassScheduleService {
 
     List<WeekScheduleDTO> getScheduleByDate(String studentId, DateRequest dateRequest) throws ParseException;
 
-    void changeSchedule(ChangeScheduleRequest request);
+    void changeSchedule(ChangeRegisterRequest request);
 
     List<QueryClassSchedule> getEachScheduleByClassIds(List<EnrollGroup> enrollGroups);
 }
