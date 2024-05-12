@@ -3,6 +3,7 @@ package vn.edu.iuh.fit.grademanagementservice.controllers;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import vn.edu.iuh.fit.grademanagementservice.dtos.ResponseWrapper;
+import vn.edu.iuh.fit.grademanagementservice.dtos.SemesterSummaryDTO;
 import vn.edu.iuh.fit.grademanagementservice.dtos.StatisticResponse;
 import vn.edu.iuh.fit.grademanagementservice.models.SemesterSummary;
 import vn.edu.iuh.fit.grademanagementservice.services.SemesterSummaryService;
@@ -25,7 +26,32 @@ public class SemesterSummaryController {
 
     @GetMapping("/summaries")
     public ResponseEntity<?> getSemesterSummaries(@RequestHeader("id") String studentId) {
-        return ResponseEntity.ok(new ResponseWrapper("Kết quả học tập", semesterSummaryService.getSemesterSummaries(studentId), 200));
+        List<SemesterSummary> semesterSummaries = semesterSummaryService.getSemesterSummaries(studentId);
+        List<SemesterSummaryDTO> semesterSummaryDTOS = semesterSummaries.stream().map(semesterSummary -> {
+            int currentIndex = semesterSummaries.indexOf(semesterSummary);
+
+            List<SemesterSummary> summariesUpToCurrent = semesterSummaries.subList(0, currentIndex + 1);
+
+            float accumulatedGPA = summariesUpToCurrent.stream().map(SemesterSummary::getGpa).reduce(0.0f, Float::sum) / summariesUpToCurrent.size();
+            int accumulatedCredits = summariesUpToCurrent.stream().map(SemesterSummary::getTotalCredits).reduce(0, Integer::sum);
+            int accumulatedPassedCredits = summariesUpToCurrent.stream().map(SemesterSummary::getTotalPassedCredits).reduce(0, Integer::sum);
+
+            return new SemesterSummaryDTO(
+                    semesterSummary.getSemester(),
+                    semesterSummary.getYear(),
+                    semesterSummary.getGradeReports(),
+                    semesterSummary.getGpa(),
+                    semesterSummary.getGpa()/2.5,
+                    semesterSummary.getTotalCredits(),
+                    semesterSummary.getTotalPassedCredits(),
+                    accumulatedGPA,
+                    accumulatedGPA/2.5,
+                    accumulatedCredits,
+                    accumulatedPassedCredits
+            );
+        }).toList();
+
+        return ResponseEntity.ok(new ResponseWrapper("Kết quả học tập", semesterSummaryDTOS, 200));
     }
 
     @GetMapping("/statistics")
