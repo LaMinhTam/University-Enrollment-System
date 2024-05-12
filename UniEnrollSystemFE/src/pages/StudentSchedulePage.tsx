@@ -10,9 +10,6 @@ import { splitDate } from "../utils/formatTime";
 import { UniEnrollSystemAPI } from "../apis/constants";
 import { toast } from "react-toastify";
 import { ScheduleData } from "../types/studyScheduleType";
-import { SCHEDULE_TYPE } from "../constants/global";
-import handleFilterStudySchedule from "../utils/handleFilterStudySchedule";
-import handleFilterExamSchedule from "../utils/handleFilterExamSchedule";
 import { setScheduleType } from "../store/actions/scheduleSlice";
 const StudentSchedulePage = () => {
     const dispatch = useDispatch();
@@ -25,9 +22,6 @@ const StudentSchedulePage = () => {
     const [loading, setLoading] = useState<boolean>(false);
 
     const [schedules, setSchedules] = useState<ScheduleData[]>([]);
-    const scheduleType = useSelector(
-        (state: RootState) => state.schedule.scheduleType
-    );
 
     useEffect(() => {
         document.title = "Lịch học, lịch thi tuần";
@@ -45,32 +39,19 @@ const StudentSchedulePage = () => {
                     date.year
                 );
                 if (response.status === 200) {
-                    if (scheduleType === SCHEDULE_TYPE.ALL) {
-                        setSchedules(response.data);
-                    } else if (scheduleType === SCHEDULE_TYPE.STUDY) {
-                        const schedules = handleFilterStudySchedule(
-                            response.data
-                        );
-                        setSchedules(schedules);
-                    } else if (scheduleType === SCHEDULE_TYPE.EXAM) {
-                        const schedules = handleFilterExamSchedule(
-                            response.data
-                        );
-                        setSchedules(schedules);
-                    } else {
-                        toast.info("Lịch học không tồn tại!!!");
-                    }
+                    setSchedules(response.data);
                     setLoading(false);
                 }
             } catch (error) {
+                setLoading(false);
                 toast.error("Lỗi khi lấy dữ liệu lịch học của sinh viên!");
             }
         }
 
-        if (targetDate && scheduleType) {
+        if (targetDate) {
             fetchStudentSchedule();
         }
-    }, [scheduleType, targetDate]);
+    }, [targetDate]);
 
     return (
         <RequiredAuthPage>

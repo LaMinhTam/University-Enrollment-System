@@ -86,13 +86,15 @@ const changeClassesEnrolled = async (
     return response.data;
 };
 
-const getStudentSchedule = async (day: string, month: string, year: string) => {
-    const response = await axiosPrivate.post<StudyScheduleResponse>(
+const getStudentSchedule = async (day: number, month: number, year: number) => {
+    const response = await axiosPrivate.get<StudyScheduleResponse>(
         "/schedules/classes/by-date",
         {
-            day: day,
-            month: month,
-            year: year,
+            params: {
+                day: day,
+                month: month,
+                year: year,
+            },
         }
     );
     return response.data;

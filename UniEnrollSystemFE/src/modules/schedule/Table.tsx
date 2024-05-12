@@ -6,6 +6,10 @@ import { formatDate } from "../../utils/formatTime";
 import { setDates } from "../../store/actions/scheduleSlice";
 import { v4 as uuidv4 } from "uuid";
 import ScheduleItem from "./ScheduleItem";
+import { SCHEDULE_TYPE } from "../../constants/global";
+import handleFilterStudySchedule from "../../utils/handleFilterStudySchedule";
+import handleFilterExamSchedule from "../../utils/handleFilterExamSchedule";
+import { toast } from "react-toastify";
 
 interface ScheduleCustomData {
     date: string;
@@ -16,6 +20,7 @@ const Table = ({ schedules }: { schedules: ScheduleData[] }) => {
     const [morningSchedule, setMorningSchedule] = useState<
         ScheduleCustomData[]
     >([]);
+    const [data, setData] = useState<ScheduleData[]>(schedules);
     const [afternoonSchedule, setAfternoonSchedule] = useState<
         ScheduleCustomData[]
     >([]);
@@ -25,6 +30,9 @@ const Table = ({ schedules }: { schedules: ScheduleData[] }) => {
     const dates = useSelector((state: RootState) => state.schedule.dates);
     const targetDate = useSelector(
         (state: RootState) => state.schedule.targetDate
+    );
+    const scheduleType = useSelector(
+        (state: RootState) => state.schedule.scheduleType
     );
     const dispatch = useDispatch();
     useEffect(() => {
@@ -46,13 +54,13 @@ const Table = ({ schedules }: { schedules: ScheduleData[] }) => {
     }, []);
 
     useEffect(() => {
-        if (schedules && schedules.length > 0 && dates && dates.length > 0) {
+        if (data && data.length > 0 && dates && dates.length > 0) {
             const morningSchedules: ScheduleCustomData[] = [];
             const afternoonSchedules: ScheduleCustomData[] = [];
             const eveningSchedules: ScheduleCustomData[] = [];
 
             dates?.forEach((date) => {
-                const item = schedules.find(
+                const item = data.find(
                     (s) => formatDate(new Date(s.date)) === date
                 );
 
@@ -94,7 +102,24 @@ const Table = ({ schedules }: { schedules: ScheduleData[] }) => {
             setAfternoonSchedule(afternoonSchedules);
             setEveningSchedule(eveningSchedules);
         }
-    }, [dates, schedules]);
+    }, [dates, data]);
+
+    useEffect(() => {
+        if (schedules && [0, 1, 2].includes(scheduleType)) {
+            console.log("useEffect ~ scheduleType:", scheduleType);
+            if (scheduleType === SCHEDULE_TYPE.ALL) {
+                setData(schedules);
+            } else if (scheduleType === SCHEDULE_TYPE.STUDY) {
+                const result = handleFilterStudySchedule(schedules);
+                setData(result);
+            } else if (scheduleType === SCHEDULE_TYPE.EXAM) {
+                const result = handleFilterExamSchedule(schedules);
+                setData(result);
+            } else {
+                toast.info("Lịch học không tồn tại!!!");
+            }
+        }
+    }, [scheduleType, schedules]);
 
     if (!dates) return null;
     return (
