@@ -73,7 +73,7 @@ services:
       - REDIS_PORT=6379
       - REDIS_DATABASES=16
     networks:
-      - backend
+      - db-redis-net
 
   rabbitmq:
     image: rabbitmq:management
@@ -86,71 +86,259 @@ services:
       - RABBITMQ_DEFAULT_USER=admin
       - RABBITMQ_DEFAULT_PASS=123456
     networks:
+      - rabbitmq-net
+
+  service-registry:
+    build:
+      context: ./UniEnrollSystemBE/service-registry
+      dockerfile: Dockerfile
+    ports:
+      - "8761:8761"
+    networks:
       - backend
 
-  # service-registry:
-  #   build: ./UniEnrollSystemBE/service-registry
-  #   restart: always
-  #   ports:
-  #     - "8761:8761"
-  #   networks:
-  #     - db-mysql-net
-  #     - db-mongodb-net
+  config-server:
+    build:
+      context: ./UniEnrollSystemBE/config-server
+      dockerfile: Dockerfile
+    ports:
+      - "8888:8888"
+    environment:
+      - SPRING_PROFILES_ACTIVE=native
+      - EUREKA_CLIENT_SERVICEURL_DEFAULTZONE=http://service-registry:8761/eureka/
+    volumes:
+      - ./UniEnrollSystemBE/config-server:/config
+    networks:
+      - backend
 
-  # config-server:
-  #   build: ./UniEnrollSystemBE/config-server
-  #   restart: always
-  #   ports:
-  #     - "8088:8088"
-  #   networks:
-  #     - db-mysql-net
-  #     - db-mongodb-net
-  #   depends_on:
-  #     - service-registry
+  gateway:
+    build:
+      context: ./UniEnrollSystemBE/api-gateway
+      dockerfile: Dockerfile
+    restart: always
+    ports:
+      - "8060:8060"
+    environment:
+      - CONFIG_SERVER_URL=http://config-server:8888
+      - EUREKA_CLIENT_SERVICEURL_DEFAULTZONE=http://service-registry:8761/eureka/
+    volumes:
+      - ./UniEnrollSystemBE/api-gateway:/config
+    networks:
+      - backend
+    depends_on:
+      - service-registry
+      - config-server
 
-  # enroll-service:
-  #   build: ./UniEnrollSystemBE/enroll-service
-  #   restart: always
-  #   ports:
-  #     - "8084:8084"
-  #   networks:
-  #     - db-mysql-net
-  #     - db-mongodb-net
-  #   depends_on:
-  #     - service-registry
-  #     - config-server
+  auth-service:
+    build:
+      context: ./UniEnrollSystemBE/auth-service
+      dockerfile: Dockerfile
+    restart: always
+    ports:
+      - "9004:9004"
+    environment:
+      - CONFIG_SERVER_URL=http://config-server:8888
+      - EUREKA_CLIENT_SERVICEURL_DEFAULTZONE=http://service-registry:8761/eureka/
+      - SPRING_APPLICATION_NAME=auth-service
+      - SPRING_DATASOURCE_URL=jdbc:mysql://mysql:3306/auth_db
+      - SPRING_DATASOURCE_USERNAME=root
+      - SPRING_DATASOURCE_PASSWORD=123456
+      - SPRING_JPA_HIBERNATE_DDL_AUTO=update
+      - SPRING_JPA_SHOW_SQL=false
+      - JWT_SECRET=4d5a23bd0646523b4aaae7a51a92a62babcb4eb353843a3fa4ef4ef05f534a68
+      - JWT_EXPIRATION=86400
+    volumes:
+      - ./UniEnrollSystemBE/auth-service:/config
+    depends_on:
+      - service-registry
+      - config-server
+      - gateway
+      - mysql
+    networks:
+      - backend
+      - db-mysql-net
 
-  # auth-service:
-  #   build: ./UniEnrollSystemBE/auth-service
-  #   restart: always
-  #   ports:
-  #     - "9004:9004"
-  #   networks:
-  #     - db-mysql-net
-  #     - db-mongodb-net
-  #   depends_on:
-  #     - service-registry
-  #     - config-server
+  faculty-service:
+    build:
+      context: ./UniEnrollSystemBE/faculty-service
+      dockerfile: Dockerfile
+    restart: always
+    ports:
+      - "8082:8082"
+    environment:
+      - CONFIG_SERVER_URL=http://config-server:8888
+      - EUREKA_CLIENT_SERVICEURL_DEFAULTZONE=http://service-registry:8761/eureka/
+      - SPRING_APPLICATION_NAME=faculty-service
+      - SPRING_DATASOURCE_URL=jdbc:mysql://mysql:3306/faculty_db?createDatabaseIfNotExist=true
+      - SPRING_DATASOURCE_USERNAME=root
+      - SPRING_DATASOURCE_PASSWORD=123456
+      - SPRING_JPA_HIBERNATE_DDL_AUTO=update
+      - SPRING_JPA_SHOW_SQL=false
+    depends_on:
+      - service-registry
+      - config-server
+      - gateway
+      - mysql
+    volumes:
+      - ./UniEnrollSystemBE/faculty-service:/config
+    networks:
+      - backend
+      - db-mysql-net
 
-  # faculty-service:
-  #   build: ./UniEnrollSystemBE/faculty-service
-  #   restart: always
-  #   ports:
-  #     - "8082:8082"
-  #   networks:
-  #     - db-mysql-net
-  #     - db-mongodb-net
-  #   depends_on:
-  #     - service-registry
-  #     - config-server
+  course-service:
+    build:
+      context: ./UniEnrollSystemBE/course-service
+      dockerfile: Dockerfile
+    restart: always
+    ports:
+      - "8086:8086"
+    environment:
+      - CONFIG_SERVER_URL=http://config-server:8888
+      - EUREKA_CLIENT_SERVICEURL_DEFAULTZONE=http://service-registry:8761/eureka/
+      - SPRING_APPLICATION_NAME=course-service
+      - SPRING_DATA_MONGODB_PORT=27017
+      - SPRING_DATA_MONGODB_HOST=db-mongodb-con
+      - SPRING_DATA_MONGODB_DATABASE=course_db
+      - SPRING_DATA_MONGODB_AUTHENTICATION_DATABASE=admin
+      - SPRING_DATA_MONGODB_URI=mongodb://root:123456@mongodb:27017/admin
+    volumes:
+      - ./UniEnrollSystemBE/course-service:/config
+    depends_on:
+      - service-registry
+      - config-server
+      - gateway
+      - mongodb
+    networks:
+      - backend
+      - db-mongodb-net
 
-  # gateway:
-  #   build: ./UniEnrollSystemBE/api-gateway
-  #   restart: always
-  #   ports:
-  #     - "8060:8060"
-  #   depends_on:
-  #     - enroll-service
+  enroll-service:
+    build:
+      context: ./UniEnrollSystemBE/enroll-service
+      dockerfile: Dockerfile
+    restart: always
+    ports:
+      - "8084:8084"
+    environment:
+      - CONFIG_SERVER_URL=http://config-server:8888
+      - EUREKA_CLIENT_SERVICEURL_DEFAULTZONE=http://service-registry:8761/eureka/
+      - SPRING_APPLICATION_NAME=enroll-service
+      - SPRING_DATASOURCE_URL=jdbc:mysql://mysql:3306/enroll_db?createDatabaseIfNotExist=true
+      - SPRING_DATASOURCE_USERNAME=root
+      - SPRING_DATASOURCE_PASSWORD=123456
+      - SPRING_JPA_HIBERNATE_DDL_AUTO=update
+      - SPRING_JPA_SHOW_SQL=false
+      - SPRING_DATA_REDIS_DATABASE=0
+      - REDIS_HOST=redis
+      - REDIS_PORT=6379
+      - SPRING_DATA_REDIS_TIMEOUT=60000
+      - SPRING_DATA_REDIS_PASSWORD=123456
+      - SPRING_RABBITMQ_HOST=rabbitmq
+      - SPRING_RABBITMQ_PORT=5672
+      - SPRING_RABBITMQ_USERNAME=admin
+      - SPRING_RABBITMQ_PASSWORD=123456
+    volumes:
+      - ./UniEnrollSystemBE/enroll-service:/config
+    depends_on:
+      - service-registry
+      - config-server
+      - gateway
+      - mysql
+      - redis
+      - rabbitmq
+    networks:
+      - backend
+      - db-mysql-net
+      - db-redis-net
+      - rabbitmq-net
+
+  schedule-service:
+    build:
+      context: ./UniEnrollSystemBE/schedule-service
+      dockerfile: Dockerfile
+    environment:
+      - CONFIG_SERVER_URL=http://config-server:8888
+      - EUREKA_CLIENT_SERVICEURL_DEFAULTZONE=http://service-registry:8761/eureka/
+      - SPRING_DATA_MONGODB_PORT=27017
+      - SPRING_DATA_MONGODB_HOST=db-mongodb-con
+      - SPRING_DATA_MONGODB_DATABASE=schedule_db
+      - SPRING_DATA_MONGODB_AUTHENTICATION_DATABASE=admin
+      - SPRING_DATA_MONGODB_URI=mongodb://root:123456@mongodb:27017/admin
+      - SPRING_RABBITMQ_HOST=rabbitmq
+      - SPRING_RABBITMQ_PORT=5672
+      - SPRING_RABBITMQ_USERNAME=admin
+      - SPRING_RABBITMQ_PASSWORD=123456
+    ports:
+      - "8085:8085"
+    depends_on:
+      - service-registry
+      - config-server
+      - mongodb
+      - gateway
+      - redis
+      - rabbitmq
+    networks:
+      - backend
+      - db-mongodb-net
+      - db-redis-net
+      - rabbitmq-net
+
+  grade-management-service:
+    build:
+      context: ./UniEnrollSystemBE/grade-management-service
+      dockerfile: Dockerfile
+    restart: always
+    ports:
+      - "8087:8087"
+    environment:
+      - CONFIG_SERVER_URL=http://config-server:8888
+      - EUREKA_CLIENT_SERVICEURL_DEFAULTZONE=http://service-registry:8761/eureka/
+      - SPRING_DATA_MONGODB_PORT=27017
+      - SPRING_DATA_MONGODB_HOST=db-mongodb-con
+      - SPRING_DATA_MONGODB_DATABASE=grade_db
+      - SPRING_DATA_MONGODB_AUTHENTICATION_DATABASE=admin
+      - SPRING_DATA_MONGODB_URI=mongodb://root:123456@mongodb:27017/admin
+    volumes:
+      - ./UniEnrollSystemBE/grade-management-service:/config
+    depends_on:
+      - service-registry
+      - config-server
+      - gateway
+      - mongodb
+    networks:
+      - backend
+      - db-mongodb-net
+
+  payment-service:
+    build:
+      context: ./UniEnrollSystemBE/payment-service
+      dockerfile: Dockerfile
+    restart: always
+    ports:
+      - "8089:8089"
+    environment:
+      - CONFIG_SERVER_URL=http://config-server:8888
+      - EUREKA_CLIENT_SERVICEURL_DEFAULTZONE=http://service-registry:8761/eureka/
+      - SPRING_DATA_MONGODB_PORT=27017
+      - SPRING_DATA_MONGODB_HOST=db-mongodb-con
+      - SPRING_DATA_MONGODB_DATABASE=payment_db
+      - SPRING_DATA_MONGODB_AUTHENTICATION_DATABASE=admin
+      - SPRING_DATA_MONGODB_URI=mongodb://root:123456@mongodb:27017/admin
+      - SPRING_RABBITMQ_HOST=rabbitmq
+      - SPRING_RABBITMQ_PORT=5672
+      - SPRING_RABBITMQ_USERNAME=admin
+      - SPRING_RABBITMQ_PASSWORD=123456
+    depends_on:
+      - service-registry
+      - config-server
+      - mongodb
+      - gateway
+      - rabbitmq
+      - schedule-service
+    networks:
+      - backend
+      - db-mongodb-net
+      - rabbitmq-net
 
 volumes:
   mysql-data:
@@ -160,3 +348,5 @@ networks:
   db-mysql-net:
   db-mongodb-net:
   backend:
+  db-redis-net:
+  rabbitmq-net:
