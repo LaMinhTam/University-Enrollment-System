@@ -89,18 +89,14 @@ services:
       - rabbitmq-net
 
   service-registry:
-    build:
-      context: ./UniEnrollSystemBE/service-registry
-      dockerfile: Dockerfile
+    image: laminhtam/service-registry:latest
     ports:
       - "8761:8761"
     networks:
       - backend
 
   config-server:
-    build:
-      context: ./UniEnrollSystemBE/config-server
-      dockerfile: Dockerfile
+    image: laminhtam/config-server:latest
     ports:
       - "8888:8888"
     environment:
@@ -112,9 +108,7 @@ services:
       - backend
 
   gateway:
-    build:
-      context: ./UniEnrollSystemBE/api-gateway
-      dockerfile: Dockerfile
+    image: laminhtam/gateway:latest
     restart: always
     ports:
       - "8060:8060"
@@ -130,9 +124,7 @@ services:
       - config-server
 
   auth-service:
-    build:
-      context: ./UniEnrollSystemBE/auth-service
-      dockerfile: Dockerfile
+    image: laminhtam/auth-service:latest
     restart: always
     ports:
       - "9004:9004"
@@ -159,9 +151,7 @@ services:
       - db-mysql-net
 
   faculty-service:
-    build:
-      context: ./UniEnrollSystemBE/faculty-service
-      dockerfile: Dockerfile
+    image: laminhtam/faculty-service:latest
     restart: always
     ports:
       - "8082:8082"
@@ -186,9 +176,7 @@ services:
       - db-mysql-net
 
   course-service:
-    build:
-      context: ./UniEnrollSystemBE/course-service
-      dockerfile: Dockerfile
+    image: laminhtam/course-service:latest
     restart: always
     ports:
       - "8086:8086"
@@ -213,9 +201,7 @@ services:
       - db-mongodb-net
 
   enroll-service:
-    build:
-      context: ./UniEnrollSystemBE/enroll-service
-      dockerfile: Dockerfile
+    image: laminhtam/enroll-service:latest
     restart: always
     ports:
       - "8084:8084"
@@ -253,9 +239,7 @@ services:
       - rabbitmq-net
 
   schedule-service:
-    build:
-      context: ./UniEnrollSystemBE/schedule-service
-      dockerfile: Dockerfile
+    image: laminhtam/schedule-service:latest
     environment:
       - CONFIG_SERVER_URL=http://config-server:8888
       - EUREKA_CLIENT_SERVICEURL_DEFAULTZONE=http://service-registry:8761/eureka/
@@ -284,9 +268,7 @@ services:
       - rabbitmq-net
 
   grade-management-service:
-    build:
-      context: ./UniEnrollSystemBE/grade-management-service
-      dockerfile: Dockerfile
+    image: laminhtam/grade-management-service:latest
     restart: always
     ports:
       - "8087:8087"
@@ -310,9 +292,7 @@ services:
       - db-mongodb-net
 
   payment-service:
-    build:
-      context: ./UniEnrollSystemBE/payment-service
-      dockerfile: Dockerfile
+    image: laminhtam/payment-service:latest
     restart: always
     ports:
       - "8089:8089"
