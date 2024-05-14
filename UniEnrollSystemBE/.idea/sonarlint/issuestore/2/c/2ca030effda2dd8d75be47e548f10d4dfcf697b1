@@ -1,7 +1,7 @@
 
 |
-java:S1172"4Remove this unused method parameter "redisTemplate".(¶“ë¶ÿÿÿÿÿ8Ü¶ð£÷1J$82f26bfb-6d2f-4c42-ba71-98af4850fea0
+java:S1172"4Remove this unused method parameter "redisTemplate".(¶“ë¶ÿÿÿÿÿ8Ü¶ð£÷1J$39fb6738-6230-4b32-b1f9-338c9655c383
 i
-java:S1452!"&Remove usage of generic wildcard type.(¥˜•„8à¶ð£÷1J$39f6b110-da19-4819-ba10-2bcebc4eb139
+java:S1452!"&Remove usage of generic wildcard type.(¥˜•„8à¶ð£÷1J$538018a9-3f95-46c3-9389-fe3b7dbd677f
 ½
-java:S6204'"zReplace this usage of 'Stream.collect(Collectors.toList())' with 'Stream.toList()' and ensure that the list is unmodified.(‡Ÿþ•8ã¶ð£÷1J$0fb355e0-3c61-4544-9d72-a88fcd004f77
+java:S6204'"zReplace this usage of 'Stream.collect(Collectors.toList())' with 'Stream.toList()' and ensure that the list is unmodified.(‡Ÿþ•8ã¶ð£÷1J$d276a5a6-44f3-4088-b9dd-a3b3bcfdb002

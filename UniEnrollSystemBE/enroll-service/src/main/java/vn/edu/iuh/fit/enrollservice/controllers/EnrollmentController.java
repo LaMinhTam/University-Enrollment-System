@@ -82,7 +82,7 @@ public class EnrollmentController {
                 enrollmentService.registerClass(studentId, request);
                 Course course = classesBySemesterAndYear.get(newClass.getCourseId()).course();
                 Double amount = course.practicalCredit() * 800000.0 + course.theoryCredit() * 680000.0;
-                registerMessageProducer.sendRegisterSchedule(new RegisterRequest(studentId, request.class_id(), request.group(), newClass.getCourseId(), newClass.getCourseName(), newClass.getYear(), newClass.getSemester(), amount, course.credit()));
+                registerMessageProducer.sendEnrollMessage(new MessageRequest(EnrollMessageType.REGISTER, new RegisterRequest(studentId, request.class_id(), request.group(), newClass.getCourseId(), newClass.getCourseName(), newClass.getYear(), newClass.getSemester(), amount, course.credit())));
                 return ResponseEntity.ok(new ResponseWrapper("Đăng ký thành công", null, 200));
             } else {
                 return ResponseEntity.ok(new ResponseWrapper("Lịch học bị trùng", conflictSchedules, 400));
@@ -143,7 +143,7 @@ public class EnrollmentController {
             List<ConflictResponse> conflictSchedules = scheduleClient.checkScheduleConflict(new ScheduleConflictRequest(enrollGroups, request.new_class_id(), request.group()));
             if (conflictSchedules.isEmpty()) {
                 enrollmentService.changeClass(studentId, request);
-                registerMessageProducer.sendChangeSchedule(new ChangeRegisterRequest(studentId, request.old_class_id(), request.new_class_id()));
+                registerMessageProducer.sendEnrollMessage(new MessageRequest(EnrollMessageType.CHANGE, new ChangeRegisterRequest(studentId, request.old_class_id(), request.new_class_id())));
                 return ResponseEntity.ok(new ResponseWrapper("Thay đổi lớp học thành công", null, 200));
             } else {
                 return ResponseEntity.ok(new ResponseWrapper("Lịch học bị trùng", conflictSchedules, 400));
@@ -192,7 +192,7 @@ public class EnrollmentController {
         try {
             enrollmentService.cancelEnrollment(studentId, classId);
 
-            registerMessageProducer.sendCancelSchedule(new CancelRequest(studentId, classId, 0));
+            registerMessageProducer.sendEnrollMessage(new MessageRequest(EnrollMessageType.CANCEL, new CancelRequest(studentId, classId, 0)));
 
             return ResponseEntity.ok(new ResponseWrapper("Hủy đăng ký thành công", null, HttpStatus.OK.value()));
         } catch (Exception e) {

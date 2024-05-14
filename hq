@@ -1,0 +1,660 @@
+[33mcommit 98fb3571ed176f4904c8007c14e908136ba159c2[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mbackend[m[33m)[m
+Author: laminhtam <laminhtam5523@gmail.com>
+Date:   Tue May 14 07:37:03 2024 +0700
+
+    Refactor MapCourseClass to use Map instead of List for classes and update related code
+
+[33mcommit 0cd72689a4a1ad5540aed0ba1a914677b27f08db[m[33m ([m[1;31morigin/dev[m[33m, [m[1;31morigin/backend[m[33m, [m[1;32mdev[m[33m)[m
+Author: laminhtam <laminhtam5523@gmail.com>
+Date:   Mon May 13 16:02:17 2024 +0700
+
+    Update: docker-compose.yml to use images instead of build context
+
+[33mcommit 8142d4978e7159d0b33a83a9620bcc80d8c148fc[m
+Author: laminhtam <laminhtam5523@gmail.com>
+Date:   Mon May 13 14:25:08 2024 +0700
+
+    dockerize backend project
+
+[33mcommit db028a601e4535c2815a55bd82e8e37cecc31f7f[m
+Author: laminhtam <laminhtam5523@gmail.com>
+Date:   Thu May 9 18:42:40 2024 +0700
+
+    refactor: add more field on return for semester summary
+
+[33mcommit 63868c5e6567124b99564380987948a33177f00c[m
+Author: laminhtam <laminhtam5523@gmail.com>
+Date:   Thu May 9 18:24:37 2024 +0700
+
+    fix: import data for semester summary
+
+[33mcommit ab12ad801e5baffdd1ca59007c87ceb6d0de5263[m
+Author: laminhtam <laminhtam5523@gmail.com>
+Date:   Thu May 9 18:02:35 2024 +0700
+
+    update database
+
+[33mcommit 7cecfdf5e070fed1d9d00d2dfa8ad5fdd18369bd[m
+Author: laminhtam <laminhtam5523@gmail.com>
+Date:   Thu May 9 15:29:42 2024 +0700
+
+    feat: unable change class if checkouted
+
+[33mcommit 367d52b14256548d48107cb56870a23871d3f660[m
+Author: laminhtam <laminhtam5523@gmail.com>
+Date:   Thu May 9 15:26:07 2024 +0700
+
+    update: endpoint to get classes by date input param instead of body
+
+[33mcommit ef9dad6185ac17bdf817af63ac2de58bed3a47f9[m
+Author: laminhtam <laminhtam5523@gmail.com>
+Date:   Thu May 9 15:09:33 2024 +0700
+
+    update database
+
+[33mcommit a2ebe3307d5fec0315827bab28728b8d93472063[m
+Author: laminhtam <laminhtam5523@gmail.com>
+Date:   Thu May 9 15:02:31 2024 +0700
+
+    update status on checkout
+
+[33mcommit c5c652c93f8590241148d43803d952be75f040b9[m
+Author: laminhtam <laminhtam5523@gmail.com>
+Date:   Thu May 9 13:05:36 2024 +0700
+
+    fix: change register catch exception on next class
+
+[33mcommit fabbee27e1a420f0356c1ecf03c3f4571bf38622[m
+Author: laminhtam <laminhtam5523@gmail.com>
+Date:   Thu May 9 09:49:44 2024 +0700
+
+    fix: return empty invoices
+
+[33mcommit 52fae9adc8296fbfa3e7ae486af0a8d1036b625b[m
+Author: laminhtam <laminhtam5523@gmail.com>
+Date:   Wed May 8 23:24:58 2024 +0700
+
+    update: enroll service catch exception
+
+[33mcommit 5252c6e59e7af1552e2ac31f335c53382ea9c433[m
+Author: laminhtam <laminhtam5523@gmail.com>
+Date:   Wed May 8 23:22:21 2024 +0700
+
+    update gateway
+
+[33mcommit e5e55d281862688998bc6f33ff7d3d728865c570[m
+Author: laminhtam <laminhtam5523@gmail.com>
+Date:   Wed May 8 23:21:50 2024 +0700
+
+    feat: management invoice and course payment
+
+[33mcommit 02d06d89624431d496418aabade11c73997464f8[m
+Author: laminhtam <laminhtam5523@gmail.com>
+Date:   Wed May 8 23:20:17 2024 +0700
+
+    feat: implement rabbitmq fanout
+
+[33mcommit 13ae465f45bc77c8d4dcdb60e8992bdc82631cc6[m
+Author: laminhtam <laminhtam5523@gmail.com>
+Date:   Tue May 7 20:12:03 2024 +0700
+
+    fix: wrong schedule year, and valid on right schedule group
+
+[33mcommit 7f02c6db6dbcf2e2824534ee6163d3962aaf9422[m
+Merge: 5a141b1 237e74c
+Author: laminhtam <laminhtam5523@gmail.com>
+Date:   Tue May 7 14:39:25 2024 +0700
+
+    Merge remote-tracking branch 'origin/frontend' into backend
+
+[33mcommit 5a141b1d78d8ccb3809e8a07297ce17930ff9b60[m
+Author: laminhtam <laminhtam5523@gmail.com>
+Date:   Tue May 7 14:05:27 2024 +0700
+
+    integrated vnpay
+
+[33mcommit 237e74c59a2a6aef62d25262a9493603b1af4f5a[m[33m ([m[1;31morigin/frontend[m[33m)[m
+Author: Your Name~clear <vodinhthong17112003@gmail.com>
+Date:   Mon May 6 15:32:45 2024 +0700
+
+    fix: resolve asynchronous when many request refreshToken
+
+[33mcommit df27ed3f6328b3849d4b109e00114fdcdf99d3dd[m
+Merge: 211d766 0cda2fb
+Author: Your Name~clear <vodinhthong17112003@gmail.com>
+Date:   Mon May 6 12:55:05 2024 +0700
+
+    Merge branch 'dev' into frontend
+
+[33mcommit 0cda2fbfc92790b9637540986bd933ed1ad525f8[m
+Author: laminhtam <laminhtam5523@gmail.com>
+Date:   Mon May 6 11:32:33 2024 +0700
+
+    feat: retrieve academic results, statistical data, estimate scholarship
+
+[33mcommit 211d7660afe970dedcf1515d7ab938cc1e8786bb[m
+Author: Your Name~clear <vodinhthong17112003@gmail.com>
+Date:   Mon May 6 11:31:07 2024 +0700
+
+    style: StudentSchedulePage; feat: prev, next weeks, select the date to navigate that week
+
+[33mcommit 437c9f77739ad6a87a382140fa891abf137fc208[m
+Author: Your Name~clear <vodinhthong17112003@gmail.com>
+Date:   Sun May 5 17:48:59 2024 +0700
+
+    refactor: TableRegistration and filter out classes being enrolled
+
+[33mcommit b032c6ab803e82b4a89f6c15680ed4770fc58928[m
+Author: laminhtam <laminhtam5523@gmail.com>
+Date:   Sun May 5 17:16:37 2024 +0700
+
+    update database
+
+[33mcommit 93a3d7933f4d464ca9c77653e94b5c7a969e2a2d[m
+Merge: 0a175a0 8177cbf
+Author: Your Name~clear <vodinhthong17112003@gmail.com>
+Date:   Sun May 5 15:11:29 2024 +0700
+
+    Merge branch 'dev' into frontend
+
+[33mcommit 8177cbfb0a62d292e516c94393f77715a4fd4885[m
+Author: laminhtam <laminhtam5523@gmail.com>
+Date:   Sun May 5 11:10:02 2024 +0700
+
+    feat: add field group to return with registable
+
+[33mcommit fae0b2a4ba8caf40acc816be6c959ec7f89c2263[m
+Author: laminhtam <laminhtam5523@gmail.com>
+Date:   Sun May 5 10:43:09 2024 +0700
+
+    feat: valid Prerequisite course, update: conflict valid for register, update: database
+
+[33mcommit 62d9837854718da772785843edd63731e35ced48[m
+Author: laminhtam <laminhtam5523@gmail.com>
+Date:   Sat May 4 22:55:34 2024 +0700
+
+    refactor: return schedule practice by register group
+
+[33mcommit 0a175a03cb59efb20e16ec9c9515d6996424628f[m
+Author: Your Name~clear <vodinhthong17112003@gmail.com>
+Date:   Sat May 4 15:57:22 2024 +0700
+
+    refactor: Education program, Course Enroll
+
+[33mcommit ff6661c77fa868e2a9f057b8fbff97b44e1d9a12[m
+Author: laminhtam <laminhtam5523@gmail.com>
+Date:   Sat May 4 12:14:15 2024 +0700
+
+    feat: check schedule conflict by practice group and theory only
+
+[33mcommit 0e288efcdef7aa6c6c1ff268a4de5a55ad734fec[m
+Author: Your Name~clear <vodinhthong17112003@gmail.com>
+Date:   Sat May 4 11:28:34 2024 +0700
+
+    fix: watch schedule of class in new enrolled class
+
+[33mcommit a621c72e39638119b9aa1503ee9bd4d5e976c5aa[m
+Merge: d2a8921 2fca1b5
+Author: Your Name~clear <vodinhthong17112003@gmail.com>
+Date:   Fri May 3 18:09:16 2024 +0700
+
+    Merge branch 'dev' into frontend
+
+[33mcommit 2fca1b5ea6995b8993ffafc3d2b2712042a147e9[m
+Author: laminhtam <laminhtam5523@gmail.com>
+Date:   Fri May 3 17:30:08 2024 +0700
+
+    fix: schedule conflict on wrong group, and field date import on wrong way
+
+[33mcommit d2a8921b0c6d7e0b3f6c18e233c23ea052f4fae6[m
+Author: Your Name~clear <vodinhthong17112003@gmail.com>
+Date:   Fri May 3 16:18:11 2024 +0700
+
+    optimize fetching when register, remove or change class
+
+[33mcommit bb64634fa96d813bb7dd202e25b1bd7015bdfa95[m
+Author: Your Name~clear <vodinhthong17112003@gmail.com>
+Date:   Thu May 2 23:59:54 2024 +0700
+
+    feat: add type in courseType and scheduleType, filter duplicate schedule
+
+[33mcommit 11a2aef737fde9e7a9be895dd9e4bb5fa2945eee[m
+Author: laminhtam <laminhtam5523@gmail.com>
+Date:   Thu May 2 23:15:00 2024 +0700
+
+    docker mongodb initialize database
+
+[33mcommit 62eca20c6b9a35a7057f68de6788e40c65a6f2a0[m
+Merge: 30da73c df2851e
+Author: Your Name~clear <vodinhthong17112003@gmail.com>
+Date:   Thu May 2 19:21:34 2024 +0700
+
+    fix conflict when merging dev branch
+
+[33mcommit df2851ee5b00daf08f2fdf305842d54f24a1fc37[m
+Author: laminhtam <laminhtam5523@gmail.com>
+Date:   Thu May 2 17:37:51 2024 +0700
+
+    feat: register on pratical group
+
+[33mcommit 30da73c5ca7dc69d72c4b8ededb47d4e5ee4422a[m
+Merge: c106137 595126a
+Author: Your Name~clear <vodinhthong17112003@gmail.com>
+Date:   Thu May 2 15:07:41 2024 +0700
+
+    Merge branch 'dev' into frontend
+
+[33mcommit 595126af7f4347aad0aeff7e303a7fd1e532381a[m
+Author: laminhtam <laminhtam5523@gmail.com>
+Date:   Thu May 2 13:23:26 2024 +0700
+
+    perf: _id store as classId to index
+
+[33mcommit 1cf03d65885c2e89ab064761a5c677cc218193a6[m
+Author: laminhtam <laminhtam5523@gmail.com>
+Date:   Thu May 2 12:39:05 2024 +0700
+
+    update registrable endpoint
+
+[33mcommit 1b1d1fd48d25211ca874fec6e93bb88c30726005[m
+Author: laminhtam <laminhtam5523@gmail.com>
+Date:   Thu May 2 12:25:51 2024 +0700
+
+    feat: return group index for each schedule
+
+[33mcommit c1061372541d710ecd853533c59a2d2e335aa4cf[m
+Author: Your Name~clear <vodinhthong17112003@gmail.com>
+Date:   Wed May 1 23:08:24 2024 +0700
+
+    feat: register and remove classes
+
+[33mcommit b630425ef3c3fe849f09670a62a6a5a40945e185[m
+Author: laminhtam <laminhtam5523@gmail.com>
+Date:   Wed May 1 18:26:24 2024 +0700
+
+    implement rabbitmq to register class
+
+[33mcommit d79c4454a8c78f74b4d7fee1c0b518c5ed2d7a6f[m
+Merge: 1bb6e9e 609b160
+Author: Your Name~clear <vodinhthong17112003@gmail.com>
+Date:   Wed May 1 15:18:47 2024 +0700
+
+    Merge branch 'dev' of https://github.com/LaMinhTam/University-Enrollment-System into frontend
+
+[33mcommit 609b1605b59fb039c888bddddbb39bca4f693fdc[m
+Author: laminhtam <laminhtam5523@gmail.com>
+Date:   Wed May 1 14:33:21 2024 +0700
+
+    update database
+
+[33mcommit 1bb6e9e1baa9f9bb2b0cae799ca76050194f6232[m
+Merge: 77ed5d8 8d7513f
+Author: Your Name~clear <vodinhthong17112003@gmail.com>
+Date:   Wed May 1 11:16:56 2024 +0700
+
+    Merge branch 'dev' into frontend
+
+[33mcommit 77ed5d871278ecd42660860fcd7a25369a1dd407[m
+Author: Your Name~clear <vodinhthong17112003@gmail.com>
+Date:   Wed May 1 00:01:38 2024 +0700
+
+    refactor: CourseRegisterPage to small comp; feat: render data in CourseRegisterPage
+
+[33mcommit 8d7513f811dc67e4095445e96f704935c2a1457d[m
+Author: laminhtam <laminhtam5523@gmail.com>
+Date:   Tue Apr 30 23:45:52 2024 +0700
+
+    refactor: bind type and quantity to registry return
+
+[33mcommit 1c531df9e46dda10db4d5eb5a64ff45ac9726e34[m
+Author: laminhtam <laminhtam5523@gmail.com>
+Date:   Tue Apr 30 19:04:23 2024 +0700
+
+    refactor: improve query for class register
+
+[33mcommit bae5899ace5b2b379033c8db86b442d25e811390[m
+Merge: 820c044 b9078ca
+Author: Your Name~clear <vodinhthong17112003@gmail.com>
+Date:   Tue Apr 30 14:40:17 2024 +0700
+
+    fix conflict when merging dev branch
+
+[33mcommit b9078ca7964105e7a1fc1ba88ec2826f1e0d9827[m
+Author: laminhtam <laminhtam5523@gmail.com>
+Date:   Tue Apr 30 14:17:11 2024 +0700
+
+    refactor: clean course service
+
+[33mcommit 44f8f56ff2f011d680781d93f5eb9f35767b86c7[m
+Author: laminhtam <laminhtam5523@gmail.com>
+Date:   Tue Apr 30 14:10:55 2024 +0700
+
+    implement redis to store registable temporary
+
+[33mcommit 683ac8af2ac9cd554a304c09f3bb1c6de6ce9794[m
+Author: laminhtam <laminhtam5523@gmail.com>
+Date:   Tue Apr 30 11:29:20 2024 +0700
+
+    refactor: reformat return value of list registerable, and courses
+
+[33mcommit 777c8d5d82476fc5581491cb007602cb0f3baf1f[m
+Author: laminhtam <laminhtam5523@gmail.com>
+Date:   Tue Apr 30 00:36:54 2024 +0700
+
+    update: map prerequisites on courses return
+
+[33mcommit 820c044fc9a0dadf37587166ac053f4fc358b04f[m
+Author: Your Name~clear <vodinhthong17112003@gmail.com>
+Date:   Tue Apr 30 00:04:56 2024 +0700
+
+    feat: Render Education Programs; style: CourseRegisterPage
+
+[33mcommit 92a59f28c46e5f903c2c1807241cdcbde47c4488[m
+Author: laminhtam <laminhtam5523@gmail.com>
+Date:   Mon Apr 29 23:20:12 2024 +0700
+
+    initialize grade management service
+
+[33mcommit 211ebcdb5a95606e606319dd232bb4c3239e51e8[m
+Merge: fbf1dfd 0efe774
+Author: Your Name~clear <vodinhthong17112003@gmail.com>
+Date:   Mon Apr 29 17:53:57 2024 +0700
+
+    Merge branch 'dev' into frontend
+
+[33mcommit fbf1dfdc9deb249013ee0728b8595b8694c25656[m
+Author: Your Name~clear <vodinhthong17112003@gmail.com>
+Date:   Mon Apr 29 17:52:31 2024 +0700
+
+    style: Education Programs, DashboardFeature, DashboardMetric, DashboardInfo
+
+[33mcommit 0efe7747ad757f45781ccea0d22cc637ef433f92[m
+Author: laminhtam <laminhtam5523@gmail.com>
+Date:   Mon Apr 29 17:47:23 2024 +0700
+
+    Add refresh token route to RouterValidator
+
+[33mcommit 7306a9259bc11d5a7f5b9bba8f2b73c8b67f6f61[m
+Author: laminhtam <laminhtam5523@gmail.com>
+Date:   Mon Apr 29 17:45:08 2024 +0700
+
+    feat: register to wait list
+
+[33mcommit b51ae2d455a76efe1cb1f43783dc841b4c1b350c[m
+Author: laminhtam <laminhtam5523@gmail.com>
+Date:   Mon Apr 29 16:21:05 2024 +0700
+
+    update: map more status for schedule NO_CLASS_DAY, MID_TERM_EXAM, FINAL_EXAM
+
+[33mcommit 3c7de9d2001f347c790974f4f38c6b593acb5320[m
+Author: laminhtam <laminhtam5523@gmail.com>
+Date:   Mon Apr 29 00:13:18 2024 +0700
+
+    refactor: schedule return date instead of dayOfWeek
+
+[33mcommit ac6c847121341c12f9ed75bb34d6d05842dd4cbe[m
+Merge: ffa8164 bd1b8f4
+Author: Your Name~clear <vodinhthong17112003@gmail.com>
+Date:   Sun Apr 28 19:14:18 2024 +0700
+
+    Merge branch 'dev' into frontend
+
+[33mcommit bd1b8f4030702ee5c3816c9d4e5023ce4e51a7bd[m
+Author: laminhtam <laminhtam5523@gmail.com>
+Date:   Sun Apr 28 18:55:20 2024 +0700
+
+    style: format return courses by major
+
+[33mcommit ffa81643d06a034b719955984e29eea836b444ae[m
+Merge: 3fc5654 e35fc40
+Author: Your Name~clear <vodinhthong17112003@gmail.com>
+Date:   Sun Apr 28 17:57:45 2024 +0700
+
+    Merge branch 'dev' into frontend
+
+[33mcommit e35fc401e65f85316fb1f5adf2890ed1155fca82[m
+Author: laminhtam <laminhtam5523@gmail.com>
+Date:   Sun Apr 28 17:53:42 2024 +0700
+
+    update database
+
+[33mcommit 3fc565421aea4d16970daf30c385c491cf161731[m
+Merge: 1f71ae4 34530f4
+Author: Your Name~clear <vodinhthong17112003@gmail.com>
+Date:   Sun Apr 28 17:22:45 2024 +0700
+
+    Merge branch 'dev' of https://github.com/LaMinhTam/University-Enrollment-System into frontend
+
+[33mcommit 34530f4b263705ec3237eb5f4b8f207540ece1c6[m
+Author: laminhtam <laminhtam5523@gmail.com>
+Date:   Sun Apr 28 17:15:44 2024 +0700
+
+    update database
+
+[33mcommit 1f71ae4e79dcc149bdd20ef993c83cf261015b66[m
+Author: Your Name~clear <vodinhthong17112003@gmail.com>
+Date:   Sun Apr 28 17:12:30 2024 +0700
+
+    feat: Login and refresh token when token expire; style: Student dashboard
+
+[33mcommit 3ece174c832860bcc9359a6a08d60f162493cd55[m
+Author: laminhtam <laminhtam5523@gmail.com>
+Date:   Sun Apr 28 17:08:22 2024 +0700
+
+    feat: change class, get registered class
+
+[33mcommit 2612de337f629961de19a13f870f575ea7ba968c[m
+Author: laminhtam <laminhtam5523@gmail.com>
+Date:   Sat Apr 27 23:36:30 2024 +0700
+
+    feat: get schedules by input date
+
+[33mcommit d2977326386ee3866fa970c8f0318d8ff145e4e9[m
+Author: Your Name~clear <vodinhthong17112003@gmail.com>
+Date:   Sat Apr 27 22:41:17 2024 +0700
+
+    style: Dashboard, Login page
+
+[33mcommit 9a938451a2c8117f77abad56e54c55dc399762d8[m
+Merge: 4b98051 e84c273
+Author: Your Name~clear <vodinhthong17112003@gmail.com>
+Date:   Fri Apr 26 19:45:35 2024 +0700
+
+    Merge branch 'backend' of https://github.com/LaMinhTam/University-Enrollment-System into frontend
+
+[33mcommit e84c273de1e881e0eba9c391dc44127b5df2bfb9[m
+Author: laminhtam <laminhtam5523@gmail.com>
+Date:   Fri Apr 26 19:45:12 2024 +0700
+
+    rewrite code to mysql
+
+[33mcommit 1753b4390c68438f3278a9343def89e689e8ea74[m
+Author: laminhtam <laminhtam5523@gmail.com>
+Date:   Fri Apr 26 19:36:59 2024 +0700
+
+    change enroll db from mongodb to mysql
+
+[33mcommit 4b9805188ca95dfe0bb4b472fc0422aa233e8745[m
+Merge: a8cd25c 256036a
+Author: Your Name~clear <vodinhthong17112003@gmail.com>
+Date:   Fri Apr 26 18:44:28 2024 +0700
+
+    Merge branch 'backend' of https://github.com/LaMinhTam/University-Enrollment-System into frontend
+
+[33mcommit a8cd25ceb5209044c4601df8ec979a2120a2951e[m
+Merge: b34193f 0443e09
+Author: Your Name~clear <vodinhthong17112003@gmail.com>
+Date:   Fri Apr 26 18:42:55 2024 +0700
+
+    Merge branch 'main' of https://github.com/LaMinhTam/University-Enrollment-System into frontend
+
+[33mcommit 256036a71a54e9d5d556699b927953e284d2f66b[m
+Author: laminhtam <laminhtam5523@gmail.com>
+Date:   Thu Apr 25 22:39:02 2024 +0700
+
+    feat: renew access token with refresh token
+
+[33mcommit 61ad51f21580c39b96ae48ac9cbe8d56280adb44[m
+Author: laminhtam <laminhtam5523@gmail.com>
+Date:   Wed Apr 24 17:15:08 2024 +0700
+
+    update database
+
+[33mcommit d65a53c4c309f3bbc8aa9d4e2aaef473577d7391[m
+Author: laminhtam <laminhtam5523@gmail.com>
+Date:   Wed Apr 24 14:40:17 2024 +0700
+
+    feat: registry, cancel class
+
+[33mcommit b34193f3e58750c20a2faa8bb067cb5fc972f7f6[m
+Author: Your Name~clear <vodinhthong17112003@gmail.com>
+Date:   Wed Apr 24 13:53:29 2024 +0700
+
+    init route, add Student and Auth Type
+
+[33mcommit 0443e09caf4457abe0df3e000908916993bfe428[m[33m ([m[1;31morigin/main[m[33m, [m[1;32mmain[m[33m)[m
+Author: laminhtam <laminhtam5523@gmail.com>
+Date:   Wed Apr 24 07:58:40 2024 +0700
+
+    temp command spring build
+
+[33mcommit 1b5e39ef104855903d79d37e0d26bf06fd79b0fc[m
+Author: laminhtam <laminhtam5523@gmail.com>
+Date:   Wed Apr 24 07:55:46 2024 +0700
+
+    add mongodb json
+
+[33mcommit cb35c8caf334f0ff326cd34e8a26eca7b6281922[m
+Author: laminhtam <laminhtam5523@gmail.com>
+Date:   Wed Apr 24 07:50:50 2024 +0700
+
+    add Dockerfile
+
+[33mcommit 61dee41500159268a23911f922aa4dcafa0ba291[m
+Merge: c4ddd0c 404d06a
+Author: laminhtam <laminhtam5523@gmail.com>
+Date:   Tue Apr 23 19:48:13 2024 +0700
+
+    Merge branch 'main' of https://github.com/LaMinhTam/University-Enrollment-System
+
+[33mcommit c4ddd0cc794471b09f6aed77daaa6490161bfb4d[m
+Author: laminhtam <laminhtam5523@gmail.com>
+Date:   Tue Apr 23 19:48:01 2024 +0700
+
+    feat: get studnet courses
+
+[33mcommit 404d06a2e618d18e6723301e3922b8251dec71b6[m
+Author: Your Name~clear <vodinhthong17112003@gmail.com>
+Date:   Tue Apr 23 18:38:49 2024 +0700
+
+    initialize front-end
+
+[33mcommit b960e97d9ca2fbf3d6fc7a115321e6e38f2f663b[m
+Author: laminhtam <laminhtam5523@gmail.com>
+Date:   Tue Apr 23 10:56:13 2024 +0700
+
+    update database init
+
+[33mcommit 916d6146bf79af904b9ff0d2b45b976be3249514[m
+Author: laminhtam <laminhtam5523@gmail.com>
+Date:   Tue Apr 23 10:48:17 2024 +0700
+
+    fix: mismatch semester
+
+[33mcommit fe6fdbda288d3ec251b3f958a8fa9e550b19db98[m
+Author: laminhtam <laminhtam5523@gmail.com>
+Date:   Tue Apr 23 10:32:20 2024 +0700
+
+    restructure service for student, implement basic api
+
+[33mcommit e868f93a061cc3c3c4096e1daeeffed05b290415[m
+Author: laminhtam <laminhtam5523@gmail.com>
+Date:   Mon Apr 22 23:43:19 2024 +0700
+
+    feat: login api
+
+[33mcommit 453d45b952be796178efc4f396a43b550f84f324[m
+Author: laminhtam <laminhtam5523@gmail.com>
+Date:   Mon Apr 22 19:51:32 2024 +0700
+
+    rearrange be structure
+
+[33mcommit 2956199c3c681ac0bd4a7739ac03070b4d7649b3[m
+Author: laminhtam <laminhtam5523@gmail.com>
+Date:   Mon Apr 22 19:33:16 2024 +0700
+
+    add docker-compose.yml
+
+[33mcommit ed18f23863df3618023decb26b170c010c8c5def[m
+Author: laminhtam <laminhtam5523@gmail.com>
+Date:   Mon Apr 22 15:36:45 2024 +0700
+
+    implement JWT
+
+[33mcommit a3d27d21afb24b180045764e2bfe8a36d26e01b3[m
+Author: laminhtam <laminhtam5523@gmail.com>
+Date:   Sun Apr 21 20:24:50 2024 +0700
+
+    initialize microservices architecture on BE
+
+[33mcommit 19cf79865bdb89ccdcb27a56ce959b20e774f544[m
+Merge: 357a524 40e0ff4
+Author: laminhtam <laminhtam5523@gmail.com>
+Date:   Fri Apr 19 13:44:04 2024 +0700
+
+    Merge branch 'main' of https://github.com/LaMinhTam/University-Enrollment-System
+
+[33mcommit 357a52417a48180ad2fd74382becf21351c7f83d[m
+Author: laminhtam <laminhtam5523@gmail.com>
+Date:   Fri Apr 19 13:43:50 2024 +0700
+
+    initialize be
+
+[33mcommit 40e0ff4d2f2c9ef3efbd0d8f159285a647458094[m
+Author: LaMinhTam <122456606+LaMinhTam@users.noreply.github.com>
+Date:   Fri Apr 19 13:08:48 2024 +0700
+
+    Update University-Enrollment-System.drawio
+
+[33mcommit 1c5b73cd35b9de5f5c2d82bcbf30ca4fd49e4a9b[m
+Merge: bc4ad0b 10dcdff
+Author: laminhtam <laminhtam5523@gmail.com>
+Date:   Fri Apr 19 11:13:11 2024 +0700
+
+    Merge branch 'main' of https://github.com/LaMinhTam/University-Enrollment-System
+
+[33mcommit bc4ad0b20d7918e7fbbb0c78dbda5a2c07253557[m
+Author: laminhtam <laminhtam5523@gmail.com>
+Date:   Fri Apr 19 11:13:02 2024 +0700
+
+    rewrite readme
+
+[33mcommit 10dcdff0801cc168064f6831392126070ed3f6c0[m
+Author: LaMinhTam <122456606+LaMinhTam@users.noreply.github.com>
+Date:   Fri Apr 19 10:30:20 2024 +0700
+
+    Update University-Enrollment-System.drawio
+
+[33mcommit e0af3f221b115985e8bfad5ac377480f7d7efa2a[m
+Author: LaMinhTam <122456606+LaMinhTam@users.noreply.github.com>
+Date:   Fri Apr 19 10:25:17 2024 +0700
+
+    Update University-Enrollment-System.drawio
+
+[33mcommit 421a78b21acd6e1a19f0fc6a825ff030ee46d5b6[m
+Author: LaMinhTam <122456606+LaMinhTam@users.noreply.github.com>
+Date:   Thu Apr 18 16:05:46 2024 +0700
+
+    update University-Enrollment-System.drawio
+
+[33mcommit ae05195ef4f0b8177bae3d7a85af1573846cc46e[m
+Author: LaMinhTam <122456606+LaMinhTam@users.noreply.github.com>
+Date:   Thu Apr 18 16:04:18 2024 +0700
+
+    Added University-Enrollment-System.drawio
+
+[33mcommit 40348025b3550a819a9c7568a77d422a353a3166[m
+Author: laminhtam <laminhtam5523@gmail.com>
+Date:   Thu Apr 18 15:59:32 2024 +0700
+
+    add README.md

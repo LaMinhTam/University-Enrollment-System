@@ -11,34 +11,18 @@ import org.springframework.context.annotation.Configuration;
 public class RabbitMQConfiguration {
     @Bean
     public Declarables fanoutBindings() {
-        FanoutExchange enrollExchange = new FanoutExchange("enroll-fanout-exchange");
-        FanoutExchange cancelExchange = new FanoutExchange("cancel-fanout-exchange");
-        FanoutExchange changeExchange = new FanoutExchange("change-fanout-exchange");
+        FanoutExchange enrollExchange = new FanoutExchange("fanout-exchange");
 
-        Queue enrollScheduleQueue = new Queue("schedule-enroll-queue");
-        Queue enrollPaymentQueue = new Queue("payment-enroll-queue");
-        Queue cancelScheduleQueue = new Queue("schedule-cancel-queue");
-        Queue cancelPaymentQueue = new Queue("payment-cancel-queue");
-        Queue changeScheduleQueue = new Queue("schedule-change-queue");
-        Queue changePaymentQueue = new Queue("payment-change-queue");
+        Queue enrollScheduleQueue = new Queue("schedule-queue");
+        Queue enrollPaymentQueue = new Queue("payment-queue");
         Queue checkoutQueue = new Queue("checkout-queue");
         return new Declarables(
                 enrollScheduleQueue,
                 enrollPaymentQueue,
-                cancelScheduleQueue,
-                cancelPaymentQueue,
-                changeScheduleQueue,
-                changePaymentQueue,
                 checkoutQueue,
                 enrollExchange,
-                cancelExchange,
-                changeExchange,
                 BindingBuilder.bind(enrollScheduleQueue).to(enrollExchange),
-                BindingBuilder.bind(enrollPaymentQueue).to(enrollExchange),
-                BindingBuilder.bind(cancelScheduleQueue).to(cancelExchange),
-                BindingBuilder.bind(cancelPaymentQueue).to(cancelExchange),
-                BindingBuilder.bind(changeScheduleQueue).to(changeExchange),
-                BindingBuilder.bind(changePaymentQueue).to(changeExchange)
+                BindingBuilder.bind(enrollPaymentQueue).to(enrollExchange)
         );
     }
 

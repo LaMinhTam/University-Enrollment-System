@@ -11,17 +11,7 @@ import org.springframework.context.annotation.Configuration;
 public class RabbitMQConfiguration {
     @Bean
     public Queue scheduleEnrollQueue() {
-        return new Queue("schedule-enroll-queue");
-    }
-
-    @Bean
-    public Queue scheduleCancelQueue() {
-        return new Queue("schedule-cancel-queue");
-    }
-
-    @Bean
-    public Queue scheduleChangeQueue() {
-        return new Queue("schedule-change-queue");
+        return new Queue("schedule-queue");
     }
 
     @Bean

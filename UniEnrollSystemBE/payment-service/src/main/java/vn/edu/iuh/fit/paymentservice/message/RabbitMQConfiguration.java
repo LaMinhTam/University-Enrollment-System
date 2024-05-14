@@ -17,15 +17,11 @@ public class RabbitMQConfiguration {
         FanoutExchange checkoutExchange = new FanoutExchange("checkout-fanout-exchange");
 
         Queue checkoutQueue = new Queue("checkout-queue");
-        Queue enrollScheduleQueue = new Queue("payment-enroll-queue");
-        Queue cancelPaymentQueue = new Queue("payment-cancel-queue");
-        Queue changeScheduleQueue = new Queue("payment-change-queue");
+        Queue enrollPaymentQueue = new Queue("payment-queue");
 
         return new Declarables(
                 checkoutQueue,
-                enrollScheduleQueue,
-                cancelPaymentQueue,
-                changeScheduleQueue,
+                enrollPaymentQueue,
                 checkoutExchange,
                 BindingBuilder.bind(checkoutQueue).to(checkoutExchange)
         );
