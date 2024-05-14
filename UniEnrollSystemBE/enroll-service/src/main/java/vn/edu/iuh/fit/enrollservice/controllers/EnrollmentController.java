@@ -83,6 +83,7 @@ public class EnrollmentController {
                 Course course = classesBySemesterAndYear.get(newClass.getCourseId()).course();
                 Double amount = course.practicalCredit() * 800000.0 + course.theoryCredit() * 680000.0;
                 registerMessageProducer.sendEnrollMessage(new MessageRequest(EnrollMessageType.REGISTER, new RegisterRequest(studentId, request.class_id(), request.group(), newClass.getCourseId(), newClass.getCourseName(), newClass.getYear(), newClass.getSemester(), amount, course.credit())));
+                classRedisService.updateStudentCount(majorId, newClass.getSemester(), newClass.getYear(), newClass.getCourseId(), newClass.getId(), request.group(), 1);
                 return ResponseEntity.ok(new ResponseWrapper("Đăng ký thành công", null, 200));
             } else {
                 return ResponseEntity.ok(new ResponseWrapper("Lịch học bị trùng", conflictSchedules, 400));
@@ -115,7 +116,7 @@ public class EnrollmentController {
             boolean isMatchFound = classesBySemesterAndYear.get(targetClass.getCourseId())
                     .classes().get(targetClass.getId())
                     .getSchedules().stream()
-                    .anyMatch(schedule -> schedule.group() == group && schedule.classType() == ClassType.PRACTICE);
+                    .anyMatch(schedule -> schedule.getGroup() == group && schedule.getClassType() == ClassType.PRACTICE);
             if (!isMatchFound) {
                 throw new RuntimeException("Nhóm thực hành không tồn tại");
             }
@@ -178,7 +179,7 @@ public class EnrollmentController {
             boolean isMatchFound = classesBySemesterAndYear.get(newClass.getCourseId())
                     .classes().get(newClass.getId())
                     .getSchedules().stream()
-                    .anyMatch(schedule -> schedule.group() == request.group() && schedule.classType() == ClassType.PRACTICE);
+                    .anyMatch(schedule -> schedule.getGroup() == request.group() && schedule.getClassType() == ClassType.PRACTICE);
             if (!isMatchFound) {
                 throw new RuntimeException("Nhóm thực hành không tồn tại");
             }
@@ -188,10 +189,10 @@ public class EnrollmentController {
     }
 
     @DeleteMapping("/cancel")
-    public ResponseEntity<?> cancelEnrollment(@RequestHeader("id") String studentId, @RequestParam(name = "class_id") String classId) {
+    public ResponseEntity<?> cancelEnrollment(@RequestHeader("id") String studentId, @RequestHeader("major_id") int majorId, @RequestParam(name = "class_id") String classId) {
         try {
-            enrollmentService.cancelEnrollment(studentId, classId);
-
+            Enrollment cancelEnrollment = enrollmentService.cancelEnrollment(studentId, classId);
+            classRedisService.updateStudentCount(majorId, cancelEnrollment.getSemester(), cancelEnrollment.getYear(), cancelEnrollment.getCourseId(), cancelEnrollment.getRegistryClass(), cancelEnrollment.getGroup(), -1);
             registerMessageProducer.sendEnrollMessage(new MessageRequest(EnrollMessageType.CANCEL, new CancelRequest(studentId, classId, 0)));
 
             return ResponseEntity.ok(new ResponseWrapper("Hủy đăng ký thành công", null, HttpStatus.OK.value()));

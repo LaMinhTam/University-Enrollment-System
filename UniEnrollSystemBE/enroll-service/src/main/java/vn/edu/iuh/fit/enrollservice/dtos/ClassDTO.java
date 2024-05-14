@@ -1,6 +1,5 @@
 package vn.edu.iuh.fit.enrollservice.dtos;
 
-import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -27,7 +26,7 @@ public class ClassDTO implements Serializable {
     private int maxCapacity;
     private ClassStatus status;
     private Long quantity;
-    private List<Schedule> schedules;
+    private List<ScheduleDTO> schedules;
     public ClassDTO(Class newClass, Long quantity) {
         this.id = newClass.getId();
         this.courseId = newClass.getCourseId();

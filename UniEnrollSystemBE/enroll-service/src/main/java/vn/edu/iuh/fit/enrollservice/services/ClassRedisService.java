@@ -8,9 +8,7 @@ import java.util.Map;
 public interface ClassRedisService {
     Map<String, MapCourseClass> getAllCourses(int majorId, int semester, int year);
 
-    public void validateClassAndGroupForRegistration(int majorId, Class targetClass, int group) throws Exception;
-
     void setAllCourses(int majorId, int semester, int year, Map<String, MapCourseClass> courses);
 
-    void clearCache(int majorId, int semester, int year);
+    void updateStudentCount(int majorId, int semester, int year,String courseId, String classId, int group, int updateValue) throws Exception;
 }

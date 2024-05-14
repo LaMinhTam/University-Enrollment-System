@@ -15,5 +15,8 @@ public interface ClassRepository extends JpaRepository<Class, String> {
     @Query("SELECT c, COUNT(e.registryClass) AS quantity FROM Class c LEFT JOIN Enrollment e ON c.id = e.registryClass WHERE c.semester = ?1 AND c.year = ?2 GROUP BY c.id")
     List<Tuple> findBySemesterAndYear(int semester, int year);
 
+    @Query("SELECT c.id, e.group, COUNT(e.registryClass) AS quantity FROM Class c LEFT JOIN Enrollment e ON c.id = e.registryClass WHERE c.semester = ?1 AND c.year = ?2 AND e.group IS NOT NULL AND e.group != 0 GROUP BY c.id, e.group")
+    List<Tuple> findBySemesterAndYearGroupByClassIdAndGroup(int semester, int year);
+
     List<Class> findByIdIn(List<String> ids);
 }

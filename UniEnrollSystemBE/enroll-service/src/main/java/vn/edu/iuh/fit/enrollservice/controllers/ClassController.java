@@ -39,9 +39,19 @@ public class ClassController {
             List<String> courseIds = classes.stream().map(ClassDTO::getCourseId).collect(Collectors.toList());
             List<String> classIds = classes.stream().map(ClassDTO::getId).toList();
             Map<String, ClassSchedule> classScheduleMap = scheduleClient.getSchedules(new ClassIdsRequest(classIds));
+            Map<String, Long> groupQuantity = classService.prepareQuantityForSchedule(semester, year);
+
             classes.forEach(classDTO -> {
                 List<Schedule> schedules = classScheduleMap.get(classDTO.getId()).schedules();
-                classDTO.setSchedules(schedules);
+                List<ScheduleDTO> scheduleDTOS = schedules.stream()
+                        .map(schedule ->
+                                new ScheduleDTO(
+                                        schedule,
+                                        groupQuantity.get(classDTO.getId() + "-" + schedule.group())
+                                )
+                        )
+                        .toList();
+                classDTO.setSchedules(scheduleDTOS);
             });
             List<Course> courses = courseClient.getCoursesByIds(majorId, courseIds);
 
