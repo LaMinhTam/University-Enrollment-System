@@ -17,6 +17,13 @@ services:
       - "3306:3306"
     networks:
       - db-mysql-net
+    deploy:
+      resources:
+        limits:
+          cpus: "0.50"
+          memory: 512M
+        reservations:
+          memory: 256M
 
   adminer:
     image: adminer
@@ -26,6 +33,13 @@ services:
       - "8080:8080"
     networks:
       - db-mysql-net
+    deploy:
+      resources:
+        limits:
+          cpus: "0.25"
+          memory: 256M
+        reservations:
+          memory: 128M
 
   mongodb:
     image: mongo:latest
@@ -41,6 +55,13 @@ services:
       - ./database/init-mongo.js:/docker-entrypoint-initdb.d/init-mongo.js
     networks:
       - db-mongodb-net
+    deploy:
+      resources:
+        limits:
+          cpus: "0.50"
+          memory: 512M
+        reservations:
+          memory: 256M
 
   mongo-express:
     image: mongo-express
@@ -53,6 +74,13 @@ services:
       - ME_CONFIG_MONGODB_ADMINPASSWORD=123456
     networks:
       - db-mongodb-net
+    deploy:
+      resources:
+        limits:
+          cpus: "0.25"
+          memory: 256M
+        reservations:
+          memory: 128M
 
   zipkin:
     image: openzipkin/zipkin
@@ -62,6 +90,13 @@ services:
       - "9411:9411"
     networks:
       - backend
+    deploy:
+      resources:
+        limits:
+          cpus: "0.25"
+          memory: 256M
+        reservations:
+          memory: 128M
 
   redis:
     image: redis:latest
@@ -74,6 +109,13 @@ services:
       - REDIS_DATABASES=16
     networks:
       - db-redis-net
+    deploy:
+      resources:
+        limits:
+          cpus: "0.25"
+          memory: 256M
+        reservations:
+          memory: 128M
 
   rabbitmq:
     image: rabbitmq:management
@@ -87,6 +129,13 @@ services:
       - RABBITMQ_DEFAULT_PASS=123456
     networks:
       - rabbitmq-net
+    deploy:
+      resources:
+        limits:
+          cpus: "0.50"
+          memory: 512M
+        reservations:
+          memory: 256M
 
   service-registry:
     image: laminhtam/service-registry:latest
@@ -94,6 +143,13 @@ services:
       - "8761:8761"
     networks:
       - backend
+    deploy:
+      resources:
+        limits:
+          cpus: "0.25"
+          memory: 256M
+        reservations:
+          memory: 128M
 
   config-server:
     image: laminhtam/config-server:latest
@@ -106,6 +162,13 @@ services:
       - ./UniEnrollSystemBE/config-server:/config
     networks:
       - backend
+    deploy:
+      resources:
+        limits:
+          cpus: "0.25"
+          memory: 256M
+        reservations:
+          memory: 128M
 
   gateway:
     image: laminhtam/gateway:latest
@@ -122,6 +185,13 @@ services:
     depends_on:
       - service-registry
       - config-server
+    deploy:
+      resources:
+        limits:
+          cpus: "0.50"
+          memory: 512M
+        reservations:
+          memory: 256M
 
   auth-service:
     image: laminhtam/auth-service:latest
@@ -149,6 +219,13 @@ services:
     networks:
       - backend
       - db-mysql-net
+    deploy:
+      resources:
+        limits:
+          cpus: "0.50"
+          memory: 512M
+        reservations:
+          memory: 256M
 
   faculty-service:
     image: laminhtam/faculty-service:latest
@@ -174,6 +251,13 @@ services:
     networks:
       - backend
       - db-mysql-net
+    deploy:
+      resources:
+        limits:
+          cpus: "0.50"
+          memory: 512M
+        reservations:
+          memory: 256M
 
   course-service:
     image: laminhtam/course-service:latest
@@ -199,6 +283,13 @@ services:
     networks:
       - backend
       - db-mongodb-net
+    deploy:
+      resources:
+        limits:
+          cpus: "0.50"
+          memory: 512M
+        reservations:
+          memory: 256M
 
   enroll-service:
     image: laminhtam/enroll-service:latest
@@ -237,6 +328,13 @@ services:
       - db-mysql-net
       - db-redis-net
       - rabbitmq-net
+    deploy:
+      resources:
+        limits:
+          cpus: "0.50"
+          memory: 512M
+        reservations:
+          memory: 256M
 
   schedule-service:
     image: laminhtam/schedule-service:latest
@@ -266,6 +364,13 @@ services:
       - db-mongodb-net
       - db-redis-net
       - rabbitmq-net
+    deploy:
+      resources:
+        limits:
+          cpus: "0.50"
+          memory: 512M
+        reservations:
+          memory: 256M
 
   grade-management-service:
     image: laminhtam/grade-management-service:latest
@@ -290,6 +395,13 @@ services:
     networks:
       - backend
       - db-mongodb-net
+    deploy:
+      resources:
+        limits:
+          cpus: "0.50"
+          memory: 512M
+        reservations:
+          memory: 256M
 
   payment-service:
     image: laminhtam/payment-service:latest
@@ -319,6 +431,13 @@ services:
       - backend
       - db-mongodb-net
       - rabbitmq-net
+    deploy:
+      resources:
+        limits:
+          cpus: "0.50"
+          memory: 512M
+        reservations:
+          memory: 256M
 
 volumes:
   mysql-data:
