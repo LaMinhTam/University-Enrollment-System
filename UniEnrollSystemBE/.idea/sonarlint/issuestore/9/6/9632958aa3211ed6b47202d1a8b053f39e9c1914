@@ -1,14 +1,0 @@
-
-;
-java:S1452"&Remove usage of generic wildcard type.(€Ð»
-A
-java:S1452&"&Remove usage of generic wildcard type.(Ž˜Á‘ùÿÿÿÿ
-n
-java:S1128"SRemove this unused import 'org.springframework.beans.factory.annotation.Autowired'.(¡ž¸Îùÿÿÿÿ
-a
-java:S1128
-"FRemove this unused import 'vn.edu.iuh.fit.enrollservice.models.Class'.(Ö“•òùÿÿÿÿ
-f
-java:S1128"KRemove this unused import 'vn.edu.iuh.fit.enrollservice.models.Enrollment'.(¯ÑŠ”ûÿÿÿÿ
-S
-java:S1128"8Remove this unused import 'java.util.stream.Collectors'.(Óóº´úÿÿÿÿ
