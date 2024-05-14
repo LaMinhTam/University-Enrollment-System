@@ -19,7 +19,7 @@ public class ClassRedisServiceImpl implements ClassRedisService {
     }
 
     @Override
-    public Map<String , MapCourseClass> getAllCourses(int majorId, int semester, int year) {
+    public Map<String, MapCourseClass> getAllCourses(int majorId, int semester, int year) {
         return (Map<String, MapCourseClass>) redisTemplate.opsForValue().get(majorId + "-" + semester + "-" + year);
     }
 
@@ -29,14 +29,12 @@ public class ClassRedisServiceImpl implements ClassRedisService {
         if (coursesWithClasses == null || coursesWithClasses.isEmpty()) {
             throw new Exception("Hệ thống hiện đang lỗi, vui lòng thử lại sau");
         } else if (group != 0) {
-            // For each class in the course, check if the class ID matches the new class ID
-            // Then, for each schedule in the class, check if the group and class type match the request
+            // for each schedule in the class, check if the group and class type match the request
             // If a matching schedule is found, throw an exception
-            boolean isMatchFound = coursesWithClasses.get(targetClass.getCourseId()).classes().stream()
-                    .filter(classObject -> classObject.getId().equals(targetClass.getId()))
-                    .flatMap(classObject -> classObject.getSchedules().stream())
+            boolean isMatchFound = coursesWithClasses.get(targetClass.getCourseId())
+                    .classes().get(targetClass.getId())
+                    .getSchedules().stream()
                     .anyMatch(schedule -> schedule.group() == group && schedule.classType() == ClassType.PRACTICE);
-
             if (!isMatchFound) {
                 throw new RuntimeException("Nhóm thực hành không tồn tại");
             }

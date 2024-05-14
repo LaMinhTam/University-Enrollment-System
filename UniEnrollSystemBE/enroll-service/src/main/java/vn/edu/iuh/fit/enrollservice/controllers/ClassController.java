@@ -49,7 +49,9 @@ public class ClassController {
                     .collect(Collectors.groupingBy(ClassDTO::getCourseId));
             coursesWithClasses = new HashMap<>();
             for (Course course : courses) {
-                coursesWithClasses.put(course.id(), new MapCourseClass(course, classesGroupedByCourseId.get(course.id())));
+                Map<String, ClassDTO> classDTOMap = classesGroupedByCourseId.get(course.id()).stream()
+                        .collect(Collectors.toMap(ClassDTO::getId, classDTO -> classDTO));
+                coursesWithClasses.put(course.id(), new MapCourseClass(course, classDTOMap));
             }
 
             classRedisService.setAllCourses(majorId, semester, year, coursesWithClasses);

@@ -112,9 +112,9 @@ public class EnrollmentController {
         } else if (!unregisteredPrerequisites.isEmpty()) {
             throw new RuntimeException("Bạn chưa đăng ký môn học tiên quyết " + String.join(", ", unregisteredPrerequisites));
         } else if (group != 0) {
-            boolean isMatchFound = classesBySemesterAndYear.get(targetClass.getCourseId()).classes().stream()
-                    .filter(classObject -> classObject.getId().equals(targetClass.getId()))
-                    .flatMap(classObject -> classObject.getSchedules().stream())
+            boolean isMatchFound = classesBySemesterAndYear.get(targetClass.getCourseId())
+                    .classes().get(targetClass.getId())
+                    .getSchedules().stream()
                     .anyMatch(schedule -> schedule.group() == group && schedule.classType() == ClassType.PRACTICE);
             if (!isMatchFound) {
                 throw new RuntimeException("Nhóm thực hành không tồn tại");
@@ -175,9 +175,9 @@ public class EnrollmentController {
                         .noneMatch(enrollment -> enrollment.getCourseId().equals(prerequisite.id())))) {
             throw new RuntimeException("Bạn chưa đăng ký môn học tiên quyết");
         } else if (request.group() != 0) {
-            boolean isMatchFound = classesBySemesterAndYear.get(newClass.getCourseId()).classes().stream()
-                    .filter(classObject -> classObject.getId().equals(newClass.getId()))
-                    .flatMap(classObject -> classObject.getSchedules().stream())
+            boolean isMatchFound = classesBySemesterAndYear.get(newClass.getCourseId())
+                    .classes().get(newClass.getId())
+                    .getSchedules().stream()
                     .anyMatch(schedule -> schedule.group() == request.group() && schedule.classType() == ClassType.PRACTICE);
             if (!isMatchFound) {
                 throw new RuntimeException("Nhóm thực hành không tồn tại");
