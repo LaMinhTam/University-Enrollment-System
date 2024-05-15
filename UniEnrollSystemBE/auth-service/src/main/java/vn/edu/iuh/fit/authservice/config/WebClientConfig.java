@@ -12,8 +12,11 @@ import vn.edu.iuh.fit.authservice.client.FacultyClient;
 @Configuration
 public class WebClientConfig {
 
-    @Autowired
-    private LoadBalancedExchangeFilterFunction filterFunction;
+    private final LoadBalancedExchangeFilterFunction filterFunction;
+
+    public WebClientConfig(LoadBalancedExchangeFilterFunction filterFunction) {
+        this.filterFunction = filterFunction;
+    }
 
 
     @Bean
@@ -22,14 +25,5 @@ public class WebClientConfig {
                 .baseUrl("http://faculty-service")
                 .filter(filterFunction)
                 .build();
-    }
-
-    @Bean
-    public FacultyClient facultyClient() {
-        HttpServiceProxyFactory httpServiceProxyFactory
-                = HttpServiceProxyFactory
-                .builder(WebClientAdapter.forClient(facultyWebClient()))
-                .build();
-        return httpServiceProxyFactory.createClient(FacultyClient.class);
     }
 }

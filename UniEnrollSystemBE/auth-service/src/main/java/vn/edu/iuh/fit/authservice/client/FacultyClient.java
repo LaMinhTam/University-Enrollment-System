@@ -1,22 +1,22 @@
 package vn.edu.iuh.fit.authservice.client;
 
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.service.annotation.GetExchange;
-import org.springframework.web.service.annotation.HttpExchange;
-import org.springframework.web.service.annotation.PostExchange;
+import org.springframework.stereotype.Service;
+import org.springframework.web.reactive.function.client.WebClient;
 import vn.edu.iuh.fit.authservice.dtos.StudentDTO;
-import vn.edu.iuh.fit.authservice.models.Student;
 
-@HttpExchange
-public interface FacultyClient {
-    @GetExchange("/student/hello")
-    public ResponseEntity<?> hellowrod();
+@Service
+public class FacultyClient {
+    private final WebClient webClient;
 
-    @PostExchange("/student/register")
-    Student registerUser(@RequestBody Student student);
+    public FacultyClient(WebClient webClient) {
+        this.webClient = webClient;
+    }
 
-    @GetExchange("/students/{id}")
-    public StudentDTO get(@PathVariable String id);
+    public StudentDTO get(String id) {
+        return webClient.get()
+                .uri("http://api-gateway/faculties/students/{id}", id) // Change this to the API Gateway URL
+                .retrieve()
+                .bodyToMono(StudentDTO.class)
+                .block();
+    }
 }

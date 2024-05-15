@@ -13,9 +13,11 @@ import vn.edu.iuh.fit.enrollservice.client.ScheduleClient;
 
 @Configuration
 public class WebClientConfig {
+    private final LoadBalancedExchangeFilterFunction filterFunction;
 
-    @Autowired
-    private LoadBalancedExchangeFilterFunction filterFunction;
+    public WebClientConfig(LoadBalancedExchangeFilterFunction filterFunction) {
+        this.filterFunction = filterFunction;
+    }
 
 
     @Bean
@@ -40,32 +42,5 @@ public class WebClientConfig {
                 .baseUrl("http://payment-service")
                 .filter(filterFunction)
                 .build();
-    }
-
-    @Bean
-    public ScheduleClient scheduleClient() {
-        HttpServiceProxyFactory httpServiceProxyFactory
-                = HttpServiceProxyFactory
-                .builder(WebClientAdapter.forClient(scheduleWebClient()))
-                .build();
-        return httpServiceProxyFactory.createClient(ScheduleClient.class);
-    }
-
-    @Bean
-    public CourseClient courseClient() {
-        HttpServiceProxyFactory httpServiceProxyFactory
-                = HttpServiceProxyFactory
-                .builder(WebClientAdapter.forClient(courseWebClient()))
-                .build();
-        return httpServiceProxyFactory.createClient(CourseClient.class);
-    }
-
-    @Bean
-    public PaymentClient paymentClient() {
-        HttpServiceProxyFactory httpServiceProxyFactory
-                = HttpServiceProxyFactory
-                .builder(WebClientAdapter.forClient(paymentWebClient()))
-                .build();
-        return httpServiceProxyFactory.createClient(PaymentClient.class);
     }
 }

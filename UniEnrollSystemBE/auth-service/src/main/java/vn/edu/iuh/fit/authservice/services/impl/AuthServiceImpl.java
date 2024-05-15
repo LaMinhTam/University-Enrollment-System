@@ -38,10 +38,6 @@ public class AuthServiceImpl implements AuthService {
 //        return new AuthResponse(accessToken, refreshToken);
 //    }
 
-    public Object helloworld() {
-        return facultyClient.hellowrod();
-    }
-
     public Optional<Student> getStudentById(String id) {
         return studentRepository.findById(id);
     }

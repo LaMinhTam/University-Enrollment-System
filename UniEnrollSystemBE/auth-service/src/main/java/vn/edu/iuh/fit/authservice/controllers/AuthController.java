@@ -33,11 +33,6 @@ public class AuthController {
 //        return ResponseEntity.ok(authService.register(student));
 //    }
 
-    @GetMapping("/hello")
-    public ResponseEntity<?> helloworld() {
-        return ResponseEntity.ok(authService.helloworld());
-    }
-
     @PostMapping("/login")
     public ResponseEntity<?> login(@RequestBody AuthRequest authRequest) {
         Optional<Student> student = authService.getStudentById(authRequest.username());

@@ -19,10 +19,6 @@ spring:
   cloud:
     gateway:
       routes:
-        #        - id: student-service
-        #          uri: lb://student-service
-        #          predicates:
-        #            - Path=/student/**
         - id: auth-service
           uri: lb://auth-service
           predicates:
@@ -32,6 +28,11 @@ spring:
           predicates:
             - Path=/faculties/**
             - Path=/students/**
+          filters:
+            - name: CircuitBreaker
+              args:
+                name: faculty-service
+                fallbackuri: forward:/facultyServiceFallBack
         - id: enroll-service
           uri: lb://enroll-service
           predicates:
@@ -42,21 +43,32 @@ spring:
           uri: lb://schedule-service
           predicates:
             - Path=/schedules/**
+          filters:
+            - name: CircuitBreaker
+              args:
+                name: schedule-service
+                fallbackuri: forward:/scheduleServiceFallBack
         - id: course-service
           uri: lb://course-service
           predicates:
             - Path=/courses/**
-        - id: grade-management-service
-          uri: lb://grade-management-service
-          predicates:
-            - Path=/grade-report/**
-            - Path=/semester-report/**
+          filters:
+            - name: CircuitBreaker
+              args:
+                name: course-service
+                fallbackuri: forward:/courseServiceFallBack
         - id: payment-service
           uri: lb://payment-service
           predicates:
             - Path=/payments/**
             - Path=/invoices/**
             - Path=/course-payments/**
+          filters:
+            - name: CircuitBreaker
+              args:
+                name: payment-service
+                fallbackuri: forward:/paymentServiceFallBack
+
       globalcors:
         corsConfigurations:
           "[/**]":
@@ -75,3 +87,15 @@ spring:
 
 jwt:
   secret: 4d5a23bd0646523b4aaae7a51a92a62babcb4eb353843a3fa4ef4ef05f534a68
+
+resilience4j:
+  circuitbreaker:
+    instances:
+      faculty-service:
+        slidingWindowSize: 10
+        minimumNumberOfCalls: 5
+        permittedNumberOfCallsInHalfOpenState: 3
+        automaticTransitionFromOpenToHalfOpenEnabled: true
+        waitDurationInOpenState: 10s
+        failureRateThreshold: 50
+        eventConsumerBufferSize: 10
