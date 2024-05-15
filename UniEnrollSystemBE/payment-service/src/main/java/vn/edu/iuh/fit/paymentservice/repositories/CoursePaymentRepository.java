@@ -17,4 +17,6 @@ public interface CoursePaymentRepository extends MongoRepository<CoursePayment, 
     void deleteByStudentIdAndClassId(String studentId, String classId);
 
     List<CoursePayment> findByStudentIdAndClassIdIn(String studentId, List<String> strings);
+
+    List<CoursePayment> findByStudentIdAndSemesterAndYear(String studentId, int semester, int year);
 }

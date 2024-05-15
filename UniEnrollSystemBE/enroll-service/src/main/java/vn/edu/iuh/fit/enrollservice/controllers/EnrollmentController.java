@@ -3,6 +3,7 @@ package vn.edu.iuh.fit.enrollservice.controllers;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import vn.edu.iuh.fit.enrollservice.client.PaymentClient;
 import vn.edu.iuh.fit.enrollservice.client.ScheduleClient;
 import vn.edu.iuh.fit.enrollservice.dtos.*;
 import vn.edu.iuh.fit.enrollservice.messaging.RegisterMessageProducer;
@@ -26,37 +27,32 @@ public class EnrollmentController {
     private final ScheduleClient scheduleClient;
     private final ClassRedisService classRedisService;
     private final RegisterMessageProducer registerMessageProducer;
+    private final PaymentClient paymentClient;
 
-    public EnrollmentController(EnrollmentService enrollmentService, ClassService classService, ScheduleClient scheduleClient, ClassRedisService classRedisService, RegisterMessageProducer registerMessageProducer) {
+    public EnrollmentController(EnrollmentService enrollmentService, ClassService classService, ScheduleClient scheduleClient, ClassRedisService classRedisService, RegisterMessageProducer registerMessageProducer, PaymentClient paymentClient) {
         this.enrollmentService = enrollmentService;
         this.classService = classService;
         this.scheduleClient = scheduleClient;
         this.classRedisService = classRedisService;
         this.registerMessageProducer = registerMessageProducer;
+        this.paymentClient = paymentClient;
     }
 
     @GetMapping("/registry")
     public ResponseEntity<?> getRegistryBySemesterAndYear(@RequestHeader("id") String studentId, @RequestHeader("major_id") int majorId, @RequestParam int semester, @RequestParam int year) {
-        Map<String, MapCourseClass> classesBySemesterAndYear = classRedisService.getAllCourses(majorId, semester, year);
-        if (classesBySemesterAndYear == null || classesBySemesterAndYear.isEmpty()) {
-            return ResponseEntity.badRequest().body(new ResponseWrapper("Hệ thống hiện đang lỗi, vui lòng thử lại sau", null, 400));
-        }
         List<Enrollment> registerClasses = enrollmentService.getRegistryClassBySemesterAndYear(studentId, semester, year);
         List<Class> classes = classService.getClassesByEnrollment(registerClasses.stream()
                 .map(Enrollment::getRegistryClass)
                 .collect(Collectors.toList()));
         //map the classes with registerClasses group to RegistryResponse
+        Map<String, CoursePayment> coursePayments = paymentClient.getCoursePaymentsByClient(studentId, semester, year);
         List<RegistryResponse> registryResponse = registerClasses.stream()
                 .map(enrollment -> new RegistryResponse(classes.stream()
                         .filter(classObject -> classObject.getId().equals(enrollment.getRegistryClass()))
                         .findFirst()
                         .orElseThrow(),
                         enrollment,
-                        classesBySemesterAndYear.get(classes.stream()
-                                .filter(classObject -> classObject.getId().equals(enrollment.getRegistryClass()))
-                                .findFirst()
-                                .orElseThrow()
-                                .getCourseId()).course()))
+                        coursePayments.get(enrollment.getRegistryClass())))
                 .toList();
         return ResponseEntity.ok(new ResponseWrapper("Danh sách học phần đã đăng ký", registryResponse, 200));
     }
@@ -81,8 +77,7 @@ public class EnrollmentController {
             if (conflictSchedules.isEmpty()) {
                 enrollmentService.registerClass(studentId, request);
                 Course course = classesBySemesterAndYear.get(newClass.getCourseId()).course();
-                Double amount = course.practicalCredit() * 800000.0 + course.theoryCredit() * 680000.0;
-                registerMessageProducer.sendEnrollMessage(new MessageRequest(EnrollMessageType.REGISTER, new RegisterRequest(studentId, request.class_id(), request.group(), newClass.getCourseId(), newClass.getCourseName(), newClass.getYear(), newClass.getSemester(), amount, course.credit())));
+                registerMessageProducer.sendEnrollMessage(new MessageRequest(EnrollMessageType.REGISTER, new RegisterRequest(studentId, request.class_id(), request.group(), newClass.getCourseId(), newClass.getCourseName(), newClass.getYear(), newClass.getSemester(), course.credit(), course.theoryCredit(), course.practicalCredit())));
                 classRedisService.updateStudentCount(majorId, newClass.getSemester(), newClass.getYear(), newClass.getCourseId(), newClass.getId(), request.group(), 1);
                 return ResponseEntity.ok(new ResponseWrapper("Đăng ký thành công", null, 200));
             } else {

@@ -1,5 +1,6 @@
 package vn.edu.iuh.fit.enrollservice.controllers;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -54,7 +55,6 @@ public class ClassController {
                 classDTO.setSchedules(scheduleDTOS);
             });
             List<Course> courses = courseClient.getCoursesByIds(majorId, courseIds);
-
             Map<String, List<ClassDTO>> classesGroupedByCourseId = classes.stream()
                     .collect(Collectors.groupingBy(ClassDTO::getCourseId));
             coursesWithClasses = new HashMap<>();

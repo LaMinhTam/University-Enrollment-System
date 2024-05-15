@@ -5,6 +5,7 @@ import vn.edu.iuh.fit.paymentservice.models.CoursePayment;
 import vn.edu.iuh.fit.paymentservice.models.PaymentStatus;
 
 import java.util.List;
+import java.util.Map;
 
 public interface CoursePaymentService {
     List<CoursePayment> getAllCoursePayments(String studentId, int page, int size);
@@ -18,4 +19,6 @@ public interface CoursePaymentService {
     List<CoursePayment> getCoursePaymentsById(String studentId, List<String> strings);
 
     void updatePaymentStatus(String studentId, List<String> classIds, PaymentStatus paymentStatus);
+
+    Map<String, CoursePayment> getCoursePaymentsBySemesterAndYear(String studentId, int semester, int year);
 }

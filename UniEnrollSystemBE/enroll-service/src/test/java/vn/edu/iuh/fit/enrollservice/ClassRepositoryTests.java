@@ -60,49 +60,49 @@ public class ClassRepositoryTests {
     public void generateData() {
         List<Class> classes = new ArrayList<>();
         List<Course> courses = List.of(
-                new Course("4203002009", "Nhập môn Tin học", 2, 2, 0, 0, null),
-                new Course("4203003192", "Kỹ năng làm việc nhóm", 2, 2, 0, 0, null),
-                new Course("4203003242", "Giáo dục Quốc phòng và An ninh 1 ", 4, 4, 0, 0, null),
-                new Course("4203003259", "Toán cao cấp 1", 2, 2, 0, 0, null),
-                new Course("4203003307", "Giáo dục thể chất 1 ", 2, 0, 2, 0, null),
-                new Course("4203003848", "Nhập môn Lập trình", 2, 0, 2, 0, null),
-                new Course("4203014164", "Triết học Mác - Lênin", 3, 3, 0, 0, null),
-                new Course("4203014165", "Kinh tế chính trị Mác - Lênin", 2, 2, 0, 0, null),
-                new Course("4203015253", "Tiếng Anh 1", 3, 3, 0, 0, null),
-                new Course("4203000901", "Cấu trúc rời rạc", 3, 3, 0, 0, null),
-                new Course("4203000942", "Cấu trúc dữ liệu và giải thuật", 4, 3, 1, 0, null),
-                new Course("4203001146", "Hệ cơ sở dữ liệu", 4, 3, 1, 0, null),
-                new Course("4203003196", "Giao tiếp kinh doanh", 3, 3, 0, 0, null),
-                new Course("4203003197", "Kỹ năng xây dựng kế hoạch", 3, 3, 0, 0, null),
-                new Course("4203003205", "Quản trị doanh nghiệp", 3, 3, 0, 0, null),
-                new Course("4203003206", "Môi trường và con người", 3, 3, 0, 0, null),
-                new Course("4203003217", "Quản trị học", 3, 3, 0, 0, null),
-                new Course("4203003285", "Kế toán cơ bản", 3, 3, 0, 0, null),
-                new Course("4203003288", "Toán cao cấp 2", 2, 2, 0, 0, null),
-                new Course("4203003591", "Lập trình hướng đối tượng", 3, 2, 1, 0, null),
-                new Course("4203014193", "Kỹ năng sử dụng bàn phím và thiết bị văn phòng", 3, 3, 0, 0, null),
-                new Course("4203015254", "Tiếng Anh 2", 30, 3, 0, 0, null),
-                new Course("4203000908", "Lý thuyết đồ thị", 3, 3, 0, 0, null),
-                new Course("4203003194", "Hội họa", 3, 3, 0, 0, null),
-                new Course("4203003195", "Xã hội học", 3, 3, 0, 0, null),
-                new Course("4203003198", "Phương pháp luận nghiên cứu khoa học", 2, 2, 0, 0, null),
-                new Course("4203003203", "Âm nhạc – Nhạc lý và Guitar căn bản", 3, 3, 0, 0, null),
-                new Course("4203003245", "Tiếng Việt thực hành", 3, 3, 0, 0, null),
-                new Course("4203003325", "Tâm lý học đại cương", 3, 3, 0, 0, null),
-                new Course("4203003501", "Phát triển ứng dụng", 3, 2, 1, 0, null),
-                new Course("4203010665", "Cơ sở văn hóa Việt Nam", 3, 3, 0, 0, null),
-                new Course("4203014167", "Chủ nghĩa xã hội khoa học", 2, 2, 0, 0, null),
-                new Course("4203014168", "Mô hình hóa dữ liệu NoSQL MongoDB", 3, 3, 0, 0, null),
-                new Course("4203001432", "Lập trình thiết bị di động", 4, 3, 1, 0, null),
-                new Course("4203002422", "Pháp luật đại cương", 2, 2, 0, 0, null),
-                new Course("4203003592", "Đảm bảo chất lượng và Kiểm thử phần mềm", 3, 2, 1, 0, null),
-                new Course("4203003621", "Lập trình WWW (Java)", 4, 3, 1, 0, null),
-                new Course("4203003774", "Phát triển ứng dụng Web với Qt Engine", 4, 3, 1, 0, null),
-                new Course("4203004147", "Lập trình WWW (.NET)", 4, 3, 1, 0, null),
-                new Course("4203004323", "Lập trình IoTs", 4, 2, 2, 0, null),
-                new Course("4203014169", "Lịch sử Đảng Cộng sản Việt Nam", 2, 2, 0, 0, null),
-                new Course("4203003098", "Thực tập doanh nghiệp", 5, 0, 5, 0, null),
-                new Course("4203014170", "Khóa luận tốt nghiệp", 8, 8, 0, 0, null)
+                new Course("4203002009", "Nhập môn Tin học", 2, 2, 0, 0, null,0),
+                new Course("4203003192", "Kỹ năng làm việc nhóm", 2, 2, 0, 0, null,0),
+                new Course("4203003242", "Giáo dục Quốc phòng và An ninh 1 ", 4, 4, 0, 0, null,0),
+                new Course("4203003259", "Toán cao cấp 1", 2, 2, 0, 0, null,0),
+                new Course("4203003307", "Giáo dục thể chất 1 ", 2, 0, 2, 0, null,0),
+                new Course("4203003848", "Nhập môn Lập trình", 2, 0, 2, 0, null,0),
+                new Course("4203014164", "Triết học Mác - Lênin", 3, 3, 0, 0, null,0),
+                new Course("4203014165", "Kinh tế chính trị Mác - Lênin", 2, 2, 0, 0, null,0),
+                new Course("4203015253", "Tiếng Anh 1", 3, 3, 0, 0, null,0),
+                new Course("4203000901", "Cấu trúc rời rạc", 3, 3, 0, 0, null,0),
+                new Course("4203000942", "Cấu trúc dữ liệu và giải thuật", 4, 3, 1, 0, null,0),
+                new Course("4203001146", "Hệ cơ sở dữ liệu", 4, 3, 1, 0, null,0),
+                new Course("4203003196", "Giao tiếp kinh doanh", 3, 3, 0, 0, null,0),
+                new Course("4203003197", "Kỹ năng xây dựng kế hoạch", 3, 3, 0, 0, null,0),
+                new Course("4203003205", "Quản trị doanh nghiệp", 3, 3, 0, 0, null,0),
+                new Course("4203003206", "Môi trường và con người", 3, 3, 0, 0, null,0),
+                new Course("4203003217", "Quản trị học", 3, 3, 0, 0, null,0),
+                new Course("4203003285", "Kế toán cơ bản", 3, 3, 0, 0, null,0),
+                new Course("4203003288", "Toán cao cấp 2", 2, 2, 0, 0, null,0),
+                new Course("4203003591", "Lập trình hướng đối tượng", 3, 2, 1, 0, null,0),
+                new Course("4203014193", "Kỹ năng sử dụng bàn phím và thiết bị văn phòng", 3, 3, 0, 0, null,0),
+                new Course("4203015254", "Tiếng Anh 2", 30, 3, 0, 0, null, 0),
+                new Course("4203000908", "Lý thuyết đồ thị", 3, 3, 0, 0, null, 0),
+                new Course("4203003194", "Hội họa", 3, 3, 0, 0, null, 0),
+                new Course("4203003195", "Xã hội học", 3, 3, 0, 0, null, 0),
+                new Course("4203003198", "Phương pháp luận nghiên cứu khoa học", 2, 2, 0, 0, null, 0),
+                new Course("4203003203", "Âm nhạc – Nhạc lý và Guitar căn bản", 3, 3, 0, 0, null, 0),
+                new Course("4203003245", "Tiếng Việt thực hành", 3, 3, 0, 0, null, 0),
+                new Course("4203003325", "Tâm lý học đại cương", 3, 3, 0, 0, null, 0),
+                new Course("4203003501", "Phát triển ứng dụng", 3, 2, 1, 0, null, 0),
+                new Course("4203010665", "Cơ sở văn hóa Việt Nam", 3, 3, 0, 0, null, 0),
+                new Course("4203014167", "Chủ nghĩa xã hội khoa học", 2, 2, 0, 0, null, 0),
+                new Course("4203014168", "Mô hình hóa dữ liệu NoSQL MongoDB", 3, 3, 0, 0, null, 0),
+                new Course("4203001432", "Lập trình thiết bị di động", 4, 3, 1, 0, null, 0),
+                new Course("4203002422", "Pháp luật đại cương", 2, 2, 0, 0, null, 0),
+                new Course("4203003592", "Đảm bảo chất lượng và Kiểm thử phần mềm", 3, 2, 1, 0, null, 0),
+                new Course("4203003621", "Lập trình WWW (Java)", 4, 3, 1, 0, null, 0),
+                new Course("4203003774", "Phát triển ứng dụng Web với Qt Engine", 4, 3, 1, 0, null, 0),
+                new Course("4203004147", "Lập trình WWW (.NET)", 4, 3, 1, 0, null, 0),
+                new Course("4203004323", "Lập trình IoTs", 4, 2, 2, 0, null, 0),
+                new Course("4203014169", "Lịch sử Đảng Cộng sản Việt Nam", 2, 2, 0, 0, null, 0),
+                new Course("4203003098", "Thực tập doanh nghiệp", 5, 0, 5, 0, null, 0),
+                new Course("4203014170", "Khóa luận tốt nghiệp", 8, 8, 0, 0, null, 0)
 
 //                new Course("4203000941", "Kỹ thuật lập trình", 3, 1, 2, 1, null),
 //                new Course("4203002137", "Hệ Thống Máy tính", 4, 1, 3, 1, null),
@@ -155,7 +155,7 @@ public class ClassRepositoryTests {
             secondEndStudyDate.setYear(secondEndStudyDate.getYear() + i);
             int finalI = i;
             courses.forEach(course -> {
-                if (course.type() == 0) {
+                if (course.getType() == 0) {
                     startStudyMonth = Calendar.AUGUST;
                     endStudyMonth = Calendar.NOVEMBER;
                     examMiddleMonth = Calendar.OCTOBER;
@@ -178,15 +178,15 @@ public class ClassRepositoryTests {
         List<Class> classes = new ArrayList<>();
         int count = random.nextInt(4) + 1; // Generate random number of classes between 1 and 4
         for (int i = 0; i < count; i++) {
-            String classId = generateClassId(course.id(), year, semester, i + 1);
+            String classId = generateClassId(course.getId(), year, semester, i + 1);
             String status = ClassStatus.values()[random.nextInt(ClassStatus.values().length)].name();
             int maxCapacity = (random.nextInt(3) + 6) * 10; // Generate max capacity between 60, 70, and 80
-            Class newClass = new Class(classId, course.id(), course.name(), semester, year, maxCapacity, ClassStatus.valueOf(status));
+            Class newClass = new Class(classId, course.getId(), course.getName(), semester, year, maxCapacity, ClassStatus.valueOf(status));
             List<Schedule> schedules = generateSchedules(course);
             System.out.println("{" +
                     "\"_id\":\"" + classId + "\"," +
-                    "\"courseId\":\"" + course.id() + "\"," +
-                    "\"courseName\":\"" + course.name() + "\"," +
+                    "\"courseId\":\"" + course.getId() + "\"," +
+                    "\"courseName\":\"" + course.getName() + "\"," +
                     "\"schedules\":" + "[" +
                     printSchedule(schedules) +
                     "]" +
@@ -260,7 +260,7 @@ public class ClassRepositoryTests {
             Date endDate = generateDate(firstEndStudyDate, secondEndStudyDate); // Generate random end date
             schedules.add(generateSchedule(group, ClassType.THEORY, startDate, endDate));
         }
-        if (course.practicalCredit() != 0) {
+        if (course.getPracticalCredit() != 0) {
             for (int i = 0; i < 3; i++) {
                 group++;
                 Date startDate = generateDate(firstStartStudyDate, secondStartStudyDate); // Generate random start date

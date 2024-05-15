@@ -5,6 +5,7 @@ public record RegisterRequest(String studentId, String classId, int group,
                               String courseName,
                               int year,
                               int semester,
-                              Double amount,
-                              int credit) {
+                              int credit,
+                              int theoryCredit,
+                              int practicalCredit) {
 }
