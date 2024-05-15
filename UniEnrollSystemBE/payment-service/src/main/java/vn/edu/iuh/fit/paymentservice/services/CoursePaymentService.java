@@ -8,7 +8,7 @@ import java.util.List;
 import java.util.Map;
 
 public interface CoursePaymentService {
-    List<CoursePayment> getAllCoursePayments(String studentId, int page, int size);
+    Map<String, List<CoursePayment>> getAllCoursePayments(String studentId, int page, int size);
 
     void register(RegisterRequest request);
 
