@@ -25,11 +25,12 @@ public class PaymentController {
     private final InvoiceService invoiceService;
     private final CoursePaymentService coursePaymentService;
     private final CheckoutMessageProducer checkoutMessageProducer;
-
-    public PaymentController(InvoiceService invoiceService, CoursePaymentService coursePaymentService, CheckoutMessageProducer checkoutMessageProducer) {
+    private final VNPayConfig vnPayConfig;
+    public PaymentController(InvoiceService invoiceService, CoursePaymentService coursePaymentService, CheckoutMessageProducer checkoutMessageProducer, VNPayConfig vnPayConfig) {
         this.invoiceService = invoiceService;
         this.coursePaymentService = coursePaymentService;
         this.checkoutMessageProducer = checkoutMessageProducer;
+        this.vnPayConfig = vnPayConfig;
     }
 
     @PostMapping("/create_payment")
@@ -56,11 +57,11 @@ public class PaymentController {
         String vnp_TxnRef = invoiceId;
         String vnp_IpAddr = VNPayConfig.getIpAddress(req);
 
-        String vnp_TmnCode = VNPayConfig.vnp_TmnCode;
+        String vnp_TmnCode = vnPayConfig.getVnp_TmnCode();
 
         Map<String, String> vnp_Params = new HashMap<>();
-        vnp_Params.put("vnp_Version", VNPayConfig.vnp_Version);
-        vnp_Params.put("vnp_Command", VNPayConfig.vnp_Command);
+        vnp_Params.put("vnp_Version", vnPayConfig.getVnp_Version());
+        vnp_Params.put("vnp_Command", vnPayConfig.getVnp_Command());
         vnp_Params.put("vnp_TmnCode", vnp_TmnCode);
         vnp_Params.put("vnp_Amount", String.valueOf(amount));
         vnp_Params.put("vnp_CurrCode", "VND");
@@ -78,7 +79,7 @@ public class PaymentController {
         } else {
             vnp_Params.put("vnp_Locale", "vn");
         }
-        vnp_Params.put("vnp_ReturnUrl", VNPayConfig.vnp_ReturnUrl);
+        vnp_Params.put("vnp_ReturnUrl", vnPayConfig.getVnp_ReturnUrl());
         vnp_Params.put("vnp_IpAddr", vnp_IpAddr);
 
         Calendar cld = Calendar.getInstance(TimeZone.getTimeZone("Etc/GMT+7"));
@@ -114,9 +115,9 @@ public class PaymentController {
             }
         }
         String queryUrl = query.toString();
-        String vnp_SecureHash = VNPayConfig.hmacSHA512(VNPayConfig.secretKey, hashData.toString());
+        String vnp_SecureHash = VNPayConfig.hmacSHA512(vnPayConfig.getSecretKey(), hashData.toString());
         queryUrl += "&vnp_SecureHash=" + vnp_SecureHash;
-        String paymentUrl = VNPayConfig.vnp_PayUrl + "?" + queryUrl;
+        String paymentUrl = vnPayConfig.getVnp_PayUrl() + "?" + queryUrl;
 //        com.google.gson.JsonObject job = new JsonObject();
 //        job.addProperty("code", "00");
 //        job.addProperty("message", "success");

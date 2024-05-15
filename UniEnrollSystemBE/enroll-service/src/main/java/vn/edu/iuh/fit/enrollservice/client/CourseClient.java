@@ -17,10 +17,9 @@ public class CourseClient {
     }
 
     public List<Course> getCoursesByIds(int majorId, List<String> courseIds) {
-        return webClient.post()
-                .uri("/courses/by-ids")
+        return webClient.get()
+                .uri(uriBuilder -> uriBuilder.path("/courses/by-ids").queryParam("courseIds", String.join(",", courseIds)).build())
                 .header("major_id", String.valueOf(majorId))
-                .bodyValue(courseIds)
                 .retrieve()
                 .bodyToMono(new ParameterizedTypeReference<List<Course>>() {
                 }).block();

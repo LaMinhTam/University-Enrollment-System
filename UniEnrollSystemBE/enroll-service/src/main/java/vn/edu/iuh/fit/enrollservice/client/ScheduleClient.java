@@ -21,16 +21,19 @@ public class ScheduleClient {
                 .uri("/schedules/conflicts")
                 .bodyValue(request)
                 .retrieve()
-                .bodyToMono(new ParameterizedTypeReference<List<ConflictResponse>>() {})
+                .bodyToMono(new ParameterizedTypeReference<List<ConflictResponse>>() {
+                })
                 .block();
     }
 
     public Map<String, ClassSchedule> getSchedules(ClassIdsRequest request) {
-        return webClient.post()
-                .uri("/schedules/classes")
-                .bodyValue(request)
+        String classIds = String.join(",", request.class_ids());
+        return webClient.get()
+                .uri(uriBuilder -> uriBuilder.path("/schedules/classes")
+                        .queryParam("class_ids", classIds).build())
                 .retrieve()
-                .bodyToMono(new ParameterizedTypeReference<Map<String, ClassSchedule>>() {})
+                .bodyToMono(new ParameterizedTypeReference<Map<String, ClassSchedule>>() {
+                })
                 .block();
     }
 }

@@ -25,7 +25,7 @@ public class CourseController {
     }
 
     @GetMapping("/by-ids")
-    public List<ListCourseResponse> getCoursesByIds(@RequestHeader("major_id") int majorId, @RequestBody List<String> courseIds) {
+    public List<ListCourseResponse> getCoursesByIds(@RequestHeader("major_id") int majorId, @RequestParam List<String> courseIds) {
         return courseService.getCoursesByIds(majorId, courseIds);
     }
 }

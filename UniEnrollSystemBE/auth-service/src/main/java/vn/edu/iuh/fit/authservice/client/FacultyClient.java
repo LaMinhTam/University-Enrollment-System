@@ -8,15 +8,14 @@ import vn.edu.iuh.fit.authservice.dtos.StudentDTO;
 public class FacultyClient {
     private final WebClient webClient;
 
-    public FacultyClient(WebClient webClient) {
-        this.webClient = webClient;
+    public FacultyClient(WebClient facultyWebClient) {
+        this.webClient = facultyWebClient;
     }
 
     public StudentDTO get(String id) {
         return webClient.get()
-                .uri("http://api-gateway/faculties/students/{id}", id) // Change this to the API Gateway URL
+                .uri("/students/{id}", id)
                 .retrieve()
-                .bodyToMono(StudentDTO.class)
-                .block();
+                .bodyToMono(StudentDTO.class).block();
     }
 }

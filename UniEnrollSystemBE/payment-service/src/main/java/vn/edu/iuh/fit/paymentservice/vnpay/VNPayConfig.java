@@ -1,6 +1,9 @@
 package vn.edu.iuh.fit.paymentservice.vnpay;
 
 import jakarta.servlet.http.HttpServletRequest;
+import lombok.Getter;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Component;
 
 import javax.crypto.Mac;
 import javax.crypto.spec.SecretKeySpec;
@@ -10,14 +13,50 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.*;
 
+@Component
 public class VNPayConfig {
-    public static String vnp_PayUrl = "https://sandbox.vnpayment.vn/paymentv2/vpcpay.html";
-    public static String vnp_ReturnUrl = "http://localhost:8099/vnpay_jsp/vnpay_return.jsp";
-    public static String vnp_TmnCode = "IAKOY4KK";
-    public static String secretKey = "HF34SXY0OXR4ZWMIHHO4HRHMC7F9R1II";
-    public static String vnp_Version = "2.1.0";
-    public static String vnp_Command = "pay";
-    public static String vnp_ApiUrl = "https://sandbox.vnpayment.vn/merchant_webapi/api/transaction";
+    @Value("${vnp.vnp_Url}")
+    private String vnp_PayUrl;
+    @Value("${vnp.vnp_ReturnUrl}")
+    private String vnp_ReturnUrl;
+    @Value("${vnp.vnp_TmnCode}")
+    private String vnp_TmnCode;
+    @Value("${vnp.secretKey}")
+    private String secretKey;
+    @Value("${vnp.version}")
+    private String vnp_Version;
+    @Value("${vnp.vnp_Command}")
+    private String vnp_Command;
+    @Value("${vnp.vnp_ApiUrl}")
+    private String vnp_ApiUrl;
+
+    public String getVnp_PayUrl() {
+        return vnp_PayUrl;
+    }
+
+    public String getVnp_ReturnUrl() {
+        return vnp_ReturnUrl;
+    }
+
+    public String getVnp_TmnCode() {
+        return vnp_TmnCode;
+    }
+
+    public String getSecretKey() {
+        return secretKey;
+    }
+
+    public String getVnp_Version() {
+        return vnp_Version;
+    }
+
+    public String getVnp_Command() {
+        return vnp_Command;
+    }
+
+    public String getVnp_ApiUrl() {
+        return vnp_ApiUrl;
+    }
 
     public static String md5(String message) {
         String digest = null;
@@ -69,7 +108,8 @@ public class VNPayConfig {
                 sb.append("&");
             }
         }
-        return hmacSHA512(secretKey, sb.toString());
+        VNPayConfig vnPayConfig = new VNPayConfig();
+        return hmacSHA512(vnPayConfig.getSecretKey(), sb.toString());
     }
 
     public static String hmacSHA512(final String key, final String data) {

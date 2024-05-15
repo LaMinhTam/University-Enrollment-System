@@ -35,8 +35,8 @@ public class ClassScheduleController {
     }
 
     @GetMapping("/classes")
-    public Map<String, ClassSchedule> getSchedules(@RequestBody ClassIdsRequest request) {
-        return classScheduleService.getScheduleByClassIds(request.class_ids());
+    public Map<String, ClassSchedule> getSchedules(@RequestParam List<String> class_ids) {
+        return classScheduleService.getScheduleByClassIds(class_ids);
     }
 
     @GetMapping("/classes/by-date")
@@ -50,7 +50,7 @@ public class ClassScheduleController {
         );
     }
 
-    @GetMapping("/conflicts")
+    @PostMapping("/conflicts")
     public List<ConflictResponse> checkScheduleConflict(@RequestBody ScheduleConflictRequest request) {
         List<QueryClassSchedule> existingSchedules = classScheduleService.getEachScheduleByClassIds(request.enrollGroups());
         List<QueryClassSchedule> newSchedules = classScheduleService.getEachScheduleByClassIds(List.of(new EnrollGroup(request.newClassId(), request.groupId())));

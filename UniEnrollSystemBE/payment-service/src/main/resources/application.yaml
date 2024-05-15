@@ -25,8 +25,7 @@ spring:
     port: 5672
     username: admin
     password: 123456
-prices:
-  1_2021-1000_2000,
+prices: 1_2021-1000_2000,
   2_2021-1000_2000,
   1_2022-1100_2100,
   2_2022-1100_2100,
@@ -34,3 +33,11 @@ prices:
   2_2023-1200_2200,
   1_2024-1300_2300,
   2_2024-1300_2300
+vnp:
+  secretKey: ${VNP_SECRET_KEY:HF34SXY0OXR4ZWMIHHO4HRHMC7F9R1II}
+  version: ${VNP_VERSION:2.1.0}
+  vnp_TmnCode: ${VNP_TMN:IAKOY4KK}
+  vnp_Url: ${VNP_URL:https://sandbox.vnpayment.vn/paymentv2/vpcpay.html}
+  vnp_ReturnUrl: ${VNP_RETURN_URL:http://localhost:8099/vnpay_jsp/vnpay_return.jsp}
+  vnp_ApiUrl: ${VNP_API_URL:https://sandbox.vnpayment.vn/merchant_webapi/api/transaction}
+  vnp_Command: ${VNP_COMMAND:pay}
