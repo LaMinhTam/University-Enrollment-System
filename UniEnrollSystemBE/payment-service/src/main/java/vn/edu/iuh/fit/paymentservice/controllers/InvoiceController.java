@@ -20,6 +20,6 @@ public class InvoiceController {
 
     @GetMapping
     public ResponseEntity<?> getInvoices(@RequestHeader("id") String studentId, @RequestParam("page") int page, @RequestParam("size") int size) {
-        return ResponseEntity.ok(invoiceService.getAllInvoices(studentId, page, size));
+        return ResponseEntity.ok(new ResponseWrapper("Danh sách phiếu thu",invoiceService.getAllInvoices(studentId, page, size), 200));
     }
 }

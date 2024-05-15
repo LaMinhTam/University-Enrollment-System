@@ -124,7 +124,7 @@ public class PaymentController {
 //        Gson gson = new Gson();
 //        resp.getWriter().write(gson.toJson(job));
         invoiceService.createInvoice(invoiceId, studentId, "VNPAY", Double.valueOf(request.amount()), coursePayments);
-        return ResponseEntity.ok(paymentUrl);
+        return ResponseEntity.ok(new ResponseWrapper("Đường dẫn VNPAY",paymentUrl, 200));
     }
 
 
@@ -161,14 +161,14 @@ public class PaymentController {
                 List<String> classIds = invoice.getCoursePayments().stream().map(CoursePayment::getClassId).toList();
                 coursePaymentService.updatePaymentStatus(studentId, classIds, PaymentStatus.PAID);
                         checkoutMessageProducer.sendCheckoutMessage(studentId, invoiceId, PaymentStatus.PAID);
-                return ResponseEntity.ok("Giao dịch thành công");
+                return ResponseEntity.ok(new ResponseWrapper("Giao dịch thành công", null, 200));
             } else {
                 //Thanh toan khong thanh cong. Ma loi: vnp_ResponseCode
                 invoiceService.updatePaymentStatus(invoiceId, PaymentStatus.ERROR);
-                return ResponseEntity.badRequest().body("Giao dịch thất bại. Mã lỗi: " + vnp_ResponseCode);
+                return ResponseEntity.ok(new ResponseWrapper("Giao dịch thất bại. Mã lỗi: " + vnp_ResponseCode, null, 200));
             }
         } else {
-            return ResponseEntity.badRequest().body("Chữ ký không hợp lệ");
+            return ResponseEntity.ok(new ResponseWrapper("Giao dịch không hợp lệ", null, 200));
         }
     }
 }

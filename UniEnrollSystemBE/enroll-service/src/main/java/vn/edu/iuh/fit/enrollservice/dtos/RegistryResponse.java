@@ -30,10 +30,10 @@ public record RegistryResponse(
                 targetClass.getMaxCapacity(),
                 targetClass.getStatus(),
                 enrollment.getGroup(),
-                coursePayment.getCredit(),
+                coursePayment == null ? 0 : coursePayment.getCredit(),
                 enrollment.getUpdatedAt(),
-                enrollment.getStatus(),
-                coursePayment.getAmount()
+                coursePayment == null ? PaymentStatus.ERROR : enrollment.getStatus(),
+                coursePayment == null ? 0.0 : coursePayment.getAmount()
         );
     }
 }

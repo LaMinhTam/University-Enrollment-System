@@ -1,8 +1,10 @@
 package vn.edu.iuh.fit.paymentservice.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import vn.edu.iuh.fit.paymentservice.dtos.ResponseWrapper;
 import vn.edu.iuh.fit.paymentservice.models.CoursePayment;
 import vn.edu.iuh.fit.paymentservice.services.CoursePaymentService;
 
@@ -20,7 +22,7 @@ public class CoursePaymentController {
 
     @GetMapping
     public ResponseEntity<?> getCoursePayments(@RequestHeader("id") String studentId, @RequestParam int page, @RequestParam int size) {
-        return ResponseEntity.ok(coursePaymentService.getAllCoursePayments(studentId, page, size));
+        return ResponseEntity.ok(new ResponseWrapper("", coursePaymentService.getAllCoursePayments(studentId, page, size), HttpStatus.OK.value()));
     }
 
     @GetMapping("/by-semester-year")
