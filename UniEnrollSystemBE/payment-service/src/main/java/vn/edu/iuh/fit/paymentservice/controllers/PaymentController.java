@@ -1,6 +1,7 @@
 package vn.edu.iuh.fit.paymentservice.controllers;
 
 import jakarta.servlet.http.HttpServletRequest;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import vn.edu.iuh.fit.paymentservice.dtos.PaymentRequest;
@@ -152,7 +153,7 @@ public class PaymentController {
 
         String vnp_SecureHash = req.getParameter("vnp_SecureHash");
         fields.remove("vnp_SecureHash");
-        String signValue = VNPayConfig.hashAllFields(fields);
+        String signValue = vnPayConfig.hashAllFields(fields);
         if (vnp_SecureHash.equals(signValue)) {
             String vnp_ResponseCode = req.getParameter("vnp_ResponseCode");
             if ("00".equals(vnp_ResponseCode)) {
@@ -166,10 +167,10 @@ public class PaymentController {
             } else {
                 //Thanh toan khong thanh cong. Ma loi: vnp_ResponseCode
                 invoiceService.updatePaymentStatus(invoiceId, PaymentStatus.ERROR);
-                return ResponseEntity.ok(new ResponseWrapper("Giao dịch thất bại. Mã lỗi: " + vnp_ResponseCode, null, 200));
+                return ResponseEntity.ok(new ResponseWrapper("Giao dịch thất bại. Mã lỗi: " + vnp_ResponseCode, null, HttpStatus.BAD_REQUEST.value()));
             }
         } else {
-            return ResponseEntity.ok(new ResponseWrapper("Giao dịch không hợp lệ", null, 200));
+            return ResponseEntity.ok(new ResponseWrapper("Giao dịch không hợp lệ", null, HttpStatus.FORBIDDEN.value()));
         }
     }
 }

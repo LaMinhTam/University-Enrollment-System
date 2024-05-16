@@ -91,7 +91,7 @@ public class VNPayConfig {
     }
 
     //Util for VNPAY
-    public static String hashAllFields(Map fields) {
+    public String hashAllFields(Map fields) {
         List fieldNames = new ArrayList<>(fields.keySet());
         Collections.sort(fieldNames);
         StringBuilder sb = new StringBuilder();
@@ -108,8 +108,7 @@ public class VNPayConfig {
                 sb.append("&");
             }
         }
-        VNPayConfig vnPayConfig = new VNPayConfig();
-        return hmacSHA512(vnPayConfig.getSecretKey(), sb.toString());
+        return hmacSHA512(this.secretKey, sb.toString());
     }
 
     public static String hmacSHA512(final String key, final String data) {
