@@ -51,25 +51,6 @@ INSERT INTO `students_roles` (`student_id`, `role_id`) VALUES
 CREATE DATABASE `faculty_db` /*!40100 DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci */ /*!80016 DEFAULT ENCRYPTION='N' */;
 USE `faculty_db`;
 
-DROP TABLE IF EXISTS `courses`;
-CREATE TABLE `courses` (
-  `id` varchar(255) NOT NULL,
-  `credit` int NOT NULL,
-  `name` varchar(255) DEFAULT NULL,
-  `practical_credit` int NOT NULL,
-  `theory_credit` int NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
-
-INSERT INTO `courses` (`id`, `credit`, `name`, `practical_credit`, `theory_credit`) VALUES
-('4203002009',	2,	'Nhập môn Tin học',	0,	2),
-('4203003192',	2,	'Kỹ năng làm việc nhóm',	0,	2),
-('4203003242',	4,	'Giáo dục Quốc phòng và An ninh 1 ',	0,	4),
-('4203003259',	2,	'Toán cao cấp 1',	0,	2),
-('4203003307',	2,	'Giáo dục thể chất 1 ',	2,	0),
-('4203003848',	2,	'Nhập môn Lập trình',	2,	0),
-('4203014164',	3,	'Triết học Mác - Lênin',	0,	3);
-
 DROP TABLE IF EXISTS `faculties`;
 CREATE TABLE `faculties` (
   `id` int NOT NULL AUTO_INCREMENT,
@@ -120,17 +101,6 @@ INSERT INTO `majors` (`id`, `name`, `faculty_id`) VALUES
 (3,	'Khoa học dữ liệu',	1),
 (4,	'Hệ thống thông tin',	1),
 (5,	'Công nghệ thông tin',	1);
-
-DROP TABLE IF EXISTS `prerequisites`;
-CREATE TABLE `prerequisites` (
-  `course_id` varchar(255) NOT NULL,
-  `prerequisite_course_id` varchar(255) NOT NULL,
-  PRIMARY KEY (`course_id`,`prerequisite_course_id`),
-  KEY `FKit1tn8d8y7wetc79w6isf7mhd` (`prerequisite_course_id`),
-  CONSTRAINT `FK6c5rl8wmbsy9eknf0j4bgj5fr` FOREIGN KEY (`course_id`) REFERENCES `courses` (`id`),
-  CONSTRAINT `FKit1tn8d8y7wetc79w6isf7mhd` FOREIGN KEY (`prerequisite_course_id`) REFERENCES `courses` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
-
 
 DROP TABLE IF EXISTS `students`;
 CREATE TABLE `students` (

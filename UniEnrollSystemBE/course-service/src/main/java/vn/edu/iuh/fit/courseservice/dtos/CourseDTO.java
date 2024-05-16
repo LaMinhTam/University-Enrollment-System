@@ -19,5 +19,7 @@ public class CourseDTO {
     private int practicalCredit;
     private int type;
     private int semester;
+    @Field("elective_group")
+    private int electiveGroup;
     private List<Prerequisite> prerequisites;
 }

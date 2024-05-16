@@ -30,6 +30,7 @@ db.course.insertMany([
         semester: 6,
         type: 0,
         academic_year: 2021,
+        elective_group: 2
       },
     ],
   },
@@ -139,6 +140,7 @@ db.course.insertMany([
         semester: 4,
         type: 0,
         academic_year: 2021,
+        elective_group: 1
       },
     ],
     prerequisites: ["4203002137"],
@@ -187,6 +189,7 @@ db.course.insertMany([
         semester: 4,
         type: 0,
         academic_year: 2021,
+        elective_group: 1
       },
     ],
     prerequisites: ["4203001146"],
@@ -203,6 +206,7 @@ db.course.insertMany([
         semester: 8,
         type: 0,
         academic_year: 2021,
+        elective_group: 1
       },
     ],
     prerequisites: ["4203000901"],
@@ -265,6 +269,7 @@ db.course.insertMany([
         semester: 6,
         type: 0,
         academic_year: 2021,
+        elective_group: 2
       },
     ],
     prerequisites: ["4203000941"],
@@ -281,6 +286,7 @@ db.course.insertMany([
         semester: 4,
         type: 0,
         academic_year: 2021,
+        elective_group: 2
       },
     ],
     prerequisites: ["4203003591"],
@@ -297,6 +303,7 @@ db.course.insertMany([
         semester: 4,
         type: 0,
         academic_year: 2021,
+        elective_group: 2
       },
     ],
   },
@@ -342,6 +349,7 @@ db.course.insertMany([
         semester: 6,
         type: 0,
         academic_year: 2021,
+        elective_group: 1
       },
     ],
     prerequisites: ["4203002070", "4203014166"],
@@ -358,6 +366,7 @@ db.course.insertMany([
         semester: 8,
         type: 0,
         academic_year: 2021,
+        elective_group: 1
       },
     ],
     prerequisites: ["4203001146", "4203003451"],
@@ -374,6 +383,7 @@ db.course.insertMany([
         semester: 8,
         type: 0,
         academic_year: 2021,
+        elective_group: 1
       },
     ],
     prerequisites: ["4203001146"],
@@ -390,6 +400,7 @@ db.course.insertMany([
         semester: 6,
         type: 0,
         academic_year: 2021,
+        elective_group: 1
       },
     ],
     prerequisites: ["4203002044", "4203014166"],
@@ -466,6 +477,7 @@ db.course.insertMany([
         semester: 2,
         type: 0,
         academic_year: 2021,
+        elective_group: 1
       },
     ],
   },
@@ -481,6 +493,7 @@ db.course.insertMany([
         semester: 5,
         type: 0,
         academic_year: 2021,
+        elective_group: 1
       },
     ],
   },
@@ -496,6 +509,7 @@ db.course.insertMany([
         semester: 5,
         type: 0,
         academic_year: 2021,
+        elective_group: 1
       },
     ],
   },
@@ -511,6 +525,7 @@ db.course.insertMany([
         semester: 3,
         type: 0,
         academic_year: 2021,
+        elective_group: 1
       },
     ],
   },
@@ -526,6 +541,7 @@ db.course.insertMany([
         semester: 3,
         type: 0,
         academic_year: 2021,
+        elective_group: 1
       },
     ],
   },
@@ -556,6 +572,7 @@ db.course.insertMany([
         semester: 5,
         type: 0,
         academic_year: 2021,
+        elective_group: 1
       },
     ],
   },
@@ -571,6 +588,7 @@ db.course.insertMany([
         semester: 3,
         type: 0,
         academic_year: 2021,
+        elective_group: 1
       },
     ],
   },
@@ -586,6 +604,7 @@ db.course.insertMany([
         semester: 3,
         type: 0,
         academic_year: 2021,
+        elective_group: 1
       },
     ],
   },
@@ -601,6 +620,7 @@ db.course.insertMany([
         semester: 3,
         type: 0,
         academic_year: 2021,
+        elective_group: 1
       },
     ],
   },
@@ -616,6 +636,7 @@ db.course.insertMany([
         semester: 2,
         type: 0,
         academic_year: 2021,
+        elective_group: 1
       },
     ],
   },
@@ -646,6 +667,7 @@ db.course.insertMany([
         semester: 5,
         type: 0,
         academic_year: 2021,
+        elective_group: 1
       },
     ],
   },
@@ -676,6 +698,7 @@ db.course.insertMany([
         semester: 3,
         type: 0,
         academic_year: 2021,
+        elective_group: 1
       },
     ],
   },
@@ -736,6 +759,7 @@ db.course.insertMany([
         semester: 2,
         type: 0,
         academic_year: 2021,
+        elective_group: 1
       },
     ],
   },
@@ -751,6 +775,7 @@ db.course.insertMany([
         semester: 5,
         type: 0,
         academic_year: 2021,
+        elective_group: 1
       },
     ],
   },
@@ -766,6 +791,7 @@ db.course.insertMany([
         semester: 2,
         type: 0,
         academic_year: 2021,
+        elective_group: 1
       },
     ],
   },
@@ -811,6 +837,7 @@ db.course.insertMany([
         semester: 2,
         type: 0,
         academic_year: 2021,
+        elective_group: 1
       },
     ],
   },
@@ -826,6 +853,7 @@ db.course.insertMany([
         semester: 4,
         type: 0,
         academic_year: 2021,
+        elective_group: 1
       },
     ],
   },
@@ -841,6 +869,7 @@ db.course.insertMany([
         semester: 4,
         type: 0,
         academic_year: 2021,
+        elective_group: 2
       },
     ],
     prerequisites: ["4203003591"],
@@ -857,6 +886,7 @@ db.course.insertMany([
         semester: 6,
         type: 0,
         academic_year: 2021,
+        elective_group: 2
       },
     ],
     prerequisites: ["4203001146"],
@@ -888,6 +918,7 @@ db.course.insertMany([
         semester: 8,
         type: 0,
         academic_year: 2021,
+        elective_group: 1
       },
     ],
   },
@@ -950,6 +981,7 @@ db.course.insertMany([
         semester: 7,
         type: 0,
         academic_year: 2021,
+        elective_group: 1
       },
     ],
     prerequisites: ["4203002145", "4203002146"],
@@ -982,6 +1014,7 @@ db.course.insertMany([
         semester: 8,
         type: 0,
         academic_year: 2021,
+        elective_group: 1
       },
     ],
   },
@@ -997,6 +1030,7 @@ db.course.insertMany([
         semester: 6,
         type: 0,
         academic_year: 2021,
+        elective_group: 1
       },
     ],
     prerequisites: ["4203003442"],
@@ -1013,6 +1047,7 @@ db.course.insertMany([
         semester: 7,
         type: 0,
         academic_year: 2021,
+        elective_group: 1
       },
     ],
     prerequisites: ["4203003773"],
@@ -1029,6 +1064,7 @@ db.course.insertMany([
         semester: 8,
         type: 0,
         academic_year: 2021,
+        elective_group: 1
       },
     ],
     prerequisites: ["4203001432"],
@@ -1060,6 +1096,7 @@ db.course.insertMany([
         semester: 8,
         type: 0,
         academic_year: 2021,
+        elective_group: 1
       },
     ],
   },
@@ -1075,6 +1112,7 @@ db.course.insertMany([
         semester: 7,
         type: 0,
         academic_year: 2021,
+        elective_group: 1
       },
     ],
     prerequisites: ["4203002145", "4203002349"],
@@ -1091,6 +1129,7 @@ db.course.insertMany([
         semester: 7,
         type: 0,
         academic_year: 2021,
+        elective_group: 1
       },
     ],
   },
@@ -1106,6 +1145,7 @@ db.course.insertMany([
         semester: 5,
         type: 0,
         academic_year: 2021,
+        elective_group: 1
       },
     ],
   },
@@ -1230,6 +1270,7 @@ db.course.insertMany([
         semester: 3,
         type: 0,
         academic_year: 2021,
+        elective_group: 1
       },
     ],
   },
