@@ -7,5 +7,5 @@ import vn.edu.iuh.fit.facultyservice.models.MajorSemesterSummaryId;
 import java.util.List;
 
 public interface MajorSemesterSummaryRepository extends JpaRepository<MajorSemesterSummary, MajorSemesterSummaryId> {
-    List<MajorSemesterSummary> findAllByMajorIdAndYear(int majorId, int year);
+    List<MajorSemesterSummary> findAllByMajorIdAndYearOrderBySemester(int majorId, int year);
 }

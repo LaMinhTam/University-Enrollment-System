@@ -19,6 +19,6 @@ public class MajorSemesterSummaryServiceImpl implements MajorSemesterSummaryServ
 
     @Override
     public List<MajorSemesterSummary> findAllByMajorIdAndYear(int majorId, int year) {
-        return majorSemesterSummaryRepository.findAllByMajorIdAndYear(majorId, year);
+        return majorSemesterSummaryRepository.findAllByMajorIdAndYearOrderBySemester(majorId, year);
     }
 }
