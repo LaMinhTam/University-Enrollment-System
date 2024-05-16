@@ -4,12 +4,14 @@ interface IStudyResult {
     year: number;
     majorId: string;
     gradeReports: GradeReport[];
-    gpa: number;
+    GPA: number;
+    GPA4: number;
     totalCredits: number;
     totalPassedCredits: number;
-    accumulatedTotalCredits: number;
     accumulatedGPA: number;
-    accumulatedTotalPassedCredits: number;
+    accumulatedGPA4: number;
+    accumulatedCredits: number;
+    accumulatedPassedCredits: number;
 }
 
 interface GradeReport {
@@ -33,12 +35,18 @@ enum Status {
     Failed = "FAILED",
 }
 
-type StudyResultResponse = {
+type StudyResultsResponse = {
     message: string;
     data: IStudyResult[];
     status: number;
 };
 
-export default StudyResultResponse;
+type StudyResultResponse = {
+    message: string;
+    data: IStudyResult;
+    status: number;
+};
 
-export type { IStudyResult, GradeReport };
+export default StudyResultsResponse;
+
+export type { IStudyResult, GradeReport, StudyResultResponse };

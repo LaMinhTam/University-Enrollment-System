@@ -1,5 +1,3 @@
-import CheckIcon from "@mui/icons-material/Check";
-import ClearIcon from "@mui/icons-material/Clear";
 import { IClass, ICourseRegistration } from "../../types/courseType";
 import { v4 as uuidv4 } from "uuid";
 import { Tooltip as ReactTooltip } from "react-tooltip";
@@ -18,6 +16,7 @@ import {
 import { RootState } from "../../store/configureStore";
 import filterDuplicateSchedule from "../../utils/filterDuplicateSchedule";
 import { useEffect } from "react";
+import { Fail, Success } from "../../components/common";
 const TableCourse = ({
     data,
     tableClassesRef,
@@ -174,13 +173,9 @@ const TableCourse = ({
                             <td>{item.course.credit}</td>
                             <td>
                                 {item.course.type === 1 ? (
-                                    <span className="flex items-center justify-center w-6 h-6 rounded-full bg-primary text-lite">
-                                        <CheckIcon />
-                                    </span>
+                                    <Success text="" />
                                 ) : (
-                                    <span className="flex items-center justify-center w-6 h-6 rounded-full bg-error text-lite">
-                                        <ClearIcon />
-                                    </span>
+                                    <Fail text="" />
                                 )}
                             </td>
                             {item.course.prerequisites &&

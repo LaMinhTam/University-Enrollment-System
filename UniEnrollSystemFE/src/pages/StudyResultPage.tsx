@@ -7,25 +7,33 @@ import RequiredAuthPage from "./RequiredAuthPage";
 import { UniEnrollSystemAPI } from "../apis/constants";
 import { IStudyResult } from "../types/studyResultType";
 import { toast } from "react-toastify";
+import { useDispatch } from "react-redux";
+import { setIsOpenPredictScholarshipModal } from "../store/actions/modalSlice";
+import { Loading } from "../components/common";
 
 const StudyResultPage = () => {
+    const dispatch = useDispatch();
+    const [loading, setLoading] = useState<boolean>(false);
     const {
         value: isOpenCalculatePointFeature,
         handleToggleValue: setIsOpenCalculatePointFeature,
     } = useToggleValue(false);
 
     const [studyResults, setStudyResults] = useState<IStudyResult[]>([]);
-    console.log("StudyResultPage ~ studyResults:", studyResults);
     useEffect(() => {
         async function fetchStudyResult() {
+            setLoading(true);
             try {
                 const results = await UniEnrollSystemAPI.getStudyResults();
                 if (results.status === 200) {
+                    setLoading(false);
                     setStudyResults(results.data);
                 } else {
+                    setLoading(false);
                     toast.error("Lỗi khi lấy dữ liệu kết quả học tập");
                 }
             } catch (error) {
+                setLoading(false);
                 toast.error("Lỗi khi lấy dữ liệu kết quả học tập");
             }
         }
@@ -42,16 +50,30 @@ const StudyResultPage = () => {
                             text="Bật tính năng tính điểm"
                             onChange={setIsOpenCalculatePointFeature}
                         />
-                    </div>
-                    <table className="w-full mt-5 overflow-x-auto border border-collapse border-text2 tblStudyResult">
-                        <TableHeader />
-                        <TableBody
-                            studyResults={studyResults}
-                            isOpenCalculatePointFeature={
-                                isOpenCalculatePointFeature
+                        <button
+                            onClick={() =>
+                                dispatch(setIsOpenPredictScholarshipModal(true))
                             }
-                        />
-                    </table>
+                            className="px-4 py-2 text-center rounded bg-primary text-lite hover:bg-tertiary"
+                        >
+                            Ước lượng học bổng
+                        </button>
+                    </div>
+                    {loading ? (
+                        <div className="flex items-center justify-center w-full h-screen mt-10">
+                            <Loading />
+                        </div>
+                    ) : (
+                        <table className="w-full mt-5 overflow-x-auto border border-collapse border-text2 tblStudyResult">
+                            <TableHeader />
+                            <TableBody
+                                studyResults={studyResults}
+                                isOpenCalculatePointFeature={
+                                    isOpenCalculatePointFeature
+                                }
+                            />
+                        </table>
+                    )}
                 </div>
             </div>
         </RequiredAuthPage>

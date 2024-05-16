@@ -1,8 +1,8 @@
-import CheckIcon from "@mui/icons-material/Check";
 import { IStudyResult } from "../../types/studyResultType";
 import React from "react";
 import { v4 as uuidv4 } from "uuid";
-import ClearIcon from "@mui/icons-material/Clear";
+import handleFormatScore from "../../utils/handleFormatScore";
+import { Fail, Success } from "../../components/common";
 const TableBody = ({
     isOpenCalculatePointFeature,
     studyResults,
@@ -46,13 +46,6 @@ const TableBody = ({
         if (score >= 4) return "Kém";
         return "F";
     };
-    const handleFormatScore = (score: number) => {
-        if (score && Number(score) >= 0) {
-            const roundedScore = Number(score.toFixed(3));
-            const formattedScore = roundedScore.toFixed(2).replace(".", ",");
-            return formattedScore;
-        } else return "";
-    };
     const handleChange10To4 = (score: number) => {
         if (score >= 9) return 4;
         if (score >= 8.5) return 3.7;
@@ -67,7 +60,6 @@ const TableBody = ({
         return 0;
     };
     if (!studyResults) return null;
-    console.log("studyResults:", studyResults);
     return (
         <tbody>
             {studyResults.map((result) => (
@@ -131,13 +123,9 @@ const TableBody = ({
                             <td></td>
                             <td>
                                 {item.status === "PASSED" ? (
-                                    <span className="flex items-center justify-center w-6 h-6 rounded-full bg-primary text-lite">
-                                        <CheckIcon />
-                                    </span>
+                                    <Success text="" />
                                 ) : (
-                                    <span className="flex items-center justify-center w-6 h-6 rounded-full bg-error text-lite">
-                                        <ClearIcon />
-                                    </span>
+                                    <Fail text="" />
                                 )}
                             </td>
                         </tr>
@@ -145,21 +133,21 @@ const TableBody = ({
                     <tr className="trSemesterInfo">
                         <td colSpan={2}>
                             Điểm trung bình học kỳ hệ 10:{" "}
-                            {handleFormatScore(result.gpa)}
+                            {handleFormatScore(result.GPA)}
                         </td>
                         <td colSpan={2}>
                             Điểm trung bình học kỳ hệ 4:{" "}
-                            {handleFormatScore(result.gpa * 0.4)}
+                            {handleFormatScore(result.GPA4)}
                         </td>
                     </tr>
                     <tr className="trSemesterInfo">
                         <td colSpan={2}>
                             Điểm trung bình tích lũy:{" "}
-                            {handleFormatScore(result.gpa)}
+                            {handleFormatScore(result.accumulatedGPA)}
                         </td>
                         <td colSpan={2}>
                             Điểm trung bình tích lũy (hệ 4):{" "}
-                            {handleFormatScore(result.gpa * 0.4)}
+                            {handleFormatScore(result.accumulatedGPA4)}
                         </td>
                     </tr>
                     <tr className="trSemesterInfo">
@@ -168,7 +156,7 @@ const TableBody = ({
                         </td>
                         <td colSpan={2}>
                             Tổng số tín chỉ tích lũy:{" "}
-                            {result.totalPassedCredits}
+                            {result.accumulatedCredits}
                         </td>
                     </tr>
                     <tr className="trSemesterInfo">
@@ -182,11 +170,11 @@ const TableBody = ({
                     <tr className="trSemesterInfo">
                         <td colSpan={2}>
                             Xếp loại học lực tích lũy:{" "}
-                            {handleFormatStringGrade(result.gpa)}
+                            {handleFormatStringGrade(result.GPA)}
                         </td>
                         <td colSpan={2}>
                             Xếp loại học lực học kỳ:{" "}
-                            {handleFormatStringGrade(result.gpa)}
+                            {handleFormatStringGrade(result.GPA)}
                         </td>
                     </tr>
                 </React.Fragment>

@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 import { IStudent } from "../../types/studentType";
 import BoxItem from "./BoxItem";
+import { defaultImage } from "../../constants/global";
 
 const StudentInfo = ({ userInfo }: { userInfo: IStudent }) => {
     return (
@@ -13,7 +14,7 @@ const StudentInfo = ({ userInfo }: { userInfo: IStudent }) => {
                     <div className="flex flex-col items-center justify-center flex-1">
                         <div className="w-[120px] h-[120px] rounded-full mb-[10px]">
                             <img
-                                src={"https://source.unsplash.com/random"}
+                                src={defaultImage}
                                 alt={userInfo.name}
                                 className="object-cover w-full h-full rounded-full"
                             />

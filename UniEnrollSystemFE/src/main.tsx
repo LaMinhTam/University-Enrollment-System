@@ -32,6 +32,12 @@ const StudentSchedulePage = React.lazy(
     () => import("./pages/StudentSchedulePage.tsx")
 );
 
+const OnlinePaymentPage = React.lazy(
+    () => import("./pages/OnlinePaymentPage.tsx")
+);
+
+const StudentDebtPage = React.lazy(() => import("./pages/StudentDebtPage.tsx"));
+
 const router = createBrowserRouter([
     {
         element: <LayoutDashboard />,
@@ -55,6 +61,14 @@ const router = createBrowserRouter([
             {
                 path: "/ket-qua-hoc-tap",
                 element: <StudyResultPage></StudyResultPage>,
+            },
+            {
+                path: "/thanh-toan-truc-tuyen",
+                element: <OnlinePaymentPage></OnlinePaymentPage>,
+            },
+            {
+                path: "/cong-no-sinh-vien",
+                element: <StudentDebtPage></StudentDebtPage>,
             },
         ],
     },

@@ -1,6 +1,4 @@
 import PrintIcon from "@mui/icons-material/Print";
-import CheckIcon from "@mui/icons-material/Check";
-import ClearIcon from "@mui/icons-material/Clear";
 import ArrowDropUpRoundedIcon from "@mui/icons-material/ArrowDropUpRounded";
 import { useState } from "react";
 import useClickOutSide from "../../hooks/useClickOutSide";
@@ -22,6 +20,7 @@ import {
 } from "../../store/actions/modalSlice";
 import { IClassesEnrolled } from "../../types/classesEnrolledType";
 import renderColorClassNameOfStatus from "../../utils/renderColorClassNameOfStatus";
+import { Fail, Success } from "../../components/common";
 const TableRegistration = () => {
     const registerClasses = useSelector(
         (state: RootState) => state.registration.registerClasses
@@ -163,13 +162,9 @@ const TableRegistration = () => {
                             <td>{item.updatedAt}</td>
                             <td>
                                 {item.isPaid ? (
-                                    <span className="flex items-center justify-center w-6 h-6 rounded-full bg-primary text-lite">
-                                        <CheckIcon />
-                                    </span>
+                                    <Success text="" />
                                 ) : (
-                                    <span className="flex items-center justify-center w-6 h-6 rounded-full bg-error text-lite">
-                                        <ClearIcon />
-                                    </span>
+                                    <Fail text="" />
                                 )}
                             </td>
                             <td>Đã đăng ký</td>

@@ -55,6 +55,11 @@
     @apply text-tertiary bg-text8 min-w-[80px] px-1 py-4;
 }
 
-.tblStudyResult .trSemesterInfo {
+.table-debt th {
+    @apply text-tertiary bg-text8 min-w-[100px] px-1 py-4;
+}
+
+.tblStudyResult .trSemesterInfo,
+.table-debt .trSemesterInfo {
     @apply bg-text7 bg-opacity-15 text-sm;
 }

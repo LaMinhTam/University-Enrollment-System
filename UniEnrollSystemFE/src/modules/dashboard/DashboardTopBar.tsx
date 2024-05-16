@@ -6,6 +6,7 @@ import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import useClickOutSide from "../../hooks/useClickOutSide";
 import { saveAccessToken, saveRefreshToken } from "../../utils/auth";
 import { useAuth } from "../../contexts/auth-context";
+import { defaultImage } from "../../constants/global";
 const DashboardTopBar = () => {
     const { show: showInfo, setShow: setShowInfo, nodeRef } = useClickOutSide();
     const { userInfo } = useAuth();
@@ -42,7 +43,7 @@ const DashboardTopBar = () => {
                             <div className="w-8 h-8 rounded-full">
                                 <img
                                     className="object-cover w-full h-full rounded-full"
-                                    src={"https://source.unsplash.com/random"}
+                                    src={defaultImage}
                                     alt="User avatar"
                                 />
                             </div>

@@ -1,6 +1,6 @@
-import CheckIcon from "@mui/icons-material/Check";
 import { Tooltip as ReactTooltip } from "react-tooltip";
 import { IEducationPrograms } from "../../types/educationProgramType";
+import { Success } from "../../components/common";
 interface TableItemProps {
     course: IEducationPrograms;
     handleTooltipContent: (
@@ -49,9 +49,7 @@ const TableItem = ({ course, handleTooltipContent, index }: TableItemProps) => {
             <td></td>
             <td></td>
             <td>
-                <span className="flex items-center justify-center w-6 h-6 rounded-full bg-primary text-lite">
-                    <CheckIcon />
-                </span>
+                <Success text="" />
             </td>
         </tr>
     );

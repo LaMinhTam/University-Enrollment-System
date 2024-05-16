@@ -11,6 +11,7 @@ import { UniEnrollSystemAPI } from "../apis/constants";
 import { toast } from "react-toastify";
 import { ScheduleData } from "../types/studyScheduleType";
 import { setScheduleType } from "../store/actions/scheduleSlice";
+import { Loading } from "../components/common";
 const StudentSchedulePage = () => {
     const dispatch = useDispatch();
     const location = useLocation();
@@ -63,9 +64,7 @@ const StudentSchedulePage = () => {
                         <Footer />
                     </>
                 ) : (
-                    <div className="flex items-center justify-center">
-                        <div className="w-10 h-10 border-4 border-gray-300 rounded-full animate-spin border-t-tertiary"></div>
-                    </div>
+                    <Loading />
                 )}
             </div>
         </RequiredAuthPage>
