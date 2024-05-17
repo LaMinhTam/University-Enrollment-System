@@ -16,10 +16,25 @@ import java.util.stream.Collectors;
 @Service
 public class RegisterMessageConsumer {
     private final CoursePaymentService coursePaymentService;
+    @Value("${prices}")
+    private List<String> prices;
 
     public RegisterMessageConsumer(CoursePaymentService coursePaymentService) {
         this.coursePaymentService = coursePaymentService;
     }
+
+    private void calculateFee(RegisterRequest registerRequest) {
+        Map<String, int[]> pricesSemester = prices.stream().collect(Collectors.toMap(
+                price -> price.split("-")[0],
+                price -> {
+                    String[] split = price.split("-")[1].split("_");
+                    return new int[]{Integer.parseInt(split[0]), Integer.parseInt(split[1])};
+                }
+        ));
+        int[] creditPrices = pricesSemester.get(registerRequest.getSemester() + "_" + registerRequest.getYear());
+        registerRequest.setAmount(Double.valueOf(registerRequest.getTheoryCredit() * creditPrices[0] + registerRequest.getPracticalCredit() * creditPrices[1]));
+    }
+
 
     @RabbitListener(queues = "payment-queue")
     public void receivePaymentRegisterSchedule(MessageRequest request) {
@@ -32,11 +47,12 @@ public class RegisterMessageConsumer {
                         (String) request.request().get("courseName"),
                         (int) request.request().get("year"),
                         (int) request.request().get("semester"),
-                        (Double) request.request().get("amount"),
+                        0.0,
                         (int) request.request().get("credit"),
                         (int) request.request().get("theoryCredit"),
                         (int) request.request().get("practicalCredit")
                 );
+                calculateFee(registerRequest);
                 coursePaymentService.register(registerRequest);
             }
             case CANCEL -> {

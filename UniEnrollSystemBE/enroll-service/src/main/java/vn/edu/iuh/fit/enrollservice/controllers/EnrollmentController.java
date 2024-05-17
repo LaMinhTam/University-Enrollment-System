@@ -3,6 +3,8 @@ package vn.edu.iuh.fit.enrollservice.controllers;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import vn.edu.iuh.fit.enrollservice.config.AmountConfig;
+import vn.edu.iuh.fit.enrollservice.utils.FeeCalcHelper;
 import vn.edu.iuh.fit.enrollservice.client.PaymentClient;
 import vn.edu.iuh.fit.enrollservice.client.ScheduleClient;
 import vn.edu.iuh.fit.enrollservice.dtos.*;
@@ -28,14 +30,16 @@ public class EnrollmentController {
     private final ClassRedisService classRedisService;
     private final RegisterMessageProducer registerMessageProducer;
     private final PaymentClient paymentClient;
+    private final AmountConfig amountConfig;
 
-    public EnrollmentController(EnrollmentService enrollmentService, ClassService classService, ScheduleClient scheduleClient, ClassRedisService classRedisService, RegisterMessageProducer registerMessageProducer, PaymentClient paymentClient) {
+    public EnrollmentController(EnrollmentService enrollmentService, ClassService classService, ScheduleClient scheduleClient, ClassRedisService classRedisService, RegisterMessageProducer registerMessageProducer, PaymentClient paymentClient, AmountConfig amountConfig) {
         this.enrollmentService = enrollmentService;
         this.classService = classService;
         this.scheduleClient = scheduleClient;
         this.classRedisService = classRedisService;
         this.registerMessageProducer = registerMessageProducer;
         this.paymentClient = paymentClient;
+        this.amountConfig = amountConfig;
     }
 
     @GetMapping("/registry")
@@ -77,7 +81,7 @@ public class EnrollmentController {
             if (conflictSchedules.isEmpty()) {
                 enrollmentService.registerClass(studentId, request);
                 Course course = classesBySemesterAndYear.get(newClass.getCourseId()).course();
-                registerMessageProducer.sendEnrollMessage(new MessageRequest(EnrollMessageType.REGISTER, new RegisterRequest(studentId, request.class_id(), request.group(), newClass.getCourseId(), newClass.getCourseName(), newClass.getYear(), newClass.getSemester(), course.credit(), course.theoryCredit(), course.practicalCredit())));
+                registerMessageProducer.sendEnrollMessage(new MessageRequest(EnrollMessageType.REGISTER, new RegisterRequest(studentId, request.class_id(), request.group(), newClass.getCourseId(), newClass.getCourseName(), newClass.getYear(), newClass.getSemester(), course.getCredit(), FeeCalcHelper.calculateFee(course, amountConfig.getPrices(), newClass.getYear(), newClass.getSemester()), course.getTheoryCredit(), course.getPracticalCredit())));
                 classRedisService.updateStudentCount(majorId, newClass.getSemester(), newClass.getYear(), newClass.getCourseId(), newClass.getId(), request.group(), 1);
                 return ResponseEntity.ok(new ResponseWrapper("Đăng ký thành công", null, 200));
             } else {
@@ -89,7 +93,7 @@ public class EnrollmentController {
     }
 
     private void validateRegister(List<Enrollment> enrollmentsByYearAndSemester, List<Enrollment> enrollmentsNotInYearAndSemester, Map<String, MapCourseClass> classesBySemesterAndYear, Class targetClass, int group) {
-        List<String> unregisteredPrerequisites = classesBySemesterAndYear.get(targetClass.getCourseId()).course().prerequisites().stream()
+        List<String> unregisteredPrerequisites = classesBySemesterAndYear.get(targetClass.getCourseId()).course().getPrerequisites().stream()
                 .filter(prerequisite -> enrollmentsNotInYearAndSemester.stream()
                         .noneMatch(enrollment -> enrollment.getCourseId().equals(prerequisite.id())))
                 .map(prerequisite -> prerequisite.id() + " - " + prerequisite.name())
@@ -115,7 +119,7 @@ public class EnrollmentController {
             if (!isMatchFound) {
                 throw new RuntimeException("Nhóm thực hành không tồn tại");
             }
-        } else if (classesBySemesterAndYear.get(targetClass.getCourseId()).course().practicalCredit() != 0) {
+        } else if (classesBySemesterAndYear.get(targetClass.getCourseId()).course().getPracticalCredit() != 0) {
             throw new RuntimeException("Hãy đăng ký nhóm thực hành");
         }
     }
@@ -166,7 +170,7 @@ public class EnrollmentController {
         } else if (enrollmentsByYearAndSemester.stream()
                 .noneMatch(enrollment -> enrollment.getRegistryClass().equals(oldClass.getId()))) {
             throw new RuntimeException("Bạn chưa đăng ký lớp học này");
-        } else if (classesBySemesterAndYear.get(newClass.getCourseId()).course().prerequisites().stream()
+        } else if (classesBySemesterAndYear.get(newClass.getCourseId()).course().getPrerequisites().stream()
                 .anyMatch(prerequisite -> enrollmentsNotInYearAndSemester.stream()
                         .noneMatch(enrollment -> enrollment.getCourseId().equals(prerequisite.id())))) {
             throw new RuntimeException("Bạn chưa đăng ký môn học tiên quyết");
@@ -178,7 +182,7 @@ public class EnrollmentController {
             if (!isMatchFound) {
                 throw new RuntimeException("Nhóm thực hành không tồn tại");
             }
-        } else if (classesBySemesterAndYear.get(newClass.getCourseId()).course().practicalCredit() != 0) {
+        } else if (classesBySemesterAndYear.get(newClass.getCourseId()).course().getPracticalCredit() != 0) {
             throw new RuntimeException("Hãy đăng ký nhóm thực hành");
         }
     }
