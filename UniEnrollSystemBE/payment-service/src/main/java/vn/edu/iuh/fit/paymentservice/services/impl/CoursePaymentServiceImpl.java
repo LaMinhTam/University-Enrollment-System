@@ -35,7 +35,7 @@ public class CoursePaymentServiceImpl implements CoursePaymentService {
 
     @Override
     public void register(RegisterRequest request) {
-        coursePaymentRepository.save(new CoursePayment(request.getClassId(), request.getCourseId(), request.getCourseName(), request.getCredit(), request.getStudentId(), new Date(), new Date(), request.getSemester(), request.getYear(), request.getAmount(), 0.0, request.getAmount(), PaymentStatus.PENDING));
+        coursePaymentRepository.save(new CoursePayment(request.getClassId(), request.getCourseId(), request.getCourseName(), request.getCredit(), request.getStudentId(), new Date(), new Date(), request.getSemester(), request.getYear(), request.getAmount(), 0.0, request.getAmount(), PaymentStatus.UNPAID));
     }
 
     @Override

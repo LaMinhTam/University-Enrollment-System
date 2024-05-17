@@ -27,6 +27,7 @@ public class PaymentController {
     private final CoursePaymentService coursePaymentService;
     private final CheckoutMessageProducer checkoutMessageProducer;
     private final VNPayConfig vnPayConfig;
+
     public PaymentController(InvoiceService invoiceService, CoursePaymentService coursePaymentService, CheckoutMessageProducer checkoutMessageProducer, VNPayConfig vnPayConfig) {
         this.invoiceService = invoiceService;
         this.coursePaymentService = coursePaymentService;
@@ -43,7 +44,6 @@ public class PaymentController {
             if (!classIds.contains(classId)) {
                 missingClassId.add(classId);
             }
-
         });
         if (!missingClassId.isEmpty()) {
             return ResponseEntity.badRequest().body("Các lớp học không tồn tại: " + missingClassId);
@@ -126,7 +126,7 @@ public class PaymentController {
 //        Gson gson = new Gson();
 //        resp.getWriter().write(gson.toJson(job));
         invoiceService.createInvoice(invoiceId, studentId, "VNPAY", Double.valueOf(request.amount()), coursePayments);
-        return ResponseEntity.ok(new ResponseWrapper("Đường dẫn VNPAY",paymentUrl, 200));
+        return ResponseEntity.ok(new ResponseWrapper("Đường dẫn VNPAY", paymentUrl, 200));
     }
 
 
@@ -147,7 +147,7 @@ public class PaymentController {
 
         String invoiceId = fields.get("vnp_TxnRef");
 
-        if(invoiceService.getInvoicesById(invoiceId).getStatus() == PaymentStatus.PAID){
+        if (invoiceService.getInvoicesById(invoiceId).getStatus() == PaymentStatus.PAID) {
             return ResponseEntity.badRequest().body("Giao dịch đã được xử lý");
         }
 
@@ -162,7 +162,7 @@ public class PaymentController {
                 Invoice invoice = invoiceService.updatePaymentStatus(invoiceId, PaymentStatus.PAID);
                 List<String> classIds = invoice.getCoursePayments().stream().map(CoursePayment::getClassId).toList();
                 coursePaymentService.updatePaymentStatus(studentId, classIds, PaymentStatus.PAID);
-                        checkoutMessageProducer.sendCheckoutMessage(studentId, invoiceId, PaymentStatus.PAID);
+                checkoutMessageProducer.sendCheckoutMessage(studentId, invoiceId, PaymentStatus.PAID);
                 return ResponseEntity.ok(new ResponseWrapper("Giao dịch thành công", null, 200));
             } else {
                 //Thanh toan khong thanh cong. Ma loi: vnp_ResponseCode
