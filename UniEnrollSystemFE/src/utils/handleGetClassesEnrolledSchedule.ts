@@ -9,7 +9,7 @@ export default function handleGetClassesEnrolledSchedule(
 ) {
     const result = classes.flatMap((item) => {
         const schedules = Object.values(courses).flatMap((v) => {
-            return v.classes.filter((c) => {
+            return Object.values(v.classes).filter((c) => {
                 if (c.id === item.id) {
                     return true;
                 }

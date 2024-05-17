@@ -1,11 +1,12 @@
 import { UniEnrollSystemAPI } from "../apis/constants";
-import { IClassesEnrolled } from "../types/classesEnrolledType";
+import { IClassesEnrolled, PAYMENT_STATUS } from "../types/classesEnrolledType";
 import { IClass } from "../types/courseType";
 import { Dispatch, UnknownAction } from "@reduxjs/toolkit";
 import {
     setClassSchedule,
     setCourseSelectedClasses,
     setCourseSelectedId,
+    setEnrollLoading,
     setRegisterClasses,
 } from "../store/actions/registrationSlice";
 import { toast } from "react-toastify";
@@ -25,6 +26,7 @@ export default async function handleEnrollClass(
     courseSelectedCredit: number
 ) {
     try {
+        dispatch(setEnrollLoading(true));
         const response = await UniEnrollSystemAPI.classesEnrolled(
             classSchedule.id,
             groupId
@@ -37,9 +39,9 @@ export default async function handleEnrollClass(
                         ...classSchedule,
                         credit: courseSelectedCredit,
                         group: groupId,
-                        isPaid: false,
-                        updatedAt: "13/05/2024",
-                        fee: "2.450.000",
+                        paymentStatus: PAYMENT_STATUS.UNPAID,
+                        updateAt: new Date(),
+                        fee: 2450.0,
                     },
                 ])
             );
@@ -49,12 +51,15 @@ export default async function handleEnrollClass(
             setIsSelectedGroup(false);
             setSelectedGroup(0);
             toast.success("Đăng ký lớp học phần thành công");
+            dispatch(setEnrollLoading(false));
         } else {
             dispatch(setIsOpenScheduleDuplicateModal(true));
             dispatch(setDuplicateSchedule(response.data as IExistedSchedule[]));
             toast.error(response.message);
+            dispatch(setEnrollLoading(false));
         }
     } catch (error) {
+        dispatch(setEnrollLoading(false));
         toast.error("Đã có lỗi xảy ra, vui lòng thử lại sau");
     }
 }

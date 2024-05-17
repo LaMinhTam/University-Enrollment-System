@@ -1,4 +1,4 @@
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import RequiredAuthPage from "./RequiredAuthPage";
 import TableCourse from "../modules/registration/TableCourse";
 import TableClasses from "../modules/registration/TableClasses";
@@ -16,8 +16,10 @@ import { toast } from "react-toastify";
 import handleGetClassesEnrolledSchedule from "../utils/handleGetClassesEnrolledSchedule";
 import { IClassesEnrolledSchedule } from "../types/commonType";
 import handleResetCourseRegisterPage from "../utils/handleResetCourseRegisterPage";
+import { Loading } from "../components/common";
 
 const CourseRegisterPage = () => {
+    const [loading, setLoading] = useState<boolean>(false);
     const courses = useSelector(
         (state: RootState) => state.registration.courses
     );
@@ -36,6 +38,7 @@ const CourseRegisterPage = () => {
     useEffect(() => {
         async function fetchData() {
             try {
+                setLoading(true);
                 const coursesRes =
                     await UniEnrollSystemAPI.getCourseRegistration(
                         registrationPeriod.semester,
@@ -50,17 +53,11 @@ const CourseRegisterPage = () => {
                     dispatch(setCourses(coursesRes.data));
                 }
                 if (classesRes.status === 200) {
-                    const classes = classesRes.data.map((item) => {
-                        return {
-                            ...item,
-                            isPaid: false,
-                            updatedAt: "13/05/2024",
-                            fee: "2.450.000",
-                        };
-                    });
-                    dispatch(setRegisterClasses(classes));
+                    dispatch(setRegisterClasses(classesRes.data));
                 }
+                setLoading(false);
             } catch (error) {
+                setLoading(false);
                 toast.error("Lỗi khi lấy dữ liệu học phần");
             }
         }
@@ -89,14 +86,20 @@ const CourseRegisterPage = () => {
         <RequiredAuthPage>
             <div className="w-full h-full mt-5 bg-lite p-[10px] max-w-[1140px] mx-auto">
                 <Header />
-                <TableCourse
-                    data={courses || {}}
-                    tableClassesRef={tableClassesRef}
-                />
-                <div ref={tableClassesRef}>
-                    <TableClasses />
-                </div>
-                <TableRegistration />
+                {loading ? (
+                    <Loading />
+                ) : (
+                    <>
+                        <TableCourse
+                            data={courses || {}}
+                            tableClassesRef={tableClassesRef}
+                        />
+                        <div ref={tableClassesRef}>
+                            <TableClasses />
+                        </div>
+                        <TableRegistration />
+                    </>
+                )}
             </div>
         </RequiredAuthPage>
     );

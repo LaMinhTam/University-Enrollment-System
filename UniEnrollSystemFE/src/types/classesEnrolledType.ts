@@ -6,11 +6,19 @@ interface IClassesEnrolled {
     year: number;
     maxCapacity: number;
     status: string;
-    credit: number;
     group: number;
-    isPaid?: boolean;
-    updatedAt?: string;
-    fee?: string;
+    credit: number;
+    updateAt: Date;
+    paymentStatus: PAYMENT_STATUS;
+    fee: number;
+}
+
+enum PAYMENT_STATUS {
+    "PAID",
+    "UNPAID",
+    "PENDING",
+    "ERROR",
+    "REFUND",
 }
 
 type ClassesEnrolledResponse = {
@@ -28,3 +36,4 @@ type RemoveClassesEnrolled = {
 export default ClassesEnrolledResponse;
 
 export type { IClassesEnrolled, RemoveClassesEnrolled };
+export { PAYMENT_STATUS };

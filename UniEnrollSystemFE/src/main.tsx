@@ -15,6 +15,7 @@ import LoginPage from "./pages/LoginPage.tsx";
 import AuthType from "./types/authType.ts";
 import store from "./store/configureStore.ts";
 import StudyResultPage from "./pages/StudyResultPage.tsx";
+import Loading from "./components/common/Loading.tsx";
 const LayoutDashboard = React.lazy(
     () => import("./layout/LayoutDashboard.tsx")
 );
@@ -82,7 +83,13 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
     <Provider store={store}>
         <AuthProvider value={{} as AuthType}>
             <App>
-                <Suspense fallback={<div>Loading...</div>}>
+                <Suspense
+                    fallback={
+                        <div className="flex items-center justify-center w-full h-screen mx-auto">
+                            <Loading />
+                        </div>
+                    }
+                >
                     <RouterProvider router={router}></RouterProvider>
                 </Suspense>
             </App>

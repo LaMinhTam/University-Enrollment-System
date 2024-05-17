@@ -2,7 +2,7 @@ import { ISchedule } from "./scheduleType";
 
 interface ICourseRegistration {
     course: ICourse;
-    classes: IClass[];
+    classes: { [key: string]: IClass };
 }
 
 interface IClass {

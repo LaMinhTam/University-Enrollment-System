@@ -18,9 +18,14 @@ import {
     setClassSelectedSchedule,
     setIsOpenWatchScheduleModal,
 } from "../../store/actions/modalSlice";
-import { IClassesEnrolled } from "../../types/classesEnrolledType";
+import {
+    IClassesEnrolled,
+    PAYMENT_STATUS,
+} from "../../types/classesEnrolledType";
 import renderColorClassNameOfStatus from "../../utils/renderColorClassNameOfStatus";
-import { Fail, Success } from "../../components/common";
+import { Fail, Pending, Success, Unpaid } from "../../components/common";
+import { formatDate } from "../../utils/formatTime";
+import handleFormatMoney from "../../utils/handleFormatMoney";
 const TableRegistration = () => {
     const registerClasses = useSelector(
         (state: RootState) => state.registration.registerClasses
@@ -104,7 +109,6 @@ const TableRegistration = () => {
                             Tổng
                         </td>
                         <td>{handleCalculateTotalCredit(registerClasses)}</td>
-                        {/* <td>19</td> */}
                     </tr>
                     {registerClasses.map((item, index) => (
                         <tr
@@ -158,17 +162,23 @@ const TableRegistration = () => {
                             <td>{item.id}</td>
                             <td>{item.credit}</td>
                             <td>{item.group}</td>
-                            <td>{item.fee}</td>
-                            <td>{item.updatedAt}</td>
+                            <td>{handleFormatMoney(item.fee * 1000)}</td>
+                            <td>{formatDate(new Date(item.updateAt))}</td>
                             <td>
-                                {item.isPaid ? (
+                                {item.paymentStatus === PAYMENT_STATUS.PAID && (
                                     <Success text="" />
-                                ) : (
-                                    <Fail text="" />
                                 )}
+                                {item.paymentStatus ===
+                                    PAYMENT_STATUS.UNPAID && <Unpaid text="" />}
+                                {item.paymentStatus ===
+                                    PAYMENT_STATUS.PENDING && (
+                                    <Pending text="" />
+                                )}
+                                {item.paymentStatus ===
+                                    PAYMENT_STATUS.ERROR && <Fail text="" />}
                             </td>
                             <td>Đã đăng ký</td>
-                            <td>{item.updatedAt}</td>
+                            <td>{formatDate(new Date(item.updateAt))}</td>
                             <td
                                 className={`text-sm font-semibold ${renderColorClassNameOfStatus(
                                     item.status

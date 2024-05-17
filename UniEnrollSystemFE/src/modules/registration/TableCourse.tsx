@@ -76,20 +76,23 @@ const TableCourse = ({
         dispatch(setCourseSelectedId(item.course.id));
         dispatch(setCourseSelectedCredit(item.course.credit));
         dispatch(setClassSelectedId(""));
+        const newCourseSelectedClasses = Object.values(item.classes).filter(
+            (item) => {
+                return !registerClasses.some(
+                    (classEnrolled) => classEnrolled.id === item.id
+                );
+            }
+        );
+        dispatch(setStoredSelectedClasses(newCourseSelectedClasses));
         if (isFilterDuplicateSchedule) {
+            const newClasses = Object.values(item.classes).map((item) => item);
             const newCourseSelectedClasses = filterDuplicateSchedule(
-                item.classes,
+                newClasses,
                 classesEnrolledSchedule
             );
             dispatch(setCourseSelectedClasses(newCourseSelectedClasses));
         } else {
-            const newCourseSelectedClasses = item.classes.filter((item) => {
-                return !registerClasses.some(
-                    (classEnrolled) => classEnrolled.id === item.id
-                );
-            });
             dispatch(setCourseSelectedClasses(newCourseSelectedClasses));
-            dispatch(setStoredSelectedClasses(newCourseSelectedClasses));
         }
         dispatch(setClassSchedule({} as IClass));
         tableClassesRef.current?.scrollIntoView({ behavior: "smooth" });
@@ -101,17 +104,22 @@ const TableCourse = ({
             courseChangeQuantityClassId &&
             courseChangeQuantityId
         ) {
-            data[courseChangeQuantityId].classes = data[
-                courseChangeQuantityId
-            ].classes.map((item) => {
-                if (item.id === courseChangeQuantityClassId) {
-                    return {
-                        ...item,
-                        quantity: item.quantity - 1,
+            const classes = data[courseChangeQuantityId].classes;
+            const updatedClasses = {} as { [key: string]: IClass };
+
+            Object.keys(classes).forEach((key) => {
+                if (key === courseChangeQuantityClassId) {
+                    updatedClasses[key] = {
+                        ...classes[key],
+                        quantity: classes[key].quantity - 1,
                     };
+                } else {
+                    updatedClasses[key] = classes[key];
                 }
-                return item;
             });
+
+            data[courseChangeQuantityId].classes = updatedClasses;
+
             dispatch(setCourseChangeQuantityClassId(""));
             dispatch(setCourseChangeQuantityId(""));
             dispatch(setIsRemoveClass(false));

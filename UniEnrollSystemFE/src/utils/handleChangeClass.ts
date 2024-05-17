@@ -1,11 +1,12 @@
 import { Dispatch, UnknownAction } from "@reduxjs/toolkit";
 import { UniEnrollSystemAPI } from "../apis/constants";
-import { IClassesEnrolled } from "../types/classesEnrolledType";
+import { IClassesEnrolled, PAYMENT_STATUS } from "../types/classesEnrolledType";
 import { IClass } from "../types/courseType";
 import {
     setClassSchedule,
     setCourseSelectedClasses,
     setCourseSelectedId,
+    setEnrollLoading,
     setRegisterClasses,
 } from "../store/actions/registrationSlice";
 import { toast } from "react-toastify";
@@ -20,6 +21,7 @@ export default async function handleChangeClass(
     setSelectedGroup: (value: number) => void
 ) {
     try {
+        dispatch(setEnrollLoading(true));
         const response = await UniEnrollSystemAPI.changeClassesEnrolled(
             oldClass.id,
             classSchedule.id,
@@ -35,9 +37,9 @@ export default async function handleChangeClass(
                         ...classSchedule,
                         credit: item.credit,
                         group: groupId,
-                        isPaid: false,
-                        updatedAt: "13/05/2024",
-                        fee: "2.450.000",
+                        paymentStatus: PAYMENT_STATUS.UNPAID,
+                        updateAt: new Date(),
+                        fee: 2450.0,
                     };
                 }
                 return item;
@@ -49,10 +51,13 @@ export default async function handleChangeClass(
             setIsSelectedGroup(false);
             setSelectedGroup(0);
             toast.success("Đổi lớp học phần thành công");
+            dispatch(setEnrollLoading(false));
         } else if (response.status === 400) {
+            dispatch(setEnrollLoading(false));
             toast.error(response.message);
         }
     } catch (error) {
+        dispatch(setEnrollLoading(false));
         toast.error("Đã có lỗi xảy ra, vui lòng thử lại sau");
     }
 }

@@ -38,6 +38,7 @@ const PaymentCheckModal = () => {
                 const response = await UniEnrollSystemAPI.checkPayment(
                     paymentCheckedParams
                 );
+                console.log("handleAcceptPayment ~ response:", response);
                 if (response.status === 200) {
                     setLoading(false);
                     toast.success("Thanh toán thành công!");
