@@ -1,4 +1,4 @@
-package vn.edu.iuh.fit.paymentservice.message;
+package vn.edu.iuh.fit.notificationservice.message;
 
 import org.springframework.amqp.core.BindingBuilder;
 import org.springframework.amqp.core.Declarables;
@@ -13,18 +13,8 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class RabbitMQConfiguration {
     @Bean
-    public Declarables fanoutBindings() {
-        FanoutExchange checkoutExchange = new FanoutExchange("checkout-fanout-exchange");
-
-        Queue checkoutQueue = new Queue("checkout-queue");
-        Queue enrollPaymentQueue = new Queue("payment-queue");
-
-        return new Declarables(
-                checkoutQueue,
-                enrollPaymentQueue,
-                checkoutExchange,
-                BindingBuilder.bind(checkoutQueue).to(checkoutExchange)
-        );
+    public Queue notificationQueue() {
+        return new Queue("notification-queue");
     }
 
     @Bean

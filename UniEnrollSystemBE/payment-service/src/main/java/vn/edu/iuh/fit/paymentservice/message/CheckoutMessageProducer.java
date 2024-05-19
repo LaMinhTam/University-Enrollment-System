@@ -23,7 +23,7 @@ public class CheckoutMessageProducer {
 
     public void sendCheckoutMessage(String studentId, String invoiceId, PaymentStatus status) {
         Invoice invoice = invoiceService.getInvoicesById(invoiceId);
-        List<CheckoutClassRequest> checkoutClasses = invoice.getCoursePayments().stream().map(coursePayment -> new CheckoutClassRequest(coursePayment.getClassId(), coursePayment.getStudentId())).toList();
+        List<CheckoutClassRequest> checkoutClasses = invoice.getCoursePayments().stream().map(coursePayment -> new CheckoutClassRequest(coursePayment.getClassId(), coursePayment.getCourseName())).toList();
         rabbitTemplate.convertAndSend("checkout-fanout-exchange", "", new CheckoutMessage(studentId, checkoutClasses, status));
     }
 }

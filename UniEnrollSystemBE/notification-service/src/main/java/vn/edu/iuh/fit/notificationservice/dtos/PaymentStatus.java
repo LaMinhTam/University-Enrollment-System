@@ -1,4 +1,4 @@
-package vn.edu.iuh.fit.enrollservice.models;
+package vn.edu.iuh.fit.notificationservice.dtos;
 
 public enum PaymentStatus {
     PENDING, PAID, UNPAID, CANCELLED, ERROR

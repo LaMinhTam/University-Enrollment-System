@@ -18,12 +18,14 @@ public class RabbitMQConfiguration {
 
         Queue checkoutQueue = new Queue("checkout-queue");
         Queue enrollPaymentQueue = new Queue("payment-queue");
-
+        Queue notificationQueue = new Queue("checkout-notification-queue");
         return new Declarables(
                 checkoutQueue,
                 enrollPaymentQueue,
                 checkoutExchange,
-                BindingBuilder.bind(checkoutQueue).to(checkoutExchange)
+                notificationQueue,
+                BindingBuilder.bind(checkoutQueue).to(checkoutExchange),
+                BindingBuilder.bind(notificationQueue).to(checkoutExchange)
         );
     }
 

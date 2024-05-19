@@ -1,6 +1,5 @@
-package vn.edu.iuh.fit.enrollservice.dtos;
+package vn.edu.iuh.fit.notificationservice.dtos;
 
-import vn.edu.iuh.fit.enrollservice.models.PaymentStatus;
 
 import java.util.List;
 

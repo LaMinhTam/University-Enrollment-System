@@ -12,17 +12,19 @@ public class RabbitMQConfiguration {
     @Bean
     public Declarables fanoutBindings() {
         FanoutExchange enrollExchange = new FanoutExchange("fanout-exchange");
-
         Queue enrollScheduleQueue = new Queue("schedule-queue");
         Queue enrollPaymentQueue = new Queue("payment-queue");
         Queue checkoutQueue = new Queue("checkout-queue");
+        Queue notificationQueue = new Queue("notification-queue");
         return new Declarables(
                 enrollScheduleQueue,
                 enrollPaymentQueue,
                 checkoutQueue,
                 enrollExchange,
+                notificationQueue,
                 BindingBuilder.bind(enrollScheduleQueue).to(enrollExchange),
-                BindingBuilder.bind(enrollPaymentQueue).to(enrollExchange)
+                BindingBuilder.bind(enrollPaymentQueue).to(enrollExchange),
+                BindingBuilder.bind(notificationQueue).to(enrollExchange)
         );
     }
 

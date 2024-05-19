@@ -273,10 +273,10 @@ services:
     deploy:
       resources:
         limits:
-  #         cpus: "0.50"
-  #         memory: 512M
-  #       reservations:
-  #         memory: 256M
+          cpus: "0.50"
+          memory: 512M
+        reservations:
+          memory: 256M
 
   course-service:
     image: laminhtam/course-service:latest

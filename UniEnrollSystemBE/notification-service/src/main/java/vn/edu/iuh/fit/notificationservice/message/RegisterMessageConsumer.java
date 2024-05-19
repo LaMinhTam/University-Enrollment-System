@@ -1,43 +1,28 @@
-package vn.edu.iuh.fit.paymentservice.message;
+package vn.edu.iuh.fit.notificationservice.message;
 
+
+import jakarta.mail.MessagingException;
 import org.springframework.amqp.rabbit.annotation.RabbitListener;
-import org.springframework.beans.factory.annotation.Value;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import vn.edu.iuh.fit.paymentservice.dtos.CancelRequest;
-import vn.edu.iuh.fit.paymentservice.dtos.ChangeRegisterRequest;
-import vn.edu.iuh.fit.paymentservice.dtos.MessageRequest;
-import vn.edu.iuh.fit.paymentservice.dtos.RegisterRequest;
-import vn.edu.iuh.fit.paymentservice.services.CoursePaymentService;
+import vn.edu.iuh.fit.notificationservice.client.FacultyClient;
+import vn.edu.iuh.fit.notificationservice.config.MailSenderConfig;
+import vn.edu.iuh.fit.notificationservice.dtos.*;
+import vn.edu.iuh.fit.notificationservice.utils.MailSenderHelper;
 
-import java.util.List;
-import java.util.Map;
-import java.util.stream.Collectors;
+import java.io.UnsupportedEncodingException;
 
 @Service
 public class RegisterMessageConsumer {
-    private final CoursePaymentService coursePaymentService;
-    @Value("${prices}")
-    private List<String> prices;
-
-    public RegisterMessageConsumer(CoursePaymentService coursePaymentService) {
-        this.coursePaymentService = coursePaymentService;
+    private final FacultyClient facultyClient;
+    private final MailSenderConfig mailSenderConfig;
+    public RegisterMessageConsumer(FacultyClient facultyClient, MailSenderConfig mailSenderConfig) {
+        this.facultyClient = facultyClient;
+        this.mailSenderConfig = mailSenderConfig;
     }
 
-    private void calculateFee(RegisterRequest registerRequest) {
-        Map<String, int[]> pricesSemester = prices.stream().collect(Collectors.toMap(
-                price -> price.split("-")[0],
-                price -> {
-                    String[] split = price.split("-")[1].split("_");
-                    return new int[]{Integer.parseInt(split[0]), Integer.parseInt(split[1])};
-                }
-        ));
-        int[] creditPrices = pricesSemester.get(registerRequest.getSemester() + "_" + registerRequest.getYear());
-        registerRequest.setAmount(Double.valueOf(registerRequest.getTheoryCredit() * creditPrices[0] + registerRequest.getPracticalCredit() * creditPrices[1]));
-    }
-
-
-    @RabbitListener(queues = "payment-queue")
-    public void receivePaymentRegisterSchedule(MessageRequest request) {
+    @RabbitListener(queues = "notification-queue")
+    public void receivePaymentRegisterSchedule(MessageRequest request) throws MessagingException, UnsupportedEncodingException {
         switch (request.type()) {
             case REGISTER -> {
                 RegisterRequest registerRequest = new RegisterRequest(
@@ -45,15 +30,13 @@ public class RegisterMessageConsumer {
                         (String) request.request().get("classId"),
                         (String) request.request().get("courseId"),
                         (String) request.request().get("courseName"),
-                        (int) request.request().get("year"),
-                        (int) request.request().get("semester"),
-                        0.0,
+                        (Double) request.request().get("amount"),
                         (int) request.request().get("credit"),
                         (int) request.request().get("theoryCredit"),
                         (int) request.request().get("practicalCredit")
                 );
-                calculateFee(registerRequest);
-                coursePaymentService.register(registerRequest);
+                StudentDTO studentDTO = facultyClient.get(registerRequest.studentId());
+                MailSenderHelper.sendEmail(studentDTO.email(), "Thông báo đăng ký học phần", "Bạn đã đăng ký thành công học phần " + registerRequest.classId() + "-" + registerRequest.courseName() + "(" + registerRequest.credit() + " ," + registerRequest.theoryCredit() + ", " + registerRequest.practicalCredit() + ")", mailSenderConfig);
             }
             case CANCEL -> {
                 CancelRequest cancelRequest = new CancelRequest(
@@ -61,7 +44,8 @@ public class RegisterMessageConsumer {
                         (String) request.request().get("classId"),
                         (int) request.request().get("group")
                 );
-                coursePaymentService.cancelRegister(cancelRequest.studentId(), cancelRequest.classId());
+                StudentDTO studentDTO = facultyClient.get(cancelRequest.studentId());
+                MailSenderHelper.sendEmail(studentDTO.email(), "Thông báo hủy đăng ký học phần", "Bạn đã hủy đăng ký học phần " + cancelRequest.classId(), mailSenderConfig);
             }
             case CHANGE -> {
                 ChangeRegisterRequest changeRegisterRequest = new ChangeRegisterRequest(
@@ -69,7 +53,8 @@ public class RegisterMessageConsumer {
                         (String) request.request().get("oldClassId"),
                         (String) request.request().get("newClassId")
                 );
-                coursePaymentService.changeSchedule(changeRegisterRequest.studentId(), changeRegisterRequest.newClassId(), changeRegisterRequest.oldClassId());
+                StudentDTO studentDTO = facultyClient.get(changeRegisterRequest.studentId());
+                MailSenderHelper.sendEmail(studentDTO.email(), "Thông báo thay đổi đăng ký học phần", "Bạn đã thay đổi đăng ký học phần từ " + changeRegisterRequest.oldClassId() + " sang " + changeRegisterRequest.newClassId(), mailSenderConfig);
             }
         }
     }

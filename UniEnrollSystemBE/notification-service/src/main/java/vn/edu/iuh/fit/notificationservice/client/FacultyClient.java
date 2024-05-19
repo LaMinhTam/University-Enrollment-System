@@ -1,8 +1,8 @@
-package vn.edu.iuh.fit.authservice.client;
+package vn.edu.iuh.fit.notificationservice.client;
 
 import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;
-import vn.edu.iuh.fit.authservice.dtos.StudentDTO;
+import vn.edu.iuh.fit.notificationservice.dtos.StudentDTO;
 
 @Service
 public class FacultyClient {

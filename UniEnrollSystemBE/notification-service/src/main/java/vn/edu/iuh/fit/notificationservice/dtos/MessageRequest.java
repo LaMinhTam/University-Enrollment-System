@@ -1,4 +1,4 @@
-package vn.edu.iuh.fit.paymentservice.dtos;
+package vn.edu.iuh.fit.notificationservice.dtos;
 
 import java.io.Serial;
 import java.io.Serializable;

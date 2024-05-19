@@ -1,13 +1,9 @@
-package vn.edu.iuh.fit.authservice.config;
+package vn.edu.iuh.fit.notificationservice.config;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cloud.client.loadbalancer.reactive.LoadBalancedExchangeFilterFunction;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.reactive.function.client.WebClient;
-import org.springframework.web.reactive.function.client.support.WebClientAdapter;
-import org.springframework.web.service.invoker.HttpServiceProxyFactory;
-import vn.edu.iuh.fit.authservice.client.FacultyClient;
 
 @Configuration
 public class WebClientConfig {
