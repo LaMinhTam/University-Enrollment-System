@@ -26,6 +26,9 @@ const Schedule = () => {
     const courseSelectedCredit = useSelector(
         (state: RootState) => state.registration.courseSelectedCredit
     );
+    const courseSelectedFee = useSelector(
+        (state: RootState) => state.registration.courseSelectedFee
+    );
     const handleRegistrationClasses = async () => {
         const isExist = registerClasses.some(
             (item) => item.id === classSchedule.id
@@ -71,7 +74,8 @@ const Schedule = () => {
                                             registerClasses,
                                             dispatch,
                                             setIsSelectedGroup,
-                                            setSelectedGroup
+                                            setSelectedGroup,
+                                            courseSelectedFee
                                         );
                                     } else {
                                         return;
@@ -86,7 +90,8 @@ const Schedule = () => {
                                 dispatch,
                                 setIsSelectedGroup,
                                 setSelectedGroup,
-                                courseSelectedCredit
+                                courseSelectedCredit,
+                                courseSelectedFee
                             );
                         }
                     } else {

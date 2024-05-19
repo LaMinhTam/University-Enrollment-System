@@ -82,7 +82,7 @@ const PaymentCheckModal = () => {
                                 <td>{index + 1}</td>
                                 <td>{debt.classId}</td>
                                 <td>{debt.courseName}</td>
-                                <td>{handleFormatMoney(debt.amount * 1000)}</td>
+                                <td>{handleFormatMoney(debt.amount)}</td>
                             </tr>
                         ))}
                         <tr>
@@ -97,7 +97,7 @@ const PaymentCheckModal = () => {
                                     paymentInfo?.reduce(
                                         (total, debt) => total + debt.amount,
                                         0
-                                    ) * 1000
+                                    )
                                 )}
                             </td>
                         </tr>

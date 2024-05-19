@@ -9,6 +9,7 @@ import {
     setCourseChangeQuantityId,
     setCourseSelectedClasses,
     setCourseSelectedCredit,
+    setCourseSelectedFee,
     setCourseSelectedId,
     setIsRemoveClass,
     setStoredSelectedClasses,
@@ -75,6 +76,7 @@ const TableCourse = ({
     const handleClickCourse = (item: ICourseRegistration) => {
         dispatch(setCourseSelectedId(item.course.id));
         dispatch(setCourseSelectedCredit(item.course.credit));
+        dispatch(setCourseSelectedFee(item.course.fee));
         dispatch(setClassSelectedId(""));
         const newCourseSelectedClasses = Object.values(item.classes).filter(
             (item) => {

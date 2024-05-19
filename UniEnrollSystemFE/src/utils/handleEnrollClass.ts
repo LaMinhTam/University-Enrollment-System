@@ -23,7 +23,8 @@ export default async function handleEnrollClass(
     dispatch: Dispatch<UnknownAction>,
     setIsSelectedGroup: (value: boolean) => void,
     setSelectedGroup: (value: number) => void,
-    courseSelectedCredit: number
+    courseSelectedCredit: number,
+    fee: number
 ) {
     try {
         dispatch(setEnrollLoading(true));
@@ -41,7 +42,7 @@ export default async function handleEnrollClass(
                         group: groupId,
                         paymentStatus: PAYMENT_STATUS.UNPAID,
                         updateAt: new Date(),
-                        fee: 2450.0,
+                        fee,
                     },
                 ])
             );

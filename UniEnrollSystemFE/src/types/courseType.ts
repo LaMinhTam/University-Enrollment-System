@@ -25,6 +25,7 @@ interface ICourse {
     practicalCredit: number;
     type: number;
     prerequisites: IPrerequisite[];
+    fee: number;
 }
 
 interface IPrerequisite {

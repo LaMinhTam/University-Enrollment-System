@@ -14,6 +14,7 @@ const Body = ({
         [key: string]: IDept[];
     } | null;
 }) => {
+    console.log("studentDept:", studentDept);
     const [selectedDebts, setSelectedDebts] = useState<string[]>([]);
     const [loading, setLoading] = useState<boolean>(false);
 
@@ -27,7 +28,7 @@ const Body = ({
                 }
             });
         });
-        return total * 1000;
+        return total;
     };
 
     const handleSelectDebt = (
@@ -113,29 +114,31 @@ const Body = ({
                 </thead>
                 <tbody>
                     {Object.values(studentDept || {})?.map((debtList) => {
-                        return debtList?.map((debt, index) => (
-                            <tr key={index}>
-                                <td className="text-center">
-                                    <input
-                                        type="checkbox"
-                                        checked={selectedDebts.includes(
-                                            debt.classId
-                                        )}
-                                        onChange={(e) =>
-                                            handleSelectDebt(e, debt)
-                                        }
-                                    />
-                                </td>
-                                <td>{index + 1}</td>
-                                <td>{debt.classId}</td>
-                                <td>{debt.courseName}</td>
-                                <td>{debt.credit}</td>
-                                <td>
-                                    <Success text="" />
-                                </td>
-                                <td>{handleFormatMoney(debt.amount * 1000)}</td>
-                            </tr>
-                        ));
+                        return debtList
+                            ?.filter((item) => item.status === "UNPAID")
+                            .map((debt, index) => (
+                                <tr key={index}>
+                                    <td className="text-center">
+                                        <input
+                                            type="checkbox"
+                                            checked={selectedDebts.includes(
+                                                debt.classId
+                                            )}
+                                            onChange={(e) =>
+                                                handleSelectDebt(e, debt)
+                                            }
+                                        />
+                                    </td>
+                                    <td>{index + 1}</td>
+                                    <td>{debt.classId}</td>
+                                    <td>{debt.courseName}</td>
+                                    <td>{debt.credit}</td>
+                                    <td>
+                                        <Success text="" />
+                                    </td>
+                                    <td>{handleFormatMoney(debt.amount)}</td>
+                                </tr>
+                            ));
                     })}
                     <tr>
                         <td

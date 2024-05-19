@@ -39,6 +39,8 @@ const OnlinePaymentPage = React.lazy(
 
 const StudentDebtPage = React.lazy(() => import("./pages/StudentDebtPage.tsx"));
 
+const ReceiptPage = React.lazy(() => import("./pages/ReceiptPage.tsx"));
+
 const router = createBrowserRouter([
     {
         element: <LayoutDashboard />,
@@ -70,6 +72,10 @@ const router = createBrowserRouter([
             {
                 path: "/cong-no-sinh-vien",
                 element: <StudentDebtPage></StudentDebtPage>,
+            },
+            {
+                path: "/phieu-thu-tong-hop",
+                element: <ReceiptPage></ReceiptPage>,
             },
         ],
     },

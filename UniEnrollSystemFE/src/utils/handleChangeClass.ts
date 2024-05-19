@@ -18,7 +18,8 @@ export default async function handleChangeClass(
     registerClasses: IClassesEnrolled[],
     dispatch: Dispatch<UnknownAction>,
     setIsSelectedGroup: (value: boolean) => void,
-    setSelectedGroup: (value: number) => void
+    setSelectedGroup: (value: number) => void,
+    fee: number
 ) {
     try {
         dispatch(setEnrollLoading(true));
@@ -39,7 +40,7 @@ export default async function handleChangeClass(
                         group: groupId,
                         paymentStatus: PAYMENT_STATUS.UNPAID,
                         updateAt: new Date(),
-                        fee: 2450.0,
+                        fee,
                     };
                 }
                 return item;

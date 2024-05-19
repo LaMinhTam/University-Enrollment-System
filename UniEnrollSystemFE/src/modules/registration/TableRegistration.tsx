@@ -162,7 +162,7 @@ const TableRegistration = () => {
                             <td>{item.id}</td>
                             <td>{item.credit}</td>
                             <td>{item.group}</td>
-                            <td>{handleFormatMoney(item.fee * 1000)}</td>
+                            <td>{handleFormatMoney(item.fee)}</td>
                             <td>{formatDate(new Date(item.updateAt))}</td>
                             <td>
                                 {item.paymentStatus === PAYMENT_STATUS.PAID && (

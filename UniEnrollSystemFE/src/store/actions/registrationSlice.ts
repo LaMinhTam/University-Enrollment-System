@@ -22,6 +22,7 @@ type RegistrationTypes = {
     courseChangeQuantityClassId: string;
     courseChangeQuantityId: string;
     courseSelectedCredit: number;
+    courseSelectedFee: number;
     isRemoveClass: boolean;
     enrollLoading: boolean;
 };
@@ -42,6 +43,7 @@ const initialState: RegistrationTypes = {
     classSelectedId: "",
     courseChangeQuantityClassId: "",
     courseSelectedCredit: 0,
+    courseSelectedFee: 0,
     isRemoveClass: false,
     courseChangeQuantityId: "",
     enrollLoading: false,
@@ -105,6 +107,9 @@ const registrationSlice = createSlice({
         setCourseSelectedCredit: (state, action: PayloadAction<number>) => {
             state.courseSelectedCredit = action.payload;
         },
+        setCourseSelectedFee: (state, action: PayloadAction<number>) => {
+            state.courseSelectedFee = action.payload;
+        },
         setIsRemoveClass: (state, action: PayloadAction<boolean>) => {
             state.isRemoveClass = action.payload;
         },
@@ -133,5 +138,6 @@ export const {
     setIsRemoveClass,
     setCourseChangeQuantityId,
     setEnrollLoading,
+    setCourseSelectedFee,
 } = registrationSlice.actions;
 export default registrationSlice.reducer;
