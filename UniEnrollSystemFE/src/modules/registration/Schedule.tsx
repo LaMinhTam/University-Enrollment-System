@@ -9,21 +9,25 @@ import { useState } from "react";
 import Swal from "sweetalert2";
 import handleChangeClass from "../../utils/handleChangeClass";
 import handleEnrollClass from "../../utils/handleEnrollClass";
+import { Loading } from "../../components/common";
 const Schedule = () => {
     const dispatch = useDispatch();
     const [selectedGroup, setSelectedGroup] = useState(0);
     const [isSelectedGroup, setIsSelectedGroup] = useState(false);
+    const enrollLoading = useSelector(
+        (state: RootState) => state.registration.enrollLoading
+    );
     const classSchedule = useSelector(
         (state: RootState) => state.registration.classSchedule
-    );
-    const courseSelectedClasses = useSelector(
-        (state: RootState) => state.registration.courseSelectedClasses
     );
     const registerClasses = useSelector(
         (state: RootState) => state.registration.registerClasses
     );
     const courseSelectedCredit = useSelector(
         (state: RootState) => state.registration.courseSelectedCredit
+    );
+    const courseSelectedFee = useSelector(
+        (state: RootState) => state.registration.courseSelectedFee
     );
     const handleRegistrationClasses = async () => {
         const isExist = registerClasses.some(
@@ -69,9 +73,9 @@ const Schedule = () => {
                                             classSchedule,
                                             registerClasses,
                                             dispatch,
-                                            courseSelectedClasses,
                                             setIsSelectedGroup,
-                                            setSelectedGroup
+                                            setSelectedGroup,
+                                            courseSelectedFee
                                         );
                                     } else {
                                         return;
@@ -84,10 +88,10 @@ const Schedule = () => {
                                 classSchedule,
                                 registerClasses,
                                 dispatch,
-                                courseSelectedClasses,
                                 setIsSelectedGroup,
                                 setSelectedGroup,
-                                courseSelectedCredit
+                                courseSelectedCredit,
+                                courseSelectedFee
                             );
                         }
                     } else {
@@ -203,10 +207,11 @@ const Schedule = () => {
 
             <div className="flex items-center justify-center">
                 <button
-                    className="px-5 h-[44px] text-lite text-center bg-tertiary w-[210px] mt-5"
+                    className="px-5 h-[44px] text-lite bg-tertiary w-[210px] mt-5 flex items-center justify-center"
                     onClick={handleRegistrationClasses}
+                    disabled={enrollLoading}
                 >
-                    Đăng ký
+                    {enrollLoading ? <Loading /> : "Đăng ký"}
                 </button>
             </div>
         </div>

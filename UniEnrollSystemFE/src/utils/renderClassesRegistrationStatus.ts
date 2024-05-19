@@ -11,7 +11,7 @@ export default function renderClassesRegistrationStatus(status: string) {
             str = "Đang lên kế hoạch";
             break;
         case "OPENED":
-            str = "Đang mở";
+            str = "Đã mở";
             break;
         default:
             str = "";

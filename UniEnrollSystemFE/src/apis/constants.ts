@@ -1,15 +1,20 @@
-import apiURL from "../config/config";
 import ClassesEnrolledResponse, {
     RemoveClassesEnrolled,
 } from "../types/classesEnrolledType";
+import { IScholarShipResponse, IStatisticsReport } from "../types/commonType";
 import CourseRegistrationResponse from "../types/courseType";
+import DebtResponse, { DebtBySemesterResponse } from "../types/debtTypes";
 import EducationProgramsResponse from "../types/educationProgramType";
 import ClassScheduleResponse from "../types/scheduleType";
 import LoginResponse, { ILogin } from "../types/studentType";
+import StudyResultsResponse, {
+    StudyResultResponse,
+} from "../types/studyResultType";
+import StudyScheduleResponse from "../types/studyScheduleType";
 import axios, { axiosPrivate } from "./axios";
 
 const login = async (data: ILogin) => {
-    const response = await axios.post<LoginResponse>(`${apiURL}/auth/login`, {
+    const response = await axios.post<LoginResponse>(`/auth/login`, {
         username: data.id,
         password: data.password,
     });
@@ -17,46 +22,43 @@ const login = async (data: ILogin) => {
 };
 
 const refreshToken = async (refreshToken: string) => {
-    const response = await axios.post<LoginResponse>(
-        `${apiURL}/auth/refresh-token`,
-        {
-            refreshToken: refreshToken,
-        }
-    );
+    const response = await axios.post<LoginResponse>(`/auth/refresh-token`, {
+        refreshToken: refreshToken,
+    });
     return response.data;
 };
 
 const getEducationPrograms = async () => {
     const response = await axiosPrivate.get<EducationProgramsResponse>(
-        `${apiURL}/courses`
+        `/courses`
     );
     return response.data;
 };
 
 const getCourseRegistration = async (semester: number, year: number) => {
     const response = await axiosPrivate.get<CourseRegistrationResponse>(
-        `${apiURL}/classes/registrable?semester=${semester}&year=${year}`
+        `/classes/registrable?semester=${semester}&year=${year}`
     );
     return response.data;
 };
 
 const getClassSchedule = async (classId: string) => {
     const response = await axiosPrivate.get<ClassScheduleResponse>(
-        `${apiURL}/schedules/classes/${classId}`
+        `/schedules/classes/${classId}`
     );
     return response.data;
 };
 
 const getClassesEnrolled = async (semester: number, year: number) => {
     const response = await axiosPrivate.get<ClassesEnrolledResponse>(
-        `${apiURL}/enrollments/registry?semester=${semester}&year=${year}`
+        `/enrollments/registry?semester=${semester}&year=${year}`
     );
     return response.data;
 };
 
 const classesEnrolled = async (id: string, groupId: number) => {
     const response = await axiosPrivate.post<ClassScheduleResponse>(
-        `${apiURL}/enrollments/register`,
+        `/enrollments/register`,
         {
             class_id: id,
             group: groupId,
@@ -67,7 +69,7 @@ const classesEnrolled = async (id: string, groupId: number) => {
 
 const removeClassesEnrolled = async (id: string) => {
     const response = await axiosPrivate.delete<RemoveClassesEnrolled>(
-        `${apiURL}/enrollments/cancel?class_id=${id}`
+        `/enrollments/cancel?class_id=${id}`
     );
     return response.data;
 };
@@ -78,12 +80,87 @@ const changeClassesEnrolled = async (
     group: number
 ) => {
     const response = await axiosPrivate.post<RemoveClassesEnrolled>(
-        `${apiURL}/enrollments/register/change`,
+        `/enrollments/register/change`,
         {
             old_class_id: old_class_id,
             new_class_id: new_class_id,
             group: group,
         }
+    );
+    return response.data;
+};
+
+const getStudentSchedule = async (day: number, month: number, year: number) => {
+    const response = await axiosPrivate.get<StudyScheduleResponse>(
+        "/schedules/classes/by-date",
+        {
+            params: {
+                day: day,
+                month: month,
+                year: year,
+            },
+        }
+    );
+    return response.data;
+};
+
+const getStudyResults = async () => {
+    const response = await axiosPrivate.get<StudyResultsResponse>(
+        "/semester-report/summaries"
+    );
+    return response.data;
+};
+
+const getStudyResultBySemester = async (semester: number, year: number) => {
+    const response = await axiosPrivate.get<StudyResultResponse>(
+        `/semester-report/summary?semester=${semester}&year=${year}`
+    );
+    return response.data;
+};
+
+const getPredictScholarship = async (
+    semester: number,
+    year: number,
+    gpa: number
+) => {
+    const response = await axiosPrivate.get<IScholarShipResponse>(
+        `/semester-report/estimate/scholarship?semester=${semester}&year=${year}&gpa=${gpa}`
+    );
+    return response.data;
+};
+
+const getStatisticsBySemester = async (semester: number, year: number) => {
+    const response = await axiosPrivate.get<IStatisticsReport>(
+        `/semester-report/statistics?semester=${semester}&year=${year}`
+    );
+    return response.data;
+};
+
+const getStudentDebt = async (page: number, size: number) => {
+    const response = await axiosPrivate.get<DebtResponse>(
+        `/course-payments/page?page=${page}&size=${size}`
+    );
+    return response.data;
+};
+
+const getStudentDeptBySemester = async (semester: number, year: number) => {
+    const response = await axiosPrivate.get<DebtBySemesterResponse>(
+        `/course-payments/by-semester?semester=${semester}&year=${year}`
+    );
+    return response.data;
+};
+
+const createPayment = async (amount: number, class_ids: string[]) => {
+    const response = await axiosPrivate.post("/payments/create_payment", {
+        amount: amount,
+        class_ids: class_ids,
+    });
+    return response.data;
+};
+
+const checkPayment = async (param: string) => {
+    const response = await axiosPrivate.post(
+        `/payments/payment_callback?${param}`
     );
     return response.data;
 };
@@ -98,4 +175,13 @@ export const UniEnrollSystemAPI = {
     classesEnrolled,
     removeClassesEnrolled,
     changeClassesEnrolled,
+    getStudentSchedule,
+    getStudyResults,
+    getStudyResultBySemester,
+    getPredictScholarship,
+    getStatisticsBySemester,
+    getStudentDebt,
+    createPayment,
+    checkPayment,
+    getStudentDeptBySemester,
 };

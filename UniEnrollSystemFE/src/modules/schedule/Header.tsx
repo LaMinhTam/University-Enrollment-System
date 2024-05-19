@@ -5,11 +5,18 @@ import KeyboardArrowLeftIcon from "@mui/icons-material/KeyboardArrowLeft";
 import KeyboardArrowRightIcon from "@mui/icons-material/KeyboardArrowRight";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../store/configureStore";
-import { setDates, setTargetDate } from "../../store/actions/scheduleSlice";
+import {
+    setDates,
+    setScheduleType,
+    setTargetDate,
+} from "../../store/actions/scheduleSlice";
 import { formatDate } from "../../utils/formatTime";
 import { SCHEDULE_TYPE } from "../../constants/global";
-const Header = ({ type }: { type: number }) => {
+const Header = () => {
     const dispatch = useDispatch();
+    const scheduleType = useSelector(
+        (state: RootState) => state.schedule.scheduleType
+    );
     const targetDate = useSelector(
         (state: RootState) => state.schedule.targetDate
     );
@@ -66,7 +73,10 @@ const Header = ({ type }: { type: number }) => {
                             type="radio"
                             name="radScheduleType"
                             id="all"
-                            checked={type === SCHEDULE_TYPE.ALL}
+                            checked={scheduleType === SCHEDULE_TYPE.ALL}
+                            onChange={() =>
+                                dispatch(setScheduleType(SCHEDULE_TYPE.ALL))
+                            }
                         />
                         <label
                             htmlFor="all"
@@ -80,7 +90,10 @@ const Header = ({ type }: { type: number }) => {
                             type="radio"
                             name="radScheduleType"
                             id="study"
-                            checked={type === SCHEDULE_TYPE.STUDY}
+                            checked={scheduleType === SCHEDULE_TYPE.STUDY}
+                            onChange={() =>
+                                dispatch(setScheduleType(SCHEDULE_TYPE.STUDY))
+                            }
                         />
                         <label
                             htmlFor="study"
@@ -94,7 +107,10 @@ const Header = ({ type }: { type: number }) => {
                             type="radio"
                             name="radScheduleType"
                             id="exam"
-                            checked={type === SCHEDULE_TYPE.EXAM}
+                            checked={scheduleType === SCHEDULE_TYPE.EXAM}
+                            onChange={() =>
+                                dispatch(setScheduleType(SCHEDULE_TYPE.EXAM))
+                            }
                         />
                         <label
                             htmlFor="exam"

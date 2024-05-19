@@ -11,6 +11,17 @@ interface ISchedule {
     dayOff: Date[] | null;
 }
 
+interface IExistedSchedule {
+    existingClassId: string;
+    existingCourseId: string;
+    existingCourseName: string;
+    existingSchedule: ISchedule;
+    newClassId: string;
+    newCourseId: string;
+    newCourseName: string;
+    newSchedule: ISchedule;
+}
+
 interface IClassSchedule {
     classId: string;
     courseId: string;
@@ -20,10 +31,10 @@ interface IClassSchedule {
 
 type ClassScheduleResponse = {
     message: string;
-    data: IClassSchedule[];
+    data: IClassSchedule[] | IExistedSchedule[];
     status: number;
 };
 
 export default ClassScheduleResponse;
 
-export type { ISchedule, IClassSchedule };
+export type { ISchedule, IClassSchedule, IExistedSchedule };

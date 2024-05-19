@@ -1,8 +1,8 @@
-import CheckIcon from "@mui/icons-material/Check";
 import { Tooltip as ReactTooltip } from "react-tooltip";
-import { IEducationPrograms } from "../../types/educationProgramType";
+import { ICourses } from "../../types/educationProgramType";
+import { Fail, Success } from "../../components/common";
 interface TableItemProps {
-    course: IEducationPrograms;
+    course: ICourses;
     handleTooltipContent: (
         prerequisites: {
             id: string;
@@ -16,7 +16,7 @@ interface TableItemProps {
 }
 const TableItem = ({ course, handleTooltipContent, index }: TableItemProps) => {
     return (
-        <tr>
+        <tr className={`${course.isPass ? "bg-text7 text-text3" : ""}`}>
             <td>{index + 1}</td>
             <td>{course.name}</td>
             <td>{course.id}</td>
@@ -46,13 +46,9 @@ const TableItem = ({ course, handleTooltipContent, index }: TableItemProps) => {
             <td>{course.credit}</td>
             <td>{course.theoryCredit}</td>
             <td>{course.practicalCredit}</td>
-            <td></td>
-            <td></td>
-            <td>
-                <span className="flex items-center justify-center w-6 h-6 rounded-full bg-primary text-lite">
-                    <CheckIcon />
-                </span>
-            </td>
+            <td>{course.electiveGroup}</td>
+            <td>{course.credit}</td>
+            <td>{course.isPass ? <Success text="" /> : <Fail text="" />}</td>
         </tr>
     );
 };

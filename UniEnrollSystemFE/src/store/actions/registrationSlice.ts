@@ -1,23 +1,30 @@
 import { PayloadAction, createSlice } from "@reduxjs/toolkit";
-import { IClass } from "../../types/courseType";
+import { IClass, ICourseRegistration } from "../../types/courseType";
 import { IClassesEnrolled } from "../../types/classesEnrolledType";
 import { IClassesEnrolledSchedule } from "../../types/commonType";
 
 type RegistrationTypes = {
+    registrationPeriod: {
+        semester: number;
+        year: number;
+    };
+    courses: {
+        [key: string]: ICourseRegistration;
+    } | null;
     registerClasses: IClassesEnrolled[];
     courseSelectedId: string;
     courseSelectedClasses: IClass[];
     storedCourseSelectedClasses: IClass[];
     classSchedule: IClass;
-    registrationPeriod: {
-        semester: number;
-        year: number;
-    };
     classesEnrolledSchedule: IClassesEnrolledSchedule[];
     isFilterDuplicateSchedule: boolean;
     classSelectedId: string;
+    courseChangeQuantityClassId: string;
     courseChangeQuantityId: string;
     courseSelectedCredit: number;
+    courseSelectedFee: number;
+    isRemoveClass: boolean;
+    enrollLoading: boolean;
 };
 
 const initialState: RegistrationTypes = {
@@ -25,6 +32,7 @@ const initialState: RegistrationTypes = {
         semester: 0,
         year: 0,
     },
+    courses: null,
     registerClasses: [],
     courseSelectedId: "",
     courseSelectedClasses: [],
@@ -33,8 +41,12 @@ const initialState: RegistrationTypes = {
     classesEnrolledSchedule: [],
     isFilterDuplicateSchedule: false,
     classSelectedId: "",
-    courseChangeQuantityId: "",
+    courseChangeQuantityClassId: "",
     courseSelectedCredit: 0,
+    courseSelectedFee: 0,
+    isRemoveClass: false,
+    courseChangeQuantityId: "",
+    enrollLoading: false,
 };
 
 const registrationSlice = createSlice({
@@ -46,6 +58,12 @@ const registrationSlice = createSlice({
             action: PayloadAction<{ semester: number; year: number }>
         ) => {
             state.registrationPeriod = action.payload;
+        },
+        setCourses: (
+            state,
+            action: PayloadAction<{ [key: string]: ICourseRegistration } | null>
+        ) => {
+            state.courses = action.payload;
         },
         setRegisterClasses: (
             state,
@@ -80,17 +98,33 @@ const registrationSlice = createSlice({
         setClassSelectedId: (state, action: PayloadAction<string>) => {
             state.classSelectedId = action.payload;
         },
-        setCourseChangeQuantityId: (state, action: PayloadAction<string>) => {
-            state.courseChangeQuantityId = action.payload;
+        setCourseChangeQuantityClassId: (
+            state,
+            action: PayloadAction<string>
+        ) => {
+            state.courseChangeQuantityClassId = action.payload;
         },
         setCourseSelectedCredit: (state, action: PayloadAction<number>) => {
             state.courseSelectedCredit = action.payload;
+        },
+        setCourseSelectedFee: (state, action: PayloadAction<number>) => {
+            state.courseSelectedFee = action.payload;
+        },
+        setIsRemoveClass: (state, action: PayloadAction<boolean>) => {
+            state.isRemoveClass = action.payload;
+        },
+        setCourseChangeQuantityId: (state, action: PayloadAction<string>) => {
+            state.courseChangeQuantityId = action.payload;
+        },
+        setEnrollLoading: (state, action: PayloadAction<boolean>) => {
+            state.enrollLoading = action.payload;
         },
     },
 });
 
 export const {
     setRegistrationPeriod,
+    setCourses,
     setRegisterClasses,
     setCourseSelectedId,
     setCourseSelectedClasses,
@@ -99,7 +133,11 @@ export const {
     setClassesEnrolledSchedule,
     setIsFilterDuplicateSchedule,
     setClassSelectedId,
-    setCourseChangeQuantityId,
+    setCourseChangeQuantityClassId,
     setCourseSelectedCredit,
+    setIsRemoveClass,
+    setCourseChangeQuantityId,
+    setEnrollLoading,
+    setCourseSelectedFee,
 } = registrationSlice.actions;
 export default registrationSlice.reducer;

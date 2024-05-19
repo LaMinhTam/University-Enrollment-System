@@ -11,7 +11,7 @@ const LayoutDashboard = () => {
     return (
         <>
             <Modal />
-            <div className="min-h-screen bg-strock">
+            <div className="min-h-screen min-w-fit bg-strock">
                 <Overlay></Overlay>
                 <div className="w-full h-[60px] mx-auto shadow-md bg-lite fixed top-0 left-0 right-0">
                     <DashboardTopBar></DashboardTopBar>
@@ -27,7 +27,7 @@ const LayoutDashboard = () => {
                         </button>
                     </div>
                 </div>
-                <div className="w-full max-w-[1140px] h-full mx-auto pt-[60px]">
+                <div className="w-full h-full pt-[60px]">
                     <Outlet></Outlet>
                 </div>
             </div>

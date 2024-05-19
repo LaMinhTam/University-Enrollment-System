@@ -7,7 +7,7 @@ import RequiredAuthPage from "./RequiredAuthPage";
 import { IEducationPrograms } from "../types/educationProgramType";
 const EducationProgram = () => {
     const [data, setData] = useState<{
-        [key: string]: IEducationPrograms[];
+        [key: string]: IEducationPrograms;
     } | null>(null);
     useEffect(() => {
         document.title = "Chương trình khung";
@@ -23,7 +23,7 @@ const EducationProgram = () => {
 
     return (
         <RequiredAuthPage>
-            <div className="w-full h-full mt-5 bg-lite p-[10px]">
+            <div className="w-full h-full mt-5 bg-lite p-[10px] max-w-[1140px] mx-auto">
                 <Header />
                 <Table programData={data} />
                 <Footer />

@@ -3,11 +3,12 @@ import { UniEnrollSystemAPI } from "../apis/constants";
 import { IClassesEnrolled } from "../types/classesEnrolledType";
 import { IClass } from "../types/courseType";
 import {
-    setCourseChangeQuantityId,
+    setClassSchedule,
     setCourseSelectedClasses,
+    setCourseSelectedId,
+    setEnrollLoading,
     setRegisterClasses,
 } from "../store/actions/registrationSlice";
-import handleChangeQuantityOfClass from "./handleChangeQuantityOfClass";
 import { toast } from "react-toastify";
 
 export default async function handleChangeClass(
@@ -16,11 +17,12 @@ export default async function handleChangeClass(
     classSchedule: IClass,
     registerClasses: IClassesEnrolled[],
     dispatch: Dispatch<UnknownAction>,
-    courseSelectedClasses: IClass[],
     setIsSelectedGroup: (value: boolean) => void,
-    setSelectedGroup: (value: number) => void
+    setSelectedGroup: (value: number) => void,
+    fee: number
 ) {
     try {
+        dispatch(setEnrollLoading(true));
         const response = await UniEnrollSystemAPI.changeClassesEnrolled(
             oldClass.id,
             classSchedule.id,
@@ -36,28 +38,27 @@ export default async function handleChangeClass(
                         ...classSchedule,
                         credit: item.credit,
                         group: groupId,
-                        isPaid: false,
-                        updatedAt: "13/05/2024",
-                        fee: "2.450.000",
+                        paymentStatus: "UNPAID",
+                        updateAt: new Date(),
+                        fee,
                     };
                 }
                 return item;
             });
             dispatch(setRegisterClasses(newRegisterClasses));
-            const newCourseSelectedClasses = handleChangeQuantityOfClass(
-                courseSelectedClasses,
-                classSchedule,
-                oldClass.id
-            );
-            dispatch(setCourseSelectedClasses(newCourseSelectedClasses));
-            dispatch(setCourseChangeQuantityId(classSchedule.courseId));
+            dispatch(setCourseSelectedClasses([]));
+            dispatch(setClassSchedule({} as IClass));
+            dispatch(setCourseSelectedId(""));
             setIsSelectedGroup(false);
             setSelectedGroup(0);
             toast.success("Đổi lớp học phần thành công");
+            dispatch(setEnrollLoading(false));
         } else if (response.status === 400) {
+            dispatch(setEnrollLoading(false));
             toast.error(response.message);
         }
     } catch (error) {
+        dispatch(setEnrollLoading(false));
         toast.error("Đã có lỗi xảy ra, vui lòng thử lại sau");
     }
 }

@@ -25,7 +25,7 @@ const featureList = [
     {
         title: "Tra cứu công nợ",
         icon: <AttachMoneyIcon />,
-        link: "/tra-cuu-cong-no",
+        link: "/cong-no-sinh-vien",
     },
     {
         title: "Thanh toán trực tuyến",

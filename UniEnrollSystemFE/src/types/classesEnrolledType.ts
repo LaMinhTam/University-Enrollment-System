@@ -6,13 +6,12 @@ interface IClassesEnrolled {
     year: number;
     maxCapacity: number;
     status: string;
-    credit: number;
     group: number;
-    isPaid?: boolean;
-    updatedAt?: string;
-    fee?: string;
+    credit: number;
+    updateAt: Date;
+    paymentStatus: string;
+    fee: number;
 }
-
 type ClassesEnrolledResponse = {
     message: string;
     data: IClassesEnrolled[];

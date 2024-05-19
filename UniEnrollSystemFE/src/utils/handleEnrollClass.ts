@@ -3,33 +3,36 @@ import { IClassesEnrolled } from "../types/classesEnrolledType";
 import { IClass } from "../types/courseType";
 import { Dispatch, UnknownAction } from "@reduxjs/toolkit";
 import {
-    setCourseChangeQuantityId,
+    setClassSchedule,
     setCourseSelectedClasses,
+    setCourseSelectedId,
+    setEnrollLoading,
     setRegisterClasses,
 } from "../store/actions/registrationSlice";
-import { handleIncrementQuantityOfClass } from "./handleChangeQuantityOfClass";
 import { toast } from "react-toastify";
+import {
+    setDuplicateSchedule,
+    setIsOpenScheduleDuplicateModal,
+} from "../store/actions/modalSlice";
+import { IExistedSchedule } from "../types/scheduleType";
 
 export default async function handleEnrollClass(
     groupId: number,
     classSchedule: IClass,
     registerClasses: IClassesEnrolled[],
     dispatch: Dispatch<UnknownAction>,
-    courseSelectedClasses: IClass[],
     setIsSelectedGroup: (value: boolean) => void,
     setSelectedGroup: (value: number) => void,
-    courseSelectedCredit: number
+    courseSelectedCredit: number,
+    fee: number
 ) {
     try {
+        dispatch(setEnrollLoading(true));
         const response = await UniEnrollSystemAPI.classesEnrolled(
             classSchedule.id,
             groupId
         );
         if (response.status === 200) {
-            const newCourseSelectedClasses = handleIncrementQuantityOfClass(
-                courseSelectedClasses,
-                classSchedule
-            );
             dispatch(
                 setRegisterClasses([
                     ...registerClasses,
@@ -37,21 +40,27 @@ export default async function handleEnrollClass(
                         ...classSchedule,
                         credit: courseSelectedCredit,
                         group: groupId,
-                        isPaid: false,
-                        updatedAt: "13/05/2024",
-                        fee: "2.450.000",
+                        paymentStatus: "UNPAID",
+                        updateAt: new Date(),
+                        fee,
                     },
                 ])
             );
-            dispatch(setCourseSelectedClasses(newCourseSelectedClasses));
-            dispatch(setCourseChangeQuantityId(classSchedule.courseId));
+            dispatch(setCourseSelectedClasses([]));
+            dispatch(setClassSchedule({} as IClass));
+            dispatch(setCourseSelectedId(""));
             setIsSelectedGroup(false);
             setSelectedGroup(0);
             toast.success("Đăng ký lớp học phần thành công");
+            dispatch(setEnrollLoading(false));
         } else {
+            dispatch(setIsOpenScheduleDuplicateModal(true));
+            dispatch(setDuplicateSchedule(response.data as IExistedSchedule[]));
             toast.error(response.message);
+            dispatch(setEnrollLoading(false));
         }
     } catch (error) {
+        dispatch(setEnrollLoading(false));
         toast.error("Đã có lỗi xảy ra, vui lòng thử lại sau");
     }
 }

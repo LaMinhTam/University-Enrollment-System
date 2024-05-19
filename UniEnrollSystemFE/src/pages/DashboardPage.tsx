@@ -8,9 +8,11 @@ const DashboardPage = () => {
     const { userInfo } = useAuth();
     return (
         <RequiredAuthPage>
-            <StudentInfo userInfo={userInfo} />
-            <StudentFeature />
-            <StudentChartMetric />
+            <div className="w-full max-w-[1140px] mx-auto pb-5">
+                <StudentInfo userInfo={userInfo} />
+                <StudentFeature />
+                <StudentChartMetric />
+            </div>
         </RequiredAuthPage>
     );
 };

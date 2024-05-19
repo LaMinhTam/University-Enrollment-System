@@ -1,5 +1,4 @@
-import CheckIcon from "@mui/icons-material/Check";
-import ClearIcon from "@mui/icons-material/Clear";
+import { Fail, Success } from "../../components/common";
 const Footer = () => {
     return (
         <div className="mt-[20px]">
@@ -17,18 +16,8 @@ const Footer = () => {
                     <div className="border border-text2 w-[40px] h-[15px] bg-lite bg-opacity-20"></div>
                     <span>Môn học sinh viên chưa đăng ký học tập</span>
                 </div>
-                <div className="flex items-center justify-center gap-x-3">
-                    <span className="flex items-center justify-center w-6 h-6 rounded-full bg-primary text-lite">
-                        <CheckIcon />
-                    </span>
-                    <span>Đạt</span>
-                </div>
-                <div className="flex items-center justify-center gap-x-3">
-                    <span className="flex items-center justify-center w-6 h-6 rounded-full bg-error text-lite">
-                        <ClearIcon />
-                    </span>
-                    <span>Không đạt</span>
-                </div>
+                <Success text="Đạt" />
+                <Fail text="Không đạt" />
             </div>
         </div>
     );

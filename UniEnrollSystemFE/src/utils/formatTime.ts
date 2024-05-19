@@ -19,3 +19,12 @@ export function formatDate(date: Date) {
     const year = date.getFullYear();
     return `${day}/${month}/${year}`;
 }
+
+export function splitDate(dateString: string) {
+    const date = new Date(dateString);
+    const year = date.getFullYear();
+    const month = date.getMonth() + 1; // Months are 0-indexed in JavaScript
+    const day = date.getDate();
+
+    return { year, month, day };
+}

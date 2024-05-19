@@ -1,5 +1,3 @@
-import CheckIcon from "@mui/icons-material/Check";
-import ClearIcon from "@mui/icons-material/Clear";
 import { IClass, ICourseRegistration } from "../../types/courseType";
 import { v4 as uuidv4 } from "uuid";
 import { Tooltip as ReactTooltip } from "react-tooltip";
@@ -7,14 +5,19 @@ import { useDispatch, useSelector } from "react-redux";
 import {
     setClassSchedule,
     setClassSelectedId,
+    setCourseChangeQuantityClassId,
     setCourseChangeQuantityId,
     setCourseSelectedClasses,
     setCourseSelectedCredit,
+    setCourseSelectedFee,
     setCourseSelectedId,
+    setIsRemoveClass,
     setStoredSelectedClasses,
 } from "../../store/actions/registrationSlice";
 import { RootState } from "../../store/configureStore";
 import filterDuplicateSchedule from "../../utils/filterDuplicateSchedule";
+import { useEffect } from "react";
+import { Fail, Success } from "../../components/common";
 const TableCourse = ({
     data,
     tableClassesRef,
@@ -37,11 +40,14 @@ const TableCourse = ({
     const classesEnrolledSchedule = useSelector(
         (state: RootState) => state.registration.classesEnrolledSchedule
     );
-    const courseSelectedClasses = useSelector(
-        (state: RootState) => state.registration.courseSelectedClasses
+    const isRemoveClass = useSelector(
+        (state: RootState) => state.registration.isRemoveClass
     );
     const courseChangeQuantityId = useSelector(
         (state: RootState) => state.registration.courseChangeQuantityId
+    );
+    const courseChangeQuantityClassId = useSelector(
+        (state: RootState) => state.registration.courseChangeQuantityClassId
     );
     const handleTooltipContent = (
         prerequisites: {
@@ -70,33 +76,64 @@ const TableCourse = ({
     const handleClickCourse = (item: ICourseRegistration) => {
         dispatch(setCourseSelectedId(item.course.id));
         dispatch(setCourseSelectedCredit(item.course.credit));
+        dispatch(setCourseSelectedFee(item.course.fee));
         dispatch(setClassSelectedId(""));
+        const newCourseSelectedClasses = Object.values(item.classes).filter(
+            (item) => {
+                return !registerClasses.some(
+                    (classEnrolled) => classEnrolled.id === item.id
+                );
+            }
+        );
+        dispatch(setStoredSelectedClasses(newCourseSelectedClasses));
         if (isFilterDuplicateSchedule) {
+            const newClasses = Object.values(item.classes).map((item) => item);
             const newCourseSelectedClasses = filterDuplicateSchedule(
-                item.classes,
+                newClasses,
                 classesEnrolledSchedule
             );
             dispatch(setCourseSelectedClasses(newCourseSelectedClasses));
         } else {
-            const newCourseSelectedClasses = item.classes.filter((item) => {
-                return !registerClasses.some(
-                    (classEnrolled) => classEnrolled.id === item.id
-                );
-            });
             dispatch(setCourseSelectedClasses(newCourseSelectedClasses));
-            dispatch(setStoredSelectedClasses(newCourseSelectedClasses));
-        }
-        if (
-            courseChangeQuantityId &&
-            courseChangeQuantityId === item.course.id
-        ) {
-            dispatch(setCourseSelectedClasses(courseSelectedClasses));
-            dispatch(setStoredSelectedClasses(courseSelectedClasses));
-            dispatch(setCourseChangeQuantityId(""));
         }
         dispatch(setClassSchedule({} as IClass));
         tableClassesRef.current?.scrollIntoView({ behavior: "smooth" });
     };
+
+    useEffect(() => {
+        if (
+            isRemoveClass &&
+            courseChangeQuantityClassId &&
+            courseChangeQuantityId
+        ) {
+            const classes = data[courseChangeQuantityId].classes;
+            const updatedClasses = {} as { [key: string]: IClass };
+
+            Object.keys(classes).forEach((key) => {
+                if (key === courseChangeQuantityClassId) {
+                    updatedClasses[key] = {
+                        ...classes[key],
+                        quantity: classes[key].quantity - 1,
+                    };
+                } else {
+                    updatedClasses[key] = classes[key];
+                }
+            });
+
+            data[courseChangeQuantityId].classes = updatedClasses;
+
+            dispatch(setCourseChangeQuantityClassId(""));
+            dispatch(setCourseChangeQuantityId(""));
+            dispatch(setIsRemoveClass(false));
+        }
+    }, [
+        courseChangeQuantityClassId,
+        courseChangeQuantityId,
+        data,
+        dispatch,
+        isRemoveClass,
+    ]);
+
     if (!data) return null;
     return (
         <div className="mt-5 mb-10">
@@ -146,13 +183,9 @@ const TableCourse = ({
                             <td>{item.course.credit}</td>
                             <td>
                                 {item.course.type === 1 ? (
-                                    <span className="flex items-center justify-center w-6 h-6 rounded-full bg-primary text-lite">
-                                        <CheckIcon />
-                                    </span>
+                                    <Success text="" />
                                 ) : (
-                                    <span className="flex items-center justify-center w-6 h-6 rounded-full bg-error text-lite">
-                                        <ClearIcon />
-                                    </span>
+                                    <Fail text="" />
                                 )}
                             </td>
                             {item.course.prerequisites &&

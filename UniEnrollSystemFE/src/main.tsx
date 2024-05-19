@@ -14,6 +14,8 @@ import { AuthProvider } from "./contexts/auth-context.tsx";
 import LoginPage from "./pages/LoginPage.tsx";
 import AuthType from "./types/authType.ts";
 import store from "./store/configureStore.ts";
+import StudyResultPage from "./pages/StudyResultPage.tsx";
+import Loading from "./components/common/Loading.tsx";
 const LayoutDashboard = React.lazy(
     () => import("./layout/LayoutDashboard.tsx")
 );
@@ -30,6 +32,14 @@ const CourseRegisterPage = React.lazy(
 const StudentSchedulePage = React.lazy(
     () => import("./pages/StudentSchedulePage.tsx")
 );
+
+const OnlinePaymentPage = React.lazy(
+    () => import("./pages/OnlinePaymentPage.tsx")
+);
+
+const StudentDebtPage = React.lazy(() => import("./pages/StudentDebtPage.tsx"));
+
+const ReceiptPage = React.lazy(() => import("./pages/ReceiptPage.tsx"));
 
 const router = createBrowserRouter([
     {
@@ -51,6 +61,22 @@ const router = createBrowserRouter([
                 path: "/lich-theo-tuan",
                 element: <StudentSchedulePage />,
             },
+            {
+                path: "/ket-qua-hoc-tap",
+                element: <StudyResultPage></StudyResultPage>,
+            },
+            {
+                path: "/thanh-toan-truc-tuyen",
+                element: <OnlinePaymentPage></OnlinePaymentPage>,
+            },
+            {
+                path: "/cong-no-sinh-vien",
+                element: <StudentDebtPage></StudentDebtPage>,
+            },
+            {
+                path: "/phieu-thu-tong-hop",
+                element: <ReceiptPage></ReceiptPage>,
+            },
         ],
     },
     {
@@ -63,7 +89,13 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
     <Provider store={store}>
         <AuthProvider value={{} as AuthType}>
             <App>
-                <Suspense fallback={<div>Loading...</div>}>
+                <Suspense
+                    fallback={
+                        <div className="flex items-center justify-center w-full h-screen mx-auto">
+                            <Loading />
+                        </div>
+                    }
+                >
                     <RouterProvider router={router}></RouterProvider>
                 </Suspense>
             </App>

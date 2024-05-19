@@ -3,6 +3,7 @@ import Cookies from "js-cookie";
 const accessTokenKey = "UNI_ENROLL_SYSTEM_ACCESS_TOKEN";
 const refreshTokenKey = "UNI_ENROLL_SYSTEM_REFRESH_TOKEN";
 const user = "UNI_ENROLL_SYSTEM_USER";
+const paymentInfo = "UNI_ENROLL_SYSTEM_PAYMENT_INFO";
 
 const objCookies = {
     expires: 30,
@@ -51,6 +52,20 @@ export const saveUser = (id: string) => {
     }
 };
 
+export const savePaymentInfo = (info: string) => {
+    if (info) {
+        Cookies.set(paymentInfo, info, {
+            ...objCookies,
+        });
+    } else {
+        Cookies.remove(paymentInfo, {
+            ...objCookies,
+            path: "/",
+            domain: "localhost",
+        });
+    }
+};
+
 export const getAccessToken = () => {
     const access_token = Cookies.get(accessTokenKey);
     return access_token;
@@ -64,4 +79,10 @@ export const getRefreshToken = () => {
 export const getUser = () => {
     const id = Cookies.get(user);
     return id;
+};
+
+export const getPaymentInfo = () => {
+    const info = Cookies.get(paymentInfo);
+    const parsedInfo = info ? JSON.parse(info) : null;
+    return parsedInfo;
 };

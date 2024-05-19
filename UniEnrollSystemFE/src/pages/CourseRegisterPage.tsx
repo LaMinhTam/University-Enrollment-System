@@ -3,11 +3,11 @@ import RequiredAuthPage from "./RequiredAuthPage";
 import TableCourse from "../modules/registration/TableCourse";
 import TableClasses from "../modules/registration/TableClasses";
 import TableRegistration from "../modules/registration/TableRegistration";
-import { ICourseRegistration } from "../types/courseType";
 import { UniEnrollSystemAPI } from "../apis/constants";
 import { useDispatch, useSelector } from "react-redux";
 import {
     setClassesEnrolledSchedule,
+    setCourses,
     setRegisterClasses,
 } from "../store/actions/registrationSlice";
 import Header from "../modules/registration/Header";
@@ -15,11 +15,14 @@ import { RootState } from "../store/configureStore";
 import { toast } from "react-toastify";
 import handleGetClassesEnrolledSchedule from "../utils/handleGetClassesEnrolledSchedule";
 import { IClassesEnrolledSchedule } from "../types/commonType";
+import handleResetCourseRegisterPage from "../utils/handleResetCourseRegisterPage";
+import { Loading } from "../components/common";
 
 const CourseRegisterPage = () => {
-    const [courses, setCourses] = useState<{
-        [key: string]: ICourseRegistration;
-    } | null>(null);
+    const [loading, setLoading] = useState<boolean>(false);
+    const courses = useSelector(
+        (state: RootState) => state.registration.courses
+    );
     const dispatch = useDispatch();
     const tableClassesRef = useRef<HTMLDivElement>(null);
     const registrationPeriod = useSelector(
@@ -35,40 +38,37 @@ const CourseRegisterPage = () => {
     useEffect(() => {
         async function fetchData() {
             try {
-                const responseCourse = UniEnrollSystemAPI.getCourseRegistration(
+                setLoading(true);
+                const coursesRes =
+                    await UniEnrollSystemAPI.getCourseRegistration(
+                        registrationPeriod.semester,
+                        registrationPeriod.year
+                    );
+                const classesRes = await UniEnrollSystemAPI.getClassesEnrolled(
                     registrationPeriod.semester,
                     registrationPeriod.year
                 );
-                const responseClasses = UniEnrollSystemAPI.getClassesEnrolled(
-                    registrationPeriod.semester,
-                    registrationPeriod.year
-                );
-
-                const [coursesRes, classesRes] = await Promise.all([
-                    responseCourse,
-                    responseClasses,
-                ]);
 
                 if (coursesRes.status === 200) {
-                    setCourses(coursesRes.data);
+                    dispatch(setCourses(coursesRes.data));
                 }
                 if (classesRes.status === 200) {
-                    const classes = classesRes.data.map((item) => {
-                        return {
-                            ...item,
-                            isPaid: false,
-                            updatedAt: "13/05/2024",
-                            fee: "2.450.000",
-                        };
-                    });
-                    dispatch(setRegisterClasses(classes));
+                    dispatch(setRegisterClasses(classesRes.data));
                 }
+                setLoading(false);
             } catch (error) {
+                setLoading(false);
                 toast.error("Lỗi khi lấy dữ liệu học phần");
             }
         }
-        if (registrationPeriod.semester && registrationPeriod.year) {
+        if (
+            registrationPeriod.semester !== 0 &&
+            registrationPeriod.year !== 0
+        ) {
             fetchData();
+        } else {
+            toast.error("Vui lòng chọn đợt đăng ký học phần");
+            handleResetCourseRegisterPage(dispatch);
         }
     }, [dispatch, registrationPeriod.semester, registrationPeriod.year]);
 
@@ -84,16 +84,22 @@ const CourseRegisterPage = () => {
 
     return (
         <RequiredAuthPage>
-            <div className="w-full h-full mt-5 bg-lite p-[10px]">
+            <div className="w-full h-full mt-5 bg-lite p-[10px] max-w-[1140px] mx-auto">
                 <Header />
-                <TableCourse
-                    data={courses || {}}
-                    tableClassesRef={tableClassesRef}
-                />
-                <div ref={tableClassesRef}>
-                    <TableClasses />
-                </div>
-                <TableRegistration />
+                {loading ? (
+                    <Loading />
+                ) : (
+                    <>
+                        <TableCourse
+                            data={courses || {}}
+                            tableClassesRef={tableClassesRef}
+                        />
+                        <div ref={tableClassesRef}>
+                            <TableClasses />
+                        </div>
+                        <TableRegistration />
+                    </>
+                )}
             </div>
         </RequiredAuthPage>
     );
