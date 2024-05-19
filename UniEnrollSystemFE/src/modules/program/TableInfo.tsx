@@ -1,7 +1,11 @@
 const TableInfo = ({
     handleCalculateTotalCredit,
+    handleCalculateTotalCreditOfMandatory,
+    handleCalculateTotalCreditOfElective,
 }: {
     handleCalculateTotalCredit: () => number;
+    handleCalculateTotalCreditOfMandatory: () => number;
+    handleCalculateTotalCreditOfElective: () => number;
 }) => {
     return (
         <>
@@ -23,7 +27,7 @@ const TableInfo = ({
                         color: "red",
                     }}
                 >
-                    106
+                    {handleCalculateTotalCreditOfMandatory()}
                 </td>
                 <td colSpan={5}></td>
             </tr>
@@ -34,7 +38,7 @@ const TableInfo = ({
                         color: "red",
                     }}
                 >
-                    32
+                    {handleCalculateTotalCreditOfElective()}
                 </td>
                 <td colSpan={5}></td>
             </tr>

@@ -1,6 +1,13 @@
 import PrintIcon from "@mui/icons-material/Print";
+import { ChangeEvent } from "react";
+import { useDispatch } from "react-redux";
+import { setDebtTime } from "../../store/actions/debtSlice";
 
 const Header = () => {
+    const dispatch = useDispatch();
+    const handleSelectChange = (e: ChangeEvent<HTMLSelectElement>) => {
+        dispatch(setDebtTime(e.target.value));
+    };
     return (
         <div className="flex items-center justify-between">
             <h1 className="text-lg font-bold">Tra cứu công nợ</h1>
@@ -11,6 +18,7 @@ const Header = () => {
                 <select
                     name="sltSemester"
                     id="sltSemester"
+                    onChange={(e) => handleSelectChange(e)}
                     className="px-3 py-[6px] border border-text3 rounded-md w-full max-w-[180px]"
                 >
                     <option value="0">Tất cả</option>

@@ -1,46 +1,49 @@
 import { useState } from "react";
 import { IEducationPrograms } from "../../types/educationProgramType";
 import { v4 as uuidv4 } from "uuid";
-import { COURSE_TYPE } from "../../constants/global";
 import TableItem from "./TableItem";
 import TableInfo from "./TableInfo";
 const Table = ({
     programData,
 }: {
     programData: {
-        [key: string]: IEducationPrograms[];
+        [key: string]: IEducationPrograms;
     } | null;
 }) => {
     const [show, setShow] = useState<number | null>(null);
     const handleCalculateCreditOfSemester = (semester: string) => {
         if (!programData) return 0;
         let credit = 0;
-        programData[semester].forEach((course) => {
-            credit += course.credit;
-        });
+        credit +=
+            programData[semester].electiveCredits +
+            programData[semester].mandatoryCredits;
         return credit;
     };
     const handleCalculateTotalCredit = () => {
         if (!programData) return 0;
         let credit = 0;
-        Object.keys(programData).forEach((semester) => {
-            programData[semester].forEach((course) => {
-                credit += course.credit;
-            });
+        Object.keys(programData).forEach((key) => {
+            credit +=
+                programData[key].electiveCredits +
+                programData[key].mandatoryCredits;
         });
         return credit;
     };
 
-    const handleCalculateTotalCreditOfTypeAtSemester = (
-        type: number,
-        semester: number
-    ) => {
+    const handleCalculateTotalCreditOfMandatory = () => {
         if (!programData) return 0;
         let credit = 0;
-        programData[semester].forEach((course) => {
-            if (course.type === type) {
-                credit += course.credit;
-            }
+        Object.keys(programData).forEach((key) => {
+            credit += programData[key].mandatoryCredits;
+        });
+        return credit;
+    };
+
+    const handleCalculateTotalCreditOfElective = () => {
+        if (!programData) return 0;
+        let credit = 0;
+        Object.keys(programData).forEach((key) => {
+            credit += programData[key].electiveCredits;
         });
         return credit;
     };
@@ -106,55 +109,48 @@ const Table = ({
                                 <tr className="trSemester">
                                     <td colSpan={4}>Học phần bắt buộc</td>
                                     <td>
-                                        {handleCalculateTotalCreditOfTypeAtSemester(
-                                            COURSE_TYPE.MANDATORY,
-                                            Number(key)
-                                        )}
+                                        {
+                                            programData[
+                                                Object.keys(programData)[show]
+                                            ].mandatoryCredits
+                                        }
                                     </td>
                                     <td colSpan={5}></td>
                                 </tr>
+                                {programData[
+                                    Object.keys(programData)[show]
+                                ].coursesMandatory.map((course, index) => (
+                                    <TableItem
+                                        key={uuidv4()}
+                                        course={course}
+                                        handleTooltipContent={
+                                            handleTooltipContent
+                                        }
+                                        index={index}
+                                    />
+                                ))}
                                 {programData[Object.keys(programData)[show]]
-                                    .filter(
-                                        (course) =>
-                                            course.type ===
-                                            COURSE_TYPE.MANDATORY
-                                    )
-                                    .map((course, index) => (
-                                        <TableItem
-                                            key={uuidv4()}
-                                            course={course}
-                                            handleTooltipContent={
-                                                handleTooltipContent
-                                            }
-                                            index={index}
-                                        />
-                                    ))}
-                                {handleCalculateTotalCreditOfTypeAtSemester(
-                                    0,
-                                    Number(key)
-                                ) > 0 && (
+                                    .electiveCredits > 0 && (
                                     <>
                                         <tr className="trSemester">
                                             <td colSpan={4}>
                                                 Học phần tự chọn
                                             </td>
                                             <td>
-                                                {handleCalculateTotalCreditOfTypeAtSemester(
-                                                    COURSE_TYPE.OPTIONAL,
-                                                    Number(key)
-                                                )}
+                                                {
+                                                    programData[
+                                                        Object.keys(
+                                                            programData
+                                                        )[show]
+                                                    ].electiveCredits
+                                                }
                                             </td>
                                             <td colSpan={5}></td>
                                         </tr>
                                         {programData[
                                             Object.keys(programData)[show]
-                                        ]
-                                            .filter(
-                                                (course) =>
-                                                    course.type ===
-                                                    COURSE_TYPE.OPTIONAL
-                                            )
-                                            .map((course, index) => (
+                                        ].coursesElective.map(
+                                            (course, index) => (
                                                 <TableItem
                                                     key={uuidv4()}
                                                     course={course}
@@ -163,7 +159,8 @@ const Table = ({
                                                     }
                                                     index={index}
                                                 />
-                                            ))}
+                                            )
+                                        )}
                                     </>
                                 )}
                             </>
@@ -172,6 +169,12 @@ const Table = ({
                 ))}
                 <TableInfo
                     handleCalculateTotalCredit={handleCalculateTotalCredit}
+                    handleCalculateTotalCreditOfMandatory={
+                        handleCalculateTotalCreditOfMandatory
+                    }
+                    handleCalculateTotalCreditOfElective={
+                        handleCalculateTotalCreditOfElective
+                    }
                 />
             </tbody>
         </table>

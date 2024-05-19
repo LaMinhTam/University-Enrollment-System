@@ -1,4 +1,11 @@
 interface IEducationPrograms {
+    mandatoryCredits: number;
+    electiveCredits: number;
+    coursesMandatory: ICourses[];
+    coursesElective: ICourses[];
+}
+
+interface ICourses {
     id: string;
     name: string;
     credit: number;
@@ -6,7 +13,9 @@ interface IEducationPrograms {
     practicalCredit: number;
     type: number;
     semester: number;
+    electiveGroup: number;
     prerequisites: IPrerequisite[];
+    isPass: boolean;
 }
 
 interface IPrerequisite {
@@ -19,10 +28,10 @@ interface IPrerequisite {
 
 type EducationProgramsResponse = {
     message: string;
-    data: { [key: string]: IEducationPrograms[] };
+    data: { [key: string]: IEducationPrograms };
     status: number;
 };
 
 export default EducationProgramsResponse;
 
-export type { IEducationPrograms, IPrerequisite };
+export type { IEducationPrograms, IPrerequisite, ICourses };

@@ -1,6 +1,6 @@
 import { Dispatch, UnknownAction } from "@reduxjs/toolkit";
 import { UniEnrollSystemAPI } from "../apis/constants";
-import { IClassesEnrolled, PAYMENT_STATUS } from "../types/classesEnrolledType";
+import { IClassesEnrolled } from "../types/classesEnrolledType";
 import { IClass } from "../types/courseType";
 import {
     setClassSchedule,
@@ -38,7 +38,7 @@ export default async function handleChangeClass(
                         ...classSchedule,
                         credit: item.credit,
                         group: groupId,
-                        paymentStatus: PAYMENT_STATUS.UNPAID,
+                        paymentStatus: "UNPAID",
                         updateAt: new Date(),
                         fee,
                     };

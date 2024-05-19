@@ -1,5 +1,5 @@
 import { UniEnrollSystemAPI } from "../apis/constants";
-import { IClassesEnrolled, PAYMENT_STATUS } from "../types/classesEnrolledType";
+import { IClassesEnrolled } from "../types/classesEnrolledType";
 import { IClass } from "../types/courseType";
 import { Dispatch, UnknownAction } from "@reduxjs/toolkit";
 import {
@@ -40,7 +40,7 @@ export default async function handleEnrollClass(
                         ...classSchedule,
                         credit: courseSelectedCredit,
                         group: groupId,
-                        paymentStatus: PAYMENT_STATUS.UNPAID,
+                        paymentStatus: "UNPAID",
                         updateAt: new Date(),
                         fee,
                     },

@@ -20,6 +20,12 @@ type DebtResponse = {
     status: number;
 };
 
+type DebtBySemesterResponse = {
+    message: string;
+    data: IDept[];
+    status: number;
+};
+
 export default DebtResponse;
 
-export type { IDept };
+export type { IDept, DebtBySemesterResponse };

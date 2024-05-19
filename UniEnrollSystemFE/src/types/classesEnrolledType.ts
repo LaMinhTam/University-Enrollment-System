@@ -9,18 +9,9 @@ interface IClassesEnrolled {
     group: number;
     credit: number;
     updateAt: Date;
-    paymentStatus: PAYMENT_STATUS;
+    paymentStatus: string;
     fee: number;
 }
-
-enum PAYMENT_STATUS {
-    "PAID",
-    "UNPAID",
-    "PENDING",
-    "ERROR",
-    "REFUND",
-}
-
 type ClassesEnrolledResponse = {
     message: string;
     data: IClassesEnrolled[];
@@ -36,4 +27,3 @@ type RemoveClassesEnrolled = {
 export default ClassesEnrolledResponse;
 
 export type { IClassesEnrolled, RemoveClassesEnrolled };
-export { PAYMENT_STATUS };

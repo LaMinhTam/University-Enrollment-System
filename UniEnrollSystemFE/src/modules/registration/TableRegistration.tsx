@@ -18,14 +18,11 @@ import {
     setClassSelectedSchedule,
     setIsOpenWatchScheduleModal,
 } from "../../store/actions/modalSlice";
-import {
-    IClassesEnrolled,
-    PAYMENT_STATUS,
-} from "../../types/classesEnrolledType";
+import { IClassesEnrolled } from "../../types/classesEnrolledType";
 import renderColorClassNameOfStatus from "../../utils/renderColorClassNameOfStatus";
-import { Fail, Pending, Success, Unpaid } from "../../components/common";
 import { formatDate } from "../../utils/formatTime";
 import handleFormatMoney from "../../utils/handleFormatMoney";
+import StatusComponent from "../../components/common/StatusComponent";
 const TableRegistration = () => {
     const registerClasses = useSelector(
         (state: RootState) => state.registration.registerClasses
@@ -165,17 +162,9 @@ const TableRegistration = () => {
                             <td>{handleFormatMoney(item.fee)}</td>
                             <td>{formatDate(new Date(item.updateAt))}</td>
                             <td>
-                                {item.paymentStatus === PAYMENT_STATUS.PAID && (
-                                    <Success text="" />
-                                )}
-                                {item.paymentStatus ===
-                                    PAYMENT_STATUS.UNPAID && <Unpaid text="" />}
-                                {item.paymentStatus ===
-                                    PAYMENT_STATUS.PENDING && (
-                                    <Pending text="" />
-                                )}
-                                {item.paymentStatus ===
-                                    PAYMENT_STATUS.ERROR && <Fail text="" />}
+                                <StatusComponent
+                                    paymentStatus={item.paymentStatus}
+                                />
                             </td>
                             <td>Đã đăng ký</td>
                             <td>{formatDate(new Date(item.updateAt))}</td>

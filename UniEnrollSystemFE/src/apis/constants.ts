@@ -3,7 +3,7 @@ import ClassesEnrolledResponse, {
 } from "../types/classesEnrolledType";
 import { IScholarShipResponse, IStatisticsReport } from "../types/commonType";
 import CourseRegistrationResponse from "../types/courseType";
-import DebtResponse from "../types/debtTypes";
+import DebtResponse, { DebtBySemesterResponse } from "../types/debtTypes";
 import EducationProgramsResponse from "../types/educationProgramType";
 import ClassScheduleResponse from "../types/scheduleType";
 import LoginResponse, { ILogin } from "../types/studentType";
@@ -136,9 +136,16 @@ const getStatisticsBySemester = async (semester: number, year: number) => {
     return response.data;
 };
 
-const getStudentDebt = async () => {
+const getStudentDebt = async (page: number, size: number) => {
     const response = await axiosPrivate.get<DebtResponse>(
-        "/course-payments?page=1&size=10"
+        `/course-payments/page?page=${page}&size=${size}`
+    );
+    return response.data;
+};
+
+const getStudentDeptBySemester = async (semester: number, year: number) => {
+    const response = await axiosPrivate.get<DebtBySemesterResponse>(
+        `/course-payments/by-semester?semester=${semester}&year=${year}`
     );
     return response.data;
 };
@@ -176,4 +183,5 @@ export const UniEnrollSystemAPI = {
     getStudentDebt,
     createPayment,
     checkPayment,
+    getStudentDeptBySemester,
 };
