@@ -1,4 +1,4 @@
-package vn.edu.iuh.fit.grademanagementservice.models;
+package vn.edu.iuh.fit.grademanagementservice.dtos;
 
 public record Course(
         String id,
