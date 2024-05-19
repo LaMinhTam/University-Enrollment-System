@@ -51,25 +51,6 @@ INSERT INTO `students_roles` (`student_id`, `role_id`) VALUES
 CREATE DATABASE `faculty_db` /*!40100 DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci */ /*!80016 DEFAULT ENCRYPTION='N' */;
 USE `faculty_db`;
 
-DROP TABLE IF EXISTS `courses`;
-CREATE TABLE `courses` (
-  `id` varchar(255) NOT NULL,
-  `credit` int NOT NULL,
-  `name` varchar(255) DEFAULT NULL,
-  `practical_credit` int NOT NULL,
-  `theory_credit` int NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
-
-INSERT INTO `courses` (`id`, `credit`, `name`, `practical_credit`, `theory_credit`) VALUES
-('4203002009',	2,	'Nhập môn Tin học',	0,	2),
-('4203003192',	2,	'Kỹ năng làm việc nhóm',	0,	2),
-('4203003242',	4,	'Giáo dục Quốc phòng và An ninh 1 ',	0,	4),
-('4203003259',	2,	'Toán cao cấp 1',	0,	2),
-('4203003307',	2,	'Giáo dục thể chất 1 ',	2,	0),
-('4203003848',	2,	'Nhập môn Lập trình',	2,	0),
-('4203014164',	3,	'Triết học Mác - Lênin',	0,	3);
-
 DROP TABLE IF EXISTS `faculties`;
 CREATE TABLE `faculties` (
   `id` int NOT NULL AUTO_INCREMENT,
@@ -121,17 +102,6 @@ INSERT INTO `majors` (`id`, `name`, `faculty_id`) VALUES
 (4,	'Hệ thống thông tin',	1),
 (5,	'Công nghệ thông tin',	1);
 
-DROP TABLE IF EXISTS `prerequisites`;
-CREATE TABLE `prerequisites` (
-  `course_id` varchar(255) NOT NULL,
-  `prerequisite_course_id` varchar(255) NOT NULL,
-  PRIMARY KEY (`course_id`,`prerequisite_course_id`),
-  KEY `FKit1tn8d8y7wetc79w6isf7mhd` (`prerequisite_course_id`),
-  CONSTRAINT `FK6c5rl8wmbsy9eknf0j4bgj5fr` FOREIGN KEY (`course_id`) REFERENCES `courses` (`id`),
-  CONSTRAINT `FKit1tn8d8y7wetc79w6isf7mhd` FOREIGN KEY (`prerequisite_course_id`) REFERENCES `courses` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
-
-
 DROP TABLE IF EXISTS `students`;
 CREATE TABLE `students` (
   `id` varchar(255) NOT NULL,
@@ -146,6 +116,27 @@ CREATE TABLE `students` (
 INSERT INTO `students` (`id`, `name`, `major_id`, `year`) VALUES
 ('21023911',	'La Minh Tâm',	1,	2021),
 ('21082081',	'Võ Đình Thông',	1,	2021);
+
+DROP TABLE IF EXISTS `major_semester_summary`;
+CREATE TABLE `major_semester_summary` (
+  `major_id` int NOT NULL,
+  `semester` int NOT NULL,
+  `year` int NOT NULL,
+  `total_elective_credits` int NOT NULL,
+  `total_mandatory_credits` int NOT NULL,
+  PRIMARY KEY (`major_id`,`semester`,`year`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+INSERT INTO `major_semester_summary` (`major_id`, `semester`, `year`, `total_elective_credits`, `total_mandatory_credits`) VALUES
+(1,	1,	2021,	0,	11),
+(1,	2,	2021,	3,	12),
+(1,	3,	2021,	3,	16),
+(1,	4,	2021,	7,	12),
+(1,	5,	2021,	3,	13),
+(1,	6,	2021,	6,	12),
+(1,	7,	2021,	4,	11),
+(1,	8,	2021,	6,	9),
+(1,	9,	2021,	0,	13);
 
 CREATE DATABASE `enroll_db` /*!40100 DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci */ /*!80016 DEFAULT ENCRYPTION='N' */;
 USE `enroll_db`;

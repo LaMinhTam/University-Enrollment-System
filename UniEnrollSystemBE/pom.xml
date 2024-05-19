@@ -25,5 +25,6 @@
         <module>course-service</module>
         <module>grade-management-service</module>
         <module>payment-service</module>
+        <module>notification-service</module>
     </modules>
 </project>

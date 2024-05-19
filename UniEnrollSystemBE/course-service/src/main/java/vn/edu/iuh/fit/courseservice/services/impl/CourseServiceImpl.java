@@ -21,6 +21,7 @@ import static org.springframework.data.mongodb.core.aggregation.VariableOperator
 public class CourseServiceImpl implements CourseService {
     private static final String COURSE_ON_MAJOR = "course_on_major";
     private static final String MAJOR_ID = "major_id";
+    private static final String ELECTIVE_GROUP = "elective_group";
     private static final String ACADEMIC_YEAR = "academic_year";
     private static final String PREREQUISITES = "prerequisites";
     private static final String COURSE = "course";
@@ -77,6 +78,7 @@ public class CourseServiceImpl implements CourseService {
                 .andInclude(ID, CREDIT, NAME, THEORY_CREDIT, PRACTICAL_CREDIT, PREREQUISITES)
                 .and(ArrayOperators.arrayOf(COURSE_ON_MAJOR + "." + SEMESTER).elementAt(0)).as(SEMESTER)
                 .and(ArrayOperators.arrayOf(COURSE_ON_MAJOR + "." + TYPE).elementAt(0)).as(TYPE)
+                .and(ArrayOperators.arrayOf(COURSE_ON_MAJOR + "." + ELECTIVE_GROUP).elementAt(0)).as(ELECTIVE_GROUP)
                 .and(filter(COURSE_ON_MAJOR)
                         .as("item")
                         .by(ComparisonOperators.valueOf("$$item." + MAJOR_ID).notEqualTo(String.valueOf(majorId)))

@@ -11,6 +11,7 @@ public record StudentDTO(
         String majorName,
         int year,
         int facultyId,
-        String facultyName
+        String facultyName,
+        String email
 ) {
 }

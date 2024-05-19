@@ -8,13 +8,16 @@ import org.springframework.web.reactive.function.client.WebClient;
 import org.springframework.web.reactive.function.client.support.WebClientAdapter;
 import org.springframework.web.service.invoker.HttpServiceProxyFactory;
 import vn.edu.iuh.fit.enrollservice.client.CourseClient;
+import vn.edu.iuh.fit.enrollservice.client.PaymentClient;
 import vn.edu.iuh.fit.enrollservice.client.ScheduleClient;
 
 @Configuration
 public class WebClientConfig {
+    private final LoadBalancedExchangeFilterFunction filterFunction;
 
-    @Autowired
-    private LoadBalancedExchangeFilterFunction filterFunction;
+    public WebClientConfig(LoadBalancedExchangeFilterFunction filterFunction) {
+        this.filterFunction = filterFunction;
+    }
 
 
     @Bean
@@ -34,20 +37,10 @@ public class WebClientConfig {
     }
 
     @Bean
-    public ScheduleClient scheduleClient() {
-        HttpServiceProxyFactory httpServiceProxyFactory
-                = HttpServiceProxyFactory
-                .builder(WebClientAdapter.forClient(scheduleWebClient()))
+    public WebClient paymentWebClient() {
+        return WebClient.builder()
+                .baseUrl("http://payment-service")
+                .filter(filterFunction)
                 .build();
-        return httpServiceProxyFactory.createClient(ScheduleClient.class);
-    }
-
-    @Bean
-    public CourseClient courseClient() {
-        HttpServiceProxyFactory httpServiceProxyFactory
-                = HttpServiceProxyFactory
-                .builder(WebClientAdapter.forClient(courseWebClient()))
-                .build();
-        return httpServiceProxyFactory.createClient(CourseClient.class);
     }
 }

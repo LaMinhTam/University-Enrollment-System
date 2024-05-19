@@ -17,5 +17,6 @@ public class Student {
     @JoinColumn(name = "major_id")
     private Major major;
     private String name;
-    int year;
+    private int year;
+    private String mail;
 }

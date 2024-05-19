@@ -13,8 +13,10 @@ import java.util.List;
 @Repository
 public interface CoursePaymentRepository extends MongoRepository<CoursePayment, String>, CustomCoursePaymentRepository {
     Page<CoursePayment> findByStudentId(String studentId, Pageable pageable);
-
+    List<CoursePayment> findBySemesterAndYear(int semester, int year);
     void deleteByStudentIdAndClassId(String studentId, String classId);
 
     List<CoursePayment> findByStudentIdAndClassIdIn(String studentId, List<String> strings);
+
+    List<CoursePayment> findByStudentIdAndSemesterAndYear(String studentId, int semester, int year);
 }

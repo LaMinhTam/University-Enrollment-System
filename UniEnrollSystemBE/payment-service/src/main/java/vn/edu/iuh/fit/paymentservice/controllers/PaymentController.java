@@ -1,6 +1,7 @@
 package vn.edu.iuh.fit.paymentservice.controllers;
 
 import jakarta.servlet.http.HttpServletRequest;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import vn.edu.iuh.fit.paymentservice.dtos.PaymentRequest;
@@ -25,11 +26,13 @@ public class PaymentController {
     private final InvoiceService invoiceService;
     private final CoursePaymentService coursePaymentService;
     private final CheckoutMessageProducer checkoutMessageProducer;
+    private final VNPayConfig vnPayConfig;
 
-    public PaymentController(InvoiceService invoiceService, CoursePaymentService coursePaymentService, CheckoutMessageProducer checkoutMessageProducer) {
+    public PaymentController(InvoiceService invoiceService, CoursePaymentService coursePaymentService, CheckoutMessageProducer checkoutMessageProducer, VNPayConfig vnPayConfig) {
         this.invoiceService = invoiceService;
         this.coursePaymentService = coursePaymentService;
         this.checkoutMessageProducer = checkoutMessageProducer;
+        this.vnPayConfig = vnPayConfig;
     }
 
     @PostMapping("/create_payment")
@@ -41,7 +44,6 @@ public class PaymentController {
             if (!classIds.contains(classId)) {
                 missingClassId.add(classId);
             }
-
         });
         if (!missingClassId.isEmpty()) {
             return ResponseEntity.badRequest().body("Các lớp học không tồn tại: " + missingClassId);
@@ -56,11 +58,11 @@ public class PaymentController {
         String vnp_TxnRef = invoiceId;
         String vnp_IpAddr = VNPayConfig.getIpAddress(req);
 
-        String vnp_TmnCode = VNPayConfig.vnp_TmnCode;
+        String vnp_TmnCode = vnPayConfig.getVnp_TmnCode();
 
         Map<String, String> vnp_Params = new HashMap<>();
-        vnp_Params.put("vnp_Version", VNPayConfig.vnp_Version);
-        vnp_Params.put("vnp_Command", VNPayConfig.vnp_Command);
+        vnp_Params.put("vnp_Version", vnPayConfig.getVnp_Version());
+        vnp_Params.put("vnp_Command", vnPayConfig.getVnp_Command());
         vnp_Params.put("vnp_TmnCode", vnp_TmnCode);
         vnp_Params.put("vnp_Amount", String.valueOf(amount));
         vnp_Params.put("vnp_CurrCode", "VND");
@@ -78,7 +80,7 @@ public class PaymentController {
         } else {
             vnp_Params.put("vnp_Locale", "vn");
         }
-        vnp_Params.put("vnp_ReturnUrl", VNPayConfig.vnp_ReturnUrl);
+        vnp_Params.put("vnp_ReturnUrl", vnPayConfig.getVnp_ReturnUrl());
         vnp_Params.put("vnp_IpAddr", vnp_IpAddr);
 
         Calendar cld = Calendar.getInstance(TimeZone.getTimeZone("Etc/GMT+7"));
@@ -114,9 +116,9 @@ public class PaymentController {
             }
         }
         String queryUrl = query.toString();
-        String vnp_SecureHash = VNPayConfig.hmacSHA512(VNPayConfig.secretKey, hashData.toString());
+        String vnp_SecureHash = VNPayConfig.hmacSHA512(vnPayConfig.getSecretKey(), hashData.toString());
         queryUrl += "&vnp_SecureHash=" + vnp_SecureHash;
-        String paymentUrl = VNPayConfig.vnp_PayUrl + "?" + queryUrl;
+        String paymentUrl = vnPayConfig.getVnp_PayUrl() + "?" + queryUrl;
 //        com.google.gson.JsonObject job = new JsonObject();
 //        job.addProperty("code", "00");
 //        job.addProperty("message", "success");
@@ -124,7 +126,7 @@ public class PaymentController {
 //        Gson gson = new Gson();
 //        resp.getWriter().write(gson.toJson(job));
         invoiceService.createInvoice(invoiceId, studentId, "VNPAY", Double.valueOf(request.amount()), coursePayments);
-        return ResponseEntity.ok(paymentUrl);
+        return ResponseEntity.ok(new ResponseWrapper("Đường dẫn VNPAY", paymentUrl, 200));
     }
 
 
@@ -145,13 +147,13 @@ public class PaymentController {
 
         String invoiceId = fields.get("vnp_TxnRef");
 
-        if(invoiceService.getInvoicesById(invoiceId).getStatus() == PaymentStatus.PAID){
+        if (invoiceService.getInvoicesById(invoiceId).getStatus() == PaymentStatus.PAID) {
             return ResponseEntity.badRequest().body("Giao dịch đã được xử lý");
         }
 
         String vnp_SecureHash = req.getParameter("vnp_SecureHash");
         fields.remove("vnp_SecureHash");
-        String signValue = VNPayConfig.hashAllFields(fields);
+        String signValue = vnPayConfig.hashAllFields(fields);
         if (vnp_SecureHash.equals(signValue)) {
             String vnp_ResponseCode = req.getParameter("vnp_ResponseCode");
             if ("00".equals(vnp_ResponseCode)) {
@@ -160,15 +162,15 @@ public class PaymentController {
                 Invoice invoice = invoiceService.updatePaymentStatus(invoiceId, PaymentStatus.PAID);
                 List<String> classIds = invoice.getCoursePayments().stream().map(CoursePayment::getClassId).toList();
                 coursePaymentService.updatePaymentStatus(studentId, classIds, PaymentStatus.PAID);
-                        checkoutMessageProducer.sendCheckoutMessage(studentId, invoiceId, PaymentStatus.PAID);
-                return ResponseEntity.ok("Giao dịch thành công");
+                checkoutMessageProducer.sendCheckoutMessage(studentId, invoiceId, PaymentStatus.PAID);
+                return ResponseEntity.ok(new ResponseWrapper("Giao dịch thành công", null, 200));
             } else {
                 //Thanh toan khong thanh cong. Ma loi: vnp_ResponseCode
                 invoiceService.updatePaymentStatus(invoiceId, PaymentStatus.ERROR);
-                return ResponseEntity.badRequest().body("Giao dịch thất bại. Mã lỗi: " + vnp_ResponseCode);
+                return ResponseEntity.ok(new ResponseWrapper("Giao dịch thất bại. Mã lỗi: " + vnp_ResponseCode, null, HttpStatus.BAD_REQUEST.value()));
             }
         } else {
-            return ResponseEntity.badRequest().body("Chữ ký không hợp lệ");
+            return ResponseEntity.ok(new ResponseWrapper("Giao dịch không hợp lệ", null, HttpStatus.FORBIDDEN.value()));
         }
     }
 }

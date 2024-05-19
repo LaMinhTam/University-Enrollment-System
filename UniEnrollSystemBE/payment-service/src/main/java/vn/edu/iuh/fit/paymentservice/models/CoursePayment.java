@@ -30,5 +30,6 @@ public class CoursePayment implements Serializable {
     private Double amount;
     private Double deduct;
     private Double total;
+    @Field("payment_status")
     private PaymentStatus status;
 }

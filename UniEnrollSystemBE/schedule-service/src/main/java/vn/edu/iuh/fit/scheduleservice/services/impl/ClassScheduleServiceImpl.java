@@ -221,12 +221,12 @@ public class ClassScheduleServiceImpl implements ClassScheduleService {
     }
 
     @Override
-    public void changeSchedule(ChangeRegisterRequest request) {
+    public void changeSchedule(String newClassId, String oldClassId, String studentId) {
         Query query = new Query();
-        query.addCriteria(Criteria.where("studentId").is(request.studentId()).and("classId").is(request.oldClassId()));
+        query.addCriteria(Criteria.where("studentId").is(studentId).and("classId").is(oldClassId));
 
         Update update = new Update();
-        update.set("classId", request.newClassId());
+        update.set("classId", newClassId);
 
         mongoTemplate.updateFirst(query, update, StudentSchedule.class);
     }

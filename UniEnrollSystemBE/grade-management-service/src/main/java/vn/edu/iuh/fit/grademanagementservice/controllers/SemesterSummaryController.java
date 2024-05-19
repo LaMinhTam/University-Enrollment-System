@@ -2,21 +2,23 @@ package vn.edu.iuh.fit.grademanagementservice.controllers;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import vn.edu.iuh.fit.grademanagementservice.dtos.ResponseWrapper;
-import vn.edu.iuh.fit.grademanagementservice.dtos.SemesterSummaryDTO;
-import vn.edu.iuh.fit.grademanagementservice.dtos.StatisticResponse;
+import vn.edu.iuh.fit.grademanagementservice.client.FacultyClient;
+import vn.edu.iuh.fit.grademanagementservice.dtos.*;
 import vn.edu.iuh.fit.grademanagementservice.models.SemesterSummary;
 import vn.edu.iuh.fit.grademanagementservice.services.SemesterSummaryService;
 
 import java.util.List;
+import java.util.concurrent.atomic.AtomicInteger;
 
 @RestController
 @RequestMapping("/semester-report")
 public class SemesterSummaryController {
     private final SemesterSummaryService semesterSummaryService;
+    private final FacultyClient facultyClient;
 
-    public SemesterSummaryController(SemesterSummaryService semesterSummaryService) {
+    public SemesterSummaryController(SemesterSummaryService semesterSummaryService, FacultyClient facultyClient) {
         this.semesterSummaryService = semesterSummaryService;
+        this.facultyClient = facultyClient;
     }
 
     @GetMapping("/summary")
@@ -41,11 +43,11 @@ public class SemesterSummaryController {
                     semesterSummary.getYear(),
                     semesterSummary.getGradeReports(),
                     semesterSummary.getGpa(),
-                    semesterSummary.getGpa()/2.5,
+                    semesterSummary.getGpa() / 2.5,
                     semesterSummary.getTotalCredits(),
                     semesterSummary.getTotalPassedCredits(),
                     accumulatedGPA,
-                    accumulatedGPA/2.5,
+                    accumulatedGPA / 2.5,
                     accumulatedCredits,
                     accumulatedPassedCredits
             );
@@ -62,5 +64,18 @@ public class SemesterSummaryController {
     @GetMapping("/estimate/scholarship")
     public ResponseEntity estimateScholarship(@RequestHeader("major_id") int majorId, @RequestParam("semester") int semester, @RequestParam("year") int year, @RequestParam("gpa") float gpa) {
         return ResponseEntity.ok(new ResponseWrapper("Ước lượng học bổng", semesterSummaryService.estimateScholarship(majorId, semester, year, gpa), 200));
+    }
+
+    @GetMapping("/credits")
+    public ResponseEntity<?> getCreditSummary(@RequestHeader("id") String studentId, @RequestHeader("major_id") int majorId, @RequestHeader("academic_year") int year) {
+        List<SemesterSummary> semesterSummaries = semesterSummaryService.getSemesterSummaries(studentId);
+        int totalEarnedCredits = semesterSummaries.stream().map(SemesterSummary::getTotalPassedCredits).reduce(0, Integer::sum);
+        List<MajorSemesterSummary> majorSemesterSummaries = facultyClient.getMajorSemesterSummary(majorId, year);
+        AtomicInteger totalRequiredCredits = new AtomicInteger();
+        majorSemesterSummaries.forEach(majorSemesterSummary -> {
+            totalRequiredCredits.set(totalRequiredCredits.get() + majorSemesterSummary.totalMandatoryCredits() + majorSemesterSummary.totalElectiveCredits());
+        });
+        CreditSummaryResponse response = new CreditSummaryResponse(totalEarnedCredits, totalRequiredCredits.get());
+        return ResponseEntity.ok(new ResponseWrapper("Tổng hợp tín chỉ", response, 200));
     }
 }

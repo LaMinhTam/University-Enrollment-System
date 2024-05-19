@@ -1,7 +1,11 @@
 package vn.edu.iuh.fit.enrollservice.services.impl;
 
+import org.springframework.dao.DataAccessException;
+import org.springframework.data.redis.core.RedisOperations;
 import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.data.redis.core.SessionCallback;
 import org.springframework.stereotype.Service;
+import vn.edu.iuh.fit.enrollservice.dtos.ClassDTO;
 import vn.edu.iuh.fit.enrollservice.dtos.ClassType;
 import vn.edu.iuh.fit.enrollservice.dtos.MapCourseClass;
 import vn.edu.iuh.fit.enrollservice.models.Class;
@@ -19,30 +23,8 @@ public class ClassRedisServiceImpl implements ClassRedisService {
     }
 
     @Override
-    public Map<String , MapCourseClass> getAllCourses(int majorId, int semester, int year) {
+    public Map<String, MapCourseClass> getAllCourses(int majorId, int semester, int year) {
         return (Map<String, MapCourseClass>) redisTemplate.opsForValue().get(majorId + "-" + semester + "-" + year);
-    }
-
-    @Override
-    public void validateClassAndGroupForRegistration(int majorId, Class targetClass, int group) throws Exception {
-        Map<String, MapCourseClass> coursesWithClasses = (Map<String, MapCourseClass>) redisTemplate.opsForValue().get(majorId + "-" + targetClass.getSemester() + "-" + targetClass.getYear());
-        if (coursesWithClasses == null || coursesWithClasses.isEmpty()) {
-            throw new Exception("Hệ thống hiện đang lỗi, vui lòng thử lại sau");
-        } else if (group != 0) {
-            // For each class in the course, check if the class ID matches the new class ID
-            // Then, for each schedule in the class, check if the group and class type match the request
-            // If a matching schedule is found, throw an exception
-            boolean isMatchFound = coursesWithClasses.get(targetClass.getCourseId()).classes().stream()
-                    .filter(classObject -> classObject.getId().equals(targetClass.getId()))
-                    .flatMap(classObject -> classObject.getSchedules().stream())
-                    .anyMatch(schedule -> schedule.group() == group && schedule.classType() == ClassType.PRACTICE);
-
-            if (!isMatchFound) {
-                throw new RuntimeException("Nhóm thực hành không tồn tại");
-            }
-        } else if (coursesWithClasses.get(targetClass.getCourseId()).course().practicalCredit() != 0) {
-            throw new RuntimeException("Hãy đăng ký nhóm thực hành");
-        }
     }
 
     @Override
@@ -51,7 +33,37 @@ public class ClassRedisServiceImpl implements ClassRedisService {
     }
 
     @Override
-    public void clearCache(int majorId, int semester, int year) {
-        redisTemplate.delete(majorId + "-" + semester + "-" + year);
+    public void updateStudentCount(int majorId, int semester, int year, String courseId, String classId, int group, int updateValue) throws Exception {
+        String key = majorId + "-" + semester + "-" + year;
+
+        while (true) {
+            List<Object> results = redisTemplate.execute(new SessionCallback<List<Object>>() {
+                public List<Object> execute(RedisOperations operations) throws DataAccessException {
+                    operations.watch(key);
+                    Map<String, MapCourseClass> coursesWithClasses = (Map<String, MapCourseClass>) operations.opsForValue().get(key);
+
+                    ClassDTO targetClass = coursesWithClasses.get(courseId).classes().get(classId);
+
+                    targetClass.setQuantity(targetClass.getQuantity() + updateValue);
+                    if (group != 0) {
+                        targetClass.getSchedules().stream()
+                                .filter(schedule -> schedule.getGroup() == group)
+                                .forEach(schedule -> schedule.setQuantity(schedule.getQuantity() + updateValue));
+                    }
+
+                    operations.multi();
+                    operations.opsForValue().set(key, coursesWithClasses);
+                    return operations.exec();
+                }
+            });
+
+            if (results != null) {
+                // The transaction was successful, so we can break out of the loop.
+                break;
+            }
+
+            // The transaction failed because the watched key was changed.
+            // We'll just loop and try the transaction again.
+        }
     }
 }

@@ -14,7 +14,8 @@ import org.springframework.data.mongodb.core.mapping.Field;
 public class CourseOnMajor {
     @Field("major_id")
     private int majorId;
-
+    @Field("elective_group")
+    private int electiveGroup;
     private int semester;
     private int type;
     @Field("academic_year")

@@ -1,0 +1,30 @@
+server:
+  port: 8090
+
+eureka:
+  client:
+    service-url:
+      defaultZone: ${EUREKA_CLIENT_SERVICEURL_DEFAULTZONE:http://localhost:8761/eureka/}
+
+spring:
+  application:
+    name: notification-service
+  config:
+    import: "optional:configserver:${CONFIG_SERVER_URL:http://localhost:8888}"
+  rabbitmq:
+    host: localhost
+    port: 5672
+    username: admin
+    password: 123456
+  mail:
+    host: smtp.gmail.com
+    port: 587
+    username: ${MAIL_USERNAME:laminhtam5523@gmail.com}
+    password: ${MAIL_PASSWORD:cpjy jags cgvn sumq}
+    sender: ${MAIL_SENDER:University Enroll System}
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true

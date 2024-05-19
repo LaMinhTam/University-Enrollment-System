@@ -29,6 +29,7 @@ public class StudentController {
                 student.getMajor().getName(),
                 student.getYear(),
                 student.getMajor().getFaculty().getId(),
-                student.getMajor().getFaculty().getName());
+                student.getMajor().getFaculty().getName(),
+                student.getMail());
     }
 }

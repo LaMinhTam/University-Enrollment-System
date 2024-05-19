@@ -8,15 +8,18 @@ import java.io.Serial;
 import java.io.Serializable;
 import java.util.List;
 
-public record Course(
-        String id,
-        String name,
-        int credit,
-        int theoryCredit,
-        int practicalCredit,
-        int type,
-        List<Prerequisite> prerequisites
-) implements Serializable {
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
+public class Course implements Serializable {
     @Serial
     private static final long serialVersionUID = -8018000929067078059L;
+    private String id;
+    private String name;
+    private int credit;
+    private int theoryCredit;
+    private int practicalCredit;
+    private int type;
+    private List<Prerequisite> prerequisites;
+    private Double fee;
 }

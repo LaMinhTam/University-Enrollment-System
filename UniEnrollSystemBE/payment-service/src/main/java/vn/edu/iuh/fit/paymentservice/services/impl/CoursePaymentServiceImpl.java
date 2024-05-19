@@ -12,6 +12,9 @@ import vn.edu.iuh.fit.paymentservice.services.CoursePaymentService;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
+import java.util.function.Function;
+import java.util.stream.Collectors;
 
 @Service
 public class CoursePaymentServiceImpl implements CoursePaymentService {
@@ -22,15 +25,22 @@ public class CoursePaymentServiceImpl implements CoursePaymentService {
     }
 
     @Override
-    public List<CoursePayment> getAllCoursePayments(String studentId, int page, int size) {
+    public Map<String, List<CoursePayment>> getAllCoursePaymentsPage(String studentId, int page, int size) {
         Sort sort = Sort.by(Sort.Order.asc("semester"), Sort.Order.asc("year"));
         Pageable pageable = PageRequest.of(page - 1, size, sort);
-        return coursePaymentRepository.findByStudentId(studentId, pageable).getContent();
+        List<CoursePayment> coursePayments = coursePaymentRepository.findByStudentId(studentId, pageable).getContent();
+        //a map with key is semester-year and value is list of course payment
+        return coursePayments.stream().collect(Collectors.groupingBy(coursePayment -> coursePayment.getSemester() + "-" + coursePayment.getYear()));
+    }
+
+    @Override
+    public List<CoursePayment> getAllCoursePaymentsSemester(String studentId, int semester, int year) {
+        return coursePaymentRepository.findByStudentIdAndSemesterAndYear(studentId, semester, year);
     }
 
     @Override
     public void register(RegisterRequest request) {
-        coursePaymentRepository.save(new CoursePayment(request.classId(), request.courseId(), request.courseName(), request.credit(), request.studentId(), new Date(), new Date(), request.semester(), request.year(),request.amount(), 0.0, request.amount(), PaymentStatus.PENDING));
+        coursePaymentRepository.save(new CoursePayment(request.getClassId(), request.getCourseId(), request.getCourseName(), request.getCredit(), request.getStudentId(), new Date(), new Date(), request.getSemester(), request.getYear(), request.getAmount(), 0.0, request.getAmount(), PaymentStatus.UNPAID));
     }
 
     @Override
@@ -51,5 +61,10 @@ public class CoursePaymentServiceImpl implements CoursePaymentService {
     @Override
     public void updatePaymentStatus(String studentId, List<String> classIds, PaymentStatus paymentStatus) {
         coursePaymentRepository.updatePaymentStatus(studentId, classIds, paymentStatus);
+    }
+
+    @Override
+    public Map<String, CoursePayment> getCoursePaymentsBySemesterAndYear(String studentId, int semester, int year) {
+        return coursePaymentRepository.findByStudentIdAndSemesterAndYear(studentId, semester, year).stream().collect(Collectors.toMap(CoursePayment::getClassId, Function.identity()));
     }
 }
