@@ -117,6 +117,27 @@ INSERT INTO `students` (`id`, `name`, `major_id`, `year`) VALUES
 ('21023911',	'La Minh Tâm',	1,	2021),
 ('21082081',	'Võ Đình Thông',	1,	2021);
 
+DROP TABLE IF EXISTS `major_semester_summary`;
+CREATE TABLE `major_semester_summary` (
+  `major_id` int NOT NULL,
+  `semester` int NOT NULL,
+  `year` int NOT NULL,
+  `total_elective_credits` int NOT NULL,
+  `total_mandatory_credits` int NOT NULL,
+  PRIMARY KEY (`major_id`,`semester`,`year`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+INSERT INTO `major_semester_summary` (`major_id`, `semester`, `year`, `total_elective_credits`, `total_mandatory_credits`) VALUES
+(1,	1,	2021,	0,	11),
+(1,	2,	2021,	3,	12),
+(1,	3,	2021,	3,	16),
+(1,	4,	2021,	7,	12),
+(1,	5,	2021,	3,	13),
+(1,	6,	2021,	6,	12),
+(1,	7,	2021,	4,	11),
+(1,	8,	2021,	6,	9),
+(1,	9,	2021,	0,	13);
+
 CREATE DATABASE `enroll_db` /*!40100 DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci */ /*!80016 DEFAULT ENCRYPTION='N' */;
 USE `enroll_db`;
 
