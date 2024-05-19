@@ -25,12 +25,17 @@ public class CoursePaymentServiceImpl implements CoursePaymentService {
     }
 
     @Override
-    public Map<String, List<CoursePayment>> getAllCoursePayments(String studentId, int page, int size) {
+    public Map<String, List<CoursePayment>> getAllCoursePaymentsPage(String studentId, int page, int size) {
         Sort sort = Sort.by(Sort.Order.asc("semester"), Sort.Order.asc("year"));
         Pageable pageable = PageRequest.of(page - 1, size, sort);
         List<CoursePayment> coursePayments = coursePaymentRepository.findByStudentId(studentId, pageable).getContent();
         //a map with key is semester-year and value is list of course payment
         return coursePayments.stream().collect(Collectors.groupingBy(coursePayment -> coursePayment.getSemester() + "-" + coursePayment.getYear()));
+    }
+
+    @Override
+    public List<CoursePayment> getAllCoursePaymentsSemester(String studentId, int semester, int year) {
+        return coursePaymentRepository.findByStudentIdAndSemesterAndYear(studentId, semester, year);
     }
 
     @Override

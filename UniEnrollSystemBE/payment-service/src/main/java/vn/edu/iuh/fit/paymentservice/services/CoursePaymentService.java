@@ -8,7 +8,7 @@ import java.util.List;
 import java.util.Map;
 
 public interface CoursePaymentService {
-    Map<String, List<CoursePayment>> getAllCoursePayments(String studentId, int page, int size);
+    Map<String, List<CoursePayment>> getAllCoursePaymentsPage(String studentId, int page, int size);
 
     void register(RegisterRequest request);
 
@@ -21,4 +21,6 @@ public interface CoursePaymentService {
     void updatePaymentStatus(String studentId, List<String> classIds, PaymentStatus paymentStatus);
 
     Map<String, CoursePayment> getCoursePaymentsBySemesterAndYear(String studentId, int semester, int year);
+
+    List<CoursePayment> getAllCoursePaymentsSemester(String studentId, int semester, int year);
 }
