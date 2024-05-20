@@ -103,9 +103,11 @@ docker compose up -d
 ```
 
 ### Đăng nhập
-
+- Truy cập vào http://localhost:4173
+- **Tài khoản**
 MSSV: 21023911
 Mật khẩu: 123456789
 hoặc
 MSSV: 21082081
 Mật khẩu: 123456789
+
