@@ -85,7 +85,7 @@ cd UniEnrollSystemFE
 - 2. Cài đặt dependencies
 
 ```bash
-npm i
+npm install
 ```
 
 - 3. Chạy dự án
@@ -103,7 +103,7 @@ docker compose up -d
 ```
 
 ### Đăng nhập
-- Truy cập vào http://localhost:4173
+- Truy cập vào http://localhost:5173
 - **Tài khoản**
 MSSV: 21023911
 Mật khẩu: 123456789
