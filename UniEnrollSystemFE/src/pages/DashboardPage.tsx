@@ -8,7 +8,7 @@ const DashboardPage = () => {
     const { userInfo } = useAuth();
     return (
         <RequiredAuthPage>
-            <div className="w-full max-w-[1140px] mx-auto pb-5">
+            <div className="w-full max-w-[1140px] mx-auto pb-16">
                 <StudentInfo userInfo={userInfo} />
                 <StudentFeature />
                 <StudentChartMetric />

@@ -9,6 +9,7 @@ import {
     setClassesEnrolledSchedule,
     setCourses,
     setRegisterClasses,
+    setWaitingCourses,
 } from "../store/actions/registrationSlice";
 import Header from "../modules/registration/Header";
 import { RootState } from "../store/configureStore";
@@ -17,6 +18,7 @@ import handleGetClassesEnrolledSchedule from "../utils/handleGetClassesEnrolledS
 import { IClassesEnrolledSchedule } from "../types/commonType";
 import handleResetCourseRegisterPage from "../utils/handleResetCourseRegisterPage";
 import { Loading } from "../components/common";
+import { setIsOpenWaitingCourseModal } from "../store/actions/modalSlice";
 
 const CourseRegisterPage = () => {
     const [loading, setLoading] = useState<boolean>(false);
@@ -49,11 +51,20 @@ const CourseRegisterPage = () => {
                     registrationPeriod.year
                 );
 
+                const waitingRes = await UniEnrollSystemAPI.getWaitingCourses(
+                    registrationPeriod.semester,
+                    registrationPeriod.year
+                );
+
                 if (coursesRes.status === 200) {
                     dispatch(setCourses(coursesRes.data));
                 }
                 if (classesRes.status === 200) {
                     dispatch(setRegisterClasses(classesRes.data));
+                }
+
+                if (waitingRes.status === 200) {
+                    dispatch(setWaitingCourses(waitingRes.data));
                 }
                 setLoading(false);
             } catch (error) {
@@ -97,6 +108,14 @@ const CourseRegisterPage = () => {
                         <div ref={tableClassesRef}>
                             <TableClasses />
                         </div>
+                        <button
+                            onClick={() =>
+                                dispatch(setIsOpenWaitingCourseModal(true))
+                            }
+                            className="w-full max-w-[400px] h-[48px] px-4 py-2 bg-primary text-lite rounded"
+                        >
+                            Danh sách các môn học đã đăng ký dự bị
+                        </button>
                         <TableRegistration />
                     </>
                 )}

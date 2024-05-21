@@ -18,6 +18,7 @@ import { RootState } from "../../store/configureStore";
 import filterDuplicateSchedule from "../../utils/filterDuplicateSchedule";
 import { useEffect } from "react";
 import { Fail, Success } from "../../components/common";
+import handleTooltipContent from "../../utils/handleTooltipContent";
 const TableCourse = ({
     data,
     tableClassesRef,
@@ -49,30 +50,7 @@ const TableCourse = ({
     const courseChangeQuantityClassId = useSelector(
         (state: RootState) => state.registration.courseChangeQuantityClassId
     );
-    const handleTooltipContent = (
-        prerequisites: {
-            id: string;
-            name: string;
-            credit: number;
-            theoryCredit: number;
-            practicalCredit: number;
-        }[]
-    ) => {
-        const header =
-            "<tr><th>Mã học phần</th><th>Tên môn học / học phần</th><th>Số TC</th><th>Số TC lý thuyết</th><th>Số TC thực hành</th></tr>";
-        const rows = prerequisites
-            .map((prerequisite) => {
-                const id = prerequisite.id;
-                const name = prerequisite.name;
-                const credit = prerequisite.credit;
-                const theoryCredit = prerequisite.theoryCredit;
-                const practicalCredit = prerequisite.practicalCredit;
 
-                return `<tr><td>${id}</td><td>${name}</td><td>${credit}</td><td>${theoryCredit}</td><td>${practicalCredit}</td></tr>`;
-            })
-            .join("");
-        return `<table>${header}${rows}</table>`;
-    };
     const handleClickCourse = (item: ICourseRegistration) => {
         dispatch(setCourseSelectedId(item.course.id));
         dispatch(setCourseSelectedCredit(item.course.credit));

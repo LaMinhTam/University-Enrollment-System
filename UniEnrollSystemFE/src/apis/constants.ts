@@ -1,7 +1,13 @@
 import ClassesEnrolledResponse, {
     RemoveClassesEnrolled,
 } from "../types/classesEnrolledType";
-import { IScholarShipResponse, IStatisticsReport } from "../types/commonType";
+import {
+    ILearnedCreditResponse,
+    IScholarShipResponse,
+    IStatisticsReport,
+    IWaitListResponse,
+    IWaitingCourseResponse,
+} from "../types/commonType";
 import CourseRegistrationResponse from "../types/courseType";
 import DebtResponse, { DebtBySemesterResponse } from "../types/debtTypes";
 import EducationProgramsResponse from "../types/educationProgramType";
@@ -22,7 +28,18 @@ const login = async (data: ILogin) => {
 };
 
 const refreshToken = async (refreshToken: string) => {
-    const response = await axios.post<LoginResponse>(`/auth/refresh-token`, {
+    const response = await axiosPrivate.post<LoginResponse>(
+        `/auth/refresh-token`,
+        {
+            refreshToken: refreshToken,
+        }
+    );
+    return response.data;
+};
+
+const logout = async (accessToken: string, refreshToken: string) => {
+    const response = await axiosPrivate.post(`/auth/logout`, {
+        accessToken: accessToken,
         refreshToken: refreshToken,
     });
     return response.data;
@@ -165,6 +182,36 @@ const checkPayment = async (param: string) => {
     return response.data;
 };
 
+const registrationToWaitingList = async (
+    courseId: string,
+    semester: number,
+    year: number
+) => {
+    const response = await axiosPrivate.post<IWaitListResponse>(
+        `/wait-list/register`,
+        {
+            courseId: courseId,
+            semester: semester,
+            year: year,
+        }
+    );
+    return response.data;
+};
+
+const getWaitingCourses = async (semester: number, year: number) => {
+    const response = await axiosPrivate.get<IWaitingCourseResponse>(
+        `/wait-list?semester=${semester}&year=${year}`
+    );
+    return response.data;
+};
+
+const getLearnedCredit = async () => {
+    const response = await axiosPrivate.get<ILearnedCreditResponse>(
+        `/semester-report/credits`
+    );
+    return response.data;
+};
+
 export const UniEnrollSystemAPI = {
     login,
     refreshToken,
@@ -184,4 +231,8 @@ export const UniEnrollSystemAPI = {
     createPayment,
     checkPayment,
     getStudentDeptBySemester,
+    registrationToWaitingList,
+    getWaitingCourses,
+    logout,
+    getLearnedCredit,
 };

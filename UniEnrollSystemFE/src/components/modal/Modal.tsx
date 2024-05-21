@@ -5,6 +5,7 @@ import { useSelector } from "react-redux";
 import ScheduleDuplicateModal from "./ScheduleDuplicateModal";
 import PredictScholarshipModal from "./PredictScholarshipModal";
 import PaymentCheckModal from "./PaymentCheckModal";
+import WaitingCourseListModal from "./WaitingCourseListModal";
 
 const Modal = () => {
     const isOpenWatchScheduleModal = useSelector(
@@ -18,6 +19,9 @@ const Modal = () => {
     );
     const isOpenPaymentCheckedModal = useSelector(
         (state: RootState) => state.modal.isOpenPaymentCheckedModal
+    );
+    const isOpenWaitingCourseModal = useSelector(
+        (state: RootState) => state.modal.isOpenWaitingCourseModal
     );
     return (
         <>
@@ -52,6 +56,14 @@ const Modal = () => {
                 className="modal-content w-full max-w-[1000px] bg-white rounded outline-none relative"
             >
                 <PaymentCheckModal />
+            </ReactModal>
+            <ReactModal
+                isOpen={isOpenWaitingCourseModal}
+                overlayClassName="modal-overlay fixed inset-0 bg-black bg-opacity-40 z-50
+                flex justify-center items-center"
+                className="modal-content w-full max-w-[1000px] bg-white rounded outline-none relative"
+            >
+                <WaitingCourseListModal />
             </ReactModal>
         </>
     );

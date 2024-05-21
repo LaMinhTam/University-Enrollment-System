@@ -202,7 +202,7 @@ const Body = ({
                 onClick={handlePayment}
                 className="flex items-center justify-center px-5 py-3 mt-3 ml-auto rounded shadow-md bg-primary hover:bg-tertiary text-lite"
             >
-                {loading ? <Loading /> : <span>Thanh toán</span>}
+                {loading ? <Loading /> : <span>Xác nhận</span>}
             </button>
         </div>
     );

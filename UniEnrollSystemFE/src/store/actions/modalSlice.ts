@@ -7,6 +7,7 @@ type ModalType = {
     isOpenScheduleDuplicateModal: boolean;
     isOpenPredictScholarshipModal: boolean;
     isOpenPaymentCheckedModal: boolean;
+    isOpenWaitingCourseModal: boolean;
     checkedPaymentParams: string;
     classSelectedSchedule: IClassesEnrolledSchedule[];
     duplicateSchedule: IExistedSchedule[];
@@ -17,6 +18,7 @@ const initialState: ModalType = {
     isOpenScheduleDuplicateModal: false,
     isOpenPredictScholarshipModal: false,
     isOpenPaymentCheckedModal: false,
+    isOpenWaitingCourseModal: false,
     checkedPaymentParams: "",
     classSelectedSchedule: [],
     duplicateSchedule: [],
@@ -56,6 +58,12 @@ const modalSlice = createSlice({
         ) => {
             state.isOpenPaymentCheckedModal = action.payload;
         },
+        setIsOpenWaitingCourseModal: (
+            state,
+            action: PayloadAction<boolean>
+        ) => {
+            state.isOpenWaitingCourseModal = action.payload;
+        },
         setCheckedPaymentParams: (state, action: PayloadAction<string>) => {
             state.checkedPaymentParams = action.payload;
         },
@@ -76,5 +84,6 @@ export const {
     setCheckedPaymentParams,
     setDuplicateSchedule,
     setIsOpenPredictScholarshipModal,
+    setIsOpenWaitingCourseModal,
 } = modalSlice.actions;
 export default modalSlice.reducer;

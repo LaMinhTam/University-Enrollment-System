@@ -1,7 +1,14 @@
 import { useEffect, useRef } from "react";
 import Chart from "chart.js/auto";
 
-const CreditProgressChart = () => {
+const CreditProgressChart = ({
+    data,
+}: {
+    data: {
+        totalEarnedCredits: number;
+        totalRequiredCredits: number;
+    };
+}) => {
     const canvasRef = useRef<HTMLCanvasElement>(null);
 
     useEffect(() => {
@@ -16,7 +23,11 @@ const CreditProgressChart = () => {
                             borderWidth: 0,
                         },
                         {
-                            data: [117, 156 - 117],
+                            data: [
+                                data.totalEarnedCredits,
+                                data.totalRequiredCredits -
+                                    data.totalEarnedCredits,
+                            ],
                             backgroundColor: ["#00FF00", "#E0E0E0"],
                             borderWidth: 0,
                             circular: true,
@@ -44,9 +55,9 @@ const CreditProgressChart = () => {
                                 label: function (context) {
                                     const datasetIndex = context.datasetIndex;
                                     if (datasetIndex === 0) {
-                                        return "Tổng: 156 tín chỉ";
+                                        return `Tổng: ${data.totalRequiredCredits} tín chỉ`;
                                     } else if (datasetIndex === 1) {
-                                        return "Đã học: 117 tín chỉ";
+                                        return `Đã học: ${data.totalEarnedCredits} tín chỉ`;
                                     }
                                 },
                             },
@@ -58,8 +69,8 @@ const CreditProgressChart = () => {
                 newChartInstance.destroy();
             };
         }
-    }, []);
-
+    }, [data.totalEarnedCredits, data.totalRequiredCredits]);
+    if (!data.totalEarnedCredits || !data.totalRequiredCredits) return null;
     return (
         <div style={{ width: "200px", margin: "0 auto" }}>
             <canvas ref={canvasRef}></canvas>

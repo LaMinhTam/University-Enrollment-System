@@ -6,6 +6,8 @@ import PaymentIcon from "@mui/icons-material/Payment";
 import ReceiptLongIcon from "@mui/icons-material/ReceiptLong";
 import NotificationsNoneIcon from "@mui/icons-material/NotificationsNone";
 import { Link } from "react-router-dom";
+import handleResetCourseRegisterPage from "../../utils/handleResetCourseRegisterPage";
+import { useDispatch } from "react-redux";
 const featureList = [
     {
         title: "Lịch theo tuần",
@@ -49,22 +51,39 @@ const featureList = [
     },
 ];
 const StudentFeature = () => {
+    const dispatch = useDispatch();
     return (
         <div className="grid grid-cols-8 gap-4 mt-5">
-            {featureList.map((feature, index) => (
-                <Link
-                    to={feature.link}
-                    key={index}
-                    className="flex flex-col items-center justify-center rounded-lg shadow-md bg-lite p-[10px] h-[120px]"
-                >
-                    <div className="text-tertiary w-full flex items-center justify-center h-[50px] mb-[10px]">
-                        {feature.icon}
-                    </div>
-                    <div className="text-sm font-normal text-center">
-                        {feature.title}
-                    </div>
-                </Link>
-            ))}
+            {featureList.map((feature, index) =>
+                feature.link === "/dang-ky-hoc-phan" ? (
+                    <Link
+                        to={feature.link}
+                        key={index}
+                        onClick={() => handleResetCourseRegisterPage(dispatch)}
+                        className="flex flex-col items-center justify-center rounded-lg shadow-md bg-lite p-[10px] h-[120px]"
+                    >
+                        <div className="text-tertiary w-full flex items-center justify-center h-[50px] mb-[10px]">
+                            {feature.icon}
+                        </div>
+                        <div className="text-sm font-normal text-center">
+                            {feature.title}
+                        </div>
+                    </Link>
+                ) : (
+                    <Link
+                        to={feature.link}
+                        key={index}
+                        className="flex flex-col items-center justify-center rounded-lg shadow-md bg-lite p-[10px] h-[120px]"
+                    >
+                        <div className="text-tertiary w-full flex items-center justify-center h-[50px] mb-[10px]">
+                            {feature.icon}
+                        </div>
+                        <div className="text-sm font-normal text-center">
+                            {feature.title}
+                        </div>
+                    </Link>
+                )
+            )}
         </div>
     );
 };

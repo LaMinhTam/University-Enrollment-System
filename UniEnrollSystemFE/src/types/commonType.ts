@@ -1,3 +1,5 @@
+import { IPrerequisite } from "./courseType";
+
 export interface IClassesEnrolledSchedule {
     id: string;
     dayOfWeek: number;
@@ -10,6 +12,17 @@ export interface IClassesEnrolledSchedule {
     group?: number;
     classType: string;
     dayOff: Date[] | null;
+}
+
+export interface IWaitingCourse {
+    id: string;
+    name: string;
+    credit: number;
+    theoryCredit: number;
+    practicalCredit: number;
+    type: number;
+    prerequisites: IPrerequisite[];
+    fee: number | null;
 }
 
 export interface IScholarShipResponse {
@@ -27,6 +40,26 @@ export interface IStatisticsReport {
 export interface IPaymentResponse {
     message: string;
     data: string;
+    status: number;
+}
+export interface IWaitListResponse {
+    message: string;
+    data: string;
+    status: number;
+}
+
+export interface IWaitingCourseResponse {
+    message: string;
+    data: IWaitingCourse[];
+    status: number;
+}
+
+export interface ILearnedCreditResponse {
+    message: string;
+    data: {
+        totalEarnedCredits: number;
+        totalRequiredCredits: number;
+    };
     status: number;
 }
 

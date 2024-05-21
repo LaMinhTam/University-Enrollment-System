@@ -14,12 +14,11 @@ import {
     getAccessToken,
     saveAccessToken,
     saveRefreshToken,
-    saveUser,
 } from "../utils/auth";
 import { useEffect } from "react";
 import { useAuth } from "../contexts/auth-context";
 import isTokenExpire from "../utils/isTokenExpire";
-import CryptoJS from "crypto-js";
+import saveUserInfoToCookie from "../utils/saveUserInfoToCookie";
 
 const schema = yup.object().shape({
     id: yup
@@ -65,11 +64,10 @@ const LoginPage = () => {
                 saveRefreshToken(response.data.refreshToken);
                 setUserInfo(response.data.student);
                 // Encrypt the student data
-                const cipherText = CryptoJS.AES.encrypt(
-                    JSON.stringify(response.data.student),
+                saveUserInfoToCookie(
+                    response.data.student,
                     response.data.accessToken
-                ).toString();
-                saveUser(cipherText);
+                );
                 navigate("/");
             }
         } catch (error) {

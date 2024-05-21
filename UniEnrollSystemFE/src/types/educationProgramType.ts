@@ -1,3 +1,5 @@
+import { IPrerequisite } from "./courseType";
+
 interface IEducationPrograms {
     mandatoryCredits: number;
     electiveCredits: number;
@@ -18,14 +20,6 @@ interface ICourses {
     isPass: boolean;
 }
 
-interface IPrerequisite {
-    id: string;
-    name: string;
-    credit: number;
-    theoryCredit: number;
-    practicalCredit: number;
-}
-
 type EducationProgramsResponse = {
     message: string;
     data: { [key: string]: IEducationPrograms };
@@ -34,4 +28,4 @@ type EducationProgramsResponse = {
 
 export default EducationProgramsResponse;
 
-export type { IEducationPrograms, IPrerequisite, ICourses };
+export type { IEducationPrograms, ICourses };

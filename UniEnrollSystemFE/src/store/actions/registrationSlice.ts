@@ -1,7 +1,10 @@
 import { PayloadAction, createSlice } from "@reduxjs/toolkit";
 import { IClass, ICourseRegistration } from "../../types/courseType";
 import { IClassesEnrolled } from "../../types/classesEnrolledType";
-import { IClassesEnrolledSchedule } from "../../types/commonType";
+import {
+    IClassesEnrolledSchedule,
+    IWaitingCourse,
+} from "../../types/commonType";
 
 type RegistrationTypes = {
     registrationPeriod: {
@@ -12,6 +15,7 @@ type RegistrationTypes = {
         [key: string]: ICourseRegistration;
     } | null;
     registerClasses: IClassesEnrolled[];
+    waitingCourses: IWaitingCourse[];
     courseSelectedId: string;
     courseSelectedClasses: IClass[];
     storedCourseSelectedClasses: IClass[];
@@ -34,6 +38,7 @@ const initialState: RegistrationTypes = {
     },
     courses: null,
     registerClasses: [],
+    waitingCourses: [],
     courseSelectedId: "",
     courseSelectedClasses: [],
     storedCourseSelectedClasses: [],
@@ -70,6 +75,9 @@ const registrationSlice = createSlice({
             action: PayloadAction<IClassesEnrolled[]>
         ) => {
             state.registerClasses = action.payload;
+        },
+        setWaitingCourses: (state, action: PayloadAction<IWaitingCourse[]>) => {
+            state.waitingCourses = action.payload;
         },
         setCourseSelectedId: (state, action: PayloadAction<string>) => {
             state.courseSelectedId = action.payload;
@@ -139,5 +147,6 @@ export const {
     setCourseChangeQuantityId,
     setEnrollLoading,
     setCourseSelectedFee,
+    setWaitingCourses,
 } = registrationSlice.actions;
 export default registrationSlice.reducer;

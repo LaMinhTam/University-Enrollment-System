@@ -10,15 +10,22 @@ import Swal from "sweetalert2";
 import handleChangeClass from "../../utils/handleChangeClass";
 import handleEnrollClass from "../../utils/handleEnrollClass";
 import { Loading } from "../../components/common";
+import { UniEnrollSystemAPI } from "../../apis/constants";
 const Schedule = () => {
     const dispatch = useDispatch();
     const [selectedGroup, setSelectedGroup] = useState(0);
     const [isSelectedGroup, setIsSelectedGroup] = useState(false);
+
+    const [loading, setLoading] = useState<boolean>(false);
     const enrollLoading = useSelector(
         (state: RootState) => state.registration.enrollLoading
     );
     const classSchedule = useSelector(
         (state: RootState) => state.registration.classSchedule
+    );
+    console.log("Schedule ~ classSchedule:", classSchedule);
+    const waitingCourses = useSelector(
+        (state: RootState) => state.registration.waitingCourses
     );
     const registerClasses = useSelector(
         (state: RootState) => state.registration.registerClasses
@@ -108,6 +115,34 @@ const Schedule = () => {
             }
         }
     };
+
+    const handleRegistrationToSubClass = async () => {
+        const isExist = waitingCourses.some(
+            (item) => item.id === classSchedule.courseId
+        );
+        if (isExist) {
+            toast.error("Học phần đã được đăng ký dự phòng");
+            return;
+        } else {
+            try {
+                setLoading(true);
+                const response =
+                    await UniEnrollSystemAPI.registrationToWaitingList(
+                        classSchedule.courseId,
+                        classSchedule.semester,
+                        classSchedule.year
+                    );
+                if (response.status === 200) {
+                    setLoading(false);
+                    toast.success(response.message);
+                }
+            } catch (error) {
+                setLoading(false);
+                toast.error("Đã có lỗi xảy ra, vui lòng thử lại sau!");
+            }
+        }
+    };
+
     const handleClickedPracticeSchedule = (
         group: number,
         classType: string
@@ -205,13 +240,20 @@ const Schedule = () => {
                 </tbody>
             </table>
 
-            <div className="flex items-center justify-center">
+            <div className="flex items-center justify-center gap-x-3">
                 <button
-                    className="px-5 h-[44px] text-lite bg-tertiary w-[210px] mt-5 flex items-center justify-center"
+                    className="px-5 h-[44px] text-lite hover:bg-quinary bg-tertiary w-[210px] mt-5 flex items-center justify-center"
                     onClick={handleRegistrationClasses}
-                    disabled={enrollLoading}
+                    disabled={enrollLoading || !classSchedule.courseId}
                 >
                     {enrollLoading ? <Loading /> : "Đăng ký"}
+                </button>
+                <button
+                    className="px-5 h-[44px] text-text7 hover:bg-primary hover:text-lite bg-senary w-[230px] mt-5 flex items-center justify-center"
+                    onClick={handleRegistrationToSubClass}
+                    disabled={loading || !classSchedule.courseId}
+                >
+                    {loading ? <Loading /> : "Đăng ký lớp dự phòng"}
                 </button>
             </div>
         </div>

@@ -1,4 +1,4 @@
-import { ChangeEvent, useState } from "react";
+import { ChangeEvent, useEffect, useState } from "react";
 import { IMetric } from "../../types/commonType";
 import { IStudyResult } from "../../types/studyResultType";
 import { UniEnrollSystemAPI } from "../../apis/constants";
@@ -10,9 +10,30 @@ const StudentChartMetric = () => {
     const [loadingMetric, setLoadingMetric] = useState<boolean>(false);
     const [loadingProgram, setLoadingProgram] = useState<boolean>(false);
     const [metrics, setMetrics] = useState<IMetric>({} as IMetric);
-    console.log("StudentChartMetric ~ metrics:", metrics);
     const [programs, setPrograms] = useState<IStudyResult>({} as IStudyResult);
-    console.log("StudentChartMetric ~ programs:", programs);
+    const [loadingCredit, setLoadingCredit] = useState<boolean>(false);
+    const [learnedCredits, setLearnedCredits] = useState<{
+        totalEarnedCredits: number;
+        totalRequiredCredits: number;
+    }>({ totalEarnedCredits: 0, totalRequiredCredits: 0 });
+
+    useEffect(() => {
+        async function fetchLearnedCredits() {
+            try {
+                setLoadingCredit(true);
+                const response = await UniEnrollSystemAPI.getLearnedCredit();
+                if (response.data) {
+                    setLearnedCredits(response.data);
+                    setLoadingCredit(false);
+                }
+            } catch (error) {
+                setLoadingCredit(false);
+                console.log("Error: ", error);
+            }
+        }
+        if (learnedCredits.totalEarnedCredits === 0) fetchLearnedCredits();
+    }, [learnedCredits.totalEarnedCredits]);
+
     const handleSelectedMetric = async (e: ChangeEvent<HTMLSelectElement>) => {
         if (e.target.value === "0") return;
         try {
@@ -108,9 +129,16 @@ const StudentChartMetric = () => {
                     <span className="text-lg font-bold">Tiến độ học tập</span>
                 </div>
                 <div className="my-auto">
-                    <CreditProgressChart />
+                    {loadingCredit ? (
+                        <Loading />
+                    ) : (
+                        <CreditProgressChart data={learnedCredits} />
+                    )}
                 </div>
-                <span className="text-lg font-bold">117/156</span>
+                <span className="text-lg font-bold">
+                    {learnedCredits.totalEarnedCredits}/
+                    {learnedCredits.totalRequiredCredits}
+                </span>
             </div>
             <div className="w-full h-full p-[10px] bg-lite rounded-lg">
                 <div className="flex items-center justify-center h-[52px] border-b border-b-text3">
