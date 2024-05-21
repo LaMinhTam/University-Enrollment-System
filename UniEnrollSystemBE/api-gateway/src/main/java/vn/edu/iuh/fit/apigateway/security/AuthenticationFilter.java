@@ -37,8 +37,12 @@ public class AuthenticationFilter implements GatewayFilter {
 
             final String token = this.getAuthHeader(request);
 
-            if (jwtUtil.isInvalid(token))
-                return this.onError(exchange, "Authorization header is invalid", HttpStatus.UNAUTHORIZED);
+            if (jwtUtil.isInValid(token))
+                return this.onError(exchange, "Authorization header is invalid or expired", HttpStatus.UNAUTHORIZED);
+
+            if (routerValidator.isRefreshToken.test(request) && !jwtUtil.isRefreshToken(token)) {
+                return this.onError(exchange, "Invalid token type", HttpStatus.UNAUTHORIZED);
+            }
 
             this.populateRequestWithHeaders(exchange, token);
         }
