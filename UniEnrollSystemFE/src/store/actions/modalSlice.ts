@@ -1,5 +1,5 @@
 import { PayloadAction, createSlice } from "@reduxjs/toolkit";
-import { IClassesEnrolledSchedule } from "../../types/commonType";
+import { IClassesEnrolledSchedule, IReceiptData } from "../../types/commonType";
 import { IExistedSchedule } from "../../types/scheduleType";
 
 type ModalType = {
@@ -8,9 +8,11 @@ type ModalType = {
     isOpenPredictScholarshipModal: boolean;
     isOpenPaymentCheckedModal: boolean;
     isOpenWaitingCourseModal: boolean;
+    isOpenReceiptModal: boolean;
     checkedPaymentParams: string;
     classSelectedSchedule: IClassesEnrolledSchedule[];
     duplicateSchedule: IExistedSchedule[];
+    receiptData: IReceiptData;
 };
 
 const initialState: ModalType = {
@@ -19,9 +21,11 @@ const initialState: ModalType = {
     isOpenPredictScholarshipModal: false,
     isOpenPaymentCheckedModal: false,
     isOpenWaitingCourseModal: false,
+    isOpenReceiptModal: false,
     checkedPaymentParams: "",
     classSelectedSchedule: [],
     duplicateSchedule: [],
+    receiptData: {} as IReceiptData,
 };
 
 const modalSlice = createSlice({
@@ -64,6 +68,9 @@ const modalSlice = createSlice({
         ) => {
             state.isOpenWaitingCourseModal = action.payload;
         },
+        setIsOpenReceiptModal: (state, action: PayloadAction<boolean>) => {
+            state.isOpenReceiptModal = action.payload;
+        },
         setCheckedPaymentParams: (state, action: PayloadAction<string>) => {
             state.checkedPaymentParams = action.payload;
         },
@@ -72,6 +79,9 @@ const modalSlice = createSlice({
             action: PayloadAction<IExistedSchedule[]>
         ) => {
             state.duplicateSchedule = action.payload;
+        },
+        setReceiptData: (state, action: PayloadAction<IReceiptData>) => {
+            state.receiptData = action.payload;
         },
     },
 });
@@ -85,5 +95,7 @@ export const {
     setDuplicateSchedule,
     setIsOpenPredictScholarshipModal,
     setIsOpenWaitingCourseModal,
+    setIsOpenReceiptModal,
+    setReceiptData,
 } = modalSlice.actions;
 export default modalSlice.reducer;

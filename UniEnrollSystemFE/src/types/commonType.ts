@@ -1,4 +1,5 @@
 import { IPrerequisite } from "./courseType";
+import { IReceipt } from "./receiptType";
 
 export interface IClassesEnrolledSchedule {
     id: string;
@@ -12,6 +13,12 @@ export interface IClassesEnrolledSchedule {
     group?: number;
     classType: string;
     dayOff: Date[] | null;
+}
+
+export interface IReceiptData {
+    orderId: number;
+    orderCode: string;
+    receipt: IReceipt;
 }
 
 export interface IWaitingCourse {

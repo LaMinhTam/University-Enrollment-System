@@ -20,7 +20,7 @@ const StudentDebtPage = () => {
                 if (debtTime === "0") {
                     const response = await UniEnrollSystemAPI.getStudentDebt(
                         1,
-                        10
+                        100
                     );
                     if (response.status === 200) {
                         setLoading(false);

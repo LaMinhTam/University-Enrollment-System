@@ -6,6 +6,7 @@ import StudentChartMetric from "../modules/student/StudentChartMetric";
 
 const DashboardPage = () => {
     const { userInfo } = useAuth();
+
     return (
         <RequiredAuthPage>
             <div className="w-full max-w-[1140px] mx-auto pb-16">

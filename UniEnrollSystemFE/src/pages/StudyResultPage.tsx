@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import Toggle from "../components/toogle";
+// import Toggle from "../components/toogle";
 import useToggleValue from "../hooks/useToggleValue";
 import TableBody from "../modules/study/TableBody";
 import TableHeader from "../modules/study/TableHeader";
@@ -45,11 +45,11 @@ const StudyResultPage = () => {
                 <div className="w-full shadow-md bg-lite p-[10px]">
                     <div className="flex items-center justify-start gap-x-[100px]">
                         <h1 className="text-lg font-bold">Kết quả học tập</h1>
-                        <Toggle
+                        {/* <Toggle
                             checked={isOpenCalculatePointFeature}
                             text="Bật tính năng tính điểm"
                             onChange={setIsOpenCalculatePointFeature}
-                        />
+                        /> */}
                         <button
                             onClick={() =>
                                 dispatch(setIsOpenPredictScholarshipModal(true))

@@ -7,7 +7,7 @@ const paymentInfo = "UNI_ENROLL_SYSTEM_PAYMENT_INFO";
 
 const objCookies = {
     expires: 30,
-    domain: "localhost",
+    domain: window.location.hostname,
 };
 
 export const saveAccessToken = (access_token: string) => {
@@ -19,7 +19,7 @@ export const saveAccessToken = (access_token: string) => {
         Cookies.remove(accessTokenKey, {
             ...objCookies,
             path: "/",
-            domain: "localhost",
+            domain: window.location.hostname,
         });
     }
 };
@@ -33,7 +33,7 @@ export const saveRefreshToken = (refresh_token: string) => {
         Cookies.remove(refreshTokenKey, {
             ...objCookies,
             path: "/",
-            domain: "localhost",
+            domain: window.location.hostname,
         });
     }
 };
@@ -47,7 +47,7 @@ export const saveUser = (id: string) => {
         Cookies.remove(user, {
             ...objCookies,
             path: "/",
-            domain: "localhost",
+            domain: window.location.hostname,
         });
     }
 };
@@ -61,7 +61,7 @@ export const savePaymentInfo = (info: string) => {
         Cookies.remove(paymentInfo, {
             ...objCookies,
             path: "/",
-            domain: "localhost",
+            domain: window.location.hostname,
         });
     }
 };

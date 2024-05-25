@@ -29,10 +29,15 @@ const login = async (data: ILogin) => {
 };
 
 const refreshToken = async (refreshToken: string) => {
-    const response = await axiosPrivate.post<LoginResponse>(
+    const response = await axios.post<LoginResponse>(
         `/auth/refresh-token`,
         {
             refreshToken: refreshToken,
+        },
+        {
+            headers: {
+                Authorization: `Bearer ${refreshToken}`,
+            },
         }
     );
     return response.data;
