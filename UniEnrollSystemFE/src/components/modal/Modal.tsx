@@ -6,6 +6,7 @@ import ScheduleDuplicateModal from "./ScheduleDuplicateModal";
 import PredictScholarshipModal from "./PredictScholarshipModal";
 import PaymentCheckModal from "./PaymentCheckModal";
 import WaitingCourseListModal from "./WaitingCourseListModal";
+import ModalReceipt from "./ModalReceipt";
 
 const Modal = () => {
     const isOpenWatchScheduleModal = useSelector(
@@ -22,6 +23,9 @@ const Modal = () => {
     );
     const isOpenWaitingCourseModal = useSelector(
         (state: RootState) => state.modal.isOpenWaitingCourseModal
+    );
+    const isOpenReceiptModal = useSelector(
+        (state: RootState) => state.modal.isOpenReceiptModal
     );
     return (
         <>
@@ -64,6 +68,14 @@ const Modal = () => {
                 className="modal-content w-full max-w-[1000px] bg-white rounded outline-none relative"
             >
                 <WaitingCourseListModal />
+            </ReactModal>
+            <ReactModal
+                isOpen={isOpenReceiptModal}
+                overlayClassName="modal-overlay fixed inset-0 bg-black bg-opacity-40 z-50
+                flex justify-center items-center"
+                className="modal-content w-full max-w-[1000px] bg-white rounded outline-none relative"
+            >
+                <ModalReceipt />
             </ReactModal>
         </>
     );
