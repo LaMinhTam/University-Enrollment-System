@@ -197,13 +197,20 @@ services:
         environment:
             - CONFIG_SERVER_URL=http://config-server:8888
             - EUREKA_CLIENT_SERVICEURL_DEFAULTZONE=http://service-registry:8761/eureka/
+            - SPRING_DATA_REDIS_DATABASE=0
+            - SPRING_DATA_REDIS_HOST=redis
+            - SPRING_DATA_REDIS_PORT=6379
+            - SPRING_DATA_REDIS_TIMEOUT=60000
+            - SPRING_DATA_REDIS_PASSWORD=123456
         volumes:
             - ./UniEnrollSystemBE/api-gateway:/config
         networks:
             - backend
+            - db-redis-net
         depends_on:
             - service-registry
             - config-server
+            - redis
         deploy:
             resources:
                 limits:
@@ -228,6 +235,11 @@ services:
             - SPRING_JPA_SHOW_SQL=false
             - JWT_SECRET=4d5a23bd0646523b4aaae7a51a92a62babcb4eb353843a3fa4ef4ef05f534a68
             - JWT_EXPIRATION=86400
+            - SPRING_DATA_REDIS_DATABASE=0
+            - REDIS_HOST=redis
+            - REDIS_PORT=6379
+            - SPRING_DATA_REDIS_TIMEOUT=60000
+            - SPRING_DATA_REDIS_PASSWORD=123456
         volumes:
             - ./UniEnrollSystemBE/auth-service:/config
         depends_on:
@@ -235,9 +247,11 @@ services:
             - config-server
             - gateway
             - mysql
+            - redis
         networks:
             - backend
             - db-mysql-net
+            - db-redis-net
         deploy:
             resources:
                 limits:
