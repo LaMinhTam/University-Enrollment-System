@@ -4,10 +4,10 @@ import { setIsOpenReceiptModal } from "../../store/actions/modalSlice";
 import CloseRoundedIcon from "@mui/icons-material/CloseRounded";
 import PrintIcon from "@mui/icons-material/Print";
 import { useReactToPrint } from "react-to-print";
-import { PDFDownloadLink } from "@react-pdf/renderer";
 import { RootState } from "../../store/configureStore";
-import ReceiptPDF from "../../modules/receipt/ReceiptPDF";
-import { useAuth } from "../../contexts/auth-context";
+// import { PDFDownloadLink } from "@react-pdf/renderer";
+// import { useAuth } from "../../contexts/auth-context";
+// import ReceiptPDF from "../../modules/receipt/ReceiptPDF";
 
 const ModalReceipt = () => {
     const dispatch = useDispatch();
@@ -19,8 +19,7 @@ const ModalReceipt = () => {
     const handlePrint = useReactToPrint({
         content: () => componentRef.current,
     });
-
-    const { userInfo } = useAuth();
+    // const { userInfo } = useAuth();
 
     return (
         <div className="w-[1000px] h-full flex flex-col rounded-lg">
@@ -56,22 +55,30 @@ const ModalReceipt = () => {
                     <PrintIcon />
                     <span>In phiếu thu</span>
                 </button>
-                <PDFDownloadLink
-                    document={
-                        <ReceiptPDF
-                            receiptData={receiptData}
-                            userInfo={userInfo}
-                        />
-                    }
-                    fileName="receipt.pdf"
-                    className="flex items-center justify-center w-[150px] h-[28px] px-2
+                {/* <div className="flex items-center justify-end mt-5 mr-5">
+                    <PDFDownloadLink
+                        document={
+                            <ReceiptPDF
+                                receiptData={receiptData}
+                                userInfo={userInfo}
+                            />
+                        }
+                        fileName="receipt.pdf"
+                    >
+                        {({ loading }) => (
+                            <button
+                                className="flex items-center justify-center w-[150px] h-[28px] px-2
                             rounded hover:text-tertiary hover:bg-strock gap-x-2 bg-tertiary 
-                            text-lite text-[12px] font-normal shadow-md ml-3"
-                >
-                    {({ loading }) =>
-                        loading ? "Loading document..." : "Tải PDF"
-                    }
-                </PDFDownloadLink>
+                            text-lite text-[12px] font-normal shadow-md"
+                            >
+                                <PrintIcon />
+                                <span>
+                                    {loading ? "Loading..." : "In phiếu thu"}
+                                </span>
+                            </button>
+                        )}
+                    </PDFDownloadLink>
+                </div> */}
             </div>
             <div className="p-2">
                 <table

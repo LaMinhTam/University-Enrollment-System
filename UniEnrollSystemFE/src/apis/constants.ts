@@ -29,7 +29,6 @@ const login = async (data: ILogin) => {
 };
 
 const refreshToken = async (refreshToken: string) => {
-    console.log("refreshToken ~ refreshToken:", refreshToken);
     const response = await axios.post<LoginResponse>(
         `/auth/refresh-token`,
         {

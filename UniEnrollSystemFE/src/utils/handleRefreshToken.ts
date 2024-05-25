@@ -9,9 +9,7 @@ export default async function handleRefreshToken(
     navigate: NavigateFunction
 ) {
     try {
-        console.log("refreshToken:", refreshToken);
         const response = await UniEnrollSystemAPI.refreshToken(refreshToken);
-        console.log("response:", response);
         if (response.status === 200) {
             console.log("Refresh token success");
             saveAccessToken(response.data.accessToken);

@@ -1,4 +1,3 @@
-import LoginBG from "../assets/login-bg.svg";
 import Input from "../components/input";
 
 import { useForm } from "react-hook-form";
@@ -84,16 +83,20 @@ const LoginPage = () => {
     }, [accessToken, navigate]);
 
     return (
-        <div className="w-full h-screen bg-strock">
-            <div className="flex items-center justify-center w-full py-3 shadow-md bg-lite">
+        <div className="w-full h-full md:w-full md:h-screen bg-strock">
+            <div className="flex items-center justify-center py-3 shadow-md md:w-full bg-lite">
                 <img src="./login-banner.png" alt="" />
             </div>
             <div className="flex items-center justify-center gap-x-10">
-                <img srcSet={LoginBG} alt="UniEnrollSystem" />
+                <img
+                    srcSet={"login-bg.svg"}
+                    alt="UniEnrollSystem"
+                    className="hidden md:block"
+                />
                 <form
                     onSubmit={handleSubmit(handleSignIn)}
                     autoComplete="off"
-                    className="p-10 rounded-lg bg-lite max-w-[368px]"
+                    className="p-10 rounded-lg bg-lite max-w-[368px] h-full"
                 >
                     <FormGroup>
                         <p className="text-xl font-semibold text-center text-primary">
