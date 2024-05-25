@@ -236,8 +236,8 @@ services:
             - JWT_SECRET=4d5a23bd0646523b4aaae7a51a92a62babcb4eb353843a3fa4ef4ef05f534a68
             - JWT_EXPIRATION=86400
             - SPRING_DATA_REDIS_DATABASE=0
-            - REDIS_HOST=redis
-            - REDIS_PORT=6379
+            - SPRING_DATA_REDIS_HOST=redis
+            - SPRING_DATA_REDIS_PORT=6379
             - SPRING_DATA_REDIS_TIMEOUT=60000
             - SPRING_DATA_REDIS_PASSWORD=123456
         volumes:
