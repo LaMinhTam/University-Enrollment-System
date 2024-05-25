@@ -2,8 +2,53 @@ import { Link } from "react-router-dom";
 import { IStudent } from "../../types/studentType";
 import BoxItem from "./BoxItem";
 import { defaultImage } from "../../constants/global";
+import { useEffect, useState } from "react";
+import { UniEnrollSystemAPI } from "../../apis/constants";
+import { ScheduleData } from "../../types/studyScheduleType";
 
 const StudentInfo = ({ userInfo }: { userInfo: IStudent }) => {
+    const [learnCount, setLearnCount] = useState<number>(0);
+    const [examCount, setExamCount] = useState<number>(0);
+    useEffect(() => {
+        async function fetchStudySchedule() {
+            try {
+                const day = new Date().getDate();
+                const month = new Date().getMonth() + 1;
+                const year = new Date().getFullYear();
+                const response = await UniEnrollSystemAPI.getStudentSchedule(
+                    day,
+                    month,
+                    year
+                );
+                if (response.status === 200) {
+                    const data = response.data;
+                    let learnCount = 0;
+                    let examCount = 0;
+                    data.forEach((item: ScheduleData) => {
+                        item.schedule.forEach((i) => {
+                            if (
+                                ["THEORY", "PRACTICE"].includes(
+                                    i.schedules.classType
+                                )
+                            )
+                                learnCount++;
+                            if (
+                                ["FINAL_EXAM", "MID_TERM_EXAM"].includes(
+                                    i.schedules.classType
+                                )
+                            )
+                                examCount++;
+                        });
+                    });
+                    setLearnCount(learnCount);
+                    setExamCount(examCount);
+                }
+            } catch (error) {
+                console.log(error);
+            }
+        }
+        fetchStudySchedule();
+    }, []);
     return (
         <div className="flex items-center justify-center pt-[10px] gap-x-5">
             <div className="flex-3 p-[10px] bg-lite rounded-lg shadow-md">
@@ -77,8 +122,8 @@ const StudentInfo = ({ userInfo }: { userInfo: IStudent }) => {
             <div className="flex-1 flex flex-col gap-y-[15px]">
                 <BoxItem type="reminder" num={0} />
                 <div className="flex items-center justify-center gap-x-[15px]">
-                    <BoxItem type="learn-calendar" num={4} />
-                    <BoxItem type="exam-calendar" num={0} />
+                    <BoxItem type="learn-calendar" num={learnCount} />
+                    <BoxItem type="exam-calendar" num={examCount} />
                 </div>
             </div>
         </div>

@@ -8,12 +8,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../store/configureStore";
 import { UniEnrollSystemAPI } from "../../apis/constants";
 import { toast } from "react-toastify";
-import {
-    setCourseChangeQuantityClassId,
-    setCourseChangeQuantityId,
-    setIsRemoveClass,
-    setRegisterClasses,
-} from "../../store/actions/registrationSlice";
+import { setRegisterClasses } from "../../store/actions/registrationSlice";
 import {
     setClassSelectedSchedule,
     setIsOpenWatchScheduleModal,
@@ -40,10 +35,7 @@ const TableRegistration = () => {
     const handleCalculateTotalCredit = (data: IClassesEnrolled[]) => {
         return data.reduce((acc, cur) => acc + cur.credit, 0);
     };
-    const handleRemoveClassesRegistration = async (
-        id: string,
-        courseId: string
-    ) => {
+    const handleRemoveClassesRegistration = async (id: string) => {
         if (!id) return;
         try {
             const response = await UniEnrollSystemAPI.removeClassesEnrolled(id);
@@ -52,9 +44,6 @@ const TableRegistration = () => {
                     (item) => item.id !== id
                 );
                 dispatch(setRegisterClasses(newRegisterClasses));
-                dispatch(setCourseChangeQuantityId(courseId));
-                dispatch(setCourseChangeQuantityClassId(id));
-                dispatch(setIsRemoveClass(true));
                 toast.success("Hủy lớp học phần thành công");
             } else {
                 toast.error(response.message);
@@ -135,8 +124,7 @@ const TableRegistration = () => {
                                             <button
                                                 onClick={() =>
                                                     handleRemoveClassesRegistration(
-                                                        item.id,
-                                                        item.courseId
+                                                        item.id
                                                     )
                                                 }
                                                 className="w-full h-[40px] hover:bg-error hover:text-lite"

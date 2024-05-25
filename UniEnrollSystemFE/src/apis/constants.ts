@@ -11,6 +11,7 @@ import {
 import CourseRegistrationResponse from "../types/courseType";
 import DebtResponse, { DebtBySemesterResponse } from "../types/debtTypes";
 import EducationProgramsResponse from "../types/educationProgramType";
+import ReceiptResponse from "../types/receiptType";
 import ClassScheduleResponse from "../types/scheduleType";
 import LoginResponse, { ILogin } from "../types/studentType";
 import StudyResultsResponse, {
@@ -212,6 +213,13 @@ const getLearnedCredit = async () => {
     return response.data;
 };
 
+const getReceipts = async (page: number, size: number) => {
+    const response = await axiosPrivate.get<ReceiptResponse>(
+        `/invoices?page=${page}&size=${size}`
+    );
+    return response.data;
+};
+
 export const UniEnrollSystemAPI = {
     login,
     refreshToken,
@@ -235,4 +243,5 @@ export const UniEnrollSystemAPI = {
     getWaitingCourses,
     logout,
     getLearnedCredit,
+    getReceipts,
 };

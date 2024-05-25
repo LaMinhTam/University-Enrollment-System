@@ -47,8 +47,13 @@
     @apply text-tertiary font-bold w-[150px];
 }
 
-.table-schedule thead th {
+.table-schedule thead th,
+.table-receipt thead th {
     @apply text-tertiary bg-text8;
+}
+
+.table-receipt td {
+    @apply text-text2 font-medium text-center;
 }
 
 .tblStudyResult th {

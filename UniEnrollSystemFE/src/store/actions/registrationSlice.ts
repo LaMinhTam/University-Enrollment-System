@@ -23,11 +23,8 @@ type RegistrationTypes = {
     classesEnrolledSchedule: IClassesEnrolledSchedule[];
     isFilterDuplicateSchedule: boolean;
     classSelectedId: string;
-    courseChangeQuantityClassId: string;
-    courseChangeQuantityId: string;
     courseSelectedCredit: number;
     courseSelectedFee: number;
-    isRemoveClass: boolean;
     enrollLoading: boolean;
 };
 
@@ -46,11 +43,8 @@ const initialState: RegistrationTypes = {
     classesEnrolledSchedule: [],
     isFilterDuplicateSchedule: false,
     classSelectedId: "",
-    courseChangeQuantityClassId: "",
     courseSelectedCredit: 0,
     courseSelectedFee: 0,
-    isRemoveClass: false,
-    courseChangeQuantityId: "",
     enrollLoading: false,
 };
 
@@ -106,23 +100,11 @@ const registrationSlice = createSlice({
         setClassSelectedId: (state, action: PayloadAction<string>) => {
             state.classSelectedId = action.payload;
         },
-        setCourseChangeQuantityClassId: (
-            state,
-            action: PayloadAction<string>
-        ) => {
-            state.courseChangeQuantityClassId = action.payload;
-        },
         setCourseSelectedCredit: (state, action: PayloadAction<number>) => {
             state.courseSelectedCredit = action.payload;
         },
         setCourseSelectedFee: (state, action: PayloadAction<number>) => {
             state.courseSelectedFee = action.payload;
-        },
-        setIsRemoveClass: (state, action: PayloadAction<boolean>) => {
-            state.isRemoveClass = action.payload;
-        },
-        setCourseChangeQuantityId: (state, action: PayloadAction<string>) => {
-            state.courseChangeQuantityId = action.payload;
         },
         setEnrollLoading: (state, action: PayloadAction<boolean>) => {
             state.enrollLoading = action.payload;
@@ -141,10 +123,7 @@ export const {
     setClassesEnrolledSchedule,
     setIsFilterDuplicateSchedule,
     setClassSelectedId,
-    setCourseChangeQuantityClassId,
     setCourseSelectedCredit,
-    setIsRemoveClass,
-    setCourseChangeQuantityId,
     setEnrollLoading,
     setCourseSelectedFee,
     setWaitingCourses,

@@ -14,7 +14,6 @@ import { AuthProvider } from "./contexts/auth-context.tsx";
 import LoginPage from "./pages/LoginPage.tsx";
 import AuthType from "./types/authType.ts";
 import store from "./store/configureStore.ts";
-import StudyResultPage from "./pages/StudyResultPage.tsx";
 import Loading from "./components/common/Loading.tsx";
 const LayoutDashboard = React.lazy(
     () => import("./layout/LayoutDashboard.tsx")
@@ -40,6 +39,8 @@ const OnlinePaymentPage = React.lazy(
 const StudentDebtPage = React.lazy(() => import("./pages/StudentDebtPage.tsx"));
 
 const ReceiptPage = React.lazy(() => import("./pages/ReceiptPage.tsx"));
+const NotFoundPage = React.lazy(() => import("./pages/NotFoundPage.tsx"));
+const StudyResultPage = React.lazy(() => import("./pages/StudyResultPage.tsx"));
 
 const router = createBrowserRouter([
     {
@@ -63,26 +64,27 @@ const router = createBrowserRouter([
             },
             {
                 path: "/ket-qua-hoc-tap",
-                element: <StudyResultPage></StudyResultPage>,
+                element: <StudyResultPage />,
             },
             {
                 path: "/thanh-toan-truc-tuyen",
-                element: <OnlinePaymentPage></OnlinePaymentPage>,
+                element: <OnlinePaymentPage />,
             },
             {
                 path: "/cong-no-sinh-vien",
-                element: <StudentDebtPage></StudentDebtPage>,
+                element: <StudentDebtPage />,
             },
             {
                 path: "/phieu-thu-tong-hop",
-                element: <ReceiptPage></ReceiptPage>,
+                element: <ReceiptPage />,
             },
         ],
     },
     {
-        element: <LoginPage></LoginPage>,
+        element: <LoginPage />,
         path: "/dang-nhap",
     },
+    { path: "*", element: <NotFoundPage /> },
 ]);
 
 ReactDOM.createRoot(document.getElementById("root")!).render(

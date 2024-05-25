@@ -5,18 +5,14 @@ import { useDispatch, useSelector } from "react-redux";
 import {
     setClassSchedule,
     setClassSelectedId,
-    setCourseChangeQuantityClassId,
-    setCourseChangeQuantityId,
     setCourseSelectedClasses,
     setCourseSelectedCredit,
     setCourseSelectedFee,
     setCourseSelectedId,
-    setIsRemoveClass,
     setStoredSelectedClasses,
 } from "../../store/actions/registrationSlice";
 import { RootState } from "../../store/configureStore";
 import filterDuplicateSchedule from "../../utils/filterDuplicateSchedule";
-import { useEffect } from "react";
 import { Fail, Success } from "../../components/common";
 import handleTooltipContent from "../../utils/handleTooltipContent";
 const TableCourse = ({
@@ -40,15 +36,6 @@ const TableCourse = ({
     );
     const classesEnrolledSchedule = useSelector(
         (state: RootState) => state.registration.classesEnrolledSchedule
-    );
-    const isRemoveClass = useSelector(
-        (state: RootState) => state.registration.isRemoveClass
-    );
-    const courseChangeQuantityId = useSelector(
-        (state: RootState) => state.registration.courseChangeQuantityId
-    );
-    const courseChangeQuantityClassId = useSelector(
-        (state: RootState) => state.registration.courseChangeQuantityClassId
     );
 
     const handleClickCourse = (item: ICourseRegistration) => {
@@ -77,40 +64,6 @@ const TableCourse = ({
         dispatch(setClassSchedule({} as IClass));
         tableClassesRef.current?.scrollIntoView({ behavior: "smooth" });
     };
-
-    useEffect(() => {
-        if (
-            isRemoveClass &&
-            courseChangeQuantityClassId &&
-            courseChangeQuantityId
-        ) {
-            const classes = data[courseChangeQuantityId].classes;
-            const updatedClasses = {} as { [key: string]: IClass };
-
-            Object.keys(classes).forEach((key) => {
-                if (key === courseChangeQuantityClassId) {
-                    updatedClasses[key] = {
-                        ...classes[key],
-                        quantity: classes[key].quantity - 1,
-                    };
-                } else {
-                    updatedClasses[key] = classes[key];
-                }
-            });
-
-            data[courseChangeQuantityId].classes = updatedClasses;
-
-            dispatch(setCourseChangeQuantityClassId(""));
-            dispatch(setCourseChangeQuantityId(""));
-            dispatch(setIsRemoveClass(false));
-        }
-    }, [
-        courseChangeQuantityClassId,
-        courseChangeQuantityId,
-        data,
-        dispatch,
-        isRemoveClass,
-    ]);
 
     if (!data) return null;
     return (
