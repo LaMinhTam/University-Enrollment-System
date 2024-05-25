@@ -489,6 +489,38 @@ services:
                 reservations:
                     memory: 256M
 
+    notification-service:
+        image: laminhtam/notification-service:latest
+        restart: always
+        ports:
+            - "8090:8090"
+        environment:
+            - CONFIG_SERVER_URL=http://config-server:8888
+            - EUREKA_CLIENT_SERVICEURL_DEFAULTZONE=http://service-registry:8761/eureka/
+            - SPRING_RABBITMQ_HOST=rabbitmq
+            - SPRING_RABBITMQ_PORT=5672
+            - SPRING_RABBITMQ_USERNAME=admin
+            - SPRING_RABBITMQ_PASSWORD=123456
+        volumes:
+            - ./UniEnrollSystemBE/notification-service:/config
+        depends_on:
+            - service-registry
+            - config-server
+            - gateway
+            - mongodb
+            - rabbitmq
+        networks:
+            - backend
+            - db-mongodb-net
+            - rabbitmq-net
+        deploy:
+            resources:
+                limits:
+                    cpus: "0.50"
+                    memory: 512M
+                reservations:
+                    memory: 256M
+
 volumes:
     mysql-data:
     mongodb-data:
