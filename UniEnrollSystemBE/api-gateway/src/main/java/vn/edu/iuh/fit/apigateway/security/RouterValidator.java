@@ -11,8 +11,7 @@ public class RouterValidator {
 
     public static final List<String> openApiEndpoints = List.of(
             "/auth/register",
-            "/auth/login",
-            "/auth/refresh-token"
+            "/auth/login"
     );
 
     public Predicate<ServerHttpRequest> isSecured =
@@ -20,4 +19,6 @@ public class RouterValidator {
                     .stream()
                     .noneMatch(uri -> request.getURI().getPath().contains(uri));
 
+    public Predicate<ServerHttpRequest> isRefreshToken =
+            request -> request.getURI().getPath().contains("/auth/refresh-token");
 }

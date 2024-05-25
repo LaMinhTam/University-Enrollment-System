@@ -6,7 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.data.util.Pair;
 import org.springframework.test.annotation.Rollback;
-import vn.edu.iuh.fit.grademanagementservice.models.Course;
+import vn.edu.iuh.fit.grademanagementservice.dtos.Course;
 import vn.edu.iuh.fit.grademanagementservice.models.CourseReportStatus;
 import vn.edu.iuh.fit.grademanagementservice.models.GradeReport;
 import vn.edu.iuh.fit.grademanagementservice.models.SemesterSummary;

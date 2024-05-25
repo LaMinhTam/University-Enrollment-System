@@ -7,6 +7,7 @@ import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.security.Keys;
 import jakarta.annotation.PostConstruct;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Component;
 
 import java.security.Key;
@@ -19,6 +20,11 @@ public class JwtUtil {
     private String secret;
 
     private Key key;
+    private final RedisTemplate<String, Object> redisTemplate;
+
+    public JwtUtil(RedisTemplate<String, Object> redisTemplate) {
+        this.redisTemplate = redisTemplate;
+    }
 
     @PostConstruct
     public void init() {
@@ -39,8 +45,12 @@ public class JwtUtil {
         }
     }
 
-    public boolean isInvalid(String token) {
-        return this.isTokenExpired(token);
+    //not in blacklist redis
+    public boolean isInValid(String token) {
+        return this.isTokenExpired(token) || redisTemplate.hasKey(token.substring(7));
     }
 
+    public boolean isRefreshToken(String token) {
+        return this.getAllClaimsFromToken(token).get("type").equals("REFRESH");
+    }
 }

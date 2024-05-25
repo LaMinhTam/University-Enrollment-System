@@ -20,9 +20,8 @@ public class JwtUtil {
     @Value("${jwt.secret}")
     private String secret;
 
-    @Value("${jwt.expiration}")
+    @Value("${jwt.access-expiration}")
     private String expirationTime;
-
     private Key key;
 
     @PostConstruct
@@ -39,7 +38,7 @@ public class JwtUtil {
         return getAllClaimsFromToken(token).getExpiration();
     }
 
-    public Boolean isTokenExpired(String token) {
+    public boolean isTokenExpired(String token) {
         final Date expiration = getExpirationDateFromToken(token);
         return expiration.before(new Date());
     }
@@ -47,11 +46,12 @@ public class JwtUtil {
     public String generate(StudentDTO studentDTO, Student student, String type) {
         Map<String, Object> claims = new HashMap<>();
         claims.put("id", student.getId());
-        if("ACCESS".equals(type)){
+        if ("ACCESS".equals(type)) {
             claims.put("major_id", studentDTO.majorId());
             claims.put("academic_year", studentDTO.year());
             claims.put("role", student.getRoles().stream().findFirst().get().getName());
         }
+        claims.put("type", type);
         return doGenerateToken(claims, student.getId(), type);
     }
 
@@ -60,7 +60,7 @@ public class JwtUtil {
         if ("ACCESS".equals(type)) {
             expirationTimeLong = Long.parseLong(expirationTime) * 1000;
         } else {
-            expirationTimeLong = Long.parseLong(expirationTime) * 1000 * 5;
+            expirationTimeLong = Long.parseLong(expirationTime) * 1000 * 8;
         }
         final Date createdDate = new Date();
         final Date expirationDate = new Date(createdDate.getTime() + expirationTimeLong);

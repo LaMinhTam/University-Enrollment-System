@@ -81,7 +81,13 @@ spring:
             allowedHeaders:
               - "*"
             allowCredentials: true
-
+  data:
+    redis:
+      database: 0
+      host: redis
+      port: 6379
+      timeout: 60000
+      password: 123456
   main:
     web-application-type: reactive
 

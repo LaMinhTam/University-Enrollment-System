@@ -23,7 +23,17 @@ spring:
     properties:
       hibernate:
         format_sql: true
+  data:
+    redis:
+      database: 0
+      host: localhost
+      port: 6379
+      timeout: 60000
+      password: 123456
 
 jwt:
   secret: 4d5a23bd0646523b4aaae7a51a92a62babcb4eb353843a3fa4ef4ef05f534a68
-  expiration: 86400
+#  60*15=900
+  access-expiration: 900
+#  60*60*2=7200
+  refresh-expiration: 7200
