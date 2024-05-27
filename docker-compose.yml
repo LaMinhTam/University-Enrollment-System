@@ -74,13 +74,6 @@ services:
             - ./database/init-mongo.js:/docker-entrypoint-initdb.d/init-mongo.js
         networks:
             - db-mongodb-net
-        deploy:
-            resources:
-                limits:
-                    cpus: "0.50"
-                    memory: 512M
-                reservations:
-                    memory: 256M
 
     mongo-express:
         image: mongo-express

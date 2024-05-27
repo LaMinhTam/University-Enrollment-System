@@ -1,3 +1,3 @@
-const apiURL = "http://localhost:8060";
+const apiURL = "http://192.168.193.162:8060";
 
 export default apiURL;
