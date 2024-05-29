@@ -29,7 +29,7 @@ const PredictScholarshipModal = () => {
                     setPredictResult(response.data);
                 }
             } catch (error) {
-                toast.error("Đã có lỗi xảy ra vui lòng thử lại sau!");
+                console.error("Đã có lỗi xảy ra vui lòng thử lại sau!");
                 setLoading(false);
             }
         }

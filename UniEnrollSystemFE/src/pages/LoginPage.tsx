@@ -83,11 +83,11 @@ const LoginPage = () => {
     }, [accessToken, navigate]);
 
     return (
-        <div className="w-full h-full md:w-full md:h-screen bg-strock">
-            <div className="flex items-center justify-center py-3 shadow-md md:w-full bg-lite">
+        <div className="w-full h-screen bg-strock">
+            <div className="flex items-center justify-center w-full py-3 mb-10 shadow-md bg-lite">
                 <img src="./login-banner.png" alt="" />
             </div>
-            <div className="flex items-center justify-center gap-x-10">
+            <div className="flex items-center justify-center md:gap-x-10">
                 <img
                     srcSet={"login-bg.svg"}
                     alt="UniEnrollSystem"

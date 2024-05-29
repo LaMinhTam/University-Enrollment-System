@@ -117,7 +117,7 @@ const TableRegistration = () => {
                                 </button>
                                 {showAction && classesClickedId === item.id && (
                                     <div
-                                        className="absolute top-[-20px] left-[-125px] z-50"
+                                        className="absolute md:top-[-20px] top-0 left-[100px] md:left-[-125px] z-50"
                                         ref={actionRef}
                                     >
                                         <div className="flex flex-col w-full h-[80px] min-w-[120px] bg-lite shadow-md">

@@ -9,7 +9,6 @@ import {
     setReceiptData,
 } from "../../store/actions/modalSlice";
 const ReceiptTable = ({ data }: { data: IReceipt[] }) => {
-    console.log("ReceiptTable ~ data:", data);
     const dispatch = useDispatch();
     const [receptSelectedId, setReceptSelectedId] = useState<string>("");
     const handleSelectedReceipt = (

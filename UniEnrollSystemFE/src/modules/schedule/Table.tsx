@@ -1,9 +1,8 @@
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import { RootState } from "../../store/configureStore";
 import { Schedule, ScheduleData } from "../../types/studyScheduleType";
 import { useEffect, useState } from "react";
 import { formatDate } from "../../utils/formatTime";
-import { setDates } from "../../store/actions/scheduleSlice";
 import { v4 as uuidv4 } from "uuid";
 import ScheduleItem from "./ScheduleItem";
 import { SCHEDULE_TYPE } from "../../constants/global";
@@ -28,30 +27,9 @@ const Table = ({ schedules }: { schedules: ScheduleData[] }) => {
         ScheduleCustomData[]
     >([]);
     const dates = useSelector((state: RootState) => state.schedule.dates);
-    const targetDate = useSelector(
-        (state: RootState) => state.schedule.targetDate
-    );
     const scheduleType = useSelector(
         (state: RootState) => state.schedule.scheduleType
     );
-    const dispatch = useDispatch();
-    useEffect(() => {
-        if (!dates || dates.length <= 0) {
-            const startOfWeek = new Date(targetDate);
-            startOfWeek.setDate(
-                startOfWeek.getDate() - startOfWeek.getDay() + 1
-            );
-
-            const weekDays = Array.from({ length: 7 }, (_, i) => {
-                const day = new Date(startOfWeek);
-                day.setDate(startOfWeek.getDate() + i);
-                return formatDate(day);
-            });
-
-            dispatch(setDates(weekDays));
-        }
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, []);
 
     useEffect(() => {
         if (data && data.length > 0 && dates && dates.length > 0) {
@@ -106,7 +84,6 @@ const Table = ({ schedules }: { schedules: ScheduleData[] }) => {
 
     useEffect(() => {
         if (schedules && [0, 1, 2].includes(scheduleType)) {
-            console.log("useEffect ~ scheduleType:", scheduleType);
             if (scheduleType === SCHEDULE_TYPE.ALL) {
                 setData(schedules);
             } else if (scheduleType === SCHEDULE_TYPE.STUDY) {

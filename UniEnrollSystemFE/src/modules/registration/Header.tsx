@@ -28,7 +28,7 @@ const Header = () => {
             <div className="py-2 mb-10 border-b border-b-text3">
                 <h1 className="text-lg font-semibold">Đăng ký học phần</h1>
             </div>
-            <div className="flex items-center justify-center mb-10 gap-x-2">
+            <div className="items-center justify-center block mb-10 md:flex gap-x-2">
                 <select
                     name="sltSemester"
                     id="sltSemester"
@@ -49,7 +49,7 @@ const Header = () => {
                     <option value="2-2021">Học kỳ 2 (2021-2022)</option>
                     <option value="1-2021">Học kỳ 1 (2021-2022)</option>
                 </select>
-                <div className="flex items-center justify-center gap-x-3">
+                <div className="flex items-center justify-start mt-2 md:justify-center gap-x-3 md:mt-0">
                     <div className="flex items-center justify-center gap-x-2">
                         <input type="radio" name="radOption" id="radNewLearn" />
                         <label

@@ -50,12 +50,12 @@ const StudentInfo = ({ userInfo }: { userInfo: IStudent }) => {
         fetchStudySchedule();
     }, []);
     return (
-        <div className="flex items-center justify-center pt-[10px] gap-x-5">
-            <div className="flex-3 p-[10px] bg-lite rounded-lg shadow-md">
+        <div className="md:flex items-center justify-center block pt-[10px] md:gap-x-5">
+            <div className="flex-3 p-[10px] bg-lite rounded-lg shadow-md md:mb-0 mb-[15px]">
                 <p className="text-lg font-semibold border-b border-b-text3 mb-[10px] py-2">
                     Thông tin sinh viên
                 </p>
-                <div className="flex items-start justify-center gap-x-2">
+                <div className="items-start justify-center block md:flex gap-x-2">
                     <div className="flex flex-col items-center justify-center flex-1">
                         <div className="w-[120px] h-[120px] rounded-full mb-[10px]">
                             <img
@@ -71,8 +71,8 @@ const StudentInfo = ({ userInfo }: { userInfo: IStudent }) => {
                             Xem chi tiết
                         </Link>
                     </div>
-                    <div className="flex-4 p-[15px] text-sm font-medium flex items-center justify-center gap-x-20">
-                        <div>
+                    <div className="flex-4 md:p-[15px] py-3 text-sm font-medium flex md:items-center items-start justify-center gap-x-5 md:gap-x-20">
+                        <div className="flex-1">
                             <div className="mb-[15px]">
                                 <span>MSSV: </span>
                                 <span>{userInfo.id}</span>
@@ -94,7 +94,7 @@ const StudentInfo = ({ userInfo }: { userInfo: IStudent }) => {
                                 <span>Tỉnh Phú Yên</span>
                             </div>
                         </div>
-                        <div>
+                        <div className="flex-1">
                             <div className="mb-[15px]">
                                 <span>Lớp học: </span>
                                 <span>DHKTPM17C</span>

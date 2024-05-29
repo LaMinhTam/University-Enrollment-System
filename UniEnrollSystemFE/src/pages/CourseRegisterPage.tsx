@@ -95,7 +95,7 @@ const CourseRegisterPage = () => {
 
     return (
         <RequiredAuthPage>
-            <div className="w-full h-full mt-5 bg-lite p-[10px] max-w-[1140px] mx-auto">
+            <div className="w-full h-full mt-5 bg-lite p-[10px] md:max-w-[1140px] md:mx-auto">
                 <Header />
                 {loading ? (
                     <Loading />

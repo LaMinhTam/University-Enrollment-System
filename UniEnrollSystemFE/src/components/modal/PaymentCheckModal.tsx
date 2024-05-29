@@ -13,6 +13,7 @@ import { toast } from "react-toastify";
 import { UniEnrollSystemAPI } from "../../apis/constants";
 import { useNavigate } from "react-router-dom";
 import { Loading } from "../common";
+import { setPaymentTime } from "../../store/actions/paymentSlice";
 const PaymentCheckModal = () => {
     const navigate = useNavigate();
     const [loading, setLoading] = useState<boolean>(false);
@@ -38,13 +39,13 @@ const PaymentCheckModal = () => {
                 const response = await UniEnrollSystemAPI.checkPayment(
                     paymentCheckedParams
                 );
-                console.log("handleAcceptPayment ~ response:", response);
                 if (response.status === 200) {
                     setLoading(false);
                     toast.success("Thanh toán thành công!");
                     savePaymentInfo("");
                     dispatch(setIsOpenCheckedPaymentModal(false));
                     dispatch(setCheckedPaymentParams(""));
+                    dispatch(setPaymentTime("0"));
                     navigate("/thanh-toan-truc-tuyen");
                 } else if (response.status === 403) {
                     setLoading(false);
@@ -60,7 +61,7 @@ const PaymentCheckModal = () => {
         }
     };
     return (
-        <div className="w-[1000px] h-full flex flex-col rounded-lg">
+        <div className="md:w-[1000px] h-full flex flex-col rounded-lg">
             <div className="flex items-center w-full h-[48px] p-2 bg-strock">
                 <div className="w-full px-2 font-bold border-l-4 border-l-error text-text7">
                     Kiểm tra thanh toán

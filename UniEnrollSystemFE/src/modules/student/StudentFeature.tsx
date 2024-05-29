@@ -53,7 +53,7 @@ const featureList = [
 const StudentFeature = () => {
     const dispatch = useDispatch();
     return (
-        <div className="grid grid-cols-8 gap-4 mt-5">
+        <div className="grid grid-cols-2 gap-4 mt-5 md:grid-cols-8">
             {featureList.map((feature, index) =>
                 feature.link === "/dang-ky-hoc-phan" ? (
                     <Link

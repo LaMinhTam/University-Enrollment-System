@@ -14,7 +14,6 @@ const Body = ({
         [key: string]: IDept[];
     } | null;
 }) => {
-    console.log("studentDept:", studentDept);
     const [selectedDebts, setSelectedDebts] = useState<string[]>([]);
     const [loading, setLoading] = useState<boolean>(false);
 
@@ -85,7 +84,7 @@ const Body = ({
                     // localStorage.setItem("PaymentInfo", JSON.stringify())
                     window.location.href = response.data;
                 } else {
-                    toast.error("Có lỗi xảy ra, vui lòng thử lại sau");
+                    console.error("Có lỗi xảy ra, vui lòng thử lại sau");
                 }
             } catch (error) {
                 setLoading(false);

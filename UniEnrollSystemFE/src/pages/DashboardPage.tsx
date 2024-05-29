@@ -9,7 +9,7 @@ const DashboardPage = () => {
 
     return (
         <RequiredAuthPage>
-            <div className="w-full max-w-[1140px] mx-auto pb-16">
+            <div className="w-full h-full max-w-[1140px] mx-auto md:pb-16 px-[15px] py-[10px]">
                 <StudentInfo userInfo={userInfo} />
                 <StudentFeature />
                 <StudentChartMetric />
