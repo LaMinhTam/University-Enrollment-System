@@ -43,13 +43,13 @@ const OnlinePaymentPage = () => {
                 if (paymentTime === "0") {
                     const response = await UniEnrollSystemAPI.getStudentDebt(
                         1,
-                        10
+                        10000
                     );
                     if (response.status === 200) {
                         setLoading(false);
                         setStudentDebt(response.data);
                     } else {
-                        toast.error("Lỗi khi lấy thông tin nợ học phí");
+                        console.error("Lỗi khi lấy thông tin nợ học phí");
                         setLoading(false);
                     }
                 } else {

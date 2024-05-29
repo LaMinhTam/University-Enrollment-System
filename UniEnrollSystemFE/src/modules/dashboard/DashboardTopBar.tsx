@@ -2,6 +2,7 @@ import { Link, useNavigate } from "react-router-dom";
 import DashboardSearch from "./DashboardSearch";
 import HomeIcon from "@mui/icons-material/Home";
 import NotificationsNoneIcon from "@mui/icons-material/NotificationsNone";
+import MenuIcon from "@mui/icons-material/Menu";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import useClickOutSide from "../../hooks/useClickOutSide";
 import {
@@ -15,7 +16,10 @@ import { defaultImage } from "../../constants/global";
 import { useState } from "react";
 import { UniEnrollSystemAPI } from "../../apis/constants";
 import { Loading } from "../../components/common";
+import { useDispatch } from "react-redux";
+import { toggleSideBar } from "../../store/actions/commonSlice";
 const DashboardTopBar = () => {
+    const dispatch = useDispatch();
     const { show: showInfo, setShow: setShowInfo, nodeRef } = useClickOutSide();
     const { userInfo } = useAuth();
     const navigate = useNavigate();
@@ -39,9 +43,9 @@ const DashboardTopBar = () => {
         }
     };
     return (
-        <div className="max-w-[1140px] mx-auto">
-            <div className="flex items-center justify-between">
-                <div className="flex items-center flex-1 gap-x-10">
+        <div className="md:max-w-[1140px] md:mx-auto">
+            <div className="flex items-center justify-center">
+                <div className="flex items-center flex-1 mt-2 md:mt-0 md:gap-x-10">
                     <Link to={"/"} className="inline-block">
                         <img
                             srcSet="/logo.png 2x"
@@ -49,15 +53,15 @@ const DashboardTopBar = () => {
                             className="h-[40px] w-full object-cover"
                         />
                     </Link>
-                    <div className="max-w-[458px] w-full">
+                    <div className="max-w-[458px] md:block w-full hidden">
                         <DashboardSearch></DashboardSearch>
                     </div>
-                    <div className="flex items-center justify-end flex-1 gap-x-10">
-                        <button className="flex items-center justify-center text-sm font-normal">
+                    <div className="flex items-center justify-end flex-1 ml-20 md:gap-x-10 gap-x-2">
+                        <button className="items-center justify-center hidden text-sm font-normal md:flex">
                             <HomeIcon />
                             <span>Trang chủ</span>
                         </button>
-                        <button className="flex items-center justify-center text-sm font-normal">
+                        <button className="items-center justify-center hidden text-sm font-normal md:flex">
                             <NotificationsNoneIcon />
                             <span>Tin tức</span>
                         </button>
@@ -114,6 +118,12 @@ const DashboardTopBar = () => {
                                     </div>
                                 </div>
                             )}
+                        </button>
+                        <button
+                            onClick={() => dispatch(toggleSideBar())}
+                            className="flex items-center justify-center md:hidden"
+                        >
+                            <MenuIcon />
                         </button>
                     </div>
                 </div>

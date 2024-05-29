@@ -56,7 +56,8 @@
     @apply text-text2 font-medium text-center;
 }
 
-.tblStudyResult th {
+.tblStudyResult th,
+.table-payment th {
     @apply text-tertiary bg-text8 min-w-[80px] px-1 py-4;
 }
 

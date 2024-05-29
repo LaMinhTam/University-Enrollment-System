@@ -44,7 +44,7 @@ const Classes = () => {
     };
 
     return (
-        <div className="w-full max-h-[600px] overflow-y-auto overflow-x-hidden">
+        <div className="w-full max-h-[600px] overflow-y-auto overflow-x-hidden mb-3 md:mb-0">
             <div className="w-full px-2 font-bold border-l-4 border-l-error text-text7">
                 Lớp học phần chờ đăng ký
             </div>

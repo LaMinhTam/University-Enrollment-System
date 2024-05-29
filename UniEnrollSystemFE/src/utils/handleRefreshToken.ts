@@ -10,8 +10,8 @@ export default async function handleRefreshToken(
 ) {
     try {
         const response = await UniEnrollSystemAPI.refreshToken(refreshToken);
+        console.log("response:", response);
         if (response.status === 200) {
-            console.log("Refresh token success");
             saveAccessToken(response.data.accessToken);
             saveRefreshToken(response.data.refreshToken);
             saveUserInfoToCookie(

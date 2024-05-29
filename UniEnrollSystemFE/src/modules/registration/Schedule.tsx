@@ -23,7 +23,6 @@ const Schedule = () => {
     const classSchedule = useSelector(
         (state: RootState) => state.registration.classSchedule
     );
-    console.log("Schedule ~ classSchedule:", classSchedule);
     const waitingCourses = useSelector(
         (state: RootState) => state.registration.waitingCourses
     );

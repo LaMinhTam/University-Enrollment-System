@@ -5,21 +5,19 @@ import Footer from "../modules/schedule/Footer";
 import RequiredAuthPage from "./RequiredAuthPage";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { RootState } from "../store/configureStore";
 import { splitDate } from "../utils/formatTime";
 import { UniEnrollSystemAPI } from "../apis/constants";
 import { toast } from "react-toastify";
 import { ScheduleData } from "../types/studyScheduleType";
-import { setScheduleType } from "../store/actions/scheduleSlice";
+import { setDates, setScheduleType } from "../store/actions/scheduleSlice";
 import { Loading } from "../components/common";
+import { RootState } from "../store/configureStore";
+import getWeekDates from "../utils/getWeekDates";
 const StudentSchedulePage = () => {
     const dispatch = useDispatch();
     const location = useLocation();
     const params = new URLSearchParams(location.search);
     const type = params.get("type");
-    const targetDate = useSelector(
-        (state: RootState) => state.schedule.targetDate
-    );
     const [loading, setLoading] = useState<boolean>(false);
 
     const [schedules, setSchedules] = useState<ScheduleData[]>([]);
@@ -29,15 +27,31 @@ const StudentSchedulePage = () => {
         dispatch(setScheduleType(Number(type)));
     }, [dispatch, type]);
 
+    const dates = useSelector((state: RootState) => state.schedule.dates);
+    const targetDate = useSelector(
+        (state: RootState) => state.schedule.targetDate
+    );
+
     useEffect(() => {
-        async function fetchStudentSchedule() {
+        if (!dates || dates.length <= 0) {
+            const weekDays = getWeekDates(targetDate);
+            dispatch(setDates(weekDays));
+        }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, []);
+
+    useEffect(() => {
+        async function fetchStudentSchedule(
+            day: number,
+            month: number,
+            year: number
+        ) {
             try {
                 setLoading(true);
-                const date = splitDate(targetDate);
                 const response = await UniEnrollSystemAPI.getStudentSchedule(
-                    date.day,
-                    date.month,
-                    date.year
+                    day,
+                    month,
+                    year
                 );
                 if (response.status === 200) {
                     setSchedules(response.data);
@@ -50,13 +64,19 @@ const StudentSchedulePage = () => {
         }
 
         if (targetDate) {
-            fetchStudentSchedule();
+            const date = splitDate(targetDate);
+            fetchStudentSchedule(date.day, date.month, date.year);
         }
-    }, [targetDate]);
+
+        if (dates && dates.length > 0) {
+            const [day, month, year] = dates[0].split("/");
+            fetchStudentSchedule(Number(day), Number(month), Number(year));
+        }
+    }, [dates, targetDate]);
 
     return (
         <RequiredAuthPage>
-            <div className="w-full h-full p-3 mt-5 shadow-md select-none bg-lite max-w-[1140px] mx-auto">
+            <div className="w-full h-full p-3 mt-5 shadow-md select-none bg-lite md:max-w-[1140px] mx-auto">
                 <Header />
                 {!loading ? (
                     <>

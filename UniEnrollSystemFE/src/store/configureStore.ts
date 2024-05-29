@@ -4,6 +4,7 @@ import modalSlice from "./actions/modalSlice";
 import scheduleSlice from "./actions/scheduleSlice";
 import debtSlice from "./actions/debtSlice";
 import paymentSlice from "./actions/paymentSlice";
+import commonSlice from "./actions/commonSlice";
 
 const reducer = combineReducers({
     registration: registrationSlice,
@@ -11,6 +12,7 @@ const reducer = combineReducers({
     schedule: scheduleSlice,
     debt: debtSlice,
     payment: paymentSlice,
+    common: commonSlice,
 });
 
 const store = configureStore({

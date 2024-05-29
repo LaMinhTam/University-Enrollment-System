@@ -85,8 +85,8 @@ const StudentChartMetric = () => {
     };
 
     return (
-        <div className="flex items-center justify-center h-[346px] mt-5">
-            <div className="w-full h-full p-[10px] bg-lite rounded-lg">
+        <div className="md:flex block items-center justify-center md:h-[346px] h-full mt-5">
+            <div className="w-full md:h-full h-[346px] p-[10px] bg-lite rounded-lg mb-[15px] md:mb-0">
                 <div className="flex items-center justify-center h-[52px] border-b border-b-text3">
                     <span className="mr-auto text-lg font-bold">
                         Kết quả học tập
@@ -124,7 +124,10 @@ const StudentChartMetric = () => {
                     </div>
                 )}
             </div>
-            <div className="mx-5 flex flex-col items-center justify-center w-full h-full bg-lite max-w-[240px] p-[10px]">
+            <div
+                className="md:mx-5 flex flex-col items-center justify-center 
+            w-full md:h-full h-[346px] bg-lite md:max-w-[240px] p-[10px] mb-[15px] md:mb-0"
+            >
                 <div className="flex items-center justify-center h-[52px] border-b border-b-text3">
                     <span className="text-lg font-bold">Tiến độ học tập</span>
                 </div>
@@ -140,7 +143,7 @@ const StudentChartMetric = () => {
                     {learnedCredits.totalRequiredCredits}
                 </span>
             </div>
-            <div className="w-full h-full p-[10px] bg-lite rounded-lg">
+            <div className="w-full md:h-full h-[346px] p-[10px] bg-lite rounded-lg md:mb-0 mb-8">
                 <div className="flex items-center justify-center h-[52px] border-b border-b-text3">
                     <span className="mr-auto text-lg font-bold">
                         Lớp học phần
